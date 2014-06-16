@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://lofyer.github.io
-title: My Octopress
-subtitle: A blogging framework for hackers.
+title: Lofyer's Archive
+subtitle: Way to make, like a mechanic.
 author: lofyer
-simple_search: https://www.google.com/search
+#simple_search: https://www.google.com/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
