@@ -6,7 +6,7 @@ permalink: /ejabber-howto/
 videourl:
   - 
 categories:
-  - 'IM &amp; PBX'
+  - 'IM-PBX'
 ---
 Let&#8217;s see what we have got here:  
 A xmpp server based on ejabberd on my host: lofyer.org.  

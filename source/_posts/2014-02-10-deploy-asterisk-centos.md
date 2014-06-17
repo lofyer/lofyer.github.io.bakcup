@@ -4,7 +4,7 @@ author: lofyer
 layout: post
 permalink: /deploy-asterisk-centos/
 categories:
-  - 'IM &amp; PBX'
+  - 'IM-PBX'
 ---
 Get the latest packages. **up to 2014-02-10**
 
