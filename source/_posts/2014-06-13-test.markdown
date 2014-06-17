@@ -1,9 +1,0 @@
----
-layout: post
-title: "test"
-date: 2014-06-13 11:51:36 +0800
-comments: true
-categories: testcat
----
-
-Content here
