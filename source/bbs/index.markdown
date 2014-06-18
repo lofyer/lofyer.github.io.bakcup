@@ -1,9 +1,9 @@
 ---
 layout: page
 title: "BBS"
-date: 2014-06-18 16:05
+#date: 2014-06-18 16:05
 comments: true
-sharing: true
+sharing: false
 footer: true
 ---
 
