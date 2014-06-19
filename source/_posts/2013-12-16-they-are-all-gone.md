@@ -3,7 +3,6 @@ title: 他们都不见了
 author: lofyer
 layout: post
 comments: true
-permalink: /they-are-all-gone/
 categories:
   - 新世界
 ---

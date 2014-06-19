@@ -3,7 +3,6 @@ title: Using Gpu in Pi
 author: lofyer
 layout: post
 comments: true
-permalink: /gpu-raspberry-pi/
 views:
   - 2
 categories:

@@ -3,7 +3,6 @@ title: Some data structure about clisp
 author: lofyer
 layout: post
 comments: true
-permalink: /some-data-structure-about-clisp/
 duoshuo_thread_id:
   - 1234836220387786880
 categories:

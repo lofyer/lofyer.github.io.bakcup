@@ -3,7 +3,6 @@ title: Intergrate owncloud with AD(LDAP)
 author: lofyer
 layout: post
 comments: true
-permalink: /intergrate-owncloud-adldap/
 categories:
   - LDAP
   - OwnCloud

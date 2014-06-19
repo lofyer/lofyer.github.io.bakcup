@@ -3,7 +3,6 @@ title: 虚拟桌面架构中的 3ds MAX
 author: lofyer
 layout: post
 comments: true
-permalink: /3ds-max-in-vdi/
 categories:
   - Memo
 ---

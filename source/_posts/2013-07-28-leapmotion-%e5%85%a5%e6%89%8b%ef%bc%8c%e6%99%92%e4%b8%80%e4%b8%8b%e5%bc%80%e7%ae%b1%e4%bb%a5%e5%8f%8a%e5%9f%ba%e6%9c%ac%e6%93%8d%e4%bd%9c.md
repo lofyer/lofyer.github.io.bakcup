@@ -3,7 +3,6 @@ title: LeapMotion 入手，晒一下开箱以及基本操作
 author: lofyer
 layout: post
 comments: true
-permalink: /leapmotion-%e5%85%a5%e6%89%8b%ef%bc%8c%e6%99%92%e4%b8%80%e4%b8%8b%e5%bc%80%e7%ae%b1%e4%bb%a5%e5%8f%8a%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c/
 categories:
   - Leapmotion
 ---

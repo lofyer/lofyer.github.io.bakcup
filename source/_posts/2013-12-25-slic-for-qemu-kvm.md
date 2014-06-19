@@ -3,7 +3,6 @@ title: Slic for qemu-kvm
 author: lofyer
 layout: post
 comments: true
-permalink: /slic-for-qemu-kvm/
 videourl:
   - 
 categories:

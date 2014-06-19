@@ -3,7 +3,6 @@ title: 7. Gluster简述
 author: lofyer
 layout: post
 comments: true
-permalink: /5-2-cloud-gluster-des/
 videourl:
   - 
 categories:

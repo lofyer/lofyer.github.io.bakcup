@@ -3,7 +3,6 @@ title: how to lock/unlock/root nexus 5
 author: lofyer
 layout: post
 comments: true
-permalink: /lockunlockroot-nexus-5/
 categories:
   - Device Hack
 ---

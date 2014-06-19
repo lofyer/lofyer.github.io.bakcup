@@ -3,7 +3,6 @@ title: Gitlab quick deploy
 author: lofyer
 layout: post
 comments: true
-
 categories:
   - Linux Admin
   - Notes

@@ -3,7 +3,6 @@ title: 4. 意识流的架构目录（进程信息）
 author: lofyer
 layout: post
 comments: true
-permalink: /cloud-4-architecture-directory/
 videourl:
   - 
 categories:

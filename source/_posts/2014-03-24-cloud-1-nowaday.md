@@ -3,7 +3,6 @@ title: 1. 众说纷纭
 author: lofyer
 layout: post
 comments: true
-permalink: /cloud-1-nowaday/
 videourl:
   - 
 categories:

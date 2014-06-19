@@ -3,7 +3,6 @@ title: Leap Motion Relative
 author: lofyer
 layout: post
 comments: true
-permalink: /leap-motion-relative/
 categories:
   - Leapmotion
 ---

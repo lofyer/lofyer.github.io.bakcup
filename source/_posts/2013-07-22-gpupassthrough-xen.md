@@ -3,7 +3,6 @@ title: Gpu Passthrough in Xen
 author: lofyer
 layout: post
 comments: true
-permalink: /gpupassthrough-xen/
 categories:
   - Virtualization
 ---

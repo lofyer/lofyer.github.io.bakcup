@@ -3,7 +3,6 @@ title: A light-weighted VM webadmin
 author: lofyer
 layout: post
 comments: true
-permalink: /light-weighted-vm-webadmin/
 categories:
   - Memo
 ---

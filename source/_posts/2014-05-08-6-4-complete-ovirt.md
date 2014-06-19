@@ -3,7 +3,6 @@ title: 13. 完善平台
 author: lofyer
 layout: post
 comments: true
-permalink: /6-4-complete-ovirt/
 videourl:
   - 
 categories:

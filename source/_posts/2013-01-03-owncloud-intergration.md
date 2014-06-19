@@ -3,7 +3,6 @@ title: owncloud webdav intergration
 author: lofyer
 layout: post
 comments: true
-permalink: /owncloud-intergration/
 duoshuo_thread_id:
   - 1234836220387786890
 categories:

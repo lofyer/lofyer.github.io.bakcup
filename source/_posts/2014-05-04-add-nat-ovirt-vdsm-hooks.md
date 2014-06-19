@@ -3,7 +3,6 @@ title: Add nat to ovirt via vdsm hooks
 author: lofyer
 layout: post
 comments: true
-permalink: /add-nat-ovirt-vdsm-hooks/
 videourl:
   - 
 categories:

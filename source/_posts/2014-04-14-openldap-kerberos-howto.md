@@ -3,7 +3,6 @@ title: OpenLDAP step by step how-to
 author: lofyer
 layout: post
 comments: true
-permalink: /openldap-kerberos-howto/
 videourl:
   - 
 categories:

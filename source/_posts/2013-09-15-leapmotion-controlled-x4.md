@@ -3,7 +3,6 @@ title: LeapMotion controlled X4
 author: lofyer
 layout: post
 comments: true
-permalink: /leapmotion-controlled-x4/
 videourl:
   - 
 categories:

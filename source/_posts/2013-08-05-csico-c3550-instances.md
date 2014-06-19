@@ -3,7 +3,6 @@ title: Csico C3550 Instances
 author: lofyer
 layout: post
 comments: true
-permalink: /csico-c3550-instances/
 categories:
   - Networking
 ---

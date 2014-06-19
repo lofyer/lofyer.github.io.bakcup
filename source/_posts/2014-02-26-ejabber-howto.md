@@ -3,7 +3,6 @@ title: use MAXS to control your device via ejabberd(plus ssh, jingle voice talk 
 author: lofyer
 layout: post
 comments: true
-permalink: /ejabber-howto/
 videourl:
   - 
 categories:

@@ -3,7 +3,6 @@ title: 'I&#8217;m still here'
 author: lofyer
 layout: post
 comments: true
-permalink: /%e7%ac%ac%e4%b8%89%e7%ab%a0-im-still-here/
 simplecatch-sidebarlayout:
   - 
 duoshuo_thread_id:

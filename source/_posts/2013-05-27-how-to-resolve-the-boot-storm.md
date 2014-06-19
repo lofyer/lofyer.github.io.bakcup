@@ -3,7 +3,6 @@ title: 'How to solve the &#8216;boot storm&#8217; problem: BCACHE'
 author: lofyer
 layout: post
 comments: true
-permalink: /how-to-resolve-the-boot-storm/
 duoshuo_thread_id:
   - 1234836220387786876
 categories:

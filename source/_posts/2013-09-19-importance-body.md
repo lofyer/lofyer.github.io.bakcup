@@ -3,7 +3,6 @@ title: 论身体的重要性
 author: lofyer
 layout: post
 comments: true
-permalink: /importance-body/
 categories:
   - 生活杂记
 ---

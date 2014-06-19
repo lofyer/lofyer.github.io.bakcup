@@ -3,7 +3,6 @@ title: eclipse multiuser
 author: lofyer
 layout: post
 comments: true
-permalink: /eclipse-multiuser/
 categories:
   - Program
 ---

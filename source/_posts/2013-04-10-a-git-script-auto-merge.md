@@ -3,7 +3,6 @@ title: 'A bash script &#8212; auto merge'
 author: lofyer
 layout: post
 comments: true
-permalink: /a-git-script-auto-merge/
 duoshuo_thread_id:
   - 1234836220387786884
 categories:

@@ -3,7 +3,6 @@ title: Projects to be done recently.
 author: lofyer
 layout: post
 comments: true
-permalink: /project-recently/
 categories:
   - Memo
   - Workshop

@@ -3,7 +3,6 @@ title: Heartbeat and drbd test high availability
 author: lofyer
 layout: post
 comments: true
-permalink: /heartbeat-drbd-test-high-availability/
 categories:
   - Linux Admin
 ---

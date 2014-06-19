@@ -3,7 +3,6 @@ title: ovirt notes
 author: lofyer
 layout: post
 comments: true
-permalink: /ovirt-notes/
 simplecatch-sidebarlayout:
   - 
 duoshuo_thread_id:

@@ -3,7 +3,6 @@ title: GPU Passthrough, VGA Passthrough in KVM
 author: lofyer
 layout: post
 comments: true
-permalink: /pass-host-gpu-to-guest-via-qemu-ncursescurses/
 duoshuo_thread_id:
   - 1234836220387786875
 enclosure:

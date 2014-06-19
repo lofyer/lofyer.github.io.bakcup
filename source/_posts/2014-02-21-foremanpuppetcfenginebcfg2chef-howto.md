@@ -3,7 +3,6 @@ title: foreman/puppet/cfengine/bcfg2/chef howto
 author: lofyer
 layout: post
 comments: true
-permalink: /foremanpuppetcfenginebcfg2chef-howto/
 categories:
   - Networking
 ---

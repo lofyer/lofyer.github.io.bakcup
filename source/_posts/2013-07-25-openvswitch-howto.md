@@ -3,7 +3,6 @@ title: openvswitch howto
 author: lofyer
 layout: post
 comments: true
-permalink: /openvswitch-howto/
 categories:
   - Networking
 ---

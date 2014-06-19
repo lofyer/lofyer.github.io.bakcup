@@ -3,7 +3,6 @@ title: 2. 畅想吧
 author: lofyer
 layout: post
 comments: true
-permalink: /cloud-2-yummy/
 videourl:
   - 
 categories:

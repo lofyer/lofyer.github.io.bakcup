@@ -3,7 +3,6 @@ title: 8. 搭建glusterfs作为基础存储
 author: lofyer
 layout: post
 comments: true
-permalink: /5-3-glusterfs-howto/
 videourl:
   - 
 categories:
