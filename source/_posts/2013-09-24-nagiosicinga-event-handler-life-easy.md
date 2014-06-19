@@ -2,6 +2,7 @@
 title: 'use Foreman/Nagios/Icinga to make life easy&#8230;'
 author: lofyer
 layout: post
+comments: true
 permalink: /nagiosicinga-event-handler-life-easy/
 categories:
   - Linux Admin

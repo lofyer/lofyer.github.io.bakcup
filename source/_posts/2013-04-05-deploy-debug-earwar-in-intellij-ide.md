@@ -2,6 +2,7 @@
 title: 'deploy &#038; debug ovirt in the intellij ide'
 author: lofyer
 layout: post
+comments: true
 permalink: /deploy-debug-earwar-in-intellij-ide/
 duoshuo_thread_id:
   - 1234836220387786882

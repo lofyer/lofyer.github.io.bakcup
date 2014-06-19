@@ -2,6 +2,7 @@
 title: 11. 搭建oVirt虚拟化平台
 author: lofyer
 layout: post
+comments: true
 permalink: /6-2-1-deploy-ovirt-admin/
 videourl:
   - 

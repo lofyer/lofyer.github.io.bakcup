@@ -2,6 +2,7 @@
 title: Openstack 配置及其API的简单使用
 author: lofyer
 layout: post
+comments: true
 permalink: /openstack-configure-and-api/
 categories:
   - Virtualization

@@ -2,6 +2,7 @@
 title: Migrate vm from ESiX to oVirt
 author: lofyer
 layout: post
+comments: true
 permalink: /migrate-vm-esix-ovirt/
 categories:
   - Virtualization

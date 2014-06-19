@@ -2,6 +2,7 @@
 title: 'MyIDC&#8211;Everything&#8217;s traceable'
 author: lofyer
 layout: post
+comments: true
 permalink: /myidc-everythings-traceable/
 videourl:
   - 

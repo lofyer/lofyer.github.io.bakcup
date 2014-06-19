@@ -2,6 +2,7 @@
 title: 0. 今天天气怎么样？
 author: lofyer
 layout: post
+comments: true
 permalink: /cloud-0-how-is-today/
 videourl:
   - 

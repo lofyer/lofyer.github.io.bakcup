@@ -2,6 +2,7 @@
 title: 12. 搭建高可用oVirt（hosted engine）
 author: lofyer
 layout: post
+comments: true
 permalink: /6-2-2-cloud-ha-ovirt/
 videourl:
   - 

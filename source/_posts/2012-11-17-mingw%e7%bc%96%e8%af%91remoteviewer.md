@@ -2,6 +2,7 @@
 title: mingw编译remoteviewer
 author: lofyer
 layout: post
+comments: true
 permalink: /mingw%e7%bc%96%e8%af%91remoteviewer/
 simplecatch-sidebarlayout:
   - 

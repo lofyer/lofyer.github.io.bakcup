@@ -2,6 +2,7 @@
 title: Create a dummy VGA adpter
 author: lofyer
 layout: post
+comments: true
 permalink: /create-dummy-vga-adpter/
 categories:
   - Device Hack

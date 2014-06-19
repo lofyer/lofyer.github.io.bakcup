@@ -2,6 +2,7 @@
 title: 9. glusterfs应用示例及技巧
 author: lofyer
 layout: post
+comments: true
 permalink: /5-4-gluster-trick/
 videourl:
   - 

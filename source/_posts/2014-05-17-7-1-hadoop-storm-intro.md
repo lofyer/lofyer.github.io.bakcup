@@ -2,6 +2,7 @@
 title: 21. Hadoop/Storm 介绍
 author: lofyer
 layout: post
+comments: true
 permalink: /7-1-hadoop-storm-intro/
 videourl:
   - 

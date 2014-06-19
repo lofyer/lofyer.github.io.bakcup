@@ -2,6 +2,7 @@
 title: 近来
 author: lofyer
 layout: post
+comments: true
 permalink: /this-while/
 duoshuo_thread_id:
   - 1234836220387786778

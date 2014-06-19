@@ -2,6 +2,7 @@
 title: 10. oVirt简介
 author: lofyer
 layout: post
+comments: true
 permalink: /cloud-6-1-ovirt-description/
 videourl:
   - 

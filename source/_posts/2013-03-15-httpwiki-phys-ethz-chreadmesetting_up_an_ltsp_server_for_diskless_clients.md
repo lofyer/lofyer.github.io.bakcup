@@ -2,6 +2,7 @@
 title: ltsp相关
 author: lofyer
 layout: post
+comments: true
 permalink: /httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/
 categories:
   - Linux Admin

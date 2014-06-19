@@ -2,6 +2,7 @@
 title: kvm perfermance test, including periphery virtual device
 author: lofyer
 layout: post
+comments: true
 permalink: /kvm-perfermance-test-including-periphery-virtual-device/
 categories:
   - Memo

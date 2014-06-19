@@ -2,6 +2,7 @@
 title: tcp协议之上的CCNx
 author: lofyer
 layout: post
+comments: true
 permalink: /tcp%e5%8d%8f%e8%ae%ae%e4%b9%8b%e4%b8%8a%e7%9a%84ccnx/
 simplecatch-sidebarlayout:
   - 

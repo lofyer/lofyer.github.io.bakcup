@@ -2,6 +2,7 @@
 title: -1. 为什么我的序号那么奇葩
 author: lofyer
 layout: post
+comments: true
 permalink: /cloud-minus-1-pre/
 videourl:
   - 

@@ -2,6 +2,7 @@
 title: Deploy Asterisk on CentOS
 author: lofyer
 layout: post
+comments: true
 permalink: /deploy-asterisk-centos/
 categories:
   - 'IM-PBX'

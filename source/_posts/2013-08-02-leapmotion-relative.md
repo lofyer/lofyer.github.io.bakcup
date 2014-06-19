@@ -2,6 +2,7 @@
 title: Leapmotion 相关
 author: lofyer
 layout: post
+comments: true
 permalink: /leapmotion-relative/
 categories:
   - Leapmotion

@@ -2,6 +2,7 @@
 title: 5. 分布式存储的故事
 author: lofyer
 layout: post
+comments: true
 permalink: /cloud-5-glusterfs-story/
 videourl:
   - 

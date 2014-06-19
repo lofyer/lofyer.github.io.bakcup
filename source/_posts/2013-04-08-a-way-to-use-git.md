@@ -2,6 +2,7 @@
 title: Git Exp.
 author: lofyer
 layout: post
+comments: true
 permalink: /a-way-to-use-git/
 duoshuo_thread_id:
   - 1234836220387786881

@@ -2,6 +2,7 @@
 title: arduino+cpuload+serial+led
 author: lofyer
 layout: post
+comments: true
 permalink: /arduinocpuloadserialled/
 simplecatch-sidebarlayout:
   - 

@@ -2,6 +2,7 @@
 title: 'Something about curl &#8212; Connecting IPA Server using json as an example'
 author: lofyer
 layout: post
+comments: true
 permalink: /all-about-curl/
 duoshuo_thread_id:
   - 1234836220387786883

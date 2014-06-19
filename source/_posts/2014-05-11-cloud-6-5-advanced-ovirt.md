@@ -2,6 +2,7 @@
 title: 14. oVirt使用进阶
 author: lofyer
 layout: post
+comments: true
 permalink: /cloud-6-5-advanced-ovirt/
 videourl:
   - 

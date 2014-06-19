@@ -2,6 +2,7 @@
 title: Compile Android Spice(aSpice)
 author: lofyer
 layout: post
+comments: true
 permalink: /ndk-compile-android-spiceaspice/
 categories:
   - Virtualization

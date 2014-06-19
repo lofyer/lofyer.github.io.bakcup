@@ -2,6 +2,7 @@
 title: Add usbdevice to libvirt by modifying cgroup
 author: lofyer
 layout: post
+comments: true
 permalink: /add-usbdevice-libvirt-modifying-cgroup/
 categories:
   - Virtualization

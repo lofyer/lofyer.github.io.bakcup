@@ -2,6 +2,7 @@
 title: if christmas never came
 author: lofyer
 layout: post
+comments: true
 permalink: /if-christmas-never-came/
 simplecatch-sidebarlayout:
   - 

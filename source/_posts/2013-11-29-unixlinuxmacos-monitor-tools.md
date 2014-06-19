@@ -2,6 +2,7 @@
 title: Unix/Linux/MacOS Monitor Tools
 author: lofyer
 layout: post
+comments: true
 permalink: /unixlinuxmacos-monitor-tools/
 categories:
   - Linux Admin
