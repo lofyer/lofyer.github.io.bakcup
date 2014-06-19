@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "BBS"
+title: "About me"
 #date: 2014-06-18 16:05
 comments: true
 sharing: false
