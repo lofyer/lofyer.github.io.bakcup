@@ -28,7 +28,7 @@ categories:
 
 我是一个着重实践的人，是的，比如磁盘不拆开的话我可能就对扇区、磁道、柱面没什么深刻概念（拆了也就有助于理解驱动，见下图）。所以，这一些列文章将尽量从操作或者现象中总结规律。一些原理性的东西会尽量用我觉得容易理解的形式表现出来。
 
-<a href="http://blog.lofyer.org/cloud-0-how-is-today/img_20140428_100857/" rel="attachment wp-att-3278"><img src="http://blog.lofyer.org/wp-content/uploads/IMG_20140428_100857.png" alt="IMG_20140428_100857" width="656" height="815" class="alignnone size-full wp-image-3278" /></a>
+<a href="http://blog.lofyer.org/cloud-0-how-is-today/img_20140428_100857/" rel="attachment wp-att-3278"><img src="http://io.lofyer.org/uploads/IMG_20140428_100857.png" alt="IMG_20140428_100857" width="656" height="815" class="alignnone size-full wp-image-3278" /></a>
 
 整本“书”的结构将会是这个样子：  
 介绍下主流“云”的现状，会引用许多现成（尽量）客观的信息片段；**畅想一下**；从中选择部分组成一个完整系统，进行搭建（或模拟）并本地调优（避免过早优化）；避免烂尾，结尾送两首短诗吧。

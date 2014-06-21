@@ -10,7 +10,7 @@ categories:
 ---
 既然要搭建一个稳健的基础，那么glusterfs在此使用distributed striped replicated方式，这里使用4台预装CentOS 6(SELINUX设置为permissive)的机器。
 
-<a href="http://blog.lofyer.org/5-3-glusterfs-howto/distributed_striped_replicated_volume-2/" rel="attachment wp-att-3149"><img class="alignnone size-full wp-image-3149" src="http://blog.lofyer.org/wp-content/uploads/Distributed_Striped_Replicated_Volume1.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="480" /></a>
+<a href="http://blog.lofyer.org/5-3-glusterfs-howto/distributed_striped_replicated_volume-2/" rel="attachment wp-att-3149"><img class="alignnone size-full wp-image-3149" src="http://io.lofyer.org/uploads/Distributed_Striped_Replicated_Volume1.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="480" /></a>
 
 ## 添加DNS或者修改hosts文件
 

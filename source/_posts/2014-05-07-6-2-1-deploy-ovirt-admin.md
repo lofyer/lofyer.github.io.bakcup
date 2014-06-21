@@ -18,7 +18,7 @@ categories:
 
 <pre class="lang:default decode:true " ># gluster volume create gluster-vol1 replica 2 gs1.example.com:/gluster_brick0 gs2.example.com:/gluster_brick0 gs3.example.com:/gluster_brick0 gs4.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick1 force</pre>
 
-<a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img src="http://blog.lofyer.org/wp-content/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" class="alignnone size-full wp-image-3307" /></a>
+<a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img src="http://io.lofyer.org/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" class="alignnone size-full wp-image-3307" /></a>
 
 **由于engine以及node的网络服务依赖于network而非NetworkManager，我们需要启用前者禁用后者，在每一台服务器上都进行如下类似配置修改网络。**
 

@@ -17,7 +17,7 @@ Ok, here we go.
 对于第11节的普通oVirt、第12节的ha平台，你可能需要添加更多节点以支持更好的SLA（service level agreement）。  
 添加节点目前有三种方式，一种是通过oVirt的节点ISO直接安装再加入，另一种是直接将现有CentOS或者Fedora转化为节点，另外还可以指定使用外部节点（Foreman），在此我们使用第二种方法。
 
-<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_node_1/" rel="attachment wp-att-3415"><img src="http://blog.lofyer.org/wp-content/uploads/add_node_1.png" alt="add_node_1" width="695" height="574" class="alignnone size-full wp-image-3415" /></a>
+<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_node_1/" rel="attachment wp-att-3415"><img src="http://io.lofyer.org/uploads/add_node_1.png" alt="add_node_1" width="695" height="574" class="alignnone size-full wp-image-3415" /></a>
 
 ## 添加存储域
 
@@ -26,6 +26,6 @@ Ok, here we go.
 而根据数据域的存储类型，我们有5种（NFS、POSIX兼容、Glusterfs、iSCSI、光纤）可选，在此，建议（为什么？）选择glusterfs导出的NFS。
 
 *此图可以换掉*  
-<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_storage_1/" rel="attachment wp-att-3417"><img src="http://blog.lofyer.org/wp-content/uploads/add_storage_1.png" alt="add_storage_1" width="755" height="555" class="alignnone size-full wp-image-3417" /></a>
+<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_storage_1/" rel="attachment wp-att-3417"><img src="http://io.lofyer.org/uploads/add_storage_1.png" alt="add_storage_1" width="755" height="555" class="alignnone size-full wp-image-3417" /></a>
 
 **注意**：确保存储域权限为36:36，也即vdsm.kvm。

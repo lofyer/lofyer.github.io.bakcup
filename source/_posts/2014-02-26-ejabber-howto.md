@@ -103,10 +103,10 @@ MAXS: myphone@lofyer.org
 By the way, guarantee that there is only one running jabber client on your phone during this period.  
 **Pidgin**  
 Add a friend  
-<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://blog.lofyer.org/wp-content/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a>  
+<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://io.lofyer.org/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a>  
 **Shell test**  
-<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://blog.lofyer.org/wp-content/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a>  
+<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://io.lofyer.org/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a>  
 **SMS test**  
-<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://blog.lofyer.org/wp-content/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a>  
+<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://io.lofyer.org/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a>  
 And a msg to my GF.  
-<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://blog.lofyer.org/wp-content/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://io.lofyer.org/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a>

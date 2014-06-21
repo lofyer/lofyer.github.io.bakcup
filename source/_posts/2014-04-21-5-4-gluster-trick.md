@@ -21,7 +21,7 @@ glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应�
 砖块的划分排序：striped（normal）优先，replica在striped（normal）基础上做冗余；计算大小时，同一replica组中的brick进行合并（多个算作一个），一个striped组可看做一个有效块，。  
 假设我们有4个主机，8个砖块，每个砖块都是5GB，如下图，
 
-<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-base/" rel="attachment wp-att-3294"><img src="http://blog.lofyer.org/wp-content/uploads/brick-base.png" alt="brick-base" width="702" height="268" class="alignnone size-full wp-image-3294" /></a>
+<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-base/" rel="attachment wp-att-3294"><img src="http://io.lofyer.org/uploads/brick-base.png" alt="brick-base" width="702" height="268" class="alignnone size-full wp-image-3294" /></a>
 
 创建卷时，使用如下命令：
 
@@ -29,7 +29,7 @@ glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应�
 
 则会进行下列组合：
 
-<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-1/" rel="attachment wp-att-3301"><img src="http://blog.lofyer.org/wp-content/uploads/brick-1.png" alt="brick-1" width="712" height="474" class="alignnone size-full wp-image-3301" /></a>
+<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-1/" rel="attachment wp-att-3301"><img src="http://io.lofyer.org/uploads/brick-1.png" alt="brick-1" width="712" height="474" class="alignnone size-full wp-image-3301" /></a>
 
 创建卷时，使用如下命令：
 
@@ -37,7 +37,7 @@ glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应�
 
 则会进行下列组合（注意颜色，可改为实虚线）：
 
-<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-2/" rel="attachment wp-att-3304"><img src="http://blog.lofyer.org/wp-content/uploads/brick-2.png" alt="brick-2" width="712" height="474" class="alignnone size-full wp-image-3304" /></a>
+<a href="http://blog.lofyer.org/5-4-gluster-trick/brick-2/" rel="attachment wp-att-3304"><img src="http://io.lofyer.org/uploads/brick-2.png" alt="brick-2" width="712" height="474" class="alignnone size-full wp-image-3304" /></a>
 
 ## 作为nfs挂载
 
