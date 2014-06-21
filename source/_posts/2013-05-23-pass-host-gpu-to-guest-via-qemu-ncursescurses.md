@@ -8,7 +8,7 @@ duoshuo_thread_id:
 enclosure:
   - |
     |
-        http://io.lofyer.org/uploads/Arch-Linux-KVM-Crysis-HD.flv
+        http://lofyer.github.io/uploads/Arch-Linux-KVM-Crysis-HD.flv
         27238793
         video/x-flv
         
@@ -20,7 +20,7 @@ categories:
 To inspire you, I&#8217;ve got a video from someone else. Better mutt the volume by the way.  
 <a href="http://www.youtube.com/watch?v=Qi1LdFkRzIs" title="Arch Linux KVM Crysis HD Gpu Passthrough" target="_blank">Arch Linux KVM Crysis HD Gpu Passthrough</a>  
 Or you can download it to see.  
-<a href="http://io.lofyer.org/uploads/Arch-Linux-KVM-Crysis-HD.flv" title="Download the video" target="_blank">Download the video in HD</a>  
+<a href="http://lofyer.github.io/uploads/Arch-Linux-KVM-Crysis-HD.flv" title="Download the video" target="_blank">Download the video in HD</a>  
 <embed src="http://player.youku.com/player.php/sid/XNTg1MzUwNjY4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
 </embed>
 
@@ -40,7 +40,7 @@ CPU: Core i5 3470
 GPU: ATI HD Radeon 7850  
 OS: Fedora-Rawhide  
 QEMU: qemu-1.5.1  
-<a href="http://blog.lofyer.org/2013/05/pass-host-gpu-to-guest-via-qemu-ncursescurses/kvm-vgapassthrough/" rel="attachment wp-att-2380"><img src="http://io.lofyer.org/uploads/kvm-vgapassthrough.png" alt="kvm-vgapassthrough" width="614" height="360" class="alignnone size-full wp-image-2380" /></a>  
+<a href="http://blog.lofyer.org/2013/05/pass-host-gpu-to-guest-via-qemu-ncursescurses/kvm-vgapassthrough/" rel="attachment wp-att-2380"><img src="http://lofyer.github.io/uploads/kvm-vgapassthrough.png" alt="kvm-vgapassthrough" width="614" height="360" class="alignnone size-full wp-image-2380" /></a>  
 So, here&#8217;s the steps
 
 ## 0. Enable the mainboard VxT, iommu and alter the video device to Intel HD

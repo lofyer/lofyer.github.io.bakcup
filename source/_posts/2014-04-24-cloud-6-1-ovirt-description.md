@@ -56,11 +56,11 @@ IaaS云计算平台，综合来说具有以下特性：
 
 **管理独占一台物理机**
 
-<a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/normal/" rel="attachment wp-att-3372"><img src="http://io.lofyer.org/uploads/Normal.png" alt="Normal" width="950" height="661" class="alignnone size-full wp-image-3372" /></a>
+<a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/normal/" rel="attachment wp-att-3372"><img src="http://lofyer.github.io/uploads/Normal.png" alt="Normal" width="950" height="661" class="alignnone size-full wp-image-3372" /></a>
 
 <srong>高可用管理机</strong>
 
-<a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/ha/" rel="attachment wp-att-3371"><img src="http://io.lofyer.org/uploads/HA.png" alt="HA" width="950" height="661" class="alignnone size-full wp-image-3371" /></a>
+<a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/ha/" rel="attachment wp-att-3371"><img src="http://lofyer.github.io/uploads/HA.png" alt="HA" width="950" height="661" class="alignnone size-full wp-image-3371" /></a>
 
 ## 内容预览
 

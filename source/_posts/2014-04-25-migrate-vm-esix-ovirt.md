@@ -34,8 +34,8 @@ virt-v2v: myvm configured with virtio drivers.</pre>
 
 **Import.**
 
-<a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/import/" rel="attachment wp-att-3185"><img src="http://io.lofyer.org/uploads/import.png" alt="import" width="824" height="180" class="alignnone size-full wp-image-3185" /></a>
+<a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/import/" rel="attachment wp-att-3185"><img src="http://lofyer.github.io/uploads/import.png" alt="import" width="824" height="180" class="alignnone size-full wp-image-3185" /></a>
 
 **Run.**
 
-<a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/run/" rel="attachment wp-att-3186"><img src="http://io.lofyer.org/uploads/run.png" alt="run" width="1065" height="569" class="alignnone size-full wp-image-3186" /></a>
+<a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/run/" rel="attachment wp-att-3186"><img src="http://lofyer.github.io/uploads/run.png" alt="run" width="1065" height="569" class="alignnone size-full wp-image-3186" /></a>
