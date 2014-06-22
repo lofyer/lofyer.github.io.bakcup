@@ -5,7 +5,6 @@ layout: post
 comments: true
 categories:
   - Linux Admin
-  - Notes
 ---
 
 Well, Gitweb + ssh://git@host is out of date. Even we use it for almost 2 years.
