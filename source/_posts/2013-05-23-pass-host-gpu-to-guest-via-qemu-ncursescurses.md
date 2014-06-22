@@ -15,7 +15,7 @@ enclosure:
 videourl:
   - 
 categories:
-  - Linux Admin
+  - Virtualization
 ---
 To inspire you, I&#8217;ve got a video from someone else. Better mutt the volume by the way.  
 <a href="http://www.youtube.com/watch?v=Qi1LdFkRzIs" title="Arch Linux KVM Crysis HD Gpu Passthrough" target="_blank">Arch Linux KVM Crysis HD Gpu Passthrough</a>  
