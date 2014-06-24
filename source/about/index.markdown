@@ -9,3 +9,27 @@ footer: true
 
 Not all the articles in this blog can receive comments.
 You can leave it here and I will reply to you ASAP.
+
+EN Name: Dylan Jones
+
+Age: 18-34
+
+Edu.: Undergraduate
+
+Marriage: In a relationship
+
+Religion: none
+
+Language: Chinese, English, C, Python, Bash, Lisp
+
+Exp and Skills keywords: cloud SA, oVirt, OpenStack(Neutron, Glance), KVM(qemu), libvirt, Spice, Kerberos(IPA, LDAP), Gluster, HDFS, MapReduce, Icinga, Nagios, Foreman, iSCSI, iPXE, software-defined networking(SDN), Django, Kernel hacking
+
+JabberID: lofyer@lofyer.org
+
+QQ: 578645806
+
+E-mail: lofyer@gmail.com
+
+Site: lofyer.org
+
+Git: [MyGit](https://github.com "MyGit")
