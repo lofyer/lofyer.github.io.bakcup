@@ -6,8 +6,10 @@ url: http://io.lofyer.org
 title: Lofyer's Archive
 subtitle: Way to make, like a mechanic.
 author: lofyer
-#lunr_search: true
-simple_search: http://www.duckduckgo.com/
+lunr_search:
+  excludes: [rss.xml, atom.xml]
+exclude_from_search: true
+simple_search: # http://www.duckduckgo.com/
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
