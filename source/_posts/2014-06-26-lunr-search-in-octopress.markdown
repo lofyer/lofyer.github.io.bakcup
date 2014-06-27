@@ -11,8 +11,6 @@ After migrating my blog from `wordpress` to `octopress` on Github, I miss some f
 
 This article is inspired by <a href="https://github.com/slashdotdash/jekyll-lunr-js-search" target="_blank">jekyll-lunr-js-search</a>, <a href="https://github.com/yortz/octopress-lunr-js-search" target="_blank">octopress-lunr-js-search</a> and <a href="http://wangmuy.github.io/blog/2013/09-01-octopress-setup.html#jekylllunrjs-7">this</a>.
 
-I will create a repo on Github later.
-
 Here we go.
 
 1. Get essential files
@@ -35,40 +33,43 @@ Download .js files below to directory *~/octopress/source/javascripts/* .
 
 Add a page of search
 
-`$ rake new_page["search"]`
+```
+$ rake new_page["search"]
+```
 
 with following contents:
 
-	---
-	layout: page
-	title: "Search"
-	comments: false
-	sharing: false
-	footer: false
-	#exclude_from_search: false  # with this parameter, this page won't be indexed
-	---
+```
+---
+layout: page
+title: "Search"
+comments: false
+sharing: false
+footer: false
+#exclude_from_search: false  # with this parameter, this page won't be indexed
+---
+
+<div id="search">
+	<form action="/search" method="get">
+   	<input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
+ 	</form>
+</div>
+
+<section id="search-results" style="display: none;">
+	<p>Search results</p>
+ 	<div class="entries">
+  	</div>
+</section>
  
-	<div id="search">
-  		<form action="/search" method="get">
-    	<input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
- 		</form>
-	</div>
+<script src="/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/URI.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"></script>
  
-	<section id="search-results" style="display: none;">
-  		<p>Search results</p>
-  		<div class="entries">
-  		</div>
-	</section>
- 
-	<script src="/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/javascripts/URI.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"></script>
- 
-	{% raw %}
-	<script id="search-results-template" type="text/mustache">
+{% raw %}
+<script id="search-results-template" type="text/mustache">
   	{{#entries}}
     	<article>
       		<h3>
@@ -77,11 +78,11 @@ with following contents:
       		</h3>
     	</article>
   	{{/entries}}
-	</script>
-	{% endraw %}
+</script>
+{% endraw %}
  
-	<script type="text/javascript">
-  	$(function() {
+<script type="text/javascript">
+	$(function() {
     	$('#search-query').lunrSearch({
       		indexUrl: '/search.json',             // URL of the `search.json` index data for your site
       		results:  '#search-results',          // jQuery selector for the search results container
@@ -89,7 +90,8 @@ with following contents:
       		template: '#search-results-template'  // jQuery selector for the Mustache.js template
     	});
   	});
-	</script>
+</script>
+```
 	
 Add `<li><a href="{{ root_url }}/search">Search</a></li>` to *~/octopress/source/_includes/custom/navigation.html* .
 
@@ -98,15 +100,22 @@ Add `<li><a href="{{ root_url }}/search">Search</a></li>` to *~/octopress/source
 
 Add following lines to *~/octopress/_config.yml* to block indexing.
 
-	lunr_search:
-		excludes: [rss.xml, atom.xml]
+```
+lunr_search:
+  excludes: [rss.xml, atom.xml]
+```
 
 Add `gem 'nokogiri'` to *~/octopress/Gemfile* to build the site then run
-	bundle
+
+```
+$ bundle
+```
 	
 4. Test
 ---
 
-	$ rake clean
-	$ rake generate
-	$ rake preview
+```
+$ rake clean
+$ rake generate
+$ rake preview
+```

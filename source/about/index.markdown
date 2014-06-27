@@ -22,7 +22,7 @@ Religion: none
 
 Language: Chinese, English, C, Python, Bash, Lisp
 
-Exp and Skills keywords: cloud SA, oVirt, OpenStack(Neutron, Glance), KVM(qemu), libvirt, Spice, Kerberos(IPA, LDAP), Gluster, HDFS, MapReduce, Icinga, Nagios, Foreman, iSCSI, iPXE, software-defined networking(SDN), Django, Kernel hacking
+Exp and Skills keywords: `cloud SA`, `oVirt`, `OpenStack(Neutron, Glance)`, `KVM(qemu)`, `libvirt`, `Kerberos(IPA, LDAP)`, `Gluster`, `Hadoop`, `Icinga`, `Nagios`, `Foreman`, `iSCSI`, `iPXE`, `software-defined networking(SDN)`, `Django`, `Kernel hacking`
 
 JabberID: lofyer@lofyer.org
 
