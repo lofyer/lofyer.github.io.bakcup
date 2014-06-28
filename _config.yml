@@ -2,9 +2,9 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://io.lofyer.org
+url: http://www.lofyer.org
 title: Lofyer's Archive
-subtitle: Way to make, like a mechanic.
+subtitle: To be a architect.
 author: lofyer
 lunr_search:
   excludes: [rss.xml, atom.xml]
