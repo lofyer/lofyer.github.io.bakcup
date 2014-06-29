@@ -16,7 +16,7 @@ footer: false
   </div>
 </section>
 
-<script src="/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
 <script src="/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
