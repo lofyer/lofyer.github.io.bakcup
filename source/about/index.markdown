@@ -24,8 +24,6 @@ Language: Chinese, English, C, Python, Bash, Lisp
 
 Exp and Skills keywords: `cloud SA`, `oVirt`, `OpenStack(Neutron, Glance)`, `KVM(qemu)`, `libvirt`, `Kerberos(IPA, LDAP)`, `Gluster`, `Hadoop`, `Icinga`, `Nagios`, `Foreman`, `iSCSI`, `iPXE`, `software-defined networking(SDN)`, `Django`, `Kernel hacking`
 
-JabberID: lofyer@lofyer.org
-
 QQ: 578645806
 
 E-mail: lofyer@gmail.com
