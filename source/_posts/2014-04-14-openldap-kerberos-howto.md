@@ -40,9 +40,13 @@ I&#8217;ve got 2 ways to setup an openldap server: **389-ds script** and **manua
 Before setup, this configuration should be modified.  
 Add following:
 
-<pre title="/etc/hosts">192.168.1.80    ldap.lofyer.org</pre>
+*/etc/hosts*
+
+<pre>192.168.1.80    ldap.lofyer.org</pre>
 
 Add following:
+
+*/etc/sysctl.conf*
 
 <pre title="/etc/sysctl.conf">net.ipv4.tcp_keepalive_time = 30
 net.ipv4.ip_local_port_range = 1024 65000
@@ -50,10 +54,14 @@ fs.file-max = 64000</pre>
 
 Add following:
 
+*/etc/limits.conf*
+
 <pre title="/etc/limits.conf">*    soft    nofile    8192
 *    hard    nofile    8192</pre>
 
 Add following:
+
+*/etc/pam.d/login*
 
 <pre title="/etc/pam.d/login">session    required    /lib/security/pam_limits.so</pre>
 
