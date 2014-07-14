@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>11. 搭建oVirt虚拟化平台 - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="对于初次使用oVirt的用户，建议使用此种搭建方式，太折腾的话就吓走好多目标读者了。 使用之前的四台机器，分别为gs1.lofyer.org，gs2.lofyer.org，gs3.lofyer.org和gs4.lofyer.org，其中，将gs1作为管理机安装ovirt-engine， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">11. 搭建oVirt虚拟化平台</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-07T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>对于初次使用oVirt的用户，建议使用此种搭建方式，<strong>太折腾的话就吓走好多目标读者了</strong>。</p>
+
+<p>使用之前的四台机器，分别为gs1.lofyer.org，gs2.lofyer.org，gs3.lofyer.org和gs4.lofyer.org，其中，将gs1作为管理机安装ovirt-engine，其余三台作为节点（node），存储使用已经创建好的glusterfs。</p>
+
+<h2>准备</h2>
+
+<p><strong>存储可以使用之前的glusterfs，方式为NFS_V3，注意将brick的权限设置为vdsm.kvm或者36:36。</strong></p>
+
+<pre class="lang:default decode:true " ># gluster volume create gluster-vol1 replica 2 gs1.example.com:/gluster_brick0 gs2.example.com:/gluster_brick0 gs3.example.com:/gluster_brick0 gs4.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick1 force</pre>
+
+
+<p><a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img src="http://lofyer.github.io/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" class="alignnone size-full wp-image-3307" /></a></p>
+
+<p><strong>由于engine以及node的网络服务依赖于network而非NetworkManager，我们需要启用前者禁用后者，在每一台服务器上都进行如下类似配置修改网络。</strong></p>
+
+<pre title="/etc/sysconfig/network-scripts/ifcfg-eth0">NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=static
+# 注意修改此处的IP
+IPADDR=192.168.10.101
+NETMASK=255.255.255.0
+GATEWAY=192.168.10.1
+DNS1=192.168.10.1</pre>
+
+
+
+
+<pre># chkconfig NetworkManager off
+# chkconfig network on
+# service NetworkManager stop; service network restart</pre>
+
+
+<h2>添加repo</h2>
+
+<pre># yum localinstall http://resources.ovirt.org/releases/ovirt-release.noarch.rpm
+# yum install ovirt-hosted-engine-setup</pre>
+
+
+<p>或者手动添加：</p>
+
+<pre title="/etc/yum.repos.d/ovirt.repo">[ovirt-stable]
+name=Latest oVirt Releases
+baseurl=http://ovirt.org/releases/stable/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-3.4-stable]
+name=Latest oVirt 3.4.z Releases
+baseurl=http://ovirt.org/releases/3.4/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&#038;arch=$basearch
+failovermethod=priority
+enabled=1
+includepkgs=epel-release,python-uinput,puppet,python-lockfile,python-cpopen,python-ordereddict,python-pthreading,python-inotify,python-argparse,novnc,python-ply,python-kitchen,python-daemon,python-websockify,livecd-tools,spice-html5,mom
+gpgcheck=0
+
+[ovirt-glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+</pre>
+
+
+<h2>安装管理节点。</h2>
+
+<p>在gs1上运行如下命令。</p>
+
+<pre title="setup webadmin"># yum install ovirt-engine
+# engine-setup --offline
+[ INFO  ] Stage: Initializing
+[ INFO  ] Stage: Environment setup
+          Configuration files: ['/etc/ovirt-engine-setup.conf.d/10-packaging.conf']
+          Log file: /var/log/ovirt-engine/setup/ovirt-engine-setup-20140508054649.log
+          Version: otopi-1.2.0 (otopi-1.2.0-1.el6)
+[ INFO  ] Stage: Environment packages setup
+[ INFO  ] Stage: Programs detection
+[ INFO  ] Stage: Environment setup
+[ INFO  ] Stage: Environment customization
+         
+          --== PRODUCT OPTIONS ==--
+         
+         
+          --== PACKAGES ==--
+         
+         
+          --== NETWORK CONFIGURATION ==--
+         
+          Host fully qualified DNS name of this server [gs1.lofyer.org]: 
+          Setup can automatically configure the firewall on this system.
+          Note: automatic configuration of the firewall may overwrite current settings.
+          Do you want Setup to configure the firewall? (Yes, No) [Yes]: 
+          The following firewall managers were detected on this system: iptables
+          Firewall manager to configure (iptables): iptables
+[ INFO  ] iptables will be configured as firewall manager.
+         
+          --== DATABASE CONFIGURATION ==--
+         
+          Where is the Engine database located? (Local, Remote) [Local]: 
+          Setup can configure the local postgresql server automatically for the engine to run. This may conflict with existing applications.
+          Would you like Setup to automatically configure postgresql and create Engine database, or prefer to perform that manually? (Automatic, Manual) [Automatic]: 
+         
+          --== OVIRT ENGINE CONFIGURATION ==--
+         
+          Application mode (Both, Virt, Gluster) [Both]: 
+          Default storage type: (NFS, FC, ISCSI, POSIXFS) [NFS]: 
+          Engine admin password: 
+          Confirm engine admin password: 
+         
+          --== PKI CONFIGURATION ==--
+         
+          Organization name for certificate [lofyer.org]: 
+         
+          --== APACHE CONFIGURATION ==--
+         
+          Setup can configure apache to use SSL using a certificate issued from the internal CA.
+          Do you wish Setup to configure that, or prefer to perform that manually? (Automatic, Manual) [Automatic]: 
+          Setup can configure the default page of the web server to present the application home page. This may conflict with existing applications.
+          Do you wish to set the application as the default page of the web server? (Yes, No) [Yes]: 
+         
+          --== SYSTEM CONFIGURATION ==--
+         
+          Configure WebSocket Proxy on this machine? (Yes, No) [Yes]: 
+          Configure an NFS share on this server to be used as an ISO Domain? (Yes, No) [Yes]: no
+         
+          --== MISC CONFIGURATION ==--
+         
+         
+          --== END OF CONFIGURATION ==--
+         
+[ INFO  ] Stage: Setup validation
+         
+          --== CONFIGURATION PREVIEW ==--
+         
+          Engine database name                    : engine
+          Engine database secured connection      : False
+          Engine database host                    : localhost
+          Engine database user name               : engine
+          Engine database host name validation    : False
+          Engine database port                    : 5432
+          PKI organization                        : lofyer.org
+          Application mode                        : both
+          Firewall manager                        : iptables
+          Update Firewall                         : True
+          Configure WebSocket Proxy               : True
+          Host FQDN                               : gs1.lofyer.org
+          Datacenter storage type                 : nfs
+          Configure local Engine database         : True
+          Set application as default page         : True
+          Configure Apache SSL                    : True
+         
+          Please confirm installation settings (OK, Cancel) [OK]: ok
+[ INFO  ] Stage: Transaction setup
+[ INFO  ] Stopping engine service
+[ INFO  ] Stopping websocket-proxy service
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Stage: Package installation
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Initializing PostgreSQL
+[ INFO  ] Creating PostgreSQL 'engine' database
+[ INFO  ] Configuring PostgreSQL
+[ INFO  ] Creating Engine database schema
+[ INFO  ] Creating CA
+[ INFO  ] Configuring WebSocket Proxy
+[ INFO  ] Generating post install configuration file '/etc/ovirt-engine-setup.conf.d/20-setup-ovirt-post.conf'
+[ INFO  ] Stage: Transaction commit
+[ INFO  ] Stage: Closing up
+         
+          --== SUMMARY ==--
+         
+          SSH fingerprint: 1B:FD:08:A2:FD:83:20:8A:65:F5:0D:F6:CB:BF:46:C7
+          Internal CA 28:7E:D6:6B:F7:F2:6C:B5:60:27:44:C3:7F:3C:22:63:E5:68:DD:F4
+          Web access is enabled at:
+
+http://gs1.lofyer.org:80/ovirt-engine
+
+
+https://gs1.lofyer.org:443/ovirt-engine
+
+          Please use the user "admin" and password specified in order to login into oVirt Engine
+         
+          --== END OF SUMMARY ==--
+         
+[ INFO  ] Starting engine service
+[ INFO  ] Restarting httpd
+[ INFO  ] Generating answer file '/var/lib/ovirt-engine/setup/answers/20140508054842-setup.conf'
+[ INFO  ] Stage: Clean up
+          Log file is located at /var/log/ovirt-engine/setup/ovirt-engine-setup-20140508054649.log
+[ INFO  ] Stage: Pre-termination
+[ INFO  ] Stage: Termination
+[ INFO  ] Execution of setup completed successfully</pre>
+
+
+<p>至此，管理节点安装结束。</p>
+
+<p>接下来，加入节点以及存储域，请参考第13节。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-07T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/yun-duan-ri-ji/'>云端日记</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/" title="Previous Post: Add nat to ovirt via vdsm hooks">&laquo; Add nat to ovirt via vdsm hooks</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/05/08/6-4-complete-ovirt/" title="Next Post: 13. 完善平台">13. 完善平台 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

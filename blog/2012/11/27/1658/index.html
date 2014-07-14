@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>IPA - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="IPASERVER+DNS(DDWRT)+IPACLIENT SERVER:
+ipa-server-install时这里可以不要内部dns
+注意host以及domain要在dns里有记录
+添加用户 ipa user-add
+设置密码 ipa passwd demo
+DNS: &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2012/11/27/1658">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">IPA</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-27T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>IPASERVER+DNS(DDWRT)+IPACLIENT</p>
+
+<p>SERVER:<br/>
+ipa-server-install时这里可以不要内部dns<br/>
+注意host以及domain要在dns里有记录<br/>
+添加用户 ipa user-add<br/>
+设置密码 ipa passwd demo<br/>
+DNS:<br/>
+下面是ddwrt的dnsmasq配置<br/>
+<code>&lt;br /&gt;
+domain=ovirt.engine&lt;br /&gt;
+local=/ovirt.engine/&lt;br /&gt;
+expand-hosts&lt;br /&gt;
+address=/ovirtmgmt.ovirt.engine/192.168.1.106&lt;br /&gt;
+ptr-record=106.1.168.192.in-addr.arpa,"ovirtmgmt.ovirt.engine"&lt;br /&gt;
+address=/ipa.ovirt.engine/192.168.1.108&lt;br /&gt;
+ptr-record=108.1.168.192.in-addr.arpa,"ipa.ovirt.engine"&lt;br /&gt;
+srv-host=_kerberos-master._tcp,ipa.ovirt.engine,88,0,100&lt;br /&gt;
+srv-host=_kerberos-master._udp,ipa.ovirt.engine,88,0,100&lt;br /&gt;
+srv-host=_kerberos._tcp,ipa.ovirt.engine,88,0,100&lt;br /&gt;
+srv-host=_kerberos._udp,ipa.ovirt.engine,88,0,100&lt;br /&gt;
+srv-host=_kpasswd._tcp,ipa.ovirt.engine,464,0,100&lt;br /&gt;
+srv-host=_kpasswd._udp,ipa.ovirt.engine,464,0,100&lt;br /&gt;
+srv-host=_ldap._tcp,ipa.ovirt.engine,389,0,100&lt;br /&gt;
+</code><br/>
+<a href="http://69.164.197.168/wp-content/uploads/2012/11/QQ%E6%88%AA%E5%9B%BE20121127132532.png"><img src="http://69.164.197.168/wp-content/uploads/2012/11/QQ截图20121127132532.png" alt="" title="QQ截图20121127132532" width="638" height="209" class="alignnone size-full wp-image-1659" /></a></p>
+
+<p>IPACLIENT:<br/>
+install时注意域名及主机名正确</p>
+
+<p>OVIRT:<br/>
+初次使用要在SERVER运行 kinit admin</p>
+
+<p>reinstall出错时：<br/>
+# ipa-server-install &#8211;uninstall -U<br/>
+# ls -ld /var/lib/pki-ca<br/>
+If it exists run:<br/>
+# pkiremove -pki_instance_root=/var/lib -pki_instance_name=pki-ca &#8211;force<br/>
+# yum reinstall pki-selinux</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-27T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ldap/'>ldap</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/19/%25e5%25ae%2589%25e5%25a5%25bd%25ef%25bc%259f/" title="Previous Post: 安好？">&laquo; 安好？</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/09/arduinocpuloadserialled/" title="Next Post: arduino+cpuload+serial+led">arduino+cpuload+serial+led &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2012/11/27/1658/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2012/11/27/1658/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

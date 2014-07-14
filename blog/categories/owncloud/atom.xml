@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Owncloud | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/owncloud/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Intergrate Owncloud With AD(LDAP)]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/24/intergrate-owncloud-adldap/"/>
+    <updated>2014-04-24T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/24/intergrate-owncloud-adldap</id>
+    <content type="html"><![CDATA[<p>Windows 2008R2 server with AD role built.<br/>
+User group: <strong>owncloudgrp</strong><br/>
+User in <strong>owncloudgrp</strong>: aaa, beta<br/>
+Users must have <strong>logon name, first name, last name</strong> set.</p>
+
+<h2>Configure the owncloud:</h2>
+
+<p>Server:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc1/" rel="attachment wp-att-3165"><img src="http://lofyer.github.io/uploads/oc1.png" alt="oc1" width="833" height="262" class="alignnone size-full wp-image-3165" /></a></p>
+
+<p>User Filter:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc2/" rel="attachment wp-att-3166"><img src="http://lofyer.github.io/uploads/oc2.png" alt="oc2" width="834" height="354" class="alignnone size-full wp-image-3166" /></a></p>
+
+<p>Login Filter:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc3/" rel="attachment wp-att-3167"><img src="http://lofyer.github.io/uploads/oc3.png" alt="oc3" width="850" height="260" class="alignnone size-full wp-image-3167" /></a></p>
+
+<p>Group Filter:<br/>
+Every time you change these two sections, <strong>wait for a few seconds</strong> until more than zero users discovered.</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc4/" rel="attachment wp-att-3168"><img src="http://lofyer.github.io/uploads/oc4.png" alt="oc4" width="844" height="364" class="alignnone size-full wp-image-3168" /></a></p>
+
+<p>Advanced &#8211; Connection Settings:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc5/" rel="attachment wp-att-3169"><img src="http://lofyer.github.io/uploads/oc5.png" alt="oc5" width="842" height="409" class="alignnone size-full wp-image-3169" /></a></p>
+
+<p>Advanced &#8211; Directory Settings:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc6/" rel="attachment wp-att-3170"><img src="http://lofyer.github.io/uploads/oc6.png" alt="oc6" width="904" height="545" class="alignnone size-full wp-image-3170" /></a></p>
+
+<p>Expert:<br/>
+Add internal username: sAMAccountName</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc7/" rel="attachment wp-att-3171"><img src="http://lofyer.github.io/uploads/oc7.png" alt="oc7" width="893" height="399" class="alignnone size-full wp-image-3171" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Owncloud Webdav Intergration]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration/"/>
+    <updated>2013-01-03T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration</id>
+    <content type="html"><![CDATA[<p>安装好owncloud后，可以使用webdav协议进行远程挂载，比如</p>
+
+<pre>mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt
+</pre>
+
+
+<p>2003上需启动webclient服务<br/>
+而在2008上, webclient被集成到desktop experience组件中, 从service manager->feature中添加desktop experience,并且修改注册表HKEY_LOCAL_MACHINE->SYSTEM->CurrentControlSet->Services->WebClient->Parameters->BasicAuthLevel 的值为 2，重启服务<br/>
+此时可映射网络驱动器，钩选“connect using different credentials”，输入其用户名密码即可<br/>
+或者命令行</p>
+
+<pre>NET USE *  http://localhost/remote.php/webdav 123456 /user:admin
+</pre>
+
+
+<p>PS：<br/>
+1. owncloud第三方app WebDev安装后会造成不能添加用户的麻烦<br/>
+2. 修改owncloud目录权限为apache.apache或者www-data.www-data以使.htaccesss生效</p>
+]]></content>
+  </entry>
+  
+</feed>

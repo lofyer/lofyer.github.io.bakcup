@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Ltsp相关 - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="参考： https://help.ubuntu.com/community/UbuntuLTSP 安装：
+apt-get install ltsp-server-standalone 启动要素：
+nbd-server
+dhcpd
+tftp-hpa
+openssh-server 绑定客户端地址：
+[ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Ltsp相关</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>参考：</p>
+
+<p><a href="https://help.ubuntu.com/community/UbuntuLTSP">https://help.ubuntu.com/community/UbuntuLTSP</a></p>
+
+<p>安装：<br/>
+apt-get install ltsp-server-standalone</p>
+
+<p>启动要素：<br/>
+nbd-server<br/>
+dhcpd<br/>
+tftp-hpa<br/>
+openssh-server</p>
+
+<p>绑定客户端地址：<br/>
+[dhcpd.conf]<br/>
+host client201 {<br/>
+hardware ethernet 08:00:27:89:70:01;<br/>
+fixed-address 192.168.0.201;<br/>
+}<br/>
+另外一种是在启动pxe配置文件中指定</p>
+
+<p><a href="http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients">http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients</a></p>
+
+<p>session &amp; windows<br/>
+[/usr/share/xsession/*]<br/>
+Exec=/root/.xsession</p>
+
+<p>[/root/.xsession]</p>
+
+<h1>!/bin/bash</h1>
+
+<p>gnome-session &amp;<br/>
+firefox<br/>
+logout</p>
+
+<p>获取session list<br/>
+[/usr/share/ldm/ldminfod]<br/>
+[/etc/X11/xinit/Xsession]<br/>
+[/etc/X11/Xsession] <em>*failsafe<br/>
+[/etc/X11/xdm/Xsession]<br/>
+[/usr/lib/X11/xdm/Xsession]<br/>
+</em>[/usr/share/xsession]</p>
+
+<p>**default session<br/>
+exported by Xsession.d<br/>
+echo $DEFAULTS_PATH<br/>
+/usr/share/gconf/</p>
+
+<p>修改default session<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+LDM_SESSION=&#8221;gnome-session &;firefox;logout&#8221;</p>
+
+<p>FatClient<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[default]<br/>
+LDM_DIRECTX=true</p>
+
+<p>[00:A1:08:EB:43:27]<br/>
+LTSP_FATCLIENT=false</p>
+
+<p>AutoLogin<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[Default]<br/>
+LDM_AUTOLOGIN = True</p>
+
+<p>[192.168.1.101]<br/>
+LDM_USERNAME = user1<br/>
+LDM_PASSWORD = password1</p>
+
+<p>[192.168.1.102]<br/>
+LDM_USERNAME = user2<br/>
+LDM_PASSWORD = password2</p>
+
+<p>一些参考配置<br/>
+[lts.conf]<br/>
+# Global defaults for all clients<br/>
+# if you refer to the local server, just use the<br/>
+# &#8220;server&#8221; keyword as value<br/>
+# see lts_parameters.txt for valid values</p>
+
+<h6>##########</h6>
+
+<p>[default]<br/>
+X_COLOR_DEPTH=24<br/>
+LOCALDEV=True<br/>
+SOUND=True<br/>
+USE_LOCAL_SWAP=True<br/>
+NBD_SWAP=False<br/>
+SYSLOG_HOST=server</p>
+
+<h1>XKBLAYOUT=de</h1>
+
+<p>SCREEN_02=shell<br/>
+SCREEN_03=shell<br/>
+SCREEN_04=shell<br/>
+SCREEN_05=shell<br/>
+SCREEN_06=shell<br/>
+SCREEN_07=ldm<br/>
+# LDM_DIRECTX=True allows greater scalability and performance<br/>
+# Turn this off if you want greater security instead.<br/>
+LDM_DIRECTX=True<br/>
+# LDM_SYSLOG=True writes to server&#8217;s syslog<br/>
+LDM_SYSLOG=True</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux-admin/'>linux admin</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/25/inspire/" title="Previous Post: inspire">&laquo; inspire</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/" title="Next Post: Arduino IO生成波形的问题">Arduino IO生成波形的问题 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

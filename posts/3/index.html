@@ -1,0 +1,869 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="UPDATE: 2014-06-01 移步http://github.com/lofyer/InTheCloud UPDATE: 2014-05-30 放入github，以rst格式编写。 UPDATE: 2014-05-15 oVirt章节完成以后整理成word文档，内容更加丰富。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/posts/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/28/cloud-4-architecture-directory/">4. 意识流的架构目录（进程信息）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-28T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/28/cloud-4-architecture-directory/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/28/cloud-4-architecture-directory/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>UPDATE: 2014-06-01 移步<a href="http://github.com/lofyer/InTheCloud" title="http://github.com/lofyer/InTheCloud" target="_blank"><a href="http://github.com/lofyer/InTheCloud">http://github.com/lofyer/InTheCloud</a></a></strong></p>
+
+<p><strong>UPDATE: 2014-05-30 放入github，以rst格式编写。</strong></p>
+
+<p><strong>UPDATE: 2014-05-15 oVirt章节完成以后整理成word文档，内容更加丰富。</strong></p>
+
+<p>每一章节都可扩展，避免局部发胖，可以从新调整目录结构，比如再加一级父目录和子目录。<br/>
+硬件部分在搭建的时候可以穿插进来，并不设专门章节讲解。<br/>
+角度不要起太高，容易扯淡。<br/>
+不忘资源整合，要有数据。<br/>
+兼顾智能家居（家庭云）。</p>
+
+<ol>
+<li><p>存储是基础，可以给用户，可以给自己<br/>
+&#8230; 5.1 分布式<br/>
+&#8230; 5.1.1 FUSE<br/>
+&#8230; 5.2 Glusterfs简述<br/>
+&#8230; 5.3 搭建及测试<br/>
+&#8230; 5.4 应用进阶</p></li>
+<li><p>虚拟化是核心，主要提供给用户<br/>
+&#8230; 6.1 oVirt简介<br/>
+&#8230; 6.2 管理节点搭建<br/>
+&#8230; 6.3 高可用搭建<br/>
+&#8230; 6.4 完善平台<br/>
+&#8230; 6.5 使用进阶<br/>
+&#8230; 6.5.1 ovirt-shell<br/>
+&#8230; 6.5.2 主机hooks<br/>
+&#8230; 6.5.3 UI插件<br/>
+&#8230; 6.5.4 使用外部服务<br/>
+&#8230; 6.5.5 libguestfs使用<br/>
+&#8230; 6.5.6 技巧</p></li>
+<li><p>使用python进行数据抓取与分析<br/>
+7.1 抓取<br/>
+7.2 numpy<br/>
+7.3 matplotlib</p></li>
+<li><p>数据分析作特色，几年的报表不用费劲看了，在线抓取微博内容预测具体对象（比如近来大事件）的趋势，心理学也不错<br/>
+&#8230; 7.1 Hadoop/Storm简介<br/>
+&#8230; 7.2 选择<br/>
+&#8230; 7.3 搭建<br/>
+&#8230; 7.4 测试</p></li>
+<li><p>Appliance，有益的小应用<br/>
+&#8230; 8.1 ControlPanel<br/>
+&#8230; 8.1.1 Django code<br/>
+&#8230; 8.1.2 LeapMotion Plugin<br/>
+&#8230; 8.2 LDAP/IPA(Kerberos)<br/>
+&#8230; 8.3 Executor<br/>
+&#8230; 8.4 Watchdog<br/>
+&#8230; 8.5 DNS and router<br/>
+&#8230; 8.6 SDN</p></li>
+<li><p>智能家居云实例<br/>
+&#8230; 1. 架构、清单<br/>
+&#8230; 2. 网络（wrt）<br/>
+&#8230; 3. 媒体（openfiler、xbmc）<br/>
+&#8230; 4. 控制（app）<br/>
+&#8230; 5. RaspeberryPi/Arduino与各种传感器实例</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/25/cloud-3-arch/">3. 要有光</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/25/cloud-3-arch/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/25/cloud-3-arch/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在这里，是整个系统的不同角度视图。</p>
+
+<pre>+-------------------------------------+
+| +--------------------------------+  |
+| | +---------------------------+  |  |
+| | | +-----------------------+ |  |  |
+| | | |                       | |  |  |
+| | | |        appliance      | |  |  |
+| | | +-----------------------+ |  |  |
+| | |         vm+map_reduce     |  |  |
+| | +---------------------------+  |  |
+| |          hdfs + hypervisor     |  |
+| +--------------------------------+  |          
+|               glusterfs             |
++-------------------------------------+</pre>
+
+
+
+
+<pre>Cluster
+|
++--Board
+|    |
+|    +--Storage
+|    |
+|    +--Dev_Extension_Board
+|
++--Network
+|
++--UPS
+|    |
+|    +--Active/Backup
+|
++--Safety
+|    |
+|    +--TSL
+|    |
+|    +--Supervision</pre>
+
+
+<p>整个存储是比较倾向gluster作为后端，当然，hdfs是可以使用gluster作为后端的。hdfs的优势之一是可移植性高，可以用廉价的硬件组建（扩展）对性能要求不苛刻的集群。</p>
+
+<p>每一个hypervisor都承载一定数量的计算，当然主要是靠虚拟机内的MapReduce。TBD</p>
+
+<p>Appliance的是使本地计算资源以及互联网资源的融合，作为集群的表现点，拥有识别并体现彼此特征的能力。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/25/cloud-2-yummy/">2. 畅想吧</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/25/cloud-2-yummy/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/25/cloud-2-yummy/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>单纯人与人的连接关系渐渐已经不能够描述社会这个复杂体了，工业机器也开始走进人的生活，并开始和人互动。Google在2013年一口气收了8家机器人公司，这让我感到&#8230;对的，兴奋。</p>
+
+<p>有人说到2020年全球数据总量将达到40ZB，这其中就包含“你幸福吗？”、“你小康了吗？”、“今天中午吃什么？”&#8230;你觉得，从数据能判断你的什么？我觉得，该了解的不该了解的，基本都有了。</p>
+
+<p>那我们能拿这些数据做什么呢？</p>
+
+<p><strong>你现在所能看到的，找到的，听到的，都将会是你进行创造的来源，它们为你服务。</strong></p>
+
+<p style="text-align: center;">
+  我有一只狗，名字叫卡尔，<br /> 它能听懂我说话，<br /> 帮我发个邮件给阿牛，它会去做。<br /> 帮我开台桌面一会儿我要连上去画图，它会去开。<br /> 帮我预定曹阳影城的两张门票，它会去订。<br /> 帮我找点有意思的新闻，它会整理发送给我。<br /> 帮我去给东东和小李送个快递，它也会去送。<br /> 帮我买一身衣服，它会买你喜欢的风格。<br /> 帮我把找找另外一只拖鞋在哪，它屁颠屁颠的找到了。<br /> &#8230;&#8230;
+</p>
+
+
+<p>有很多事情可以帮你甚至代替你去做（原谅我这个robot控）况且，“云”落地总要实体化的。</p>
+
+<p><strong>健壮的身体里，同样要有个健康的灵魂。</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/24/cloud-1-nowaday/">1. 众说纷纭</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-24T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/24/cloud-1-nowaday/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/24/cloud-1-nowaday/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>作为公司的一名小小员工，从客户交流到现场部署、从SDN交换机到Neutron、从QEMU到IAAS，我都有过了解或接触，并将其记录成文，<strong>是总结，亦是探索</strong>。期间难免会有这样或者那样的想法，<strong>而将这些想法实践出来的过程是会让人觉得生活依旧是美好的</strong>。</p>
+
+<h2>状况</h2>
+
+<p>接下来是以我目前水平能看到的：<br/>
+和多数行业一样，不管哪个公司，他们技术和关系，在不同客户那里都有不同的权重，这点的南北差异尤为明显；<br/>
+风（宏观调控）让云去哪，云就去哪；<br/>
+AppEngine或者OpenShift目前更像是资源（公共数据中心）一厢情愿的产物；</p>
+
+<h2>需求</h2>
+
+<p>以我所遇到的客户来看，部分客户不会明确的说使用“云”，他们的需求在多数情况下可以有这样或者那样的传统方案替代；<br/>
+明确要求使用“云”的客户，总会要求周边指标（用户接入、终端协议、视频流占用带宽、UPS、存储复用等）以及各种各样的定制。<br/>
+所以，在需求上的灵活变通，也是有些许重要性的，<strong>不要把技术人员的固执带到客户那</strong>。</p>
+
+<h2>还有什么</h2>
+
+<p>TBD</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/21/cloud-0-how-is-today/">0. 今天天气怎么样？</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-21T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/21/cloud-0-how-is-today/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/21/cloud-0-how-is-today/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>7:50 手机闹铃响了，随之而来的是你订阅的RSS、Flipboard推送的新闻。随手翻阅下，完后Siri说今天天气挺暖和的，可以穿你最喜欢的高领毛衣，起床。<br/>
+8:30 高速公路上，地图告诉你前方拥堵，正好这时领导打来电话，你告诉Siri说“接听”。挂了电话以后，红灯亮了，汽车记录下你这次堵车的时间，并默默再次计算预计到时。<br/>
+9:20 到达公司门口，没有保安，取而代之的是连接公司LDAP服务器的瞳孔识别。<br/>
+10:00 收到信息，来自楼下快件派发柜，你订购的球鞋到了。<br/>
+10:30 客户预约的拜访，你告诉Siri说把公司地址导航路线发送给客户张三。<br/>
+11:10 通过公司IM告诉前台临时允许车牌号为K9031的车辆进来并发送车位信息给客户。<br/>
+11:20 和客户在临时会客厅谈话，期间你把演说内容通过手势（食指一划）推送到客户邮箱，他们感到很意外（<strong>加分点</strong>）。</p>
+
+<p>12:30 午餐时间，Siri还记得你在决心减肥期间，提醒你不要吃最喜欢的红烧肉，末了来一句“两个人被老虎追，谁最危险？Bingo，胖的那个”。<br/>
+14:30 有客户如约送来了10T的财务数据，你通知技术部小李对这些数据进行方案II处理，百分之30的处理任务交给武汉机房的机器，因为这些从机柜到主板都是你依照节能环保的原则主持设计的。<br/>
+16:00 Siri告诉你，抱歉，六点钟有局部降雨。<br/>
+17:00 你把今天的备忘录存进公司派发给你的虚拟桌面，下班。<br/>
+19:00 老婆大人的晚饭做好了，你也再次连上虚拟桌面把备忘录整理归档。<br/>
+20:30 跑步结束，它告诉你这几周换季期间，要增加运动量，你说“可以”。<br/>
+23:00 休息，Siri通过文字悄悄告诉你，明天结婚纪念日，记住。</p>
+
+<p><strong>所有已知未知的暗流，让人有了继续折腾下去的欲望。</strong></p>
+
+<p>我是一个着重实践的人，是的，比如磁盘不拆开的话我可能就对扇区、磁道、柱面没什么深刻概念（拆了也就有助于理解驱动，见下图）。所以，这一些列文章将尽量从操作或者现象中总结规律。一些原理性的东西会尽量用我觉得容易理解的形式表现出来。</p>
+
+<p><a href="http://blog.lofyer.org/cloud-0-how-is-today/img_20140428_100857/" rel="attachment wp-att-3278"><img src="http://lofyer.github.io/uploads/IMG_20140428_100857.png" alt="IMG_20140428_100857" width="656" height="815" class="alignnone size-full wp-image-3278" /></a></p>
+
+<p>整本“书”的结构将会是这个样子：<br/>
+介绍下主流“云”的现状，会引用许多现成（尽量）客观的信息片段；<strong>畅想一下</strong>；从中选择部分组成一个完整系统，进行搭建（或模拟）并本地调优（避免过早优化）；避免烂尾，结尾送两首短诗吧。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/20/cloud-minus-1-pre/">-1. 为什么我的序号那么奇葩</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-20T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/20/cloud-minus-1-pre/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/20/cloud-minus-1-pre/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>好的，本文作为未来几十或者上百篇系列文章的第一篇，就不负众望地来个开场白吧：</p>
+
+<p><strong>序号为0的那篇注定作为系列文章（姑且称之为“书”吧）的序言了，但是又不好意思当-0，就-1吧，跟大家随便聊聊。</strong></p>
+
+<p><span style="line-height: 1.5em;">从07年那会儿，甚至更早，拥有千万用户（包括盗版受害者在内）的行业先锋VMware，又有Google数据中心以及Amazon各种在线服务，这些实打实的东西遵循计算能力的摩尔定律，再顺应日益增长的商业需求，就有了“云”和“大数据”这两个让许多企业再次躁动的概念。</span></p>
+
+<p>稍微有些行业经验（至少以为是或者看来是）的人觉得这俩只是个噱头；搞大型机的说，嗯，这个，呵呵；搞IDC的觉得一台机器现在当二十台甚至更多卖，不错；搞互联网服务的就有些挠头，咦，这啥？噢，就那玩意儿啊，干嘛起这名？</p>
+
+<p>不管大家都怎么看吧，先引用一句关于“大数据”的经典：</p>
+
+<p><em style="line-height: 1.5em;">“Big Data is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so everyone claims they are doing it.”</em></p>
+
+<p><em style="line-height: 1.5em;"></em>有时，你我或许都会有迷惘，我这么做（说），对么？</p>
+
+<p>那就这样吧，<strong>但行好事，莫问前程</strong>。</p>
+
+<p>顺便提一下，本“书”对读者的要求是：<strong>1.没阅读障碍；2.能提出尽量没有偏见的问题。</strong></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/26/ejabber-howto/">Use MAXS to Control Your Device via Ejabberd(plus Ssh, Jingle Voice Talk as a Bonus)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-26T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/26/ejabber-howto/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/26/ejabber-howto/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Let&#8217;s see what we have got here:<br/>
+A xmpp server based on ejabberd on my host: lofyer.org.<br/>
+Windows client: <a href="https://download.jitsi.org/jitsi/nightly/" target="_blank">Jitsi(Recommended)</a>, <a href="http://www.pidgin.im/" target="_blank">Pidgin</a>.<br/>
+(Optional)A Android client: <a href="http://www.xabber.org/" target="_blank">Xabber.</a><br/>
+<a href="http://f-droid.org/wiki/page/org.projectmaxs.main" target="_blank">MAXS</a> on my Nexus 5 Android phone.</p>
+
+<h2>1. Prepare the server(Debian 7)</h2>
+
+<pre># apt-get install ejabberd
+# cd /etc/ejabberd/; wget http://people.collabora.com/~robot101/olpc-ejabberd/ejabberd.cfg
+</pre>
+
+
+<p>Change <strong>hosts</strong> and <strong>admin</strong> section to your <strong>FQDN</strong>.<br/>
+Here&#8217;s a example:</p>
+
+<pre>{hosts, ["lofyer.org"]}.
+{acl, admin, {user, "mypassword", "lofyer.org"}}.
+</pre>
+
+
+<p>Then you should restart ejabberd, and maybe a reboot is essential.</p>
+
+<pre># /etc/init.d/ejabberd restart
+</pre>
+
+
+<h3>Enable Jingle(voice and video)</h3>
+
+<p>You need JingleNodes module on your server.</p>
+
+<pre># apt-get install erlang-tools
+# git clone git://git.process-one.net/exmpp/mainline.git exmpp
+# cd exmpp; ./configure; make; make install
+# svn checkout http://jinglenodes.googlecode.com/svn/ jinglenodes
+# cd jinglenodes; ./configure --prefix=/usr/; make; make install
+</pre>
+
+
+<p>Add following content to your ejabberd.cfg in the <strong>modules</strong> section.</p>
+
+<pre>{mod_jinglenodes, [
+             {host, "jinglenodes.@HOST@"},
+             {public_ip, "192.168.1.148"},
+             {purge_period, 5000},
+             {relay_timeout, 60000}
+            ]},
+</pre>
+
+
+<h3>Enable web register(optional)</h3>
+
+<p>Add to ejabberd.cfg, &#8216;modules&#8217; section the basic configuration:</p>
+
+<pre>{modules, [
+  ...
+  {mod_register_web,     []},
+  ...
+]}.
+</pre>
+
+
+<p>In the &#8216;listen&#8217; section enable the web page:</p>
+
+<pre>{listen, [
+  ...
+  {5281, ejabberd_http, [
+    tls,
+    {certfile, "/etc/ejabberd/ejabberd.pem"},
+    {request_handlers, [
+      {["register"], mod_register_web}
+    ]}
+  ]},
+  ...
+]}.
+</pre>
+
+
+<h3>Use your own certificate</h3>
+
+<pre>openssl req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out server.pem
+openssl rsa -in privkey.pem -out privkey.pem
+cat privkey.pem >> server.pem
+rm privkey.pem
+</pre>
+
+
+<p>The port numbers you should open are: 5281(<a href="http://localhost:5281/register/">http://localhost:5281/register/</a>) 5280(<a href="http://localhost:5280/admin">http://localhost:5280/admin</a>) and 5222(for c2s).</p>
+
+<p>Register users:</p>
+
+<pre># ejabberdctl register admin lofyer.org mypassword
+# ejabberdctl register myphone lofyer.org mypassword
+# ejabberdctl register mypc lofyer.org mypassword
+</pre>
+
+
+<h2>2. Pidgin and MAXS test</h2>
+
+<p>Pidgin: admin@lofyer.org<br/>
+MAXS: myphone@lofyer.org<br/>
+By the way, guarantee that there is only one running jabber client on your phone during this period.<br/>
+<strong>Pidgin</strong><br/>
+Add a friend<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://lofyer.github.io/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a><br/>
+<strong>Shell test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://lofyer.github.io/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a><br/>
+<strong>SMS test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://lofyer.github.io/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a><br/>
+And a msg to my GF.<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://lofyer.github.io/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/25/setup-zebra-ripd/">Setup Dns, Router and Switch</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/25/setup-zebra-ripd/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/25/setup-zebra-ripd/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>dns forward<br/>
+dns</p>
+
+<p>router</p>
+
+<p>TBD</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/">Foreman/puppet/cfengine/bcfg2/chef Howto</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-21T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://uberblo.gs/2012/06/cfengine-bcfg2-chef-and-puppet" title="cfengine-bcfg2-chef-and-puppet" target="_blank">Which one is the best automatic management tool</a><br/>
+TBD</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/10/deploy-asterisk-centos/">Deploy Asterisk on CentOS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/10/deploy-asterisk-centos/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Get the latest packages. <strong>up to 2014-02-10</strong></p>
+
+<pre># rpm -Uvh http://packages.asterisk.org/centos/6/current/x86_64/RPMS/asterisknow-version-3.0.1-2_centos6.noarch.rpm
+# yum install asterisk asterisk-configs --enablerepo=asterisk-12
+# yum install dahdi-linux dahdi-tools libpri
+# chkconfig dahdi on
+# chkconfig asterisk on
+# service dahdi start
+# service asterisk start
+</pre>
+
+
+<p>You can use freepbx on <a href="http://localhost">http://localhost</a> .</p>
+
+<pre># yum install freepbx
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/4">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/2">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

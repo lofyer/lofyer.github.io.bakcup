@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Data Processing | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/data-processing/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SAP Cloud Computing]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing/"/>
+    <updated>2014-04-14T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing</id>
+    <content type="html"><![CDATA[<p>I&#8217;d got these modules running.<br/>
+TBD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Some Data Structure About Clisp]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/05/12/some-data-structure-about-clisp/"/>
+    <updated>2013-05-12T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/05/12/some-data-structure-about-clisp</id>
+    <content type="html"><![CDATA[<p>After reading ANSI Common Lisp, I knew that there are vec, list(construct cell), structure, hash_table and some other views I may not know. I&#8217;ll try Pratical Lisp in next period.<br/>
+Using clisp, enjoy this pattern of view of btree</p>
+
+<pre>[110]> (sdraw (cons '(1) '(2)))
+[*|*]--------->[*|*]--->NIL
+ |              |
+ v              v
+[*|*]--->NIL    2
+ |
+ v
+ 1
+</pre>
+
+
+
+
+<pre>[112]> (sdraw (cons '1 '2))
+[*|*]--->2
+ |
+ v
+ 1
+
+</pre>
+
+
+
+
+<pre>[115]> (sdraw '('1 '2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE     2
+</pre>
+
+
+
+
+<pre>[116]> (sdraw '('1 ''2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE    [*|*]--->[*|*]--->NIL
+                                  |        |
+                                  v        v
+                                 QUOTE     2
+</pre>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,1219 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="We had a wiki here.
+http://elinux.org/RPi_Xorg_rpi_Driver#Design And vc sdk on github. It&#8217;s also in /opt/vc.
+https://github.com/raspberrypi X &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/posts/7">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/14/gpu-raspberry-pi/">Using Gpu in Pi</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/06/14/gpu-raspberry-pi/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>We had a wiki here.</strong><br/>
+<a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design" title="RPi gpu driver design" target="_blank"><a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design">http://elinux.org/RPi_Xorg_rpi_Driver#Design</a></a></p>
+
+<p><strong>And vc sdk on github. It&#8217;s also in /opt/vc.</strong><br/>
+<a href="https://github.com/raspberrypi" title="raspberry on github" target="_blank"><a href="https://github.com/raspberrypi">https://github.com/raspberrypi</a></a></p>
+
+<p><strong>X using gpu.</strong><br/>
+<a href="https://github.com/simonjhall/fbdev_exa" title="X using gpu" target="_blank"><a href="https://github.com/simonjhall/fbdev_exa">https://github.com/simonjhall/fbdev_exa</a></a></p>
+
+<p><strong>Playback accelerating.</strong><br/>
+<a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi" title="RPi playback" target="_blank"><a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi">http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi</a></a></p>
+
+<p><strong>Compile gstreamer{*} in Pi</strong><br/>
+<a href="http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011">http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011</a></p>
+
+<p><strong>Using wayland instead of X</strong><br/>
+Here&#8217;s the build instruction<br/>
+<a href="http://wayland.freedesktop.org/raspberrypi.html" title="Build Wayland" target="_blank"><a href="http://wayland.freedesktop.org/raspberrypi.html">http://wayland.freedesktop.org/raspberrypi.html</a></a><br/>
+For recently PI_DEBIAN img, we should just</p>
+
+<pre>apt-get install weston weston-dev
+</pre>
+
+
+<p>Using xwayland to run X application in wayland..</p>
+
+<p>Notes:<br/>
+1. If you&#8217;re going to compile cairo using egl, you shall meet a problem like undeclared &#8216;None&#8217;, just DEFINE one as 0L.<br/>
+2. Using soft link rather than copying one when library is missing.</p>
+
+<p><strong>Waiting4Test</strong><br/>
+<strong>Tuning Rasbian</strong><br/>
+Speedup CPU:<br/>
+raspi-config<br/>
+arm_freq=900<br/>
+I always use this hack and my rpi run without problem<br/>
+Change scheduler/elevator at boot time:<br/>
+we use more responsive/less disk io usage scheduler:<br/>
+modify the /boot/cmdline.txt</p>
+
+<pre>dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 rootflags=commit=120,data=writeback elevator=deadline rootwait quiet
+</pre>
+
+
+<p>Tuning sysctl.conf:<br/>
+as manual say, sysctl.conf is the “Configuration file for setting system variables”&#8230; well there are lot of variables you can put inside this file and for everyone we can write a book.<br/>
+Our goal is to gain more speed and tell our system to use less io/ram. Let’s put in the /etc/sysctl.conf:</p>
+
+<pre>vm.dirty_background_ratio = 20
+vm.dirty_expire_centisecs = 0
+vm.dirty_ratio = 80
+vm.dirty_writeback_centisecs = 1200
+vm.overcommit_ratio = 2
+vm.laptop_mode = 5
+vm.swappiness = 10
+</pre>
+
+
+<p><strong>Tuning SDCard:</strong><br/>
+Quite hard to understand, but changing the partition alignment of the SDCard can highly improve the write speed of our sdcard. Basically we have to align the first partition to the erase block size of our sdcard. I suggest to read an reread the reference link.<br/>
+To do that in our sdcard that contain our RaspberryPI Debian distro we have to:<br/>
+backup our filesystem from linux:<br/>
+cd /media/mymmcblk0p2/ (the partitition that’s contain debian fs)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_fs.tgz &#8211;exclude=./proc &#8211;exclude=./lost+found &#8211;exclude=./sys &#8211;exclude=./mnt &#8211;exclude=./media &#8211;exclude=./dev ./<br/>
+cd /media/mymmcblk0p1/ (the partitition that’s contain boot kernel etc)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_boot.tgz ./<br/>
+Now use printcsd.py to find the erase block size, most sd have 128K so we use 128K/Sector size = 256 sectors (mine have 64k so we have to use 64k/512b = 128 sector alignement)</p>
+
+<p>sfdisk -f -H224 -S56 /dev/mmcblk0<br/>
+Checking that no-one is using this disk right now &#8230;<br/>
+OK<br/>
+Disk /dev/mmcblk0: 244448 cylinders, 224 heads, 56 sectors/track<br/>
+Old situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p2 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Input in the following format; absent fields get a default value.<br/>
+<start> <size> <type [E,S,L,X,hex]> <bootable [-,*]> &lt;c,h,s> &lt;c,h,s><br/>
+Usually you only need to specify <start> and <size> (and perhaps <type>).<br/>
+/dev/mmcblk0p1 :,8,c<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+(enter enter)<br/>
+/dev/mmcblk0p2 :<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 :<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 :<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+New situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Warning: no primary partition is marked bootable (active)<br/>
+This does not matter for LILO, but the DOS MBR will not boot this disk.<br/>
+Do you want to write this to disk? [ynq] y<br/>
+Successfully wrote the new partition table<br/>
+Re-reading the partition table &#8230;<br/>
+If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)<br/>
+to zero the first 512 bytes: dd if=/dev/zero of=/dev/foo7 bs=512 count=1<br/>
+(See fdisk(8).)</p>
+
+<p>gibbio # fdisk -l&#8230;<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux</p>
+
+<p>now create ext4 FS:<br/>
+mke2fs -t ext4 -E stripe-width=32 -m 0 /dev/mmcblk0p2<br/>
+make FAT32 partition via gparted<br/>
+gibbio # fdisk /dev/mmcblk0<br/>
+Command (m for help): p<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux<br/>
+Command (m for help): x<br/>
+Expert command (m for help): p<br/>
+Disk /dev/mmcblk0: 224 heads, 56 sectors, 1247 cylinders<br/>
+Nr AF Hd Sec Cyl Hd Sec Cyl Start Size ID<br/>
+1 00 0 2 0 223 56 7 1 100351 0c<br/>
+2 00 0 1 8 223 56 1023 100352 15542016 83<br/>
+3 00 0 0 0 0 0 0 0 0 00<br/>
+4 00 0 0 0 0 0 0 0 0 00<br/>
+Expert command (m for help): b<br/>
+Partition number (1-4): 1<br/>
+New beginning of data (1-100351, default 1): 128<br/>
+Expert command (m for help): w<br/>
+The partition table has been altered!<br/>
+Calling ioctl() to re-read partition table.<br/>
+Syncing disks.<br/>
+Now eject the sdcard, reinsert and make the restore from the tgz:<br/>
+cd /media/mymmcblk0p2/<br/>
+tar -xvpzf RPI-TC_fs.tgz -C ./<br/>
+mkdir proc mnt sys boot dev<br/>
+umount /media/mymmcblk0p2/<br/>
+cd /media/mymmcblk0p1/<br/>
+tar -xvpzf RPI-TC_boot.tgz -C ./<br/>
+umount /media/mymmcblk0p1/<br/>
+Eject the sdcard, plug into our Raspberry Pi and power on!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/02/this-while/">近来</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-02T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/06/02/this-while/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/02/this-while/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>还好，有些事抓紧办，有些书抓紧看。<br/>
+未来的几个月中一直是这个状态。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/27/how-to-resolve-the-boot-storm/">How to Solve the &#8216;boot Storm&#8217; Problem: BCACHE</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-27T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/27/how-to-resolve-the-boot-storm/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/27/how-to-resolve-the-boot-storm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Some solutions</strong><br/>
+Way 1. Add more cpus.(ABANDONED)<br/>
+Way 2. Add a SSD as &#8220;boot cache&#8221;<br/>
+Way 3. Sort the boot process</p>
+
+<p><strong>POC:</strong><br/>
+<strong>Way 2:</strong><br/>
+Sometimes we need cache the boot section of the OS into a SSD, since no SSD on hand, let&#8217;s try to use a block device made in /dev/shm</p>
+
+<p><strong>Way 3:</strong><br/>
+Considering that the parrellization of the &#8220;boot action&#8221;, we have to predict the action in the near future</p>
+
+<p>Experiment:<br/>
+Using BCACHE now&#8230;or flashcache</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/">GPU Passthrough, VGA Passthrough in KVM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-23T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To inspire you, I&#8217;ve got a video from someone else. Better mutt the volume by the way.<br/>
+<a href="http://www.youtube.com/watch?v=Qi1LdFkRzIs" title="Arch Linux KVM Crysis HD Gpu Passthrough" target="_blank">Arch Linux KVM Crysis HD Gpu Passthrough</a><br/>
+Or you can download it to see.<br/>
+<a href="http://lofyer.github.io/uploads/Arch-Linux-KVM-Crysis-HD.flv" title="Download the video" target="_blank">Download the video in HD</a><br/>
+<embed src="http://player.youku.com/player.php/sid/XNTg1MzUwNjY4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
+</embed></p>
+
+<p>Here&#8217;s the links I refer to:<br/>
+<a href="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981" title="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981" target="_blank"><a href="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981">http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981</a></a><br/>
+<a href="https://bbs.archlinux.org/viewtopic.php?id=162768" title="https://bbs.archlinux.org/viewtopic.php?id=162768" target="_blank"><a href="https://bbs.archlinux.org/viewtopic.php?id=162768">https://bbs.archlinux.org/viewtopic.php?id=162768</a></a><br/>
+<a href="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1" title="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1" target="_blank"><a href="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1">https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1</a></a><br/>
+<a href="http://www.linux-kvm.org/page/VGA_device_assignment" title="http://www.linux-kvm.org/page/VGA_device_assignment" target="_blank"><a href="http://www.linux-kvm.org/page/VGA_device_assignment">http://www.linux-kvm.org/page/VGA_device_assignment</a></a><br/>
+<a href="http://www.linux-kvm.org/page/VGA_device_assignment" title="http://www.linux-kvm.org/page/VGA_device_assignment" target="_blank"><a href="http://www.linux-kvm.org/page/How_to_assign_devices_with_VT-d_in_KVM">http://www.linux-kvm.org/page/How_to_assign_devices_with_VT-d_in_KVM</a></a></p>
+
+<h2>Result:</h2>
+
+<p>VGAPassthrough: success in host F19, guest Windows7<br/>
+GPUPassthrough: success in Fedora-Rawhide</p>
+
+<p>HOST:<br/>
+CPU: Core i5 3470<br/>
+GPU: ATI HD Radeon 7850<br/>
+OS: Fedora-Rawhide<br/>
+QEMU: qemu-1.5.1<br/>
+<a href="http://blog.lofyer.org/2013/05/pass-host-gpu-to-guest-via-qemu-ncursescurses/kvm-vgapassthrough/" rel="attachment wp-att-2380"><img src="http://lofyer.github.io/uploads/kvm-vgapassthrough.png" alt="kvm-vgapassthrough" width="614" height="360" class="alignnone size-full wp-image-2380" /></a><br/>
+So, here&#8217;s the steps</p>
+
+<h2>0. Enable the mainboard VxT, iommu and alter the video device to Intel HD</h2>
+
+<h2>1. See what we have got now.</h2>
+
+<pre>lspci;lspci -n
+</pre>
+
+
+<p>We have output below</p>
+
+<pre>...
+01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Pitcairn PRO [Radeon HD 7850]
+01:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Cape Verde/Pitcairn HDMI Audio [Radeon HD 7700/7800 Series]
+...
+</pre>
+
+
+
+
+<pre>...
+01:00.0 0300: 1002:6819
+01:00.1 0403: 1002:aab0
+...
+</pre>
+
+
+<p>You can see the pci bus and vendor.</p>
+
+<h2>2. Modify the kernel parameter, morprobe.d and libvirt.conf</h2>
+
+<p>Add follow parameters to grub.conf</p>
+
+<pre>intel_iommu=on pci-stub.ids=1002:6819,1002:aab0,vfio_iommu_type1.allow_unsafe_interrupts=1
+</pre>
+
+
+<p>NOTE: If you have got an AMD cpu, please replace &#8220;interl_iommu=on&#8221; with &#8220;iommu=pt iommu=1&#8243;<br/>
+Add modprobe.conf to /etc/modprobe.d/ with this content:</p>
+
+<pre>blacklist radeon
+options kvm ignore_msrs=1
+options kvm allow_unsafe_interrupts=1
+options kvm-amd npt=0
+options kvm_intel emulate_invalid_guest_state=0
+options vfio_iommu_type1 allow_unsafe_interrupts=1
+</pre>
+
+
+<p>change the following options in /etc/libvirt/qemu.conf:</p>
+
+<pre># The user ID for QEMU processes run by the system instance.
+user = "root"
+
+# The group ID for QEMU processes run by the system instance.
+group = "root"
+
+......
+
+# If clear_emulator_capabilities is enabled, libvirt will drop all
+# privileged capabilities of the QEmu/KVM emulator. This is enabled by
+# default.
+#
+# Warning: Disabling this option means that a compromised guest can
+# exploit the privileges and possibly do damage to the host.
+#
+clear_emulator_capabilities = 0
+</pre>
+
+
+<p>Reboot.</p>
+
+<h2>3. Using scripts below</h2>
+
+<h3>Version 1: VFIO-Passthrough</h3>
+
+<p>File: vfio-bind</p>
+
+<pre>#!/bin/bash
+modprobe vfio-pci
+for var in "$@"; do
+        for dev in $(ls /sys/bus/pci/devices/$var/iommu_group/devices); do
+                vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
+                device=$(cat /sys/bus/pci/devices/$dev/device)
+                if [ -e /sys/bus/pci/devices/$dev/driver ]; then
+                        echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
+                        fi
+                echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
+        done
+done
+</pre>
+
+
+<p>Bind the device</p>
+
+<pre>./vfio-bind 0000:01:00.0 0000:01:00.1
+</pre>
+
+
+<p>Start VM</p>
+
+<pre>#!/bin/bash
+sudo modprobe vfio-pci
+
+sudo qemu-system-x86_64 -no-user-config -nodefaults -m 2048M -smp 4 -boot menu=on \
+-net nic -net user -enable-kvm -monitor stdio -vga qxl -global qxl-vga.vram_size=67108864 \
+-spice port=6000,ipv4,disable-ticketing \
+-device intel-hda,id=sound0,bus=pcie.0,addr=0x4 -device hda-duplex,id=sound0-codec0,bus=sound0.0,cad=0 \
+-drive file=Windows7.iso,if=none,id=drive-ide0-1-0,readonly=on,format=raw -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 \
+-drive file=/home/lofyer/gpu_passthrough/f17.qcow2,if=none,id=drive-virtio-disk0,format=qcow2,cache=none,werror=stop,rerror=stop,aio=threads -device virtio-blk-pci,scsi=off,bus=pcie.0,addr=0x7,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
+-device virtio-balloon-pci,id=balloon0,bus=pcie.0,addr=0x8 \
+-M q35 \
+-device piix4-ide,bus=pcie.0 \
+-device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
+-device vfio-pci,host=01:00.0,bus=root.1,addr=00.0,multifunction=on,x-vga=on \
+-device vfio-pci,host=01:00.1,bus=root.1,addr=00.1 \
+-fda virtio.vfd
+</pre>
+
+
+<h3>Version 2: PCI-Passthrough</h3>
+
+<p>Bind device</p>
+
+<pre>#!/bin/bash
+modprobe pci-stub
+for id in 6819 aab0; do
+    echo 1002 $id > /sys/bus/pci/drivers/pci-stub/new_id
+done
+for pci in 0000:01:00.{0,1}; do
+    echo $pci > "/sys/bus/pci/devices/$pci/driver/unbind"
+    echo $pci > /sys/bus/pci/drivers/pci-stub/bind
+done
+</pre>
+
+
+<p>Start VM</p>
+
+<pre>#!/bin/bash
+qemu-system-x86_64 \
+-hda ../f17.qcow2 \
+-cdrom /run/media/lofyer/Cache/OS_ISO/cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso \
+-m 2048 -balloon virtio -smp 4 -enable-kvm \
+-device pci-assign,host=01:00.0
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/12/some-data-structure-about-clisp/">Some Data Structure About Clisp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-12T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/12/some-data-structure-about-clisp/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/12/some-data-structure-about-clisp/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After reading ANSI Common Lisp, I knew that there are vec, list(construct cell), structure, hash_table and some other views I may not know. I&#8217;ll try Pratical Lisp in next period.<br/>
+Using clisp, enjoy this pattern of view of btree</p>
+
+<pre>[110]> (sdraw (cons '(1) '(2)))
+[*|*]--------->[*|*]--->NIL
+ |              |
+ v              v
+[*|*]--->NIL    2
+ |
+ v
+ 1
+</pre>
+
+
+
+
+<pre>[112]> (sdraw (cons '1 '2))
+[*|*]--->2
+ |
+ v
+ 1
+
+</pre>
+
+
+
+
+<pre>[115]> (sdraw '('1 '2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE     2
+</pre>
+
+
+
+
+<pre>[116]> (sdraw '('1 ''2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE    [*|*]--->[*|*]--->NIL
+                                  |        |
+                                  v        v
+                                 QUOTE     2
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/">设计，kvm前端，mybox</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>正好趁现在有设计欲的时候给自己的git服务器换个首页。<br/>
+kvm前端的脚本已完成，瞬间不想写gui的了，虽然ncurses很好用。。要不先这样，反正都是用来调virt和spice的系统</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/15/rex/">Rex</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-15T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/15/rex/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/15/rex/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://69.164.197.168/wp-content/uploads/2013/04/rex-11.png"><img src="http://69.164.197.168/wp-content/uploads/2013/04/rex-11.png" alt="rex-1" width="781" height="520" class="alignnone size-full wp-image-2090" /></a></p>
+
+<p>目前已完成 capture，dlayer和tlayer。<br/>
+IplImage 和 Mat转换可考虑不用了<br/>
+在写交互的部分，后期完成可能会用gtk。<br/>
+需要的传感器：<br/>
+加速度（FPV向）<br/>
+ROI：移动检测<br/>
+抛弃gtk（时间长，没意思），转用ncurses</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/10/all-about-curl/">Something About Curl &#8212; Connecting IPA Server Using Json as an Example</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/10/all-about-curl/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/all-about-curl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>With Arduino as a server.</p>
+
+<p>What we want is to keep a cookie and build a HEADER<br/>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP/1.1" target="_blank"></p> <p>
+  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></a>
+</p></p>
+
+<p>
+  [P1]
+</p>
+
+
+
+
+<pre>
+curl -e
+curl -H referer:whereicamefrom.com
+curl -d @file.txt
+curl -d "somecmd"
+curl -cookie
+curl -D
+</pre>
+
+
+
+
+<p>
+  [P2]<br /> <strong>Communicating with ipa server</strong><br /> <a href="https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt" title="freeipa api" target="_blank">https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt</a>
+</p>
+
+
+
+
+<p>
+  Get ca.crt
+</p>
+
+
+
+
+<pre>curl -k https://$YOURHOST/ipa/config/ca.crt >> /tmp/ipa.ca.cert</pre>
+
+
+
+
+<p>
+  Get sessionid
+</p>
+
+
+
+
+<pre>
+sessid=$(curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/x-www-form-urlencoded" 
+-H "Accept:*/*" 
+--negotiate -u : 
+--cacert ./ca.crt 
+-d "user=admin" -d "password=12345678" 
+-D cookie.txt 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/login_password
+
+2>&#038;1 | grep -o "ipa_session=[a-zA-Z0-9]*")
+</pre>
+
+
+
+
+<p>
+  Post a json file with cmd in it
+</p>
+
+
+
+
+<pre>curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/json" 
+-H "Accept:applicaton/json" 
+-negotiate -u : 
+--cacert ./ca.crt 
+--cookie $sessid 
+-d @ipa.json 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/json
+
+</pre>
+
+
+
+
+<p>
+  Here&#8217;s a json file
+</p>
+
+
+
+
+<pre>
+{
+"method":"user_find",
+"params":[
+        [""],
+        {"uid":"admin"}
+        ],
+"id":0
+}
+</pre>
+
+
+
+
+<pre>
+{
+"method":"user_add",
+"params":[
+        [],
+        {
+         "uid":"test1",
+         "cn":"cn",
+         "givenname":"test1",
+         "sn":"test1"
+        }
+        ],
+"id":0
+}
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/10/a-git-script-auto-merge/">A Bash Script &#8212; Auto Merge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/10/a-git-script-auto-merge/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/a-git-script-auto-merge/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre>#!/bin/bash
+BEGIN_DATE=`date`
+subject="Automerge conflict detected"
+from="AutoMerge@gitserver.com"
+recipients="user0@gmail.com,user1@gmail.com"
+
+echo "Begin merge at $BEGIN_DATE" >> /mnt/automerge.log;
+# Need pull first
+GIT_UPDATE=`su git -c 'cd /home/git/src.git; git pull'`
+# Need pull first
+if [ -d /mnt/src ]
+then
+        GIT_CD=`su git -c 'cd /mnt/src'`;
+else
+        GIT_CLONE=`su git -c 'cd /mnt/; git clone /home/git/src.git'`;
+fi
+GIT_PULL=`su git -c 'cd /mnt/src/; git checkout master;git pull'`
+# Merge master to test1
+GIT_MERGE=`su git -c 'cd /mnt/src; git checkout test1; git pull origin master; git push origin test1'`
+echo -e "Pulling now...n"
+# Test if CONFLICT exist
+if [[ "$GIT_MERGE" == *CONFLICT* ]]
+then
+        echo "CONFLICT detected!" >> /mnt/automerge.log;
+# Send a mail here
+        mail="subject:$subjectnfrom:$fromn$GIT_MERGEn$BEGIN_DATE"
+        echo -e $mail | sendmail "$recipients"
+# It'll be better if you delete current src and clone a new one
+        RM_CLONE_CMD=`su git -c 'cd /mnt; rm -rf src'`
+        exit 1
+else
+# No conflict, checkout master
+        GIT_CMD=`su git -c 'cd /mnt/src; git checkout master'`
+        END_DATE=`date`
+        echo "Merge succeed at $END_DATE" >> /mnt/automerge.log;
+fi
+exit 0
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/08/a-way-to-use-git/">Git Exp.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-08T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/08/a-way-to-use-git/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/08/a-way-to-use-git/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Supposing that you had a git server, we can use exist git as your own working bare.</p>
+
+<p><strong>[On your own git server] Create a repo.</strong><br/>
+Clone an exist git.</p>
+
+<pre>$ git clone git@exist-server:exist.git
+</pre>
+
+
+<p>Make its master branch writable.</p>
+
+<pre>$ echo -e "[receive]ntdenyCurrentBranch = ignore" >> exist.git/.git/config
+</pre>
+
+
+<p><strong>[On your client] Create a branch &amp; make a change.</strong><br/>
+Clone exist.git as your own git-src, in which you can see the old commits and branch.</p>
+
+<pre>$ git clone git@your-server:exist.git
+$ cd exist
+</pre>
+
+
+<p>We create a new branch based on its master.</p>
+
+<pre>$ git checkout -b mybranch
+$ echo "Add README" > README
+$ git add README
+$ git commit -m "Add READEME in ROOT"
+</pre>
+
+
+<p>Since this is our first commit, we should push our branch to origin. Next time you should just type &#8216;git push&#8217;</p>
+
+<pre>$ git push origin mybranch
+</pre>
+
+
+<p><strong>[On your own git server] An update in master.</strong><br/>
+Let&#8217;s get some new commits.</p>
+
+<pre>$ git pull
+</pre>
+
+
+<p>Here we get something like this&#8230;<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/04/git21.png"><img src="http://69.164.197.168/wp-content/uploads/2013/04/git21.png" alt="git2" width="397" height="333" class="alignnone size-full wp-image-2000" /></a></p>
+
+<p>Now we get commit0 and commitA on mybranch, with commit0 and commit1 on branch master.<br/>
+What we want is something like this.<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/04/git3.png"><img src="http://69.164.197.168/wp-content/uploads/2013/04/git3.png" alt="git3" width="318" height="307" class="alignnone size-full wp-image-2010" /></a></p>
+
+<p><strong>[On your client] Merge commit1 to mybranch</strong><br/>
+Way 1.Just merge them from your own git server</p>
+
+<pre>$ git pull origin master</pre>
+
+
+<p>Way 2.Pull commit1 to local master, then rebase <strong><em>or</em></strong> merge it to mybranch<br/>
+Merge:</p>
+
+<pre>$ git merge master</pre>
+
+
+<p>Rebase:</p>
+
+<pre>$ git rebase master</pre>
+
+
+<p>Final step:</p>
+
+<pre>$ git push</pre>
+
+
+<ul>
+<li><p>There&#8217;s a little difference between merge and rebase in history.<br/>
+Reference:<br/>
+<a href="http://gitbook.liuhui998.com/4_2.html" title="GitBook - Rebase" target="_blank"><a href="http://gitbook.liuhui998.com/4_2.html">http://gitbook.liuhui998.com/4_2.html</a></a>*</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/8">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/6">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

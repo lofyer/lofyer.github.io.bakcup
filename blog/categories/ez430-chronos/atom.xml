@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ez430-chronos | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/ez430-chronos/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[eZ430-Chronos入手]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/12/16/ez430-chronos%25e5%2585%25a5%25e6%2589%258b/"/>
+    <updated>2013-12-16T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/12/16/ez430-chronos%e5%85%a5%e6%89%8b</id>
+    <content type="html"><![CDATA[<p><a href="http://blog.lofyer.org/2013/12/ez430-chronos%e5%85%a5%e6%89%8b/img_20131216_160008/" rel="attachment wp-att-2641"><img src="http://lofyer.github.io/uploads/IMG_20131216_160008-1024x958.jpg" alt="IMG_20131216_160008" width="1024" height="958" class="alignnone size-large wp-image-2641" /></a></p>
+
+<p>入手的是433Mhz，相当于国际版。<br/>
+关于官方介绍可至<a href="http://processors.wiki.ti.com/index.php/EZ430-Chronos" title="eZ430-chronos" target="_blank">eZ430-chronos</a>查阅。<br/>
+<a href="http://www.ti.com/lit/zip/slac341" title="SLAC341" target="_blank">下载Control Center for Windows</a><br/>
+<a href="http://www.ti.com/lit/zip/slac388" title="SLAC388" target="_blank">下载Control Center for Linux</a></p>
+
+<p>然后将toolkit的USBRF插入PC，选择控制台中的ACC标签并“start ap，腕表选择“#”号键至ACC，再按下键即可于控制台中显示加速度传感器数值。<br/>
+同样PPT为按键映射，SYNC为时间设置，TFBSL尚未使用。</p>
+
+<p>编程<br/>
+TBD</p>
+]]></content>
+  </entry>
+  
+</feed>

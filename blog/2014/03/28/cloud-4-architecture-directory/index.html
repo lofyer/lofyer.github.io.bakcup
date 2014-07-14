@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>4. 意识流的架构目录（进程信息） - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="UPDATE: 2014-06-01 移步http://github.com/lofyer/InTheCloud UPDATE: 2014-05-30 放入github，以rst格式编写。 UPDATE: 2014-05-15 oVirt章节完成以后整理成word文档，内容更加丰富。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2014/03/28/cloud-4-architecture-directory">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">4. 意识流的架构目录（进程信息）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-28T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>UPDATE: 2014-06-01 移步<a href="http://github.com/lofyer/InTheCloud" title="http://github.com/lofyer/InTheCloud" target="_blank"><a href="http://github.com/lofyer/InTheCloud">http://github.com/lofyer/InTheCloud</a></a></strong></p>
+
+<p><strong>UPDATE: 2014-05-30 放入github，以rst格式编写。</strong></p>
+
+<p><strong>UPDATE: 2014-05-15 oVirt章节完成以后整理成word文档，内容更加丰富。</strong></p>
+
+<p>每一章节都可扩展，避免局部发胖，可以从新调整目录结构，比如再加一级父目录和子目录。<br/>
+硬件部分在搭建的时候可以穿插进来，并不设专门章节讲解。<br/>
+角度不要起太高，容易扯淡。<br/>
+不忘资源整合，要有数据。<br/>
+兼顾智能家居（家庭云）。</p>
+
+<ol>
+<li><p>存储是基础，可以给用户，可以给自己<br/>
+&#8230; 5.1 分布式<br/>
+&#8230; 5.1.1 FUSE<br/>
+&#8230; 5.2 Glusterfs简述<br/>
+&#8230; 5.3 搭建及测试<br/>
+&#8230; 5.4 应用进阶</p></li>
+<li><p>虚拟化是核心，主要提供给用户<br/>
+&#8230; 6.1 oVirt简介<br/>
+&#8230; 6.2 管理节点搭建<br/>
+&#8230; 6.3 高可用搭建<br/>
+&#8230; 6.4 完善平台<br/>
+&#8230; 6.5 使用进阶<br/>
+&#8230; 6.5.1 ovirt-shell<br/>
+&#8230; 6.5.2 主机hooks<br/>
+&#8230; 6.5.3 UI插件<br/>
+&#8230; 6.5.4 使用外部服务<br/>
+&#8230; 6.5.5 libguestfs使用<br/>
+&#8230; 6.5.6 技巧</p></li>
+<li><p>使用python进行数据抓取与分析<br/>
+7.1 抓取<br/>
+7.2 numpy<br/>
+7.3 matplotlib</p></li>
+<li><p>数据分析作特色，几年的报表不用费劲看了，在线抓取微博内容预测具体对象（比如近来大事件）的趋势，心理学也不错<br/>
+&#8230; 7.1 Hadoop/Storm简介<br/>
+&#8230; 7.2 选择<br/>
+&#8230; 7.3 搭建<br/>
+&#8230; 7.4 测试</p></li>
+<li><p>Appliance，有益的小应用<br/>
+&#8230; 8.1 ControlPanel<br/>
+&#8230; 8.1.1 Django code<br/>
+&#8230; 8.1.2 LeapMotion Plugin<br/>
+&#8230; 8.2 LDAP/IPA(Kerberos)<br/>
+&#8230; 8.3 Executor<br/>
+&#8230; 8.4 Watchdog<br/>
+&#8230; 8.5 DNS and router<br/>
+&#8230; 8.6 SDN</p></li>
+<li><p>智能家居云实例<br/>
+&#8230; 1. 架构、清单<br/>
+&#8230; 2. 网络（wrt）<br/>
+&#8230; 3. 媒体（openfiler、xbmc）<br/>
+&#8230; 4. 控制（app）<br/>
+&#8230; 5. RaspeberryPi/Arduino与各种传感器实例</p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-28T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/yun-duan-ri-ji/'>云端日记</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/25/cloud-3-arch/" title="Previous Post: 3. 要有光">&laquo; 3. 要有光</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/04/01/cloud-5-glusterfs-story/" title="Next Post: 5. 分布式存储的故事">5. 分布式存储的故事 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2014/03/28/cloud-4-architecture-directory/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2014/03/28/cloud-4-architecture-directory/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

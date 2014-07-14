@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Device Hack | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/device-hack/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Create a Dummy VGA Adpter]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/12/19/create-dummy-vga-adpter/"/>
+    <updated>2013-12-19T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/12/19/create-dummy-vga-adpter</id>
+    <content type="html"><![CDATA[<p>创建一个“虚拟”显示适配器，适用于那些“你知道你想干什么并且在干什么”的人。<br/>
+原文参考<br/>
+<a href="http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/" target="_blank"><a href="http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/">http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/</a></a><br/>
+<a href="http://blog.zorinaq.com/?e=11" target="_blank"><a href="http://blog.zorinaq.com/?e=11">http://blog.zorinaq.com/?e=11</a></a></p>
+
+<p>手头有两块ATI显卡，而且都有这个DVI-I接口，并且目前我的状况是两个显示器都接到了两个主板显示（集显）接口。<br/>
+<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/sldldvi/" rel="attachment wp-att-2647"><img src="http://lofyer.github.io/uploads/sldldvi.jpg" alt="sldldvi" width="610" height="620" class="alignnone size-full wp-image-2647" /></a><br/>
+原文说需要一个75欧姆的电阻，我手里暂时只有100欧姆的，而且不多，如果强烈按照原作者的意思的话效果可能会有所不同，参考现有任意款VGA控制器原理。<br/>
+[连接示意图]<br/>
+来自第一个链接<br/>
+<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/vga_dummy_electronic_schema/" rel="attachment wp-att-2649"><img src="http://lofyer.github.io/uploads/vga_dummy_electronic_schema.jpg" alt="vga_dummy_electronic_schema" width="398" height="193" class="alignnone size-full wp-image-2649" /></a><br/>
+[效果图]<br/>
+请无视我的背景，如果有人好奇的话，那是上篇文章的eZ430以及一包十块白沙。<br/>
+<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/qq%e5%9b%be%e7%89%8720131220001003/" rel="attachment wp-att-2651"><img src="http://lofyer.github.io/uploads/QQ图片20131220001003-757x1024.jpg" alt="QQ图片20131220001003" width="757" height="1024" class="alignnone size-large wp-image-2651" /></a><br/>
+[结果]<br/>
+<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/qq%e6%88%aa%e5%9b%be20131220001602/" rel="attachment wp-att-2654"><img src="http://lofyer.github.io/uploads/QQ截图20131220001602.png" alt="QQ截图20131220001602" width="455" height="594" class="alignnone size-full wp-image-2654" /></a></p>
+
+<p>看见第3个显示器没？<br/>
+就是它了，你可以拿它做很多事，比如你有多块显卡，并且你想充分利用其性能，参考lucid mvp，效果上类似吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Lock/unlock/root Nexus 5]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/11/16/lockunlockroot-nexus-5/"/>
+    <updated>2013-11-16T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/11/16/lockunlockroot-nexus-5</id>
+    <content type="html"><![CDATA[<p>今日入手Nexus5美版（D820）<br/>
+blahblahblah&#8230;<br/>
+好吧，开始unlock以及root</p>
+
+<p>先下载这个包，里面包含CM的镜像，unlock/lock的apk</p>
+
+<p><a href="http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9">http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9</a></p>
+
+<p>下载完成后，同时按住音量上下键再按开机，进入bootloader的前奏（相当于bios选项），此时电脑上应该会有所表示（比如windows的弹出要安装驱动啦，没驱动下个sdk搜索一下，比如linux的dmesg啦）</p>
+
+<p>解压下载的文件，运行里面的root-$YOUROS（win、mac、linux）脚本，然后你看到请求unlock的选项，选择unlock并按电源键确认，此时pc上的脚本也会让你下一步；<br/>
+下一步就是出现红色的机器人，说正在写脚本以及镜像，在写的时候pc上的脚本再下一步就可以自动让它退出了，然后稍等几分钟让它重启，重启的时候你会看到google标志下面的锁标志。</p>
+
+<p>出于莫名其妙的安全感，在root以后可以安装压缩包里面的apk文件将bootloader再次锁上，这样，就这样。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wrt54g V5添加usb]]></title>
+    <link href="http://blog.lofyer.org/blog/2012/10/12/wrt54gs-64ram-8flash/"/>
+    <updated>2012-10-12T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2012/10/12/wrt54gs-64ram-8flash</id>
+    <content type="html"><![CDATA[<p>1.dd-wrt.com下载固件包及源码包</p>
+
+<p>2.编译添加或者配置usb存储支持</p>
+
+<p>3.按接口图添加usb</p>
+
+<p><a href="http://www.home-wifi.com/forum.php?mod=viewthread&page=1&tid=3962" target="_blank"><a href="http://www.home-wifi.com/forum.php?mod=viewthread&amp;page=1&amp;tid=3962">http://www.home-wifi.com/forum.php?mod=viewthread&amp;page=1&amp;tid=3962</a></a></p>
+
+<blockquote><p>注意焊点位置，两个数据线左边D+，右边D-，下边的472是4.7k的下拉电阻，右边两个电阻是另一组USB口。所以直接引线就可以，但是我的优盘经常不能识别，就又在USB座上把两条数据线对地接了10k的下拉电阻，相当于和图上的472并起来，现在使用很正常。<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2012/10/bh.jpg"><img class="alignnone size-full wp-image-1461" title="bh" src="http://69.164.197.168/wp-content/uploads/2012/10/bh.jpg" alt="" width="490" height="367" /></a></p>
+
+<p>使用5V 3A电源给路由器供电，不用安装7805了，电源线直接接到电源插座</p>
+
+<p><a href="http://69.164.197.168/wp-content/uploads/2012/10/lbh.jpg"><img class="alignnone size-full wp-image-1462" title="lbh" src="http://69.164.197.168/wp-content/uploads/2012/10/lbh.jpg" alt="" width="490" height="367" /></a></p>
+
+<p><a href="http://69.164.197.168/wp-content/uploads/2012/10/dd.jpg"><img class="alignnone size-full wp-image-1463" title="dd" src="http://69.164.197.168/wp-content/uploads/2012/10/dd.jpg" alt="" width="490" height="303" /></a></p></blockquote>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

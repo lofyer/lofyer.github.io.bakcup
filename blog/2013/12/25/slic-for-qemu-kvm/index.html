@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Slic for Qemu-kvm - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="This article is a howto for activation-ready of Windows.
+SLIC 2.0 is for 2003 &amp; XP, and 2.1 for Win7 &amp; 2008
+Original seabios reads slic table &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Slic for Qemu-kvm</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This article is a howto for activation-ready of Windows.<br/>
+SLIC 2.0 is for 2003 &amp; XP, and 2.1 for Win7 &amp; 2008<br/>
+Original seabios reads slic table from exactly the host. However, if your motherboard(not OEM) happen to own none, you will most probably make one by your self.</p>
+
+<h3>Seabios</h3>
+
+<p>You could get the lastest code from here.</p>
+
+<pre>git clone git://git.seabios.org/seabios.git seabios</pre>
+
+
+<p>Or, you can download from here.</p>
+
+<p><a href="http://code.coreboot.org/p/seabios/downloads/get/seabios-1.7.2.2.tar.gz" title="seabios-1.7.2.2.tar.gz" target="_blank">seabios-1.7.2.2.tar.gz</a></p>
+
+<h3>SLIC-BIN</h3>
+
+<p>Here&#8217;s a collection of various slic table.<br/>
+<a href="http://blog.lofyer.org/slic-for-qemu-kvm/slic-2-1-bins/" rel="attachment wp-att-3483">SLIC 2.1 BINS</a></p>
+
+<h3>Seaslic patch</h3>
+
+<p>This is patch for seabios to make it slic table enabled.<br/>
+Download from here.</p>
+
+<p><a href="https://cloud.lofyer.org/public.php?service=files&#038;t=3aa0db051506d88bce8e6d03d621f47e" title="Seaslic.tar.xz" target="_blank">Seaslic.tar.xz, seabios-1.7.2 compatible</a><br/>
+Here&#8217;s the patch content.</p>
+
+<pre>--- a/src/acpi.c   2013-01-19 06:44:54.000000000 +0600
++++ b/src/acpi.c    2013-05-07 01:16:30.000000000 +0600
+@@ -214,6 +214,11 @@
+
+ #include "acpi-dsdt.hex"
+
++#define CONFIG_OEM_SLIC
++#ifdef CONFIG_OEM_SLIC
++#include "acpi-slic.hex"
++#endif
++
+ static void
+ build_header(struct acpi_table_header *h, u32 sig, int len, u8 rev)
+ {
+@@ -226,6 +231,10 @@
+     h->oem_revision = cpu_to_le32(1);
+     memcpy(h->asl_compiler_id, CONFIG_APPNAME4, 4);
+     h->asl_compiler_revision = cpu_to_le32(1);
++    #ifdef CONFIG_OEM_SLIC
++    if (sig == RSDT_SIGNATURE) // only RSDT is checked by win7 &#038; vista
++   memcpy(h->oem_id, ((struct acpi_table_header*)SLIC)->oem_id, 14);
++    #endif
+     h->checksum -= checksum(h, len);
+ }
+
+@@ -827,6 +836,15 @@
+     ACPI_INIT_TABLE(build_srat());
+     if (pci->device == PCI_DEVICE_ID_INTEL_ICH9_LPC)
+         ACPI_INIT_TABLE(build_mcfg_q35());
++    #ifdef CONFIG_OEM_SLIC
++   void *buf = malloc_high(sizeof(SLIC));
++   if (!buf)
++       warn_noalloc();
++   else {
++       memcpy(buf, SLIC, sizeof(SLIC));
++       ACPI_INIT_TABLE(buf);
++   }
++    #endif
+
+     u16 i, external_tables = qemu_cfg_acpi_additional_tables();</pre>
+
+
+<h3>Compile</h3>
+
+<p>You don&#8217;t have to apply the seaslic patch with patch.sh, you can do that by hand.<br/>
+Before you start, do this:</p>
+
+<pre>xxd -i /sys/firmware/acpi/tables/SLIC | grep -v len | sed 's/unsigned ch   ar.*/static char SLIC[] = {/' > seabios.submodule/src/acpi-slic.hex</pre>
+
+
+<p>Or,</p>
+
+<pre>xxd -i DELL.BIN | grep -v len | sed 's/unsigned ch   ar.*/static char SLIC[] = {/' > seabios.submodule/src/acpi-slic.hex</pre>
+
+
+<p>After applying the patch, you can compile the bios.bin, and copy that to <strong>/usr/share/qemu-kvm/my-bios.bin</strong> or rewrite <strong>bios.bin</strong> instead.<br/>
+Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
+
+<p><a href="https://cloud.lofyer.org/public.php?service=files&#038;t=996a37a5726b448b81802d641774504f" title="my-bin.tar.xz" target="_blank">my-bin.tar.xz</a></p>
+
+<h3>Qemu-cmd</h3>
+
+<pre>qemu-kvm XXX -bios /usr/share/qemu-kvm/my-bios.bin -acpitable file=Dell[DELL-QA09-NVDA]2.1.BIN</pre>
+
+
+<p>In the guest, you could see that SLIC by /sys/firmware/acpi/tables/SLIC in Linux or SLIC_Toolkit in Windows.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-25T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/virtualization/'>virtualization</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/19/create-dummy-vga-adpter/" title="Previous Post: Create a dummy VGA adpter">&laquo; Create a dummy VGA adpter</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/01/16/heartbeat-drbd-test-high-availability/" title="Next Post: Heartbeat and drbd test high availability">Heartbeat and drbd test high availability &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

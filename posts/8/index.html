@@ -1,0 +1,905 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="Before we start, we need intellij enterprise version and a register tool..
+[url] [Summary]
+1. We should open the pom.xml file instead of the project &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/posts/8">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/05/deploy-debug-earwar-in-intellij-ide/">Deploy &#038; Debug Ovirt in the Intellij Ide</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-05T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/05/deploy-debug-earwar-in-intellij-ide/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/05/deploy-debug-earwar-in-intellij-ide/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Before we start, we need intellij enterprise version and a register tool..<br/>
+[url]</p>
+
+<p>[Summary]<br/>
+1. We should open the pom.xml file instead of the project directory.<br/>
+2. Modify the extension of the directory in the project properties.<br/>
+3. Modify the .m2 file in your personal directory to make jboss know where to deploy the project.<br/>
+4. We need seperate run/debug config to make it clearer.</p>
+
+<p>[Steps]<br/>
+<em>OVIRT_HOME=/home/demo<br/>
+JBOSS_HOME=/usr/jboss-as<br/>
+JDK=/usr/java/jdk1.7.0_17<br/>
+$ cmd as demo<br/>
+# cmd as root</em><br/>
+<strong>1.Compile the ovirt from src</strong><br/>
+in $OVIRT_HOME</p>
+
+<pre>$ mvn clean install -Pgwt-admin,gwt-user -DskipTests=true
+</pre>
+
+
+<p><strong>2.Deploy ovirt</strong><br/>
+You need ~/.m2/settings.xml file in /root/ and /home/demo directory.</p>
+
+<pre>&lt;settings xmlns="http://maven.apache.org/POM/4.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                              http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+<!--**************************** PROFILES ****************************-->
+
+        &lt;activeProfiles>
+                        &lt;activeProfile>oVirtEnvSettings&lt;/activeProfile>
+        &lt;/activeProfiles>
+
+        &lt;profiles>
+                &lt;profile>
+                        &lt;id>oVirtEnvSettings&lt;/id>
+                        &lt;properties>
+                           &lt;jbossHome>/usr/jboss-as&lt;/jbossHome>
+                           &lt;JAVA_HOME>/usr/java/jdk1.7.0_17&lt;/JAVA_HOME>
+                        &lt;/properties>
+                &lt;/profile>
+         &lt;/profiles>
+&lt;/settings>
+</pre>
+
+
+<p>in $OVIRT_HOME/ear</p>
+
+<pre># mvn clean install -Pdep,setup
+</pre>
+
+
+<p><strong>3.Run jboss</strong><br/>
+You should export an environment variant and a runtime configuration file.</p>
+
+<pre>$ echo -e "ENGINE_USR=admin111nENGINE_ETC=/etc/ovirt-engine" > $OVIRT_HOME/backend/manager/conf/engine.conf.defaults
+# export ENGINE_DEFAULTS=$OVIRT_HOME/backend/manager/conf/engine.conf.defaults
+# /usr/jboss-as/bin/standalone.sh
+</pre>
+
+
+<p>UPDATE:<br/>
+Now there is README.developer in the source dir, just follow it.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/02/%25e5%2585%25b3%25e4%25ba%258e%25e8%25af%25ad%25e8%25a8%2580/">关于语言</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-02T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/02/%25e5%2585%25b3%25e4%25ba%258e%25e8%25af%25ad%25e8%25a8%2580/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/02/%25e5%2585%25b3%25e4%25ba%258e%25e8%25af%25ad%25e8%25a8%2580/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>关键是要有完善的思想容器，或者叫塑造者。<br/>
+看太多pop的，oop时却不易转弯了。<br/>
+现在很流行么？</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/">Arduino IO生成波形的问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-23T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre>DigitalWrite(pin,HIGH);
+DELAY(10);
+DigitalWrite(pin,LOW)
+DELAY(10);
+</pre>
+
+
+<p>观察波形（上升沿触发）频率是51Hz，峰值为0.520V（使用外接电源的情况下，USB作电源为0.505V）。<br/>
+除掉市电滤波的原因，应该是128本身Timer造成的问题，因DELAY使用的是Timer，选中的端口同样为Timer可用的端口，故在电平维持时可看到波形有毛刺（示波器太烂了吧）。<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/03/psb.jpg"><img src="http://69.164.197.168/wp-content/uploads/2013/03/psb.jpg" alt="psb" width="640" height="480" class="alignnone size-full wp-image-1771" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/">Ltsp相关</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>参考：</p>
+
+<p><a href="https://help.ubuntu.com/community/UbuntuLTSP">https://help.ubuntu.com/community/UbuntuLTSP</a></p>
+
+<p>安装：<br/>
+apt-get install ltsp-server-standalone</p>
+
+<p>启动要素：<br/>
+nbd-server<br/>
+dhcpd<br/>
+tftp-hpa<br/>
+openssh-server</p>
+
+<p>绑定客户端地址：<br/>
+[dhcpd.conf]<br/>
+host client201 {<br/>
+hardware ethernet 08:00:27:89:70:01;<br/>
+fixed-address 192.168.0.201;<br/>
+}<br/>
+另外一种是在启动pxe配置文件中指定</p>
+
+<p><a href="http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients">http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients</a></p>
+
+<p>session &amp; windows<br/>
+[/usr/share/xsession/*]<br/>
+Exec=/root/.xsession</p>
+
+<p>[/root/.xsession]</p>
+
+<h1>!/bin/bash</h1>
+
+<p>gnome-session &amp;<br/>
+firefox<br/>
+logout</p>
+
+<p>获取session list<br/>
+[/usr/share/ldm/ldminfod]<br/>
+[/etc/X11/xinit/Xsession]<br/>
+[/etc/X11/Xsession] <em>*failsafe<br/>
+[/etc/X11/xdm/Xsession]<br/>
+[/usr/lib/X11/xdm/Xsession]<br/>
+</em>[/usr/share/xsession]</p>
+
+<p>**default session<br/>
+exported by Xsession.d<br/>
+echo $DEFAULTS_PATH<br/>
+/usr/share/gconf/</p>
+
+<p>修改default session<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+LDM_SESSION=&#8221;gnome-session &;firefox;logout&#8221;</p>
+
+<p>FatClient<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[default]<br/>
+LDM_DIRECTX=true</p>
+
+<p>[00:A1:08:EB:43:27]<br/>
+LTSP_FATCLIENT=false</p>
+
+<p>AutoLogin<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[Default]<br/>
+LDM_AUTOLOGIN = True</p>
+
+<p>[192.168.1.101]<br/>
+LDM_USERNAME = user1<br/>
+LDM_PASSWORD = password1</p>
+
+<p>[192.168.1.102]<br/>
+LDM_USERNAME = user2<br/>
+LDM_PASSWORD = password2</p>
+
+<p>一些参考配置<br/>
+[lts.conf]<br/>
+# Global defaults for all clients<br/>
+# if you refer to the local server, just use the<br/>
+# &#8220;server&#8221; keyword as value<br/>
+# see lts_parameters.txt for valid values</p>
+
+<h6>##########</h6>
+
+<p>[default]<br/>
+X_COLOR_DEPTH=24<br/>
+LOCALDEV=True<br/>
+SOUND=True<br/>
+USE_LOCAL_SWAP=True<br/>
+NBD_SWAP=False<br/>
+SYSLOG_HOST=server</p>
+
+<h1>XKBLAYOUT=de</h1>
+
+<p>SCREEN_02=shell<br/>
+SCREEN_03=shell<br/>
+SCREEN_04=shell<br/>
+SCREEN_05=shell<br/>
+SCREEN_06=shell<br/>
+SCREEN_07=ldm<br/>
+# LDM_DIRECTX=True allows greater scalability and performance<br/>
+# Turn this off if you want greater security instead.<br/>
+LDM_DIRECTX=True<br/>
+# LDM_SYSLOG=True writes to server&#8217;s syslog<br/>
+LDM_SYSLOG=True</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/25/inspire/">Inspire</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/02/25/inspire/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/25/inspire/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>client : android/pc/arduino</p>
+
+<p>server : linux</p>
+
+<p>node : with client service installed</p>
+
+<p>action : cmd src dest</p>
+
+<p>backend: recognize the cmd, get src type from the dest, search src in the node</p>
+
+<p>SCHEDULE<br/>
+[DONE]1. voice recognization test complete<br/>
+[TODO]2. use its api in C/python<br/>
+[*Abort*] No idea&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/05/openvpn/">OpenVPN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-05T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/02/05/openvpn/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/05/openvpn/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>服务端:<br/>
+生成证书等相关文件<br/>
+/etc/openvpn/easy-rsa/2.0<br/>
+生成证书</p>
+
+<pre># ./build-ca
+</pre>
+
+
+<p>生成服务器认证</p>
+
+<pre># ./build-key-server server
+</pre>
+
+
+<p>生成客户端</p>
+
+<pre># ./build-key client1
+</pre>
+
+
+<p>更新数据库</p>
+
+<pre># ./build-dh
+</pre>
+
+
+<p><strong>/etc/openvpn/server.conf</strong></p>
+
+<pre>local 192.168.1.132
+port 1194
+proto udp
+dev tap
+ca /etc/openvpn/easy-rsa/2.0/keys/ca.crt
+cert /etc/openvpn/easy-rsa/2.0/keys/server.crt
+key /etc/openvpn/easy-rsa/2.0/keys/server.key  # This file should be kept secret
+dh /etc/openvpn/easy-rsa/2.0/keys/dh1024.pem
+server 192.168.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "route 192.168.1.0 255.255.255.0"
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 116.228.111.118"
+push "dhcp-option DNS 180.168.255.18"
+client-to-client
+duplicate-cn
+keepalive 10 120
+comp-lzo
+user nobody
+group nobody
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+</pre>
+
+
+<p>运行:</p>
+
+<pre># openvpn --config /etc/openvpn/server.conf --daemon
+</pre>
+
+
+<p>客户端:<br/>
+Windows:</p>
+
+<p>client1.ovpn</p>
+
+<pre>client
+dev tap
+proto udp
+remote hostname 1194
+persist-key
+persist-tun
+ca ca.crt
+cert client1.crt
+key client1.key
+comp-lzo
+</pre>
+
+
+<p>其他需要文件为ca.crt, client1.crt, client1.key<br/>
+放到安装目录的config中</p>
+
+<p>连接外网:</p>
+
+<h1>打开ipv4的ipforwad</h1>
+
+<h1>当次</h1>
+
+<pre># echo 1 > /proc/sys/net/ipv4/ip_forward 
+</pre>
+
+
+<h1>保存</h1>
+
+<pre>sysctl -a | grep ip_forward
+sysctl -w net.ipv4.ip_forward=1 
+</pre>
+
+
+<h1>在server上将来自子网192.168.0.0的转换为来自192.168.1.100</h1>
+
+<pre>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j SNAT --to-source 192.168.1.100
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/22/%25e8%258f%259c%25e6%25a0%25b9%25e8%25b0%25ad%25e5%25b0%258f%25e8%25ae%25b0/">菜根谭小记</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-22T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/22/%25e8%258f%259c%25e6%25a0%25b9%25e8%25b0%25ad%25e5%25b0%258f%25e8%25ae%25b0/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/22/%25e8%258f%259c%25e6%25a0%25b9%25e8%25b0%25ad%25e5%25b0%258f%25e8%25ae%25b0/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>入世，出世</p>
+
+<p>当阅，当阅，当使劲阅</p>
+
+<p>修身：</p>
+
+<p>应酬：<br/>
+随缘便是遣缘，似舞蝶与飞花共适；顺事自然无事，若满月偕盂水共圆</p>
+
+<p>评议：<br/>
+古人闲适处，今人却忙过了一生；古人实受处，今人又虚度了一生。总是耽空逐妄，看个色身不破，认个法身不真耳。<br/>
+众人以顺境为乐，而君子乐自逆境中来；众人以拂意为忧，而君子忧从快意处起。盖众人忧乐以情，而君子忧乐以理也。</p>
+
+<p>闲适：<br/>
+君子之心事，天清日白，不可使人不知；君子之才华，玉韫珠藏，不可使人易知。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/">Python交互式输入</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-14T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre>cmd='echo "%s\n%s" | smbpasswd -s -a %s'%(password, password, self.login)
+</pre>
+
+
+<p>PS:<br/>
+好像很少用到这种，反正我是试了下echo &#8220;123456&#8243; | su demo，果断出现两层。。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/09/eclipse-multiuser/">Eclipse Multiuser</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-09T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/09/eclipse-multiuser/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/09/eclipse-multiuser/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Add following code to your eclipse/configuration/config.ini</p>
+
+<pre>osgi.configuration.area=@user.home/Eclipse/configuration
+osgi.sharedConfiguration.area=/opt/eclipse/configuration
+osgi.configuration.cascaded=true
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/03/owncloud-intergration/">Owncloud Webdav Intergration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-03T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/03/owncloud-intergration/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>安装好owncloud后，可以使用webdav协议进行远程挂载，比如</p>
+
+<pre>mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt
+</pre>
+
+
+<p>2003上需启动webclient服务<br/>
+而在2008上, webclient被集成到desktop experience组件中, 从service manager->feature中添加desktop experience,并且修改注册表HKEY_LOCAL_MACHINE->SYSTEM->CurrentControlSet->Services->WebClient->Parameters->BasicAuthLevel 的值为 2，重启服务<br/>
+此时可映射网络驱动器，钩选“connect using different credentials”，输入其用户名密码即可<br/>
+或者命令行</p>
+
+<pre>NET USE *  http://localhost/remote.php/webdav 123456 /user:admin
+</pre>
+
+
+<p>PS：<br/>
+1. owncloud第三方app WebDev安装后会造成不能添加用户的麻烦<br/>
+2. 修改owncloud目录权限为apache.apache或者www-data.www-data以使.htaccesss生效</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/9">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/7">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

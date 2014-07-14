@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Raspberrypi | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/raspberrypi/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[LeapMotion Controlled X4]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/09/15/leapmotion-controlled-x4/"/>
+    <updated>2013-09-15T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/09/15/leapmotion-controlled-x4</id>
+    <content type="html"><![CDATA[<p>两者都入手已经一个月了，可平时有些忙（惰者多忙），也就只零零散散准备了一些资料，还没开始整合。<br/>
+整个流程大概是这个我用文字描述的粗略的样子：</p>
+
+<p>空间建模：获取飞行器初始坐标，与leapmotion的可视区域进行map。<br/>
+一级控制：leapmotion获得的手掌运动信息（可预处理）进入arduino通过nfr2401发送给X4，进行粗略运动指令传达。<br/>
+二级控制：根据摄像头采集的飞行器位置数据与手掌位置信息对比，进行二阶指令传达。<br/>
+回馈控制：在二级控制的基础上进行微调。<br/>
+错误返回：如果超出leapmotion可视范围，则进行回馈控制将X4返回初始位置（0,0,0），超出摄像头范围，则需。。。人工重置。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Gpu in Pi]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi/"/>
+    <updated>2013-06-14T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi</id>
+    <content type="html"><![CDATA[<p><strong>We had a wiki here.</strong><br/>
+<a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design" title="RPi gpu driver design" target="_blank"><a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design">http://elinux.org/RPi_Xorg_rpi_Driver#Design</a></a></p>
+
+<p><strong>And vc sdk on github. It&#8217;s also in /opt/vc.</strong><br/>
+<a href="https://github.com/raspberrypi" title="raspberry on github" target="_blank"><a href="https://github.com/raspberrypi">https://github.com/raspberrypi</a></a></p>
+
+<p><strong>X using gpu.</strong><br/>
+<a href="https://github.com/simonjhall/fbdev_exa" title="X using gpu" target="_blank"><a href="https://github.com/simonjhall/fbdev_exa">https://github.com/simonjhall/fbdev_exa</a></a></p>
+
+<p><strong>Playback accelerating.</strong><br/>
+<a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi" title="RPi playback" target="_blank"><a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi">http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi</a></a></p>
+
+<p><strong>Compile gstreamer{*} in Pi</strong><br/>
+<a href="http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011">http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011</a></p>
+
+<p><strong>Using wayland instead of X</strong><br/>
+Here&#8217;s the build instruction<br/>
+<a href="http://wayland.freedesktop.org/raspberrypi.html" title="Build Wayland" target="_blank"><a href="http://wayland.freedesktop.org/raspberrypi.html">http://wayland.freedesktop.org/raspberrypi.html</a></a><br/>
+For recently PI_DEBIAN img, we should just</p>
+
+<pre>apt-get install weston weston-dev
+</pre>
+
+
+<p>Using xwayland to run X application in wayland..</p>
+
+<p>Notes:<br/>
+1. If you&#8217;re going to compile cairo using egl, you shall meet a problem like undeclared &#8216;None&#8217;, just DEFINE one as 0L.<br/>
+2. Using soft link rather than copying one when library is missing.</p>
+
+<p><strong>Waiting4Test</strong><br/>
+<strong>Tuning Rasbian</strong><br/>
+Speedup CPU:<br/>
+raspi-config<br/>
+arm_freq=900<br/>
+I always use this hack and my rpi run without problem<br/>
+Change scheduler/elevator at boot time:<br/>
+we use more responsive/less disk io usage scheduler:<br/>
+modify the /boot/cmdline.txt</p>
+
+<pre>dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 rootflags=commit=120,data=writeback elevator=deadline rootwait quiet
+</pre>
+
+
+<p>Tuning sysctl.conf:<br/>
+as manual say, sysctl.conf is the “Configuration file for setting system variables”&#8230; well there are lot of variables you can put inside this file and for everyone we can write a book.<br/>
+Our goal is to gain more speed and tell our system to use less io/ram. Let’s put in the /etc/sysctl.conf:</p>
+
+<pre>vm.dirty_background_ratio = 20
+vm.dirty_expire_centisecs = 0
+vm.dirty_ratio = 80
+vm.dirty_writeback_centisecs = 1200
+vm.overcommit_ratio = 2
+vm.laptop_mode = 5
+vm.swappiness = 10
+</pre>
+
+
+<p><strong>Tuning SDCard:</strong><br/>
+Quite hard to understand, but changing the partition alignment of the SDCard can highly improve the write speed of our sdcard. Basically we have to align the first partition to the erase block size of our sdcard. I suggest to read an reread the reference link.<br/>
+To do that in our sdcard that contain our RaspberryPI Debian distro we have to:<br/>
+backup our filesystem from linux:<br/>
+cd /media/mymmcblk0p2/ (the partitition that’s contain debian fs)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_fs.tgz &#8211;exclude=./proc &#8211;exclude=./lost+found &#8211;exclude=./sys &#8211;exclude=./mnt &#8211;exclude=./media &#8211;exclude=./dev ./<br/>
+cd /media/mymmcblk0p1/ (the partitition that’s contain boot kernel etc)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_boot.tgz ./<br/>
+Now use printcsd.py to find the erase block size, most sd have 128K so we use 128K/Sector size = 256 sectors (mine have 64k so we have to use 64k/512b = 128 sector alignement)</p>
+
+<p>sfdisk -f -H224 -S56 /dev/mmcblk0<br/>
+Checking that no-one is using this disk right now &#8230;<br/>
+OK<br/>
+Disk /dev/mmcblk0: 244448 cylinders, 224 heads, 56 sectors/track<br/>
+Old situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p2 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Input in the following format; absent fields get a default value.<br/>
+<start> <size> <type [E,S,L,X,hex]> <bootable [-,*]> &lt;c,h,s> &lt;c,h,s><br/>
+Usually you only need to specify <start> and <size> (and perhaps <type>).<br/>
+/dev/mmcblk0p1 :,8,c<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+(enter enter)<br/>
+/dev/mmcblk0p2 :<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 :<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 :<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+New situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Warning: no primary partition is marked bootable (active)<br/>
+This does not matter for LILO, but the DOS MBR will not boot this disk.<br/>
+Do you want to write this to disk? [ynq] y<br/>
+Successfully wrote the new partition table<br/>
+Re-reading the partition table &#8230;<br/>
+If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)<br/>
+to zero the first 512 bytes: dd if=/dev/zero of=/dev/foo7 bs=512 count=1<br/>
+(See fdisk(8).)</p>
+
+<p>gibbio # fdisk -l&#8230;<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux</p>
+
+<p>now create ext4 FS:<br/>
+mke2fs -t ext4 -E stripe-width=32 -m 0 /dev/mmcblk0p2<br/>
+make FAT32 partition via gparted<br/>
+gibbio # fdisk /dev/mmcblk0<br/>
+Command (m for help): p<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux<br/>
+Command (m for help): x<br/>
+Expert command (m for help): p<br/>
+Disk /dev/mmcblk0: 224 heads, 56 sectors, 1247 cylinders<br/>
+Nr AF Hd Sec Cyl Hd Sec Cyl Start Size ID<br/>
+1 00 0 2 0 223 56 7 1 100351 0c<br/>
+2 00 0 1 8 223 56 1023 100352 15542016 83<br/>
+3 00 0 0 0 0 0 0 0 0 00<br/>
+4 00 0 0 0 0 0 0 0 0 00<br/>
+Expert command (m for help): b<br/>
+Partition number (1-4): 1<br/>
+New beginning of data (1-100351, default 1): 128<br/>
+Expert command (m for help): w<br/>
+The partition table has been altered!<br/>
+Calling ioctl() to re-read partition table.<br/>
+Syncing disks.<br/>
+Now eject the sdcard, reinsert and make the restore from the tgz:<br/>
+cd /media/mymmcblk0p2/<br/>
+tar -xvpzf RPI-TC_fs.tgz -C ./<br/>
+mkdir proc mnt sys boot dev<br/>
+umount /media/mymmcblk0p2/<br/>
+cd /media/mymmcblk0p1/<br/>
+tar -xvpzf RPI-TC_boot.tgz -C ./<br/>
+umount /media/mymmcblk0p1/<br/>
+Eject the sdcard, plug into our Raspberry Pi and power on!</p>
+]]></content>
+  </entry>
+  
+</feed>

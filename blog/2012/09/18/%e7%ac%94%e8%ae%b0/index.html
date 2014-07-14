@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>一些笔记（老版笔记已丢失，此为增补） - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="WebFramework: Django
+Cappuccino->mockingbird 搜索Tab grep -P "t" 批量替换 sed -i "s/qwe/asd/g" `grep -rl "qwe"` cmake 配置安装完opencv后，将安装路径中到lib/pkg-config/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">一些笔记（老版笔记已丢失，此为增补）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>WebFramework:</h2>
+
+<p>Django<br/>
+Cappuccino->mockingbird</p>
+
+<h2>搜索Tab</h2>
+
+<pre>grep -P "t"</pre>
+
+
+<h2>批量替换</h2>
+
+<pre>sed -i "s/qwe/asd/g" `grep -rl "qwe"`</pre>
+
+
+<h2>cmake 配置安装完opencv后，将安装路径中到lib/pkg-config/opencv.pc复制到/usr/lib/pkg-config，然后可以进行pkg-config 查找</h2>
+
+<h2>gnome3任务栏快捷方式的存放位置拖到浏览器或者终端里你就看见了。。</h2>
+
+<h2>curl POST</h2>
+
+<pre>curl -X POST -d '4142430A02000' 
+
+http://user:pass@myhost/hudson/job/_jobName_/postBuildResult</pre>
+
+
+
+
+<pre>curl -X POST -d @myfilename http://user:pass@myhost/hudson/job/_jobName_/postBuildResult</pre>
+
+
+<h2>ddwrt 内网不能访问内网域名</h2>
+
+<pre>iptables -t nat -I POSTROUTING -o br0 -s 192.168.0.188/24 -d 192.168.0.188/24 -j MASQUERADE</pre>
+
+
+<h2>vpn的内网的问题</h2>
+
+<pre>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 70.8.7.6</pre>
+
+
+
+
+<pre>iptables -t nat -A POSTROUTING -o eth0 -s 172.16.1.0/24 -j MASQUERADE</pre>
+
+
+<h2>delete git branch</h2>
+
+<pre>git push origin :yourbranch</pre>
+
+
+<h2>ipa client reinstall</h2>
+
+<p>删除<em>/etc/ipa/ca.crt</em>证书</p>
+
+<h2>fedora制作安装cd</h2>
+
+<pre>#!/bin/bash
+livecd-creator --config=/usr/share/spin-kickstarts/fedora-livecd-desktop.ks \
+--fslabel=Test \
+--tmpdir=/root/iso/tmp \
+--cache=/root/iso/cache \
+--nocleanup \
+--cacheonly #为节约下载时间可在以后制作时忽略</pre>
+
+
+<h2>mysql grant</h2>
+
+<pre>grant all privileges on *.* to root@'%' identified by '123456';
+flush privileges;</pre>
+
+
+<h2>打开kvm nested参数</h2>
+
+<pre>cat /sys/module/kvm_intel/parameters/nested</pre>
+
+
+<p>为N则</p>
+
+<pre>modprobe -r kvm-intel
+modprobe kvm-intel nested=1</pre>
+
+
+<h2>Fedora滚动升级版 Rawhide</h2>
+
+<pre>yum install fedora-release-rawhide
+yum-config-manager --disable fedora updates updates-testing
+yum-config-manager --enable rawhide
+yum update yum
+yum --releasever=rawhide distro-sync --nogpgcheck</pre>
+
+
+<h2>Opensuse滚动升级版 Tumbleweed</h2>
+
+<pre>zypper ar --refresh http://download.opensuse.org/repositories/openSUSE:/Tumbleweed/standard/ Tumbleweed
+zypper ar --refresh http://download.opensuse.org/distribution/openSUSE-current/repo/oss/ 'openSUSE Current OSS'
+zypper ar --refresh http://download.opensuse.org/distribution/openSUSE-current/repo/non-oss/ 'openSUSE Current non-OSS'
+zypper ar --refresh http://download.opensuse.org/update/openSUSE-current/ 'openSUSE Current updates'
+zypper ar --refresh http://download.opensuse.org/update/openSUSE-non-oss-current/ 'openSUSE Current non-OSS updates' 
+zypper dup</pre>
+
+
+<h2>vs2012修复补丁</h2>
+
+<p>由于升级.net 4.5会出现vs2012部分项目失败，可以打这个补丁修复<br/>
+<a title="http://www.microsoft.com/zh-cn/download/details.aspx?id=36020" href="http://www.microsoft.com/zh-cn/download/details.aspx?id=36020" target="_blank">Microsoft Visual Studio 2012 更新 (KB2781514)</a></p>
+
+<h2>RESTClient</h2>
+
+<p>针对RESTful的API可以使用这个工具<br/>
+<a title="http://restclient.org" href="http://restclient.org" target="_blank"><a href="http://restclient.org">http://restclient.org</a></a></p>
+
+<h2>owncloud repo</h2>
+
+<p><a href="http://software.opensuse.org/download/package?project=isv:ownCloud:devel&amp;package=owncloud-client">http://software.opensuse.org/download/package?project=isv:ownCloud:devel&amp;package=owncloud-client</a></p>
+
+<h2>android google play</h2>
+
+<p>cp /data/app/googleplay /system/app/</p>
+
+<h2>获取Gravatar头像</h2>
+
+<pre>curl http://www.gravatar.com/avatar/`echo -n me@mydomain.com | md5sum` &gt; gravatar.jpg</pre>
+
+
+<h2>Maven insecure SSL</h2>
+
+<pre>-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true</pre>
+
+
+<h2>bVNC build</h2>
+
+<p>FreeRDP: checkout dbbb341; cmake .; ant release<br/>
+Singed keystore: keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore</p>
+
+<p><a href="http://www.mail-archive.com/spice-devel@lists.freedesktop.org/msg13763.html">http://www.mail-archive.com/spice-devel@lists.freedesktop.org/msg13763.html</a></p>
+
+<h2>IPA ADD-USER</h2>
+
+<pre>#!/bin/bash
+echo -e "pswd4admin\n" | kinit admin
+echo -e "$1\n$1\n$1\n" | ipa user-add
+echo -e "$1\n$1\n" | ipa passwd $1
+sleep 1
+echo -e "$1\n$1\n$1\n" | kinit $1</pre>
+
+
+<h2>NTP server</h2>
+
+<p>server 192.168.1.11 mask 255.255.0.0 nomodify<br/>
+启动ntpd后要等个几分钟，client才能去同步，否则报错说未找到合适的ntp服务器</p>
+
+<h2>rsync</h2>
+
+<pre>rsync -zvrtopgal -e ssh --delete --stats --progress --exclude 'ignore.txt' root@lofyer.org:/var/log /home/lofyer/lofyer.org/</pre>
+
+
+<h2>CentOS Smartcard</h2>
+
+<p>SmartCard service:<br/>
+openct<br/>
+pcscd</p>
+
+<h2>zathura</h2>
+
+<p>很好的PDF阅读器</p>
+
+<h2>ssh without password</h2>
+
+<pre># Generate rsa key pair without passphrase
+[demo@A ~]$ ssh-keygen -t rsa
+# Copy pub key to B
+[demo@A ~]$ cat .ssh/id_rsa.pub | ssh alpha@B 'cat &gt;&gt; .ssh/authorized_keys2'
+# Add private key to A
+[demo@A ~]$ ssh-add  ~/.ssh/id_rsa</pre>
+
+
+<h2>debian offcie乱码</h2>
+
+<p>安装文泉逸字体<br/>
+apt-get install fonts-wenquanyi</p>
+
+<h2>debian virt-viewer with spice</h2>
+
+<pre>deb http://mirrors.163.com/debian/ unstable main
+deb-src http://mirrors.163.com/debian/ unstable main
+
+deb http://security.debian.org/ unstable/updates main
+deb-src http://security.debian.org/ unstable/updates main
+
+# unstable-updates, previously known as 'volatile'
+deb http://mirrors.163.com/debian/ unstable-updates main
+deb-src http://mirrors.163.com/debian/ unstable-updates main
+deb http://apt.wxwidgets.org/ unstable-wx main
+deb-src http://apt.wxwidgets.org/ unstable-wx main</pre>
+
+
+<h2>Better DNS</h2>
+
+<p>dns1: 199.91.73.222<br/>
+dns2: 8.8.8.8</p>
+
+<h2>audit log</h2>
+
+<p>Modify <em>/etc/audit/audit.conf</em> to 8192 or bigger.</p>
+
+<h2>memcached</h2>
+
+<p><strong>PHP</strong></p>
+
+<pre># apt-get install memcached php5-memcached</pre>
+
+
+<p>modify <em>/etc/php5/conf.d/memcached.ini</em></p>
+
+<h2>disable TSO GSO to improve virtio-net</h2>
+
+<pre># ethtool -K eth0 gso off
+# ethtool -K eth0 tso off</pre>
+
+
+<h2>disable PackageKit in Fedora</h2>
+
+<p><em>/etc/yum/pluginconf.d/refresh-packagekit.conf</em></p>
+
+<pre>enabled=0</pre>
+
+
+<h2>推荐一种工作方式</h2>
+
+<p>集成显卡下运行linux，将另一块硬盘或者vdisk，还有独立显卡passthrough给虚拟机Win7，协议使用spice，这是很爽啊</p>
+
+<h2>crt &amp; key to pem</h2>
+
+<p>openssl x509 -inform DER -outform PEM -in server.crt -out server.crt.pem<br/>
+openssl rsa -inform DER -outform PEM -in server.key -out server.key.pem<br/>
+cat server.crt.pem server.key.pem >> server.pem</p>
+
+<h2>wireless relay for tomata</h2>
+
+<p>设置无线中继时确保主路由和从路由的SSID、密码、加密方式一致，不要使用WPA/WPA-2混合模式</p>
+
+<h2>libvirt password</h2>
+
+<pre># saslpasswd2 -a libvirt root</pre>
+
+
+<h2>netcat(nc) tips</h2>
+
+<p><strong>大传输文件(file transfer)</strong></p>
+
+<pre class="lang:default decode:true " >server: nc -l 5555 &lt; file_to_copy
+client: nc server_ip 5555 &gt; new_file</pre>
+
+
+<p><strong>聊天(chat)</strong></p>
+
+<pre class="lang:default decode:true " >client1: nc -l 5555
+client2: nc server_ip 5555
+</pre>
+
+
+<p><strong>udp connection</strong></p>
+
+<pre>server: nc -4 -u -l 5555
+clinet: nc -4 -u localhost 5555</pre>
+
+
+<h2>owncloud repo</h2>
+
+<pre class="lang:default decode:true " >[isv_ownCloud_community]
+name=Latest stable community release of ownCloud (CentOS_CentOS-6)
+type=rpm-md
+baseurl=http://download.opensuse.org/repositories/isv:/ownCloud:/community/CentOS_CentOS-6/
+gpgcheck=1
+gpgkey=http://download.opensuse.org/repositories/isv:/ownCloud:/community/CentOS_CentOS-6/repodata/repomd.xml.key
+enabled=1
+</pre>
+
+
+<h2>gnome terminal proxy</h2>
+
+<pre>
+$ ssh -ND 7070 yourname@yourserver  
+$ gconftool-2 -R /system/proxy # show configuration  
+$ gconftool-2 -s /system/proxy/socks_host -t int 127.0.0.1  
+$ gconftool-2 -s /system/proxy/socks_port -t int 7070  
+$ gconftool-2 -s /system/proxy/mode -t string manual # enable  
+$ gconftool-2 -s /system/proxy/mode -t string none # disable
+</pre>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-09-18T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/notes/'>notes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/09/03/%25e5%259b%259e%25e4%25b8%258d%25e5%258e%25bb%25e5%25b0%25b1%25e5%25be%2580%25e5%2589%258d%25e8%25b5%25b0/" title="Previous Post: 回不去就往前走">&laquo; 回不去就往前走</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/10/12/%25e8%25ae%25a9dnspod%25e8%25a7%25a3%25e6%259e%2590%25e4%25ba%2586/" title="Next Post: 让dnspod解析了">让dnspod解析了 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

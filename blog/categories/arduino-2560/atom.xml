@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Arduino 2560 | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/arduino-2560/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[LeapMotion Controlled X4]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/09/15/leapmotion-controlled-x4/"/>
+    <updated>2013-09-15T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/09/15/leapmotion-controlled-x4</id>
+    <content type="html"><![CDATA[<p>两者都入手已经一个月了，可平时有些忙（惰者多忙），也就只零零散散准备了一些资料，还没开始整合。<br/>
+整个流程大概是这个我用文字描述的粗略的样子：</p>
+
+<p>空间建模：获取飞行器初始坐标，与leapmotion的可视区域进行map。<br/>
+一级控制：leapmotion获得的手掌运动信息（可预处理）进入arduino通过nfr2401发送给X4，进行粗略运动指令传达。<br/>
+二级控制：根据摄像头采集的飞行器位置数据与手掌位置信息对比，进行二阶指令传达。<br/>
+回馈控制：在二级控制的基础上进行微调。<br/>
+错误返回：如果超出leapmotion可视范围，则进行回馈控制将X4返回初始位置（0,0,0），超出摄像头范围，则需。。。人工重置。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Arduino IO生成波形的问题]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/"/>
+    <updated>2013-03-23T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/03/23/arduino-io%e7%94%9f%e6%88%90%e6%b3%a2%e5%bd%a2%e7%9a%84%e9%97%ae%e9%a2%98</id>
+    <content type="html"><![CDATA[<pre>DigitalWrite(pin,HIGH);
+DELAY(10);
+DigitalWrite(pin,LOW)
+DELAY(10);
+</pre>
+
+
+<p>观察波形（上升沿触发）频率是51Hz，峰值为0.520V（使用外接电源的情况下，USB作电源为0.505V）。<br/>
+除掉市电滤波的原因，应该是128本身Timer造成的问题，因DELAY使用的是Timer，选中的端口同样为Timer可用的端口，故在电平维持时可看到波形有毛刺（示波器太烂了吧）。<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/03/psb.jpg"><img src="http://69.164.197.168/wp-content/uploads/2013/03/psb.jpg" alt="psb" width="640" height="480" class="alignnone size-full wp-image-1771" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Arduino+cpuload+serial+led]]></title>
+    <link href="http://blog.lofyer.org/blog/2012/12/09/arduinocpuloadserialled/"/>
+    <updated>2012-12-09T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2012/12/09/arduinocpuloadserialled</id>
+    <content type="html"><![CDATA[<p>用libgtop2的库，已完成。<br/>
+注意：<br/>
+数据以ascii类型传输，调用led时转化为int<br/>
+cpu利用率算式:</p>
+
+<pre>(float)(100*(cpu_time2.(sys+user)-cpu_time2.(sys+user))/(cpu_time2.total-cpu_time1.total))
+</pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Arduino]]></title>
+    <link href="http://blog.lofyer.org/blog/2012/10/21/arduino/"/>
+    <updated>2012-10-21T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2012/10/21/arduino</id>
+    <content type="html"><![CDATA[<p>目前最流行的是uno系列，而leonardo好象是在1.0.1后才加入的，其ide开发是在github上进行。<br/>
+设计很清爽（因为没有UI设计师吧），希望别像keil一样越来越冗余。<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2012/10/Screenshot-from-2012-10-22-200253.png"><img src="http://69.164.197.168/wp-content/uploads/2012/10/Screenshot-from-2012-10-22-200253.png" alt="" title="Screenshot from 2012-10-22 20:02:53" width="500" height="548" class="alignnone size-full wp-image-1603" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RTX内核]]></title>
+    <link href="http://blog.lofyer.org/blog/2012/10/13/rtx%25e5%2586%2585%25e6%25a0%25b8/"/>
+    <updated>2012-10-13T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2012/10/13/rtx%e5%86%85%e6%a0%b8</id>
+    <content type="html"><![CDATA[<p>下载了最新的MDK后，发现里面有个RTX内核，玩了一下，和UCOSII很像。</p>
+
+<p>semaphore，message，mailbox，mutex等同步与通信机制，代码易读，可移植性也好，在mini2440上运行完美，我只用了4个led 观察。</p>
+
+<p>喜欢的话可以看看，这是RTX内核源码，移植需要更改MDK中board 部分内容。</p>
+
+<p>点击下载 <a href="http://69.164.197.168/wp-content/uploads/2012/10/RTX.rar">RTX</a></p>
+
+<p>&nbsp;</p>
+]]></content>
+  </entry>
+  
+</feed>

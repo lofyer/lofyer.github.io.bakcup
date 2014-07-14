@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Linux Admin | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/linux-admin/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Lunr Search in Octopress]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress/"/>
+    <updated>2014-06-26T21:36:50+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress</id>
+    <content type="html"><![CDATA[<p>After migrating my blog from <code>wordpress</code> to <code>octopress</code> on Github, I miss some features like <code>search</code> and easy-customized theme.</p>
+
+<p>This article is inspired by <a href="https://github.com/slashdotdash/jekyll-lunr-js-search" target="_blank">jekyll-lunr-js-search</a>, <a href="https://github.com/yortz/octopress-lunr-js-search" target="_blank">octopress-lunr-js-search</a> and <a href="http://wangmuy.github.io/blog/2013/09-01-octopress-setup.html#jekylllunrjs-7">this</a>.</p>
+
+<p>Here we go.</p>
+
+<h2>1. Get essential files</h2>
+
+<p>Download .rb <a href="https://raw.githubusercontent.com/slashdotdash/jekyll-lunr-js-search/master/build/jekyll_lunr_js_search.rb" target="_blank">jekyll_lunr_js_search.rb</a> to directory <em>~/octopress/plugins/</em> .</p>
+
+<p>Download .js files below to directory <em>~/octopress/source/javascripts/</em> .</p>
+
+<p><a href="https://raw.github.com/olivernn/lunr.js/master/lunr.min.js" target="_blank">lunr.min.js</a></p>
+
+<p><a href="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js" target="_blank">mustache.js</a></p>
+
+<p><a href="http://stevenlevithan.com/assets/misc/date.format.js" target="_blank">date.format.js</a></p>
+
+<p><a href="https://github.com/medialize/URI.js/blob/gh-pages/src/URI.min.js" target="_blank">URI.min.js</a></p>
+
+<h2>2. Add search page</h2>
+
+<p>Add a page of search</p>
+
+<p><code>
+$ rake new_page["search"]
+</code></p>
+
+<p>with following contents:</p>
+
+<h2>```</h2>
+
+<p>layout: page
+title: &ldquo;Search&rdquo;
+comments: false
+sharing: false
+footer: false</p>
+
+<h1>exclude_from_search: false  # with this parameter, this page won&rsquo;t be indexed</h1>
+
+<hr />
+
+<div id="search">
+    <form action="/search" method="get">
+    <input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
+    </form>
+</div>
+
+
+<p><section id="search-results" style="display: none;"></p>
+
+<pre><code>&lt;p&gt;Search results&lt;/p&gt;
+&lt;div class="entries"&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p></section></p>
+
+<script src="http://blog.lofyer.org/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/URI.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"></script>
+
+
+<p></p>
+
+<script id="search-results-template" type="text/mustache">
+    {{#entries}}
+        <article>
+            <h3>
+            {{#date}}<small><time datetime="{{pubdate}}" pubdate>{{displaydate}}</time></small>{{/date}}
+            <a href="{{url}}">{{title}}</a>
+            </h3>
+        </article>
+    {{/entries}}
+</script>
+
+
+<p></p>
+
+<script type="text/javascript">
+    $(function() {
+        $('#search-query').lunrSearch({
+            indexUrl: '/search.json',             // URL of the `search.json` index data for your site
+            results:  '#search-results',          // jQuery selector for the search results container
+            entries:  '.entries',                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
+            template: '#search-results-template'  // jQuery selector for the Mustache.js template
+        });
+    });
+</script>
+
+
+<p>```</p>
+
+<p>Add <code>&lt;li&gt;&lt;a href="/search"&gt;Search&lt;/a&gt;&lt;/li&gt;</code> to <em>~/octopress/source/_includes/custom/navigation.html</em> .</p>
+
+<h2>3. Modify octopress configuration .</h2>
+
+<p>Add following lines to <em>~/octopress/_config.yml</em> to block indexing.</p>
+
+<p><code>
+lunr_search:
+  excludes: [rss.xml, atom.xml]
+</code></p>
+
+<p>Add <code>gem 'nokogiri'</code> to <em>~/octopress/Gemfile</em> to build the site then run</p>
+
+<p><code>
+$ bundle
+</code></p>
+
+<h2>4. Test</h2>
+
+<p><code>
+$ rake clean
+$ rake generate
+$ rake preview
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gitlab Quick Deploy]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/06/09/gitlab-quick-deploy/"/>
+    <updated>2014-06-09T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/06/09/gitlab-quick-deploy</id>
+    <content type="html"><![CDATA[<p>Well, Gitweb + ssh://git@host is out of date. Even we use it for almost 2 years.</p>
+
+<p>We are migrating our repositories to Gitlab which we benefit from its &#8220;issue&#8221; a lot.</p>
+
+<p>Please follow this scripts I wrote.</p>
+
+<p><a href="https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh" title="Gitlab quick deploy" target="_blank"><a href="https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh">https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh</a></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Heartbeat and Drbd Test High Availability]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/01/16/heartbeat-drbd-test-high-availability/"/>
+    <updated>2014-01-16T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/01/16/heartbeat-drbd-test-high-availability</id>
+    <content type="html"><![CDATA[<p>Hosts:<br/>
+192.168.1.101 ha1.lofyer.org, 2 hard drive disks, two ethernet ports<br/>
+192.168.1.103 ha2.lofyer.org, almost same as ha1</p>
+
+<p>Server host, this is the IP of heartbeat service:<br/>
+192.168.1.100</p>
+
+<h2>Install</h2>
+
+<p>The repos you need in centos</p>
+
+<pre>[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&#038;arch=$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+[elrepo]
+name=ELRepo.org Community Enterprise Linux Repository - el6
+baseurl=http://elrepo.org/linux/elrepo/el6/$basearch/
+mirrorlist=http://elrepo.org/mirrors-elrepo.el6
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
+protect=0
+</pre>
+
+
+
+
+<pre># yum install drbd84 kmod-drbd84 heartbeat mysql-server
+</pre>
+
+
+<h2>Setup</h2>
+
+<h3>1. Drbd configuration both hosts</h3>
+
+<p><strong>Add following content to file: /etc/hosts</strong></p>
+
+<pre>192.168.1.101 ha1.lofyer.org
+192.168.1.103 ha2.lofyer.org
+</pre>
+
+
+<p><strong>Disable selinux and iptables</strong></p>
+
+<pre># sed -i 's/enforcing/permissive/' /etc/selinux/config
+# setenforce 0
+# chkconfig iptables off
+# service iptables stop
+</pre>
+
+
+<p><strong>Prepare the disk partion</strong></p>
+
+<pre># fdisk /dev/sdb &lt;&lt; EOF
+n
+p
+1
+
+
+w
+EOF
+</pre>
+
+
+<p><strong>Configuration for mysql</strong><br/>
+# mkdir db<br/>
+# sed -i &rsquo;s/datadir=\/var\/lib\/mysql/datadir=\/db/&lsquo; /etc/my.cnf<br/>
+<strong>Configuration for drbd</strong><br/>
+file: /etc/drbd.conf</p>
+
+<pre>global {
+   minor-count 64;
+   usage-count yes;
+ }
+ common {
+   syncer { rate 1000M; }
+ }
+ resource ha {
+   protocol C;
+   handlers {
+     pri-on-incon-degr "/usr/lib/drbd/notify-pri-on-incon-degr.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b > /proc/sysrq-trigger ; reboot -f";
+     pri-lost-after-sb "/usr/lib/drbd/notify-pri-lost-after-sb.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b > /proc/sysrq-trigger ; reboot -f";
+     local-io-error "/usr/lib/drbd/notify-local-io-error.sh; /usr/lib/drbd/notify-emergency-shutdown.sh; echo o > /proc/sysrq-trigger ; halt -f";
+     fence-peer "/usr/lib/heartbeat/drbd-peer-outdater -t 5";
+     pri-lost "/usr/lib/drbd/notify-pri-lost.sh; /usr/lib/drbd/notify-emergency-reboot.sh; echo b > /proc/sysrq-trigger ; reboot -f";
+     split-brain "/usr/lib/drbd/notify-split-brain.sh root";
+     out-of-sync "/usr/lib/drbd/notify-out-of-sync.sh root";
+   }
+   startup {
+     wfc-timeout 60;
+     degr-wfc-timeout 120;
+     outdated-wfc-timeout 2;
+   }
+   disk {
+     on-io-error detach;
+     fencing resource-only;
+   }
+   syncer {
+     rate 1000M;
+   }
+   on ha1.lofyer.org {
+     device /dev/drbd0;
+     disk /dev/sdb1;
+     address 192.168.1.101:7788;
+     meta-disk internal;
+   }
+   on ha2.lofyer.org {
+     device /dev/drbd0;
+     disk /dev/sdb1;
+     address 192.168.1.103:7788;
+     meta-disk internal;
+   }
+ }
+</pre>
+
+
+<p><strong>Chmod for drbd</strong></p>
+
+<pre># chgrp haclient /sbin/drbdsetup
+ # chmod o-x /sbin/drbdsetup
+ # chmod u+s /sbin/drbdsetup
+ # chgrp haclient /sbin/drbdmeta
+ # chmod o-x /sbin/drbdmeta
+ # chmod u+s /sbin/drbdmeta
+</pre>
+
+
+<p><strong>Resource for drbd</strong></p>
+
+<pre># modprobe drbd
+ # dd if=/dev/zero of=/dev/hdb1 bs=1M count=100
+ # drbdadm create-md ha
+ # service drbd start
+ # chkconfig drbd on 
+</pre>
+
+
+<p><strong>Watch drbd status</strong></p>
+
+<pre># watch -n 1 service drbd status
+</pre>
+
+
+<p>You can see that both hosts are Secondary/Secondary.</p>
+
+<h3>2. Drbd configuration on one of hosts, like ha1</h3>
+
+<p><strong>Make ha1 Primary</strong></p>
+
+<pre># drbdadm -- --overwrite-data-of-peer primary ha
+ # service drbd status
+</pre>
+
+
+<p>Then you should see Primary and wait for both hosts are UpToDate.<br/>
+<strong>Initialization for Mysql</strong><br/>
+Make a</p>
+
+<pre># mkfs.ext4 /dev/drbd0
+# mount /dev/drbd0 /db
+# service mysqld start
+</pre>
+
+
+<p>Now you should see what you have got in /db, then umount /db, stop mysql-server and make ha1 Secondary.</p>
+
+<pre># service mysqld stop
+# umount /dev/drbd0
+# drbdadm secondary ha
+</pre>
+
+
+<h3>3. Heartbeat configuration on both hosts</h3>
+
+<p>YOU SHOULD MODIFY THE IP IN THE FILE.<br/>
+file: /etc/ha.d/ha.cf</p>
+
+<pre>debugfile /var/log/ha-debug
+logfile /var/log/ha-log
+logfacility local0
+autojoin none
+ucast eth0 192.168.1.101
+ucast eth1 192.168.1.102
+ping 10.10.25.254    
+respawn hacluster /usr/lib64/heartbeat/ipfail
+respawn hacluster /usr/lib64/heartbeat/dopd
+apiauth dopd gid=haclient uid=hacluster
+udpport 694
+warntime 5
+deadtime 15
+initdead 60
+keepalive 2
+node node1.weithenn.org
+node node2.weithenn.org
+auto_failback off    
+</pre>
+
+
+<p>The service will be serve on IP 192.168.1.100.<br/>
+file: /etc/ha.d/haresources</p>
+
+<pre>mysql.lofyer.org 192.168.1.100 drbddisk::ha Filesystem::/dev/drbd0::/db::ext4 mysql</pre>
+
+
+<p><strong>Add mysql entry to heartbeat</strong><br/>
+file: /etc/ha.d/resource.d/mysql</p>
+
+<pre>#!/bin/bash
+. /etc/ha.d/shellfuncs
+case "$1" in
+start)
+  res=`/etc/init.d/mysqld start`
+  ret=$?
+  ha_log $res
+  exit $ret
+  ;;
+stop)
+  res=`/etc/init.d/mysqld stop`
+  ret=$?
+  ha_log $res
+  exit $ret
+  ;;
+status)
+  if [[ `ps -ef | grep '[m]ysqld'` > 1 ]]; then
+     echo "running"
+  else
+     echo "stopped"
+  fi
+  ;;
+*)
+  echo "Usage: mysqld {start|stop|status}"
+  exit 1
+  ;;
+esac
+exit 0
+</pre>
+
+
+<p>Add excute permission to it.</p>
+
+<pre># chmod 755 /etc/ha.d/resource.d/mysql 
+</pre>
+
+
+<p><strong>Add heartbeat service to system</strong></p>
+
+<pre># chkconfig --add heartbeat
+# chkconfig heartbeat on
+# service heartbeat start
+</pre>
+
+
+<p>*You may need modify order of drbd and heartbeat service.<br/>
+In /etc/init.d/, the number 85 and 15 represent the order number which the script is to be<br/>
+run at start up time and shutdown time.<br/>
+# chkconfig: &ndash; 85 15<br/>
+*</p>
+
+<h2>Test HA</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unix/Linux/MacOS Monitor Tools]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/11/29/unixlinuxmacos-monitor-tools/"/>
+    <updated>2013-11-29T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/11/29/unixlinuxmacos-monitor-tools</id>
+    <content type="html"><![CDATA[<h2>System</h2>
+
+<p><strong>Web</strong><br/>
+munin<br/>
+Nagios<br/>
+Icinga<br/>
+foreman<br/>
+monit<br/>
+monitorix<br/>
+Suricata</p>
+
+<h2>Network</h2>
+
+<p><strong>Web</strong><br/>
+ntop<br/>
+cacti<br/>
+<strong>Terminal</strong><br/>
+iftop<br/>
+tcpdump<br/>
+netstat<br/>
+iptraf<br/>
+vnstat</p>
+
+<h2>Cpu/Memory</h2>
+
+<p><strong>Terminal</strong><br/>
+top<br/>
+htop<br/>
+vmstat<br/>
+pmap</p>
+
+<h2>IO</h2>
+
+<p><strong>Terminal</strong><br/>
+iotop<br/>
+iostat</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Use Foreman/Nagios/Icinga to Make Life Easy&#8230;]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/09/24/nagiosicinga-event-handler-life-easy/"/>
+    <updated>2013-09-24T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/09/24/nagiosicinga-event-handler-life-easy</id>
+    <content type="html"><![CDATA[<h1>Install nagios in Gentoo/CentOS</h1>
+
+<h2>Gentoo</h2>
+
+<pre># emerge nagios</pre>
+
+
+<h3>Option: recompile apache for php support</h3>
+
+<p>add use flag &#8220;apache2&#8243; to /etc/portage/make.conf</p>
+
+<pre># emerge --ask --changed-use --deep @world</pre>
+
+
+<h3>Copy following content to /etc/apache2/vhosts.d/</h3>
+
+<pre>ScriptAlias /nagios/cgi-bin "/usr/lib64/nagios/cgi-bin"
+&lt;Directory "/usr/lib64/nagios/cgi-bin"&gt;
+#  SSLRequireSSL
+    Options ExecCGI
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+    AuthName "Nagios Access"
+    AuthType Basic
+    AuthUserFile /etc/nagios/auth.users
+    Require valid-user
+
+Alias /nagios "/usr/share/nagios/htdocs"
+&lt;Directory "/usr/share/nagios/htdocs"&gt;
+#  SSLRequireSSL
+    Options None
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+#  Order deny,allow
+#  Deny from all
+#  Allow from 127.0.0.1
+    AuthName "Nagios Access"
+    AuthType Basic
+    AuthUserFile /etc/nagios/auth.users
+    Require nagiosadmin</pre>
+
+
+<h3>Create password for nagiosadmin</h3>
+
+<pre># htpasswd2 -c /etc/nagios/auth.users nagiosadmin</pre>
+
+
+<h3>Add NAGIOS to apache config</h3>
+
+<p>/etc/conf.d/apache</p>
+
+<pre>APACHE2_OPTS="... -D NAGIOS -D PHP5"</pre>
+
+
+<p>Add user nagios to apache group</p>
+
+<pre># usermod -a -G nagios apache</pre>
+
+
+<p>Start service</p>
+
+<pre># rc-service nagios restart
+# rc-service apache2 restart</pre>
+
+
+<h2>CentOS</h2>
+
+<pre># yum install "nagios*"
+# htpasswd -c /etc/nagios/passwd admin
+# chkconfig nagios on
+# chkconfig httpd on
+# service nagios start
+# service httpd start
+</pre>
+
+
+<h2>Add routers/hosts, add service, add hooks</h2>
+
+<h2>Intergrate with oVirt</h2>
+
+<h1>using Foreman</h1>
+
+<h2>Install</h2>
+
+<h2>USE</h2>
+
+<h2>Intergrate with oVirt</h2>
+
+<p>TBD</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,2230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Milestone]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/07/07/milestone/"/>
+    <updated>2014-07-07T23:26:17+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/07/07/milestone</id>
+    <content type="html"><![CDATA[<p>对于“成熟”，我们有时会刻意追求它，逐渐让自己靠近心中的标准。</p>
+
+<p>我们不断的fail and try， try and fail， fail and try，希望让自己有些许成长，并且也期望提高周围事物，比如爱情、事业、愿景、交际等等。当人觉得事情跟不上自己的步伐时，不如好好休息一下，是自己跑快了还是跑偏了。</p>
+
+<p>这些年来，一直期望自己能在人工智能或者人体机械方面有所成果，早些年是单纯的兴趣，而现在，觉得它可以让世界离文明更进一步。可是，不知现在是否在积累—— I want to see everything and people will benefit that。 或许，我这偏执的想法有些。。找不到合适的词了。</p>
+
+<p>仍然，对于知识以及能力的追求目的还是为了知识和能力，就像资本之于某些商人。</p>
+
+<p>不忧愁不该忧愁的，高兴本该高兴的，可能就该如此吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lunr Search in Octopress]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress/"/>
+    <updated>2014-06-26T21:36:50+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress</id>
+    <content type="html"><![CDATA[<p>After migrating my blog from <code>wordpress</code> to <code>octopress</code> on Github, I miss some features like <code>search</code> and easy-customized theme.</p>
+
+<p>This article is inspired by <a href="https://github.com/slashdotdash/jekyll-lunr-js-search" target="_blank">jekyll-lunr-js-search</a>, <a href="https://github.com/yortz/octopress-lunr-js-search" target="_blank">octopress-lunr-js-search</a> and <a href="http://wangmuy.github.io/blog/2013/09-01-octopress-setup.html#jekylllunrjs-7">this</a>.</p>
+
+<p>Here we go.</p>
+
+<h2>1. Get essential files</h2>
+
+<p>Download .rb <a href="https://raw.githubusercontent.com/slashdotdash/jekyll-lunr-js-search/master/build/jekyll_lunr_js_search.rb" target="_blank">jekyll_lunr_js_search.rb</a> to directory <em>~/octopress/plugins/</em> .</p>
+
+<p>Download .js files below to directory <em>~/octopress/source/javascripts/</em> .</p>
+
+<p><a href="https://raw.github.com/olivernn/lunr.js/master/lunr.min.js" target="_blank">lunr.min.js</a></p>
+
+<p><a href="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js" target="_blank">mustache.js</a></p>
+
+<p><a href="http://stevenlevithan.com/assets/misc/date.format.js" target="_blank">date.format.js</a></p>
+
+<p><a href="https://github.com/medialize/URI.js/blob/gh-pages/src/URI.min.js" target="_blank">URI.min.js</a></p>
+
+<h2>2. Add search page</h2>
+
+<p>Add a page of search</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_page["search"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>with following contents:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>layout: page
+</span><span class='line'>title: "Search"
+</span><span class='line'>comments: false
+</span><span class='line'>sharing: false
+</span><span class='line'>footer: false
+</span><span class='line'>#exclude_from_search: false  # with this parameter, this page won't be indexed
+</span><span class='line'>---
+</span><span class='line'>
+</span><span class='line'>&lt;div id="search"&gt;
+</span><span class='line'>  &lt;form action="/search" method="get"&gt;
+</span><span class='line'>      &lt;input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off"&gt;
+</span><span class='line'>  &lt;/form&gt;
+</span><span class='line'>&lt;/div&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;section id="search-results" style="display: none;"&gt;
+</span><span class='line'>  &lt;p&gt;Search results&lt;/p&gt;
+</span><span class='line'>  &lt;div class="entries"&gt;
+</span><span class='line'>      &lt;/div&gt;
+</span><span class='line'>&lt;/section&gt;
+</span><span class='line'> 
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/mustache.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/date.format.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/URI.min.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;script src="http://blog.lofyer.org/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</span><span class='line'> 
+</span><span class='line'>
+</span><span class='line'>&lt;script id="search-results-template" type="text/mustache"&gt;
+</span><span class='line'>      {{#entries}}
+</span><span class='line'>      &lt;article&gt;
+</span><span class='line'>              &lt;h3&gt;
+</span><span class='line'>              {{#date}}&lt;small&gt;&lt;time datetime="{{pubdate}}" pubdate&gt;{{displaydate}}&lt;/time&gt;&lt;/small&gt;{{/date}}
+</span><span class='line'>          &lt;a href="{{url}}"&gt;{{title}}&lt;/a&gt;
+</span><span class='line'>              &lt;/h3&gt;
+</span><span class='line'>      &lt;/article&gt;
+</span><span class='line'>      {{/entries}}
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'> 
+</span><span class='line'>&lt;script type="text/javascript"&gt;
+</span><span class='line'>  $(function() {
+</span><span class='line'>      $('#search-query').lunrSearch({
+</span><span class='line'>              indexUrl: '/search.json',             // URL of the `search.json` index data for your site
+</span><span class='line'>              results:  '#search-results',          // jQuery selector for the search results container
+</span><span class='line'>              entries:  '.entries',                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
+</span><span class='line'>              template: '#search-results-template'  // jQuery selector for the Mustache.js template
+</span><span class='line'>      });
+</span><span class='line'>      });
+</span><span class='line'>&lt;/script&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add <code>&lt;li&gt;&lt;a href="http://blog.lofyer.org/search"&gt;Search&lt;/a&gt;&lt;/li&gt;</code> to <em>~/octopress/source/_includes/custom/navigation.html</em> .</p>
+
+<h2>3. Modify octopress configuration .</h2>
+
+<p>Add following lines to <em>~/octopress/_config.yml</em> to block indexing.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>lunr_search:
+</span><span class='line'>  excludes: [rss.xml, atom.xml]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add <code>gem 'nokogiri'</code> to <em>~/octopress/Gemfile</em> to build the site then run</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ bundle</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4. Test</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake clean
+</span><span class='line'>$ rake generate
+</span><span class='line'>$ rake preview</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gitlab Quick Deploy]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/06/09/gitlab-quick-deploy/"/>
+    <updated>2014-06-09T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/06/09/gitlab-quick-deploy</id>
+    <content type="html"><![CDATA[<p>Well, Gitweb + ssh://git@host is out of date. Even we use it for almost 2 years.</p>
+
+<p>We are migrating our repositories to Gitlab which we benefit from its &#8220;issue&#8221; a lot.</p>
+
+<p>Please follow this scripts I wrote.</p>
+
+<p><a href="https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh" title="Gitlab quick deploy" target="_blank"><a href="https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh">https://raw.githubusercontent.com/lofyer/onekey-deploy/master/gitlab/install.sh</a></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[15. Ovirt-shell]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/22/6-5-1-ovirt-shell/"/>
+    <updated>2014-05-22T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/22/6-5-1-ovirt-shell</id>
+    <content type="html"><![CDATA[<p>和许多虚拟化平台一样，ovirt也有自己的shell，并且在功能上有自己的特点。</p>
+
+<h2>连接ovirt-shell</h2>
+
+<pre># yum install ovirt-engine-cli
+# ovirt-shell -l https://192.168.1.190 -u admin@internal -I
+</pre>
+
+
+<p>连接以后，可双击tab以自动补全。<br/>
+<strong>你可以看出来，在ovirt中，vm、host、cluster等均可以看作“对象”，而其操作比如“start”、“stop”等可看作方法。</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[21. Hadoop/Storm 介绍]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/17/7-1-hadoop-storm-intro/"/>
+    <updated>2014-05-17T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/17/7-1-hadoop-storm-intro</id>
+    <content type="html"><![CDATA[<p>终于到这一章了。<br/>
+<strong>期望这一章的读者不要盲目跟风，找到适合自己的便好。</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[14. oVirt使用进阶]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/11/cloud-6-5-advanced-ovirt/"/>
+    <updated>2014-05-11T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/11/cloud-6-5-advanced-ovirt</id>
+    <content type="html"><![CDATA[<h2>ovirt-shell</h2>
+
+<p>使用ovirt-shell在一定程度上适合于某些场景。</p>
+
+<pre># ovirt-shell -I -u admin@internal -l https://server_ip/api
+
+  ============================================================================
+                      >>> connected to oVirt manager 3.4.0.0 &lt;&lt;&lt;
+  ============================================================================
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                             Welcome to oVirt shell
+
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+[oVirt shell (connected)]#
+</pre>
+
+
+<h2>主机hooks</h2>
+
+<p>参考<a href="https://github.com/oVirt/vdsm/tree/master/vdsm_hooks" target="_blank">vdsm-hooks</a>。</p>
+
+<h2>集群策略</h2>
+
+<p><a href="http://www.ovirt.org/images/2/2a/Scheduler-Deep-Dive-oVirt.pdf" target="_blank">参考这个PDF</a>。</p>
+
+<h2>libguestfs扩容</h2>
+
+<p><strong>LVM扩容</strong><br/>
+<strong>普通扩容</strong></p>
+
+<h2>UI plugin</h2>
+
+<p><strong>ShellInABox</strong></p>
+
+<h2>平台插件</h2>
+
+<p><strong>Foreman</strong><br/>
+<strong>OpenStack Network</strong><br/>
+<strong>OpenStack Image</strong></p>
+
+<h2>手动创建导出域</h2>
+
+<p>构造目录，形如：</p>
+
+<pre># tree exports
+.
+├── 37e0e64b-5445-4bc3-8675-ceff4637e8e3/
+│   ├── dom_md/
+│   │   ├── ids
+│   │   ├── inbox
+│   │   ├── leases
+│   │   ├── metadata
+│   │   └── outbox
+│   ├── images/
+│   └── master/
+│       ├── tasks/
+│       └── vms/
+└── __DIRECT_IO_TEST__</pre>
+
+
+<p>创建<em>leases</em>文件：</p>
+
+<pre title="create leases"># echo 2d2d2d2d2d2d465245452d2d2d2d2d2d3030303030303030303030303030
+303000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000
+0000 | xxd -r -p > leases
+</pre>
+
+
+<p>添加如下内容至<em>metadata</em>文件：</p>
+
+<pre title="metadata">CLASS=Backup
+DESCRIPTION=Export
+IOOPTIMEOUTSEC=10
+LEASERETRIES=3
+LEASETIMESEC=60
+LOCKPOLICY=
+LOCKRENEWALINTERVALSEC=5
+MASTER_VERSION=0
+POOL_UUID=
+REMOTE_PATH=192.168.1.108:/home/nfs_exports
+ROLE=Regular
+SDUUID=37e0e64b-5445-4bc3-8675-ceff4637e8e3
+TYPE=NFS
+VERSION=0
+#_SHA_CKSUM=5737f1270bf93fdd660fea819655b01a34c315b9
+</pre>
+
+
+<p>使用如下脚本（参考源码中packaging/setup/plugins/ovirt-engine-setup/config/iso_domain.py）计算SHA校验值，并将其填入<em>metadata</em>中的_SHA_CKSUM段：</p>
+
+<pre title="domain_chksum.py">#!/usr/bin/python
+
+import hashlib
+from optparse import OptionParser
+
+if __name__  == "__main__":
+    parser = OptionParser()
+    (options, args) = parser.parse_args()
+    if len(args) != 1:
+        parser.error("Missing metadata file")
+    f = open(args[0], "r")
+    mds = {}
+    for line in f:
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        try:
+            key,value = line.split('=', 1)
+            if key == '_SHA_CKSUM':
+                continue
+            mds[key] = value
+        except Exception, e:
+            continue
+    f.close()
+    #print mds
+    csum = hashlib.sha1()
+    keys = mds.keys()
+    keys.sort()
+    for key in keys:
+        value = mds[key]
+        line = "%s=%s" % (key, value)
+        csum.update(line)
+    print(csum.hexdigest())
+</pre>
+
+
+<p>更改权限：</p>
+
+<pre># chown -R vdsm.kvm exports</pre>
+
+
+<p>然后可以作为空导出域进行导入。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[13. 完善平台]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/08/6-4-complete-ovirt/"/>
+    <updated>2014-05-08T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/08/6-4-complete-ovirt</id>
+    <content type="html"><![CDATA[<p>我想，你看到这的话应该已经有了一个数据中心、几个宿主机，也可能有一个虚拟机（engine），还差一个存储虚拟机镜像的地方就可以具有基本功能的oVirt平台了。</p>
+
+<p>Ok, here we go.</p>
+
+<h2>添加节点（宿主机）</h2>
+
+<p>对于第11节的普通oVirt、第12节的ha平台，你可能需要添加更多节点以支持更好的SLA（service level agreement）。<br/>
+添加节点目前有三种方式，一种是通过oVirt的节点ISO直接安装再加入，另一种是直接将现有CentOS或者Fedora转化为节点，另外还可以指定使用外部节点（Foreman），在此我们使用第二种方法。</p>
+
+<p><a href="http://blog.lofyer.org/6-4-complete-ovirt/add_node_1/" rel="attachment wp-att-3415"><img src="http://lofyer.github.io/uploads/add_node_1.png" alt="add_node_1" width="695" height="574" class="alignnone size-full wp-image-3415" /></a></p>
+
+<h2>添加存储域</h2>
+
+<p>存储域有3种，Data（数据域）、ISO（ISO域）、Export（导出域）。<br/>
+其中，数据域是为必需，在创建任何虚拟机之前需要有一个可用的数据域用于存储虚拟磁盘以及快照文件；ISO域中可以存放ISO和VFD格式的系统镜像或者驱动文件；导出域用于导出或导入OVF格式的虚机。<br/>
+而根据数据域的存储类型，我们有5种（NFS、POSIX兼容、Glusterfs、iSCSI、光纤）可选，在此，建议（为什么？）选择glusterfs导出的NFS。</p>
+
+<p><em>此图可以换掉</em><br/>
+<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_storage_1/" rel="attachment wp-att-3417"><img src="http://lofyer.github.io/uploads/add_storage_1.png" alt="add_storage_1" width="755" height="555" class="alignnone size-full wp-image-3417" /></a></p>
+
+<p><strong>注意</strong>：确保存储域权限为36:36，也即vdsm.kvm。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[11. 搭建oVirt虚拟化平台]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin/"/>
+    <updated>2014-05-07T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin</id>
+    <content type="html"><![CDATA[<p>对于初次使用oVirt的用户，建议使用此种搭建方式，<strong>太折腾的话就吓走好多目标读者了</strong>。</p>
+
+<p>使用之前的四台机器，分别为gs1.lofyer.org，gs2.lofyer.org，gs3.lofyer.org和gs4.lofyer.org，其中，将gs1作为管理机安装ovirt-engine，其余三台作为节点（node），存储使用已经创建好的glusterfs。</p>
+
+<h2>准备</h2>
+
+<p><strong>存储可以使用之前的glusterfs，方式为NFS_V3，注意将brick的权限设置为vdsm.kvm或者36:36。</strong></p>
+
+<pre class="lang:default decode:true " ># gluster volume create gluster-vol1 replica 2 gs1.example.com:/gluster_brick0 gs2.example.com:/gluster_brick0 gs3.example.com:/gluster_brick0 gs4.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick1 force</pre>
+
+
+<p><a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img src="http://lofyer.github.io/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" class="alignnone size-full wp-image-3307" /></a></p>
+
+<p><strong>由于engine以及node的网络服务依赖于network而非NetworkManager，我们需要启用前者禁用后者，在每一台服务器上都进行如下类似配置修改网络。</strong></p>
+
+<pre title="/etc/sysconfig/network-scripts/ifcfg-eth0">NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=static
+# 注意修改此处的IP
+IPADDR=192.168.10.101
+NETMASK=255.255.255.0
+GATEWAY=192.168.10.1
+DNS1=192.168.10.1</pre>
+
+
+
+
+<pre># chkconfig NetworkManager off
+# chkconfig network on
+# service NetworkManager stop; service network restart</pre>
+
+
+<h2>添加repo</h2>
+
+<pre># yum localinstall http://resources.ovirt.org/releases/ovirt-release.noarch.rpm
+# yum install ovirt-hosted-engine-setup</pre>
+
+
+<p>或者手动添加：</p>
+
+<pre title="/etc/yum.repos.d/ovirt.repo">[ovirt-stable]
+name=Latest oVirt Releases
+baseurl=http://ovirt.org/releases/stable/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-3.4-stable]
+name=Latest oVirt 3.4.z Releases
+baseurl=http://ovirt.org/releases/3.4/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&#038;arch=$basearch
+failovermethod=priority
+enabled=1
+includepkgs=epel-release,python-uinput,puppet,python-lockfile,python-cpopen,python-ordereddict,python-pthreading,python-inotify,python-argparse,novnc,python-ply,python-kitchen,python-daemon,python-websockify,livecd-tools,spice-html5,mom
+gpgcheck=0
+
+[ovirt-glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+</pre>
+
+
+<h2>安装管理节点。</h2>
+
+<p>在gs1上运行如下命令。</p>
+
+<pre title="setup webadmin"># yum install ovirt-engine
+# engine-setup --offline
+[ INFO  ] Stage: Initializing
+[ INFO  ] Stage: Environment setup
+          Configuration files: ['/etc/ovirt-engine-setup.conf.d/10-packaging.conf']
+          Log file: /var/log/ovirt-engine/setup/ovirt-engine-setup-20140508054649.log
+          Version: otopi-1.2.0 (otopi-1.2.0-1.el6)
+[ INFO  ] Stage: Environment packages setup
+[ INFO  ] Stage: Programs detection
+[ INFO  ] Stage: Environment setup
+[ INFO  ] Stage: Environment customization
+         
+          --== PRODUCT OPTIONS ==--
+         
+         
+          --== PACKAGES ==--
+         
+         
+          --== NETWORK CONFIGURATION ==--
+         
+          Host fully qualified DNS name of this server [gs1.lofyer.org]: 
+          Setup can automatically configure the firewall on this system.
+          Note: automatic configuration of the firewall may overwrite current settings.
+          Do you want Setup to configure the firewall? (Yes, No) [Yes]: 
+          The following firewall managers were detected on this system: iptables
+          Firewall manager to configure (iptables): iptables
+[ INFO  ] iptables will be configured as firewall manager.
+         
+          --== DATABASE CONFIGURATION ==--
+         
+          Where is the Engine database located? (Local, Remote) [Local]: 
+          Setup can configure the local postgresql server automatically for the engine to run. This may conflict with existing applications.
+          Would you like Setup to automatically configure postgresql and create Engine database, or prefer to perform that manually? (Automatic, Manual) [Automatic]: 
+         
+          --== OVIRT ENGINE CONFIGURATION ==--
+         
+          Application mode (Both, Virt, Gluster) [Both]: 
+          Default storage type: (NFS, FC, ISCSI, POSIXFS) [NFS]: 
+          Engine admin password: 
+          Confirm engine admin password: 
+         
+          --== PKI CONFIGURATION ==--
+         
+          Organization name for certificate [lofyer.org]: 
+         
+          --== APACHE CONFIGURATION ==--
+         
+          Setup can configure apache to use SSL using a certificate issued from the internal CA.
+          Do you wish Setup to configure that, or prefer to perform that manually? (Automatic, Manual) [Automatic]: 
+          Setup can configure the default page of the web server to present the application home page. This may conflict with existing applications.
+          Do you wish to set the application as the default page of the web server? (Yes, No) [Yes]: 
+         
+          --== SYSTEM CONFIGURATION ==--
+         
+          Configure WebSocket Proxy on this machine? (Yes, No) [Yes]: 
+          Configure an NFS share on this server to be used as an ISO Domain? (Yes, No) [Yes]: no
+         
+          --== MISC CONFIGURATION ==--
+         
+         
+          --== END OF CONFIGURATION ==--
+         
+[ INFO  ] Stage: Setup validation
+         
+          --== CONFIGURATION PREVIEW ==--
+         
+          Engine database name                    : engine
+          Engine database secured connection      : False
+          Engine database host                    : localhost
+          Engine database user name               : engine
+          Engine database host name validation    : False
+          Engine database port                    : 5432
+          PKI organization                        : lofyer.org
+          Application mode                        : both
+          Firewall manager                        : iptables
+          Update Firewall                         : True
+          Configure WebSocket Proxy               : True
+          Host FQDN                               : gs1.lofyer.org
+          Datacenter storage type                 : nfs
+          Configure local Engine database         : True
+          Set application as default page         : True
+          Configure Apache SSL                    : True
+         
+          Please confirm installation settings (OK, Cancel) [OK]: ok
+[ INFO  ] Stage: Transaction setup
+[ INFO  ] Stopping engine service
+[ INFO  ] Stopping websocket-proxy service
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Stage: Package installation
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Initializing PostgreSQL
+[ INFO  ] Creating PostgreSQL 'engine' database
+[ INFO  ] Configuring PostgreSQL
+[ INFO  ] Creating Engine database schema
+[ INFO  ] Creating CA
+[ INFO  ] Configuring WebSocket Proxy
+[ INFO  ] Generating post install configuration file '/etc/ovirt-engine-setup.conf.d/20-setup-ovirt-post.conf'
+[ INFO  ] Stage: Transaction commit
+[ INFO  ] Stage: Closing up
+         
+          --== SUMMARY ==--
+         
+          SSH fingerprint: 1B:FD:08:A2:FD:83:20:8A:65:F5:0D:F6:CB:BF:46:C7
+          Internal CA 28:7E:D6:6B:F7:F2:6C:B5:60:27:44:C3:7F:3C:22:63:E5:68:DD:F4
+          Web access is enabled at:
+
+http://gs1.lofyer.org:80/ovirt-engine
+
+
+https://gs1.lofyer.org:443/ovirt-engine
+
+          Please use the user "admin" and password specified in order to login into oVirt Engine
+         
+          --== END OF SUMMARY ==--
+         
+[ INFO  ] Starting engine service
+[ INFO  ] Restarting httpd
+[ INFO  ] Generating answer file '/var/lib/ovirt-engine/setup/answers/20140508054842-setup.conf'
+[ INFO  ] Stage: Clean up
+          Log file is located at /var/log/ovirt-engine/setup/ovirt-engine-setup-20140508054649.log
+[ INFO  ] Stage: Pre-termination
+[ INFO  ] Stage: Termination
+[ INFO  ] Execution of setup completed successfully</pre>
+
+
+<p>至此，管理节点安装结束。</p>
+
+<p>接下来，加入节点以及存储域，请参考第13节。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Add Nat to Ovirt via Vdsm Hooks]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/"/>
+    <updated>2014-05-04T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks</id>
+    <content type="html"><![CDATA[<p>OK, I do not like control group very much for now.</p>
+
+<h2>Comment device section in control group config, sorry for my laziness&#8230;</h2>
+
+<pre title="/etc/cgconfig.conf">mount {
+        cpuset  = /cgroup/cpuset;
+        cpu     = /cgroup/cpu;
+        cpuacct = /cgroup/cpuacct;
+        memory  = /cgroup/memory;
+#       devices = /cgroup/devices;
+        freezer = /cgroup/freezer;
+#       net_cls = /cgroup/net_cls;
+        blkio   = /cgroup/blkio;
+}
+</pre>
+
+
+<h2>Enable ip forward</h2>
+
+<pre title="Content added to /etc/sysctl.conf">net.ipv4.ip_forward = 1
+</pre>
+
+
+<p><strong>Reboot the host</strong></p>
+
+<h2>Connect to virsh to enable libvirt&#8217;s default virbr0(NAT)</h2>
+
+<p>If you don&#8217;t know the password for your account, just use command below to create one.</p>
+
+<pre># saslpasswd2 -a libvirt root
+</pre>
+
+
+<p>Create a nat network.</p>
+
+<pre title="/etc/libvirt/qemu/networks/nat.xml" lang="xml">&lt;network>
+  &lt;name>nat&lt;/name>
+  &lt;uuid>b42e377d-e849-4c36-bd98-3d090def5ecc&lt;/uuid>
+  &lt;bridge name="virbr1"/>
+  &lt;mac address='52:54:00:E2:AD:b8'/>
+  &lt;forward mode="nat"/>
+  &lt;ip address="192.168.123.1" netmask="255.255.255.0">
+    &lt;dhcp>
+      &lt;range start="192.168.123.2" end="192.168.123.254"/>
+    &lt;/dhcp>
+  &lt;/ip>
+&lt;/network>
+</pre>
+
+
+
+
+<pre># virsh net-create /etc/libvirt/qemu/networks/nat.xml
+# virsh net-autostart nat
+# virsh net-start nat
+</pre>
+
+
+<h2>Create tun device and add it to virbr0</h2>
+
+<p><strong>UPDATE: This could be ignored if you use extnet.py</strong></p>
+
+<pre># tunctl -t nat0 -u qemu
+# brctl addif virbr1 nat0
+</pre>
+
+
+<h2>Add hook file to vdsm</h2>
+
+<p><strong>UPDATE: use extnet from github with a little modification (Only the first vNIC will be NAT, the second one still keeps its way).</strong></p>
+
+<pre title="extnet.py" lang="python">#!/usr/bin/python
+
+import os
+import sys
+import traceback
+import xml.dom
+import hooking
+
+def replaceSource(interface, newnet):
+    source, = interface.getElementsByTagName('source')
+    source.removeAttribute('bridge')
+    source.setAttribute('network', newnet)
+    interface.setAttribute('type', 'network')
+
+def main():
+    params = "default"
+    os.environ.__setitem__("extnet",params)
+    newnet = os.environ.get('extnet')
+    if newnet is not None:
+        doc = hooking.read_domxml()
+        interface = doc.getElementsByTagName('interface')[0]
+        replaceSource(interface, newnet)
+        hooking.write_domxml(doc)
+def test():
+
+    interface = xml.dom.minidom.parseString("""
+    &lt;interface type="bridge">
+        &lt;address bus="0x00" domain="0x0000" function="0x0" slot="0x03"\
+                                            type="pci"/>
+        &lt;mac address="00:1a:4a:16:01:b0"/>
+        &lt;model type="virtio"/>
+        &lt;source bridge="ovirtmgmt"/>
+        &lt;filterref filter="vdsm-no-mac-spoofing"/>
+        <link state="up" />
+&lt;boot order="1"/>
+    &lt;/interface>
+    """).getElementsByTagName('interface')[0]
+
+    print "Interface before forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+    replaceSource(interface, 'yipee')
+    print "Interface after forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+
+if __name__ == '__main__':
+    try:
+        if '--test' in sys.argv:
+            test()
+        else:
+            main()
+    except:
+        hooking.exit_hook('extnet hook: [unexpected error]: %s\n' %
+                          traceback.format_exc())
+</pre>
+
+
+<p><strong>QEMU-CMD way:</strong></p>
+
+<pre lang="python" title="/usr/libexec/vdsm/hooks/before_vm_start/nat.py with execute permission">import os
+import sys
+import hooking
+import traceback
+import json
+import shutil
+
+def addQemuNs(domXML):
+    domain = domXML.getElementsByTagName('domain')[0]
+    domain.setAttribute('xmlns:qemu',
+                        'http://libvirt.org/schemas/domain/qemu/1.0')
+
+
+def injectQemuCmdLine(domXML, qc):
+    domain = domXML.getElementsByTagName('domain')[0]
+    qctag = domXML.createElement('qemu:commandline')
+
+    for cmd in qc:
+        qatag = domXML.createElement('qemu:arg')
+        qatag.setAttribute('value', cmd)
+
+        qctag.appendChild(qatag)
+
+    domain.appendChild(qctag)
+domxml = hooking.read_domxml()
+
+# Get vm uuid, just in case
+
+cur_vm_uuid = domxml.getElementsByTagName('uuid')[0].firstChild.nodeValue
+
+macaddr = "94:de:80:ea:30:f5"
+natname = "nat0"
+params = '["-netdev","tap,ifname=%s,script=no,id=hostnet0,downscript=no","-device","virtio-net-pci,mac=%s,netdev=hostnet0,bus=pci.0,addr=0x10"]' % (natname, macaddr)
+os.environ.__setitem__("qemu_cmdline",params)
+
+# Modify Qemu Parameter
+
+if 'qemu_cmdline' in os.environ:
+    try:
+        domxml = hooking.read_domxml()
+
+        qemu_cmdline = json.loads(os.environ['qemu_cmdline'])
+        addQemuNs(domxml)
+        injectQemuCmdLine(domxml, qemu_cmdline)
+
+        hooking.write_domxml(domxml)
+    except:
+        sys.stderr.write('qemu_cmdline: [unexpected error]: %s\n'
+                         % traceback.format_exc())
+        sys.exit(2)
+</pre>
+
+
+<p>Then you should start the vm <strong>WITHOUT ANY NIC</strong> if you are using <em>nat.py</em>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[12. 搭建高可用oVirt（hosted Engine）]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/29/6-2-2-cloud-ha-ovirt/"/>
+    <updated>2014-04-29T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/29/6-2-2-cloud-ha-ovirt</id>
+    <content type="html"><![CDATA[<p>笔者写此文时oVirt已经更新到3.4。</p>
+
+<p>在此，我们会用到之前创建的distributed-replicate存储，这样可用保证系统服务的高度可用性有所提高。</p>
+
+<p>有以下几点需要注意：</p>
+
+<blockquote><ol>
+<li>宿主机的CPU架构需要为Westmere（Westmere E56xx/L56xx/X56xx）、Nehalem（Intel Core i7 9xx）、Penryn（Intel Core 2 Duo P9xxx）或者Conroe（Intel Celeron_4x0）中的之一，否则集群类型会与宿主机类型不兼容导致数据中心启动失败。</li>
+</ol>
+
+
+<p>CPU Family table 参阅<br/>
+<a title="cpu family table" href="https://software.intel.com/en-us/articles/intel-architecture-and-processor-identification-with-cpuid-model-and-family-numbers" target="_blank">Intel Architecture and Processor Identification With CPUID Model and Family Numbers</a></p>
+
+<ol>
+<li>建议参考第11节提前安装含有oVirt管理的虚拟机，硬盘格式为RAW，从而在安装管理机时作为OVF导入或者覆盖虚拟磁盘，减少失败风险时间。</li>
+</ol>
+</blockquote>
+
+<h2>准备</h2>
+
+<p><strong>每台机器上都要添加作为虚拟机运行的engine的FQDN，此处为ha.lofyer.org。</strong></p>
+
+<pre># echo -e '192.168.10.100\tha.lofyer.org' &gt;&gt; /etc/hosts</pre>
+
+
+<p><strong>存储可以使用之前的glusterfs，方式为NFS_V3，注意将brick的权限设置为vdsm.kvm或者36:36。</strong></p>
+
+<pre class="lang:default decode:true"># gluster volume create gluster-vol1 replica 2 gs1.example.com:/gluster_brick0 gs2.example.com:/gluster_brick0 gs3.example.com:/gluster_brick0 gs4.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick1 force</pre>
+
+
+<p><a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img class="alignnone size-full wp-image-3307" src="http://lofyer.github.io/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" /></a></p>
+
+<p><strong>由于engine以及node的网络服务依赖于network而非NetworkManager，我们需要启用前者禁用后者，在每一台服务器上都进行如下类似配置修改网络。</strong></p>
+
+<pre title="/etc/sysconfig/network-scripts/ifcfg-eth0">NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=static
+# 注意修改此处的IP
+IPADDR=192.168.10.101
+NETMASK=255.255.255.0
+GATEWAY=192.168.10.1
+DNS1=192.168.10.1</pre>
+
+
+
+
+<pre># chkconfig NetworkManager off
+# chkconfig network on
+# service NetworkManager stop; service network restart</pre>
+
+
+<h2>添加repo</h2>
+
+<pre># yum localinstall http://resources.ovirt.org/releases/ovirt-release.noarch.rpm
+# yum install ovirt-hosted-engine-setup</pre>
+
+
+<p>或者手动添加：</p>
+
+<pre title="/etc/yum.repos.d/ovirt.repo">[ovirt-stable]
+name=Latest oVirt Releases
+baseurl=http://ovirt.org/releases/stable/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-3.4-stable]
+name=Latest oVirt 3.4.z Releases
+baseurl=http://ovirt.org/releases/3.4/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+includepkgs=epel-release,python-uinput,puppet,python-lockfile,python-cpopen,python-ordereddict,python-pthreading,python-inotify,python-argparse,novnc,python-ply,python-kitchen,python-daemon,python-websockify,livecd-tools,spice-html5,mom
+gpgcheck=0
+
+[ovirt-glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+</pre>
+
+
+<h2>安装hosted-engine</h2>
+
+<pre># yum install ovirt-hosted-engine-setup
+</pre>
+
+
+<p>回答一些列问题，如下所示：</p>
+
+<pre class="lang:default mark:21,123,144,138,160,167"># hosted-engine --deploy
+[ INFO  ] Stage: Initializing
+          Continuing will configure this host for serving as hypervisor and create a VM where you have to install oVirt Engine afterwards.
+          Are you sure you want to continue? (Yes, No)[Yes]: yes
+[ INFO  ] Generating a temporary VNC password.
+[ INFO  ] Stage: Environment setup
+          Configuration files: []
+          Log file: /var/log/ovirt-hosted-engine-setup/ovirt-hosted-engine-setup-20140508182241.log
+          Version: otopi-1.2.0 (otopi-1.2.0-1.el6)
+[ INFO  ] Hardware supports virtualization
+[ INFO  ] Bridge ovirtmgmt already created
+[ INFO  ] Stage: Environment packages setup
+[ INFO  ] Stage: Programs detection
+[ INFO  ] Stage: Environment setup
+[ INFO  ] Stage: Environment customization
+         
+          --== STORAGE CONFIGURATION ==--
+         
+          During customization use CTRL-D to abort.
+          Please specify the storage you would like to use (nfs3, nfs4)[nfs3]: 
+# 此处的存储域只存储hosted-engine的相关文件，不作为主数据域
+          Please specify the full shared storage connection path to use (example: host:/path): 192.168.10.101:/gluster-vol1/ovirt_data/hosted_engine
+[ INFO  ] Installing on first host
+          Please provide storage domain name. [hosted_storage]: 
+          Local storage datacenter name is an internal name and currently will not be shown in engine's admin UI.Please enter local datacenter name [hosted_datacenter]: 
+         
+          --== SYSTEM CONFIGURATION ==--
+         
+         
+          --== NETWORK CONFIGURATION ==--
+         
+          iptables was detected on your computer, do you wish setup to configure it? (Yes, No)[Yes]: no
+          Please indicate a pingable gateway IP address [192.168.10.1]: 
+         
+          --== VM CONFIGURATION ==--
+# 虚拟engine的安装方式         
+          Please specify the device to boot the VM from (cdrom, disk, pxe) [cdrom]: 
+          The following CPU types are supported by this host:
+             - model_Conroe: Intel Conroe Family
+          Please specify the CPU type to be used by the VM [model_Conroe]: 
+          Please specify path to installation media you would like to use [None]: /tmp/centos.iso
+          Please specify the number of virtual CPUs for the VM [Defaults to minimum requirement: 2]: 
+          Please specify the disk size of the VM in GB [Defaults to minimum requirement: 25]: 
+          You may specify a MAC address for the VM or accept a randomly generated default [00:16:3e:59:9b:e2]: 
+          Please specify the memory size of the VM in MB [Defaults to minimum requirement: 4096]: 4096
+          Please specify the console type you would like to use to connect to the VM (vnc, spice) [vnc]: 
+         
+          --== HOSTED ENGINE CONFIGURATION ==--
+         
+          Enter the name which will be used to identify this host inside the Administrator Portal [hosted_engine_1]: 
+          Enter 'admin@internal' user password that will be used for accessing the Administrator Portal: 
+          Confirm 'admin@internal' user password: 
+          Please provide the FQDN for the engine you would like to use.
+          This needs to match the FQDN that you will use for the engine installation within the VM.
+          Note: This will be the FQDN of the VM you are now going to create,
+          it should not point to the base host or to any other existing machine.
+          Engine FQDN: ha.lofyer.org
+[WARNING] Failed to resolve ha.lofyer.org using DNS, it can be resolved only locally
+          Please provide the name of the SMTP server through which we will send notifications [localhost]: 
+          Please provide the TCP port number of the SMTP server [25]: 
+          Please provide the email address from which notifications will be sent [root@localhost]: 
+          Please provide a comma-separated list of email addresses which will get notifications [root@localhost]: 
+[ INFO  ] Stage: Setup validation
+         
+          --== CONFIGURATION PREVIEW ==--
+         
+          Engine FQDN                        : ha.lofyer.org
+          Bridge name                        : ovirtmgmt
+          SSH daemon port                    : 22
+          Gateway address                    : 192.168.10.1
+          Host name for web application      : hosted_engine_1
+          Host ID                            : 1
+          Image size GB                      : 25
+          Storage connection                 : 192.168.10.101:/gluster-vol1/ovirt_data/hosted_data/
+          Console type                       : vnc
+          Memory size MB                     : 4096
+          MAC address                        : 00:16:3e:59:9b:e2
+          Boot type                          : cdrom
+          Number of CPUs                     : 2
+          ISO image (for cdrom boot)         : /tmp/centos.iso
+          CPU Type                           : model_Conroe
+         
+          Please confirm installation settings (Yes, No)[No]: yes
+[ INFO  ] Generating answer file '/etc/ovirt-hosted-engine/answers.conf'
+[ INFO  ] Stage: Transaction setup
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Stage: Package installation
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Configuring libvirt
+[ INFO  ] Configuring VDSM
+[ INFO  ] Starting vdsmd
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Creating Storage Domain
+[ INFO  ] Creating Storage Pool
+[ INFO  ] Connecting Storage Pool
+[ INFO  ] Verifying sanlock lockspace initialization
+[ INFO  ] Initializing sanlock lockspace
+[ INFO  ] Initializing sanlock metadata
+[ INFO  ] Creating VM Image
+[ INFO  ] Disconnecting Storage Pool
+[ INFO  ] Start monitoring domain
+[ INFO  ] Configuring VM
+[ INFO  ] Updating hosted-engine configuration
+[ INFO  ] Stage: Transaction commit
+[ INFO  ] Stage: Closing up
+          The following network ports should be opened:
+              tcp:5900
+              tcp:5901
+              udp:5900
+              udp:5901
+          An example of the required configuration for iptables can be found at:
+              /etc/ovirt-hosted-engine/iptables.example
+          In order to configure firewalld, copy the files from
+          /etc/ovirt-hosted-engine/firewalld to /etc/firewalld/services
+          and execute the following commands:
+              firewall-cmd -service hosted-console
+[ INFO  ] Creating VM
+          You can now connect to the VM with the following command:
+            /usr/bin/remote-viewer vnc://localhost:5900
+          Use temporary password "2067OGHU" to connect to vnc console.
+          Please note that in order to use remote-viewer you need to be able to run graphical applications.
+          This means that if you are using ssh you have to supply the -Y flag (enables trusted X11 forwarding).
+          Otherwise you can run the command from a terminal in your preferred desktop environment.
+          If you cannot run graphical applications you can connect to the graphic console from another host or connect to the console using the following command:
+          virsh -c qemu+tls://192.168.1.150/system console HostedEngine
+          If you need to reboot the VM you will need to start it manually using the command:
+          hosted-engine --vm-start
+          You can then set a temporary password using the command:
+          hosted-engine --add-console-password
+          The VM has been started.  Install the OS and shut down or reboot it.  To continue please make a selection:
+         
+          (1) Continue setup - VM installation is complete
+          (2) Reboot the VM and restart installation
+          (3) Abort setup
+# 需要在另外一个有图形能力的terminal中运行"remote-viewer vnc://192.168.10.101:5900"连接虚拟机并关闭（密码在第123行），如有需要可运行"hosted-engine --add-console-password"更换控制台密码。如果之前选择cdrom进行安装的话，此处可以在gs1上用已经安装好engine的虚拟磁盘进行覆盖，类似"mount -t nfs 192.168.10.101:192.168.10.101:/gluster-vol1/ovirt_data/hosted_data/ /mnt; engine.raw /mnt/ovirt_data/hosted_data/.../vm_UUID"
+          (1, 2, 3)[1]: 1
+          Waiting for VM to shut down...
+[ INFO  ] Creating VM
+          You can now connect to the VM with the following command:
+            /usr/bin/remote-viewer vnc://localhost:5900
+          Use temporary password "2067OGHU" to connect to vnc console.
+          Please note that in order to use remote-viewer you need to be able to run graphical applications.
+          This means that if you are using ssh you have to supply the -Y flag (enables trusted X11 forwarding).
+          Otherwise you can run the command from a terminal in your preferred desktop environment.
+          If you cannot run graphical applications you can connect to the graphic console from another host or connect to the console using the following command:
+          virsh -c qemu+tls://192.168.1.150/system console HostedEngine
+          If you need to reboot the VM you will need to start it manually using the command:
+          hosted-engine --vm-start
+          You can then set a temporary password using the command:
+          hosted-engine --add-console-password
+          Please install and setup the engine in the VM.
+          You may also be interested in installing ovirt-guest-agent-common package in the VM.
+          To continue make a selection from the options below:
+          (1) Continue setup - engine installation is complete
+          (2) Power off and restart the VM
+          (3) Abort setup
+# 此处参考第一次操作，连接虚拟机控制台后进行"engine-setup --offline"以安装engine
+          (1, 2, 3)[1]: 1
+[ INFO  ] Engine replied: DB Up!Welcome to Health Status!
+[ INFO  ] Waiting for the host to become operational in the engine. This may take several minutes...
+[ INFO  ] Still waiting for VDSM host to become operational...
+[ INFO  ] The VDSM Host is now operational
+          Please shutdown the VM allowing the system to launch it as a monitored service.
+# 到此，需要连接虚拟机控制台关闭虚拟机
+          The system will wait until the VM is down.
+[ INFO  ] Enabling and starting HA services
+          Hosted Engine successfully set up
+[ INFO  ] Stage: Clean up
+[ INFO  ] Stage: Pre-termination
+[ INFO  ] Stage: Termination
+</pre>
+
+
+<p>此时，运行&#8221;hosted-engine &#8211;vm-start&#8221;启动engine。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Migrate Vm From ESiX to oVirt]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/25/migrate-vm-esix-ovirt/"/>
+    <updated>2014-04-25T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/25/migrate-vm-esix-ovirt</id>
+    <content type="html"><![CDATA[<p>oVirt: v3.3, CentOS, 192.168.1.111<br/>
+ESiX: 5.x, 192.168.1.135</p>
+
+<ol>
+<li>Create a nfs export domain on your oVirt datacenter.</li>
+</ol>
+
+
+<pre title="/etc/exports">/vdsm/export  0.0.0.0/0.0.0.0(rw)</pre>
+
+
+<ol>
+<li>Install virt-v2v on CentOS and add authentication.</li>
+</ol>
+
+
+<pre># yum install virt-v2v</pre>
+
+
+
+
+<pre title="~/.netrc">machine 192.168.1.135 login root password 1234567</pre>
+
+
+<p>Change permission of <em>.netrc</em> as saying of manual or you will get a warning with wrong permission.</p>
+
+<pre># chmod 600 ~/.netrc</pre>
+
+
+<ol>
+<li>Import myvm. <strong>Make sure that your vm in ESiX is powered off.</strong></li>
+</ol>
+
+
+<pre># virt-v2v -ic esx://192.168.1.135/?no_verify=1 -o rhev -os 192.168.1.111:/virtfan/export --network mgmtnet myvm
+myvm_myvm: 100% [====================================================]D 0h04m48s
+
+virt-v2v: myvm configured with virtio drivers.</pre>
+
+
+<ol>
+<li>Import myvm from export domain to data domain.</li>
+</ol>
+
+
+<p><strong>Import.</strong></p>
+
+<p><a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/import/" rel="attachment wp-att-3185"><img src="http://lofyer.github.io/uploads/import.png" alt="import" width="824" height="180" class="alignnone size-full wp-image-3185" /></a></p>
+
+<p><strong>Run.</strong></p>
+
+<p><a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/run/" rel="attachment wp-att-3186"><img src="http://lofyer.github.io/uploads/run.png" alt="run" width="1065" height="569" class="alignnone size-full wp-image-3186" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Intergrate Owncloud With AD(LDAP)]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/24/intergrate-owncloud-adldap/"/>
+    <updated>2014-04-24T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/24/intergrate-owncloud-adldap</id>
+    <content type="html"><![CDATA[<p>Windows 2008R2 server with AD role built.<br/>
+User group: <strong>owncloudgrp</strong><br/>
+User in <strong>owncloudgrp</strong>: aaa, beta<br/>
+Users must have <strong>logon name, first name, last name</strong> set.</p>
+
+<h2>Configure the owncloud:</h2>
+
+<p>Server:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc1/" rel="attachment wp-att-3165"><img src="http://lofyer.github.io/uploads/oc1.png" alt="oc1" width="833" height="262" class="alignnone size-full wp-image-3165" /></a></p>
+
+<p>User Filter:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc2/" rel="attachment wp-att-3166"><img src="http://lofyer.github.io/uploads/oc2.png" alt="oc2" width="834" height="354" class="alignnone size-full wp-image-3166" /></a></p>
+
+<p>Login Filter:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc3/" rel="attachment wp-att-3167"><img src="http://lofyer.github.io/uploads/oc3.png" alt="oc3" width="850" height="260" class="alignnone size-full wp-image-3167" /></a></p>
+
+<p>Group Filter:<br/>
+Every time you change these two sections, <strong>wait for a few seconds</strong> until more than zero users discovered.</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc4/" rel="attachment wp-att-3168"><img src="http://lofyer.github.io/uploads/oc4.png" alt="oc4" width="844" height="364" class="alignnone size-full wp-image-3168" /></a></p>
+
+<p>Advanced &#8211; Connection Settings:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc5/" rel="attachment wp-att-3169"><img src="http://lofyer.github.io/uploads/oc5.png" alt="oc5" width="842" height="409" class="alignnone size-full wp-image-3169" /></a></p>
+
+<p>Advanced &#8211; Directory Settings:</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc6/" rel="attachment wp-att-3170"><img src="http://lofyer.github.io/uploads/oc6.png" alt="oc6" width="904" height="545" class="alignnone size-full wp-image-3170" /></a></p>
+
+<p>Expert:<br/>
+Add internal username: sAMAccountName</p>
+
+<p><a href="http://blog.lofyer.org/intergrate-owncloud-adldap/oc7/" rel="attachment wp-att-3171"><img src="http://lofyer.github.io/uploads/oc7.png" alt="oc7" width="893" height="399" class="alignnone size-full wp-image-3171" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[10. oVirt简介]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/24/cloud-6-1-ovirt-description/"/>
+    <updated>2014-04-24T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/24/cloud-6-1-ovirt-description</id>
+    <content type="html"><![CDATA[<p>Welcome to the core!</p>
+
+<p>云计算目前主流实现有SaaS（Software-as-a-service）、PaaS（Platform-as-a-service）和IaaS（Infrastructure-as-a-service）。IaaS和PaaS都算作基础件，SaaS可以与基础件自由组合或者单独使用。</p>
+
+<p>图</p>
+
+<p>虚拟化技术已经很受重视而且被推到了一个浪尖。如今诸多开源虚拟化平台，比如XenServer、CloudStack、OpenStack、Eucalyptus、oVirt、OpenVZ等，我们都看花了眼，些许慌乱不知哪个适合自己了。</p>
+
+<p>各平台实现方式：全虚拟化，半虚拟化，TBD</p>
+
+<p>我在写这篇文档的时候，只对oVirt略知一二，其他平台（XenServer、OpenStack）稍懂皮毛，再剩下的我就没怎么用过了。那么，只挑最熟悉的来讲吧。</p>
+
+<p>IaaS云计算平台，综合来说具有以下特性：</p>
+
+<p><strong>虚拟化</strong></p>
+
+<p>虚拟化作为云计算平台的核心，是资源利用的主要形式之一。网络、存储、CPU乃至GPU等主要通过虚拟主机进行实体化。</p>
+
+<p><strong>分布式</strong></p>
+
+<p>分布式可利用共享的存储，通过网络将资源进行整合，是实现资源化的必备条件。</p>
+
+<p><strong>高可用</strong></p>
+
+<p>对于规模庞大的云平台，提供管理节点、重要服务的高度可用性是十分必要的。笔者在写这篇文章时，oVirt 3.4已经可以做到管理节点的高度可用。</p>
+
+<p><strong>兼容性</strong></p>
+
+<p>云计算平台众多，各家有各家的特点，同一数据中心部署不同的平台的可能性极大，因此，主要服务（比如虚拟网络、存储、虚机等）要有一定兼容性，比如oVirt可以利用OpenStack的Nouveau提供的虚拟网络、Foreman可以方便地在oVirt上部署新机器等。</p>
+
+<p>另外，也有DeltaCloud、libvirt等API，用户可以利用它们自由地实现自己的云综合管理工具。</p>
+
+<p><strong>资源池化</strong></p>
+
+<p>网络、存储、CPU或者GPU可以综合或者单独划分资源池，通过配额进行分配，从而保证其合理利用。</p>
+
+<p><strong>安全性</strong></p>
+
+<p>现代企业对于安全性的要求已经十分苛刻，除去传统数据加密、访问控制，甚至对于社会工程也要有一定防护能力；用户数据具有对非企业管理员具有防护性能，即使将虚拟机磁盘文件拷贝出来也不能直接获取其内容。</p>
+
+<p><strong>需求导向性</strong></p>
+
+<p>在计算水平上，优质资源最先提供给重要服务；服务水平上，平台具有可定制能力。</p>
+
+<h2>oVirt物理层视图</h2>
+
+<p><strong>管理独占一台物理机</strong></p>
+
+<p><a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/normal/" rel="attachment wp-att-3372"><img src="http://lofyer.github.io/uploads/Normal.png" alt="Normal" width="950" height="661" class="alignnone size-full wp-image-3372" /></a></p>
+
+<p><srong>高可用管理机</strong></p>
+
+<p><a href="http://blog.lofyer.org/cloud-6-1-ovirt-description/ha/" rel="attachment wp-att-3371"><img src="http://lofyer.github.io/uploads/HA.png" alt="HA" width="950" height="661" class="alignnone size-full wp-image-3371" /></a></p>
+
+<h2>内容预览</h2>
+
+<p>第11（6-2）搭建管理引擎；<br/>
+第12（6-3）搭建高可用管理引擎；<br/>
+第13（6-4）加入节点，构建一个完整的云平台；<br/>
+第14（6-5）应用进阶；</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[9. Glusterfs应用示例及技巧]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick/"/>
+    <updated>2014-04-21T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick</id>
+    <content type="html"><![CDATA[<h2>文件权限</h2>
+
+<p>glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应用请注意更改砖块目录所有者（比如在<em>/etc/rc.local</em>中添加chown，不要更改砖块下隐藏目录.glusterfs）。</p>
+
+<h2>砖块分割</h2>
+
+<p>前文所述的砖块划分方式在某些场景下不是很好，可以在/brickX下创建目录，比如data1，同时在创建glusterfs卷的时候使用HOST:/brickX/data1作为砖块，以合理利用存储空间。</p>
+
+<h2>normal、replica、striped卷组合</h2>
+
+<p>砖块的划分排序：striped（normal）优先，replica在striped（normal）基础上做冗余；计算大小时，同一replica组中的brick进行合并（多个算作一个），一个striped组可看做一个有效块，。<br/>
+假设我们有4个主机，8个砖块，每个砖块都是5GB，如下图，</p>
+
+<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-base/" rel="attachment wp-att-3294"><img src="http://lofyer.github.io/uploads/brick-base.png" alt="brick-base" width="702" height="268" class="alignnone size-full wp-image-3294" /></a></p>
+
+<p>创建卷时，使用如下命令：</p>
+
+<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host1:/brick2 host2:/brick1 host2:/brick2 host3:/brick1 host3:/brick2 host4:/brick1 host4:/brick2 force</pre>
+
+
+<p>则会进行下列组合：</p>
+
+<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-1/" rel="attachment wp-att-3301"><img src="http://lofyer.github.io/uploads/brick-1.png" alt="brick-1" width="712" height="474" class="alignnone size-full wp-image-3301" /></a></p>
+
+<p>创建卷时，使用如下命令：</p>
+
+<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host2:/brick1 host3:/brick1 host4:/brick1 host1:/brick2 host2:/brick2 host3:/brick2 host4:/brick2 force</pre>
+
+
+<p>则会进行下列组合（注意颜色，可改为实虚线）：</p>
+
+<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-2/" rel="attachment wp-att-3304"><img src="http://lofyer.github.io/uploads/brick-2.png" alt="brick-2" width="712" height="474" class="alignnone size-full wp-image-3304" /></a></p>
+
+<h2>作为nfs挂载</h2>
+
+<p><strong>由于glusterfs占用了2049端口，所以其与nfs server一般不能共存于同一台服务器，除非更改nfs服务端口。</strong></p>
+
+<pre>mount -t nfs -o vers=3 server1:/volume1 /mnt</pre>
+
+
+<h2>作为cifs挂载</h2>
+
+<p>先在某一服务器或者客户端将起挂载，再以cifs方式导出</p>
+
+<pre title="Content added
+ to /etc/smb.conf">[glustertest]
+comment = For testing a Gluster volume exported through CIFS
+path = /mnt/glusterfs
+read only = no
+guest ok = yes
+</pre>
+
+
+<h2>进阶手册</h2>
+
+<h3>1. 裂脑(split-brain)修复</h3>
+
+<p>裂脑发生以后，各节点信息可能会出现不一致。可以通过以下步骤查看并修复。</p>
+
+<p><strong>定位裂脑文件</strong><br/>
+通过命令</p>
+
+<pre># gluster volume heal info split-brain</pre>
+
+
+<p>或者查看在客户端仍然是Input/Output错误的文件。<br/>
+<strong>关闭已经打开的文件或者虚机</strong><br/>
+<strong>确定正确副本</strong><br/>
+<strong>恢复扩展属性</strong></p>
+
+<h3>2. 砖块重用</h3>
+
+<p>当一个volume正在使用时，你删除了其中一个brick，会出现“/bricks/app or a prefix of it is already part of a volume”，对于3.3版本以后的glusterfs有此问题。<br/>
+解决方法：</p>
+
+<pre># setfattr -x trusted.glusterfs.volume-id $brick_path
+# setfattr -x trusted.gfid $brick_path
+# rm -rf $brick_path/.glusterfs</pre>
+
+
+<h3>3. 扩展</h3>
+
+<p>对于中等以上规模的部署，需要使用dns服务器去解析各个节点以免去修改hosts文件的麻烦。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SAP Cloud Computing]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing/"/>
+    <updated>2014-04-14T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing</id>
+    <content type="html"><![CDATA[<p>I&#8217;d got these modules running.<br/>
+TBD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[OpenLDAP Step by Step How-to]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/14/openldap-kerberos-howto/"/>
+    <updated>2014-04-14T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/14/openldap-kerberos-howto</id>
+    <content type="html"><![CDATA[<p>I need an authentication system with compatibility and many extended features(like bio-device). So, I&#8217;ve got AD, IPA and OpenLDAP to choose from. AD comes from MS and it is too &#8220;heavy&#8221; for the not-very-large system. IPA and OpenLDAP are almost same, but I prefer latter, since it&#8217;s compatible with oVirt(This why I choose CentOS rather than debian).</p>
+
+<h1>The simplest OpenLDAP server</h1>
+
+<p>A basic LDAP without any security or additional features.</p>
+
+<h1>OpenLDAP with SASL</h1>
+
+<p>Add SASL to our LDAP.</p>
+
+<h1>OpenLDAP with SAMBA</h1>
+
+<p>To add Windows PC to our domain.</p>
+
+<h1>OpenLDAP with Kerberos</h1>
+
+<h1>This is what we want finally.  </h1>
+
+<h1>1. The simplest OpenLDAP server</h1>
+
+<p>I&#8217;ve got 2 ways to setup an openldap server: <strong>389-ds script</strong> and <strong>manually configure</strong>.</p>
+
+<h2>1.1 Using 389-ds script</h2>
+
+<p><a href="http://www.unixmen.com/setup-directory-serverldap-in-centos-6-4-rhel-6-4/" title="Setup 389-ds" target="_blank">Here&#8217;s the original article.</a></p>
+
+<h3>Preparation</h3>
+
+<p>Before setup, this configuration should be modified.<br/>
+Add following:</p>
+
+<p><em>/etc/hosts</em></p>
+
+<pre>192.168.1.80    ldap.lofyer.org</pre>
+
+
+<p>Add following:</p>
+
+<p><em>/etc/sysctl.conf</em></p>
+
+<pre title="/etc/sysctl.conf">net.ipv4.tcp_keepalive_time = 30
+net.ipv4.ip_local_port_range = 1024 65000
+fs.file-max = 64000</pre>
+
+
+<p>Add following:</p>
+
+<p><em>/etc/limits.conf</em></p>
+
+<pre title="/etc/limits.conf">*    soft    nofile    8192
+*    hard    nofile    8192</pre>
+
+
+<p>Add following:</p>
+
+<p><em>/etc/pam.d/login</em></p>
+
+<pre title="/etc/pam.d/login">session    required    /lib/security/pam_limits.so</pre>
+
+
+<p>Then <strong>reboot</strong> the machine to make above configurations work.</p>
+
+<h3>Setup 389-ds</h3>
+
+<pre lang="shell"># useradd ldapadmin
+# passwd ldapadmin
+# yum install -y 389-ds openldap-clients
+# setup-ds-admin.pl
+</pre>
+
+
+<p>Then you&#8217;ll see some questions like this(sorry for the high-lighting&#8230;):</p>
+
+<pre title="interact with setup-ds-admin.pl" lang="shell">==============================================================================
+This program will set up the 389 Directory and Administration Servers.
+
+It is recommended that you have "root" privilege to set up the software.
+Tips for using this program:
+  - Press "Enter" to choose the default and go to the next screen
+  - Type "Control-B" then "Enter" to go back to the previous screen
+  - Type "Control-C" to cancel the setup program
+
+Would you like to continue with set up? [yes]:   ## Press Enter ## 
+
+==============================================================================
+Your system has been scanned for potential problems, missing patches,
+etc.  The following output is a report of the items found that need to
+be addressed before running this software in a production
+environment.
+
+389 Directory Server system tuning analysis version 23-FEBRUARY-2012.
+
+NOTICE : System is i686-unknown-linux2.6.32-431.el6.i686 (1 processor).
+
+WARNING: 622MB of physical memory is available on the system. 1024MB is recommended for best performance on large production system.
+
+WARNING  : The warning messages above should be reviewed before proceeding.
+
+Would you like to continue? [no]: yes  ## Type Yes and Press Enter ##
+
+==============================================================================
+Choose a setup type:
+   1. Express
+       Allows you to quickly set up the servers using the most
+       common options and pre-defined defaults. Useful for quick
+       evaluation of the products.
+   2. Typical
+       Allows you to specify common defaults and options.
+   3. Custom
+       Allows you to specify more advanced options. This is 
+       recommended for experienced server administrators only.
+To accept the default shown in brackets, press the Enter key.
+
+Choose a setup type [2]:  ## Press Enter ##
+
+==============================================================================
+Enter the fully qualified domain name of the computer
+on which you're setting up server software. Using the form
+&lt;hostname>.&lt;domainname>
+Example: eros.example.com.
+
+To accept the default shown in brackets, press the Enter key.
+
+Warning: This step may take a few minutes if your DNS servers
+can not be reached or if DNS is not configured correctly.  If
+you would rather not wait, hit Ctrl-C and run this program again
+with the following command line option to specify the hostname:
+
+    General.FullMachineName=your.hostname.domain.name
+
+Computer name [ldap.lofyer.org]:     ## Press Enter ##
+
+==============================================================================
+he servers must run as a specific user in a specific group.
+It is strongly recommended that this user should have no privileges
+on the computer (i.e. a non-root user).  The setup procedure
+will give this user/group some permissions in specific paths/files
+to perform server-specific operations.
+
+If you have not yet created a user and group for the servers,
+create this user and group using your native operating
+system utilities.
+
+System User [nobody]: ldapadmin  ## Enter LDAP user name created above #
+System Group [nobody]: ldapadmin
+
+==============================================================================
+Server information is stored in the configuration directory server.
+This information is used by the console and administration server to
+configure and manage your servers.  If you have already set up a
+configuration directory server, you should register any servers you
+set up or create with the configuration server.  To do so, the
+following information about the configuration server is required: the
+fully qualified host name of the form
+&lt;hostname>.&lt;domainname>(e.g. hostname.example.com), the port number
+(default 389), the suffix, the DN and password of a user having
+permission to write the configuration information, usually the
+configuration directory administrator, and if you are using security
+(TLS/SSL).  If you are using TLS/SSL, specify the TLS/SSL (LDAPS) port
+number (default 636) instead of the regular LDAP port number, and
+provide the CA certificate (in PEM/ASCII format).
+
+If you do not yet have a configuration directory server, enter 'No' to
+be prompted to set up one.
+Do you want to register this software with an existing
+configuration directory server? [no]:   ## Press Enter ##
+
+==============================================================================
+Please enter the administrator ID for the configuration directory
+server.  This is the ID typically used to log in to the console.  You
+will also be prompted for the password.
+Configuration directory server
+administrator ID [admin]:   ## Press Enter ##
+Password:    ## create password ##
+Password (confirm):    ## re-type password ##
+
+==============================================================================
+The information stored in the configuration directory server can be
+separated into different Administration Domains.  If you are managing
+multiple software releases at the same time, or managing information
+about multiple domains, you may use the Administration Domain to keep
+them separate.
+
+If you are not using administrative domains, press Enter to select the
+default.  Otherwise, enter some descriptive, unique name for the
+administration domain, such as the name of the organization
+responsible for managing the domain.
+
+Administration Domain [lofyer.org]:   ## Press Enter ##
+
+==============================================================================
+The standard directory server network port number is 389.  However, if
+you are not logged as the superuser, or port 389 is in use, the
+default value will be a random unused port number greater than 1024.
+If you want to use port 389, make sure that you are logged in as the
+superuser, that port 389 is not in use.
+Directory server network port [389]:   ## Press Enter ##
+
+==============================================================================
+Each instance of a directory server requires a unique identifier.
+This identifier is used to name the various
+instance specific files and directories in the file system,
+as well as for other uses as a server instance identifier.
+
+Directory server identifier [server]:  ## Press Enter ##
+
+==============================================================================
+The suffix is the root of your directory tree.  The suffix must be a valid DN.
+It is recommended that you use the dc=domaincomponent suffix convention.
+For example, if your domain is example.com,
+you should use dc=example,dc=com for your suffix.
+Setup will create this initial suffix for you,
+but you may have more than one suffix.
+Use the directory server utilities to create additional suffixes.
+
+Suffix [dc=lofyer, dc=org]:   ## Press Enter ##
+
+=============================================================================
+
+Certain directory server operations require an administrative user.
+This user is referred to as the Directory Manager and typically has a
+bind Distinguished Name (DN) of cn=Directory Manager.
+You will also be prompted for the password for this user.  The password must
+be at least 8 characters long, and contain no spaces.
+Press Control-B or type the word "back", then Enter to back up and start over.
+Directory Manager DN [cn=Directory Manager]:   ## Press Enter ##
+Password:               ## Enter the password ##
+Password (confirm): 
+
+==============================================================================
+The Administration Server is separate from any of your web or application
+servers since it listens to a different port and access to it is
+restricted.
+
+Pick a port number between 1024 and 65535 to run your Administration
+Server on. You should NOT use a port number which you plan to
+run a web or application server on, rather, select a number which you
+will remember and which will not be used for anything else.
+Administration port [9830]:   ## Press Enter ##
+
+==============================================================================
+The interactive phase is complete.  The script will now set up your
+servers.  Enter No or go Back if you want to change something.
+
+Are you ready to set up your servers? [yes]:  ## Press Enter ##
+Creating directory server . . .
+Your new DS instance 'server' was successfully created.
+Creating the configuration directory server . . .
+Beginning Admin Server creation . . .
+Creating Admin Server files and directories . . .
+Updating adm.conf . . .
+Updating admpw . . .
+Registering admin server with the configuration directory server . . .
+Updating adm.conf with information from configuration directory server . . .
+Updating the configuration for the httpd engine . . .
+Starting admin server . . .
+output: Starting dirsrv-admin: 
+output:                                                    [  OK  ]
+The admin server was successfully started.
+Admin server was successfully created, configured, and started.
+Exiting . . .
+Log file is '/tmp/setupo1AlDy.log'
+</pre>
+
+
+<p>Then make these two services start on startup.</p>
+
+<pre># chkconfig dirsrv on
+# chkconfig dirsrv-admin on</pre>
+
+
+<p>With 389-ds scripts, you could use 389-console, please refer to the link above.</p>
+
+<h2>1.2 Manually configure</h2>
+
+<p><a href="https://n40lab.wordpress.com/2013/11/22/creating-a-simple-ldap-directory-with-openldap-2-4-in-centos-6-4/" title="simple ldap" target="_blank">Here&#8217;s the original article.</a></p>
+
+<h3>Install the packages</h3>
+
+<pre># yum install openldap{,-clients,-servers}</pre>
+
+
+<h3>Change the configuration</h3>
+
+<p><em>/etc/openldap/slapd.d/cn\=config.ldif</em><br/>
+Delete <strong>olcAllows: bind_v2</strong> if you want only v3.<br/>
+Modify <strong>olcIdleTimeout</strong> from 0 to 30 if you want close the idle connection for more than 30 seconds.</p>
+
+<p>Before next step, run this command to generate a SHA encrypted password.</p>
+
+<pre># slappasswd
+New password:
+Re-enter new password:
+{SSHA}aW7TYJ3faz13RKsnr3uiCsbgi55RKhW9</pre>
+
+
+<p>Then copy the output to your clipboard.</p>
+
+<p><em>/etc/openldap/slapd.d/cn\=config/olcDatabase\={2}bdb.ldif</em><br/>
+Modify <strong>olcSuffix</strong>, <strong>RootDN</strong>, <strong>olcRootPW</strong> to this:</p>
+
+<pre>...
+olcSuffix: dc=lofyer, dc=org
+olcRootPW: {SSHA}aW7TYJ3faz13RKsnr3uiCsbgi55RKhW9
+RootDN: cn=admin, dc=lofyer, dc=org
+...</pre>
+
+
+<h3>Start service</h3>
+
+<pre># service slapd start
+# chkconfig slpad on
+</pre>
+
+
+<h3>Add rootdn and groups</h3>
+
+<pre title="/etc/openldap/schema/lofyer.org.ldif">dn: dc=lofyer,dc=org
+objectclass: dcObject
+objectclass: organization
+o: Lofyer Org
+dc: lofyer
+
+dn: ou=People,dc=lofyer,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: People
+
+dn: ou=Groups,dc=lofyer,dc=org
+objectClass: organizationalUnit
+objectClass: top
+
+ou: Groups
+dn: cn=admin,dc=lofyer,dc=org
+objectclass: organizationalRole
+cn: admin</pre>
+
+
+<p>Import the ldif:</p>
+
+<pre lang="shell"># ldapadd -x -D "cn=admin,dc=lofyer,dc=org" -W -f /etc/openldap/schema/lofyer.org.ldif
+# ldapsearch -x -b 'dc=lofyer,dc=org' '(objectclass=*)'
+</pre>
+
+
+<h3>Create a user</h3>
+
+<p>Add following content to <em>user.ldif</em></p>
+
+<pre title="user.ldif">dn: uid=demo,ou=People,dc=lofyer,dc=org
+objectclass: top
+objectclass: person
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+uid: demo
+cn: demo
+sn: demo
+givenName: demo</pre>
+
+
+<p>Provide a password:</p>
+
+<pre># ldapadd -x -W -D "cn=admin,dc=lofyer,dc=org" -f user.ldif
+New password:
+Re-enter new password:
+Enter LDAP Password:</pre>
+
+
+<h3>Add or delete a member from group(myteam)</h3>
+
+<p><strong>Add:</strong><prea title="Add.ldif">dn: cn=myteam,ou=Groups,dc=lofyer,dc=org changetype: modify add: member member: uid=user1,ou=People,dc=lofyer,dc=org</pre></p>
+
+<pre># ldapmodify -x -D "cn=admin,dc=lofyer,dc=org" -W -f add.ldif</pre>
+
+
+<p><strong>Delete:</strong></p>
+
+<pre title="delete.ldif">dn: cn=myteam,ou=Groups,dc=lofyer,dc=org
+changetype: modify
+delete: member
+member: uid=user1,ou=People,dc=lofyer,dc=org
+</pre>
+
+
+
+
+<pre># ldapmodify -x -D "cn=admin,dc=lofyer,dc=org" -W -f delete.ldif</pre>
+
+
+<h2>Use TSL</h2>
+
+<p><a href="http://www.overclockers.com/forums/showthread.php?t=726947" title="Setup ldap" target="_blank">Here&rsquo;s the original article.</a></p>
+
+<h2>(NOT NECESSARY)Generate CA</h2>
+
+<p>Follow this script.</p>
+
+<pre title="gen_ca.sh" lang="shell">#!/bin/bash
+#Change to the directory and clear out the old certs
+cd /etc/openldap/certs
+rm -rf *
+#This echo statement is actually putting the word “password” (without the quotes) in a temporary password file to help
+#automate the process. This will be the password for your certificate. Change this as appropriate
+echo "mypassword" > /etc/openldap/certs/password
+export PATH=/usr/bin/:$PATH
+echo falkdjfdajkasdndwndoqndwapqmhfaksj >> noise.txt
+
+#Associate the password with the certificates which will be generated in the current directory
+certutil -N -d . -f /etc/openldap/certs/password
+certutil -G -d . -z noise.txt -f /etc/openldap/certs/password
+
+#Generate a CA certificate for the 389 server
+certutil -S -n "CA certificate" -s "cn=CACert" -x -t "CT,," -m 1000 -v 120 -d . -z /etc/openldap/certs/noise.txt -f /etc/openldap/certs/password
+
+#anwsers are Y, &lt;enter accepting defaults>, Y
+#This builds the server cert
+certutil -S -n "OpenLDAP Server" -s "cn=ldap.lofyer.org" -c "CA certificate" -t "u,u,u" -m 1001 -v 120 -d . -z /etc/openldap/certs/noise.txt -f /etc/openldap/certs/password
+
+#This exports the cacert in case you need it
+pk12util -d . -o cacert.p12 -n "CA certificate"
+
+#This exports the server-cert which you will need on the windows AD
+pk12util -d . -o servercert.p12 -n "OpenLDAP Server"
+
+#This exports the CA cert for ldap clients
+certutil -L -d . -n "CA certificate" -a > /etc/openldap/certs/cacert.pem
+
+#Make the files in here readable
+chmod 644 *
+
+#Set the system to use LDAPS
+sed -i 's/SLAPD_LDAPS=no/SLAPD_LDAPS=yes/g' /etc/sysconfig/ldap
+
+#Add a firewall exception in case the user has not configured their firewall properly
+#iptables -I INPUT -m state --state NEW -p tcp --dport 636 -j ACCEPT
+#/etc/init.d/iptables save
+
+#Restart slapd to make the changes take effect
+#/etc/init.d/slapd restart</pre>
+
+
+<p>I think you should notice that the private key password is &ldquo;mypassword&rdquo;.<br/>
+Then you will get three files: <strong>cacert.p12</strong>, <strong>cacert.pem</strong>, <strong>servercert.p12</strong>.<br/>
+And, that&rsquo;s all.</p>
+
+<h1>2. Add SASL to OpenLDAP</h1>
+
+<p>OKay, we&rsquo;ll add SASL to our ldap connections.</p>
+
+<h2>Install cyrus-sasl package.</h2>
+
+<pre># yum install cyrus-sasl-gssapi
+# yum install cyrus-sasl-ldap</pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[8. 搭建glusterfs作为基础存储]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/12/5-3-glusterfs-howto/"/>
+    <updated>2014-04-12T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/12/5-3-glusterfs-howto</id>
+    <content type="html"><![CDATA[<p>既然要搭建一个稳健的基础，那么glusterfs在此使用distributed striped replicated方式，这里使用4台预装CentOS 6(SELINUX设置为permissive)的机器。</p>
+
+<p><a href="http://blog.lofyer.org/5-3-glusterfs-howto/distributed_striped_replicated_volume-2/" rel="attachment wp-att-3149"><img class="alignnone size-full wp-image-3149" src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume1.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="480" /></a></p>
+
+<h2>添加DNS或者修改hosts文件</h2>
+
+<p>鉴于笔者所在环境中暂时没有配置独立的DNS，此处先修改hosts文件以完成配置（每台机器上都如此设置）：</p>
+
+<pre># echo -e "192.168.10.101\tgs1.example.com\n192.168.10.102\tgs2.example.com\n192.168.10.103\tgs3.example.com\n192.168.10.104\tgs4.example.com" >> /etc/hosts
+</pre>
+
+
+<h2>添加repo</h2>
+
+<pre title="gluster_epel.repo">[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+[glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+
+[glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+
+[glusterfs-source-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes. - Source
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/SRPMS
+enabled=0
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+</pre>
+
+
+<h2>准备磁盘</h2>
+
+<p>每一个节点都可以看做gluster server，安装xfs用户空间工具：</p>
+
+<pre># yum install -y glusterfs glusterfs-fuse glusterfs-server xfsprogs
+# /etc/init.d/glusterd start
+# /etc/init.d/glusterfsd start
+# chkconfig glusterfsd on
+# chkconfig glusterd on
+</pre>
+
+
+<p>假如每台机器除系统盘之外都有2块1T SATA硬盘。<br/>
+对其进行分区，创建逻辑卷，格式化并挂载：</p>
+
+<pre># fdisk /dev/sdX &lt;&lt; EOF
+n
+p
+1
+
+w
+EOF
+</pre>
+
+
+<p>直接使用物理盘：</p>
+
+<pre># mkfs.xfs -i size 512 /dev/sdb1
+# mkfs.xfs -i size 512 /dev/sdc1
+# mkdir /gluster_brick0
+# mkdir /gluster_brick1
+# echo -e "/dev/sdb1\t/gluster_brick0\txfs\tdefaults\t0 0\n/dev/sdc1\t/gluster_brick1\txfs\tdefaults\t0 0" >> /etc/fstab
+# mount -a
+</pre>
+
+
+<p><del datetime="2014-04-22T07:37:38+00:00">或者使用逻辑卷：</del></p>
+
+<pre># pvcreate /dev/sdb1 /dev/sdc1
+# vgcreate vg_gluster /dev/sdb1 /dev/sdc1
+# lvcreate --name lv_gluster --size 2500G vg_gluster
+# mkfs.xfs -i size 512 /dev/vg_gluster-lv_gluster
+# mkdir /gluster_brick
+# echo -e "/dev/mapper/vg_gluster-lv_gluster\t/gluster_brick\txfs\tdefaults\t0 0" >> /etc/fstab
+# mount -a
+</pre>
+
+
+<p><em>为什么要用XFS？</em><br/>
+XFS具有元数据日志功能，可以快速恢复数据；同时，可以在线扩容及碎片整理。其他文件系统比如EXT3，EXT4未做充分测试。</p>
+
+<h2>配置节点，添加volume</h2>
+
+<p>在其中任何一台机器上，比如gs2.example.com，执行：</p>
+
+<pre># gluster
+  > peer probe gs1.example.com
+  > peer probe gs2.example.com</pre>
+
+
+<p>添加brick至volume，<strong>合理调整砖块顺序</strong>：</p>
+
+<pre># gluster
+  > volume create gluster-vol1 stripe 2 replica 2 gs1.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick0 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick0 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick0 gs4.example.com:/gluster_brick1 force
+  > volume start gluster-vol1
+  > volume status
+Status of volume: gluster-vol1
+Gluster process                                         Port    Online  Pid
+------------------------------------------------------------------------------
+Brick gs1.example.com:/gluster_brick0                   49152   Y       1984
+Brick gs1.example.com:/gluster_brick1                   49153   Y       1995
+Brick gs2.example.com:/gluster_brick0                   49152   Y       1972
+Brick gs2.example.com:/gluster_brick1                   49153   Y       1983
+Brick gs3.example.com:/gluster_brick0                   49152   Y       1961
+Brick gs3.example.com:/gluster_brick1                   49153   Y       1972
+Brick gs4.example.com:/gluster_brick0                   49152   Y       1975
+Brick gs4.example.com:/gluster_brick1                   49153   Y       1986
+NFS Server on localhost                                 2049    Y       1999
+Self-heal Daemon on localhost                           N/A     Y       2006
+NFS Server on gs2.example.com                           2049    Y       2007
+Self-heal Daemon on gs2.example.com                     N/A     Y       2014
+NFS Server on gs2.example.com                           2049    Y       1995
+Self-heal Daemon on gs2.example.com                     N/A     Y       2002
+NFS Server on gs3.example.com                           2049    Y       1986
+Self-heal Daemon on gs3.example.com                     N/A     Y       1993
+ 
+Task Status of Volume gluster-vol1
+------------------------------------------------------------------------------
+There are no active volume tasks
+  > volume info all
+gluster volume info all
+ 
+Volume Name: gluster-vol1
+Type: Distributed-Striped-Replicate
+Volume ID: bc8e102c-2b35-4748-ab71-7cf96ce083f3
+Status: Started
+Number of Bricks: 2 x 2 x 2 = 8
+Transport-type: tcp
+Bricks:
+Brick1: gs1.example.com:/gluster_brick0
+Brick2: gs1.example.com:/gluster_brick1
+Brick3: gs2.example.com:/gluster_brick0
+Brick4: gs2.example.com:/gluster_brick1
+Brick5: gs3.example.com:/gluster_brick0
+Brick6: gs3.example.com:/gluster_brick1
+Brick7: gs4.example.com:/gluster_brick0
+Brick8: gs4.example.com:/gluster_brick1
+</pre>
+
+
+<h2>客户端挂载glusterfs</h2>
+
+<p>当用glusterfs-fuse挂载时，客户端的hosts文件里需要有gluster server中的任一节点做解析：</p>
+
+<pre title="挂载glusterfs的客户端/etc/hosts">127.0.0.1       localhost.localdomain localhost
+::1             localhost6.localdomain6 localhost6
+
+192.168.1.81    gs1.example.com</pre>
+
+
+<p>安装glusterfuse，将gluster卷作为glusterfs挂载，并写入1M文件查看其在各砖块分配：</p>
+
+<pre># yum install glusterfs glusterfs-fuse
+# mount.glusterfs 192.168.1.81:/gluster-vol1 /mnt
+# cd /mnt
+# dd if=/dev/zero of=a.img bs=1k count=1k
+# cp a.img b.img; cp a.img c.img; cp a.img d.img
+</pre>
+
+
+<p>在四台服务端分别查看：</p>
+
+<pre title="gs1">[root@gs1 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+</pre>
+
+
+
+
+<pre title="gs2">[root@gs2 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+</pre>
+
+
+
+
+<pre title="gs3">[root@gs3 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+</pre>
+
+
+
+
+<pre title="gs4">[root@gs4 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+</pre>
+
+
+<p>至此，所有配置结束，下一篇说一下使用以及部分trick。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[7. Gluster简述]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des/"/>
+    <updated>2014-04-04T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des</id>
+    <content type="html"><![CDATA[<p>这一节会简述下glusterfs功能和特性。</p>
+
+<p>glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-src/cloud-5-2-1/" rel="attachment wp-att-2999"><img class="size-full wp-image-2999 aligncenter" alt="cloud-5.2-1" src="http://lofyer.github.io/uploads/cloud-5.2-1.png" width="787" height="486" /></a></p>
+
+<h2>功能特性</h2>
+
+<p>gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/glusterfs_architecture/" rel="attachment wp-att-3007"><img src="http://lofyer.github.io/uploads/GlusterFS_Architecture.png" alt="GlusterFS_Architecture" width="800" height="576" class="alignnone size-full wp-image-3007" /></a></p>
+
+<p>gluster支持四种存储逻辑组合：Striped、Replicated、Striped-Replicated、Distributed；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_volume/" rel="attachment wp-att-3013"><img src="http://lofyer.github.io/uploads/Distributed_Volume.png" alt="Distributed_Volume" width="660" height="360" class="alignnone size-full wp-image-3013" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_volume/" rel="attachment wp-att-3012"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Volume.png" alt="Distributed_Striped_Volume" width="660" height="400" class="alignnone size-full wp-image-3012" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_replicated_volume/" rel="attachment wp-att-3010"><img src="http://lofyer.github.io/uploads/Distributed_Replicated_Volume.png" alt="Distributed_Replicated_Volume" width="660" height="400" class="alignnone size-full wp-image-3010" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_replicated_volume/" rel="attachment wp-att-3011"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="460" class="alignnone size-full wp-image-3011" /></a></p>
+
+<p>支持跨网备份（geo-replication）；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_lan/" rel="attachment wp-att-3017"><img src="http://lofyer.github.io/uploads/Geo-Rep_LAN.png" alt="Geo-Rep_LAN" width="676" height="241" class="alignnone size-full wp-image-3017" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_wan/" rel="attachment wp-att-3015"><img src="http://lofyer.github.io/uploads/Geo-Rep_WAN.png" alt="Geo-Rep_WAN" width="628" height="206" class="alignnone size-full wp-image-3015" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep03_internet/" rel="attachment wp-att-3018"><img src="http://lofyer.github.io/uploads/Geo-Rep03_Internet.png" alt="Geo-Rep03_Internet" width="659" height="241" class="alignnone size-full wp-image-3018" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep04_cascading/" rel="attachment wp-att-3019"><img src="http://lofyer.github.io/uploads/Geo-Rep04_Cascading.png" alt="Geo-Rep04_Cascading" width="709" height="516" class="alignnone size-full wp-image-3019" /></a></p>
+
+<p>统一对象视图，与UNIX设计哲学类似，所有皆对象；</p>
+
+<p>跨平台兼容性高，可作为hadoop、openstack、ovirt、Amazon EC的后端；</p>
+
+<h2>名词解释</h2>
+
+<p>砖块（brick）：即服务器节点上导出的一个目录，作为glusterfs的最基本单元；</p>
+
+<p>扩展属性（xattr）：用户/程序以之将数据和元数据关联起来；</p>
+
+<p>GFID：glusterfs中的每一个文件或者目录都有一个独立的128位GFID，与普通文件系统中的inode类似；</p>
+
+<p>glusterd：运行于所有服务器中的管理守护程序；</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[6. FUSE]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse/"/>
+    <updated>2014-04-03T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse</id>
+    <content type="html"><![CDATA[<p>既然是文件系统，那就不得不了解一下FUSE。</p>
+
+<p>FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、OSX、Android等。</p>
+
+<p><a href="http://blog.lofyer.org/5-1-1-fuse/490px-fuse_structure-svg/" rel="attachment wp-att-2976"><img class="alignnone size-full wp-image-2976" alt="490px-FUSE_structure.svg" src="http://lofyer.github.io/uploads/490px-FUSE_structure.svg_.png" width="490" height="371" /></a><br/>
+<strong>图5-1</strong></p>
+
+<p>FUSE来源于AVFS，不同于传统文件系统从磁盘读写数据，FUSE在文件系统或磁盘中有“转换”的角色，本身并不会存储数据。</p>
+
+<p>在Linux系统中的实现有很多，比如即将要用到的glusterfs-fuse。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[5. 分布式存储的故事]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/01/cloud-5-glusterfs-story/"/>
+    <updated>2014-04-01T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/01/cloud-5-glusterfs-story</id>
+    <content type="html"><![CDATA[<p>计算机领域中有诸多有意思的东西可以把玩，在这儿且看看分布式存储。</p>
+
+<p><strong style="line-height: 1.5em;">集群文件系统</strong><span style="line-height: 1.5em;">在某些场景下又可以称作网络文件系统、并行文件系统，在70年代由IBM提出并实现原型。</span></p>
+
+<p><span style="line-height: 1.5em;">有几种方法可以实现集群形式，但多数仅仅是节点直连存储而不是将存储之上的文件系统进行合理“分布”。分布式文件系统同时挂载于多个服务器上，并在它们之间共享，可以提供类似于位置无关的数据定位或冗余等特点。并行文件系统是一种集群式的文件系统，它将数据分布于多个节点，其主要目的是提供冗余和提高读写性能。</span></p>
+
+<p><strong style="line-height: 1.5em;">共享磁盘（Shared-disk）/Storage-area network(SAN)</strong></p>
+
+<p>从应用程序使用的文件级别，到SAN之间的块级别的操作，诸如权限控制和传输，都是发生在客户端节点上。共享磁盘（Shared-disk）文件系统，在并行控制上做了很多工作，以至于其拥有比较一致连贯的文件系统视图，从而避免了多个客户端试图同时访问同一设备时数据断片或丢失的情况发生。其中有种技术叫做围栏（Fencing），就是在某个或某些节点发生断片时，集群自动将这些节点隔离（关机、断网、自恢复），保证其他节点数据访问的正确性。<strong>元数据（Metadata）</strong>类似目录，可以让所有的机器都能查找使用所有信息，在不同的架构中有不同的保存方式，有的均匀分布于集群，有的存储在中央节点。</p>
+
+<p>实现的方式有SCSI，iSCSI，AoE，FC，Infiniband等，比较著名的产品有Redhat GFS、Sun QFS、Vmware VMFS等。</p>
+
+<p><strong>分布式文件系统</strong></p>
+
+<p>****分布式文件系统则不是块级别的共享的形式了，所有加进来的存储（文件系统）都是整个文件系统的一部分，所有数据的传输也是依靠网络来的。</p>
+
+<p>它的设计有这么几个原则：</p>
+
+<ul>
+<li><em>访问透明</em>   客户端在其上的文件操作与本地文件系统无异</li>
+<li><em>位置透明  </em> 其上的文件不代表其存储位置，只要给了全名就能访问</li>
+<li><em>并发透明</em>   所有客户端持有的文件系统的状态在任何时候都是一致的，不会出现A修改了F文件，但是B愣了半天才发现。</li>
+<li><em>失败透明  </em> 理解为阻塞操作，不成功不回头。</li>
+<li><em>异构性      </em>  文件系统可以在多种硬件以及操作系统下部署使用。</li>
+<li><em>扩展性</em>        随时添加进新的节点，无视其资格新旧。</li>
+<li><em>冗余透明</em>   客户端不需要了解文件存在于多个节点上这一事实。</li>
+<li><em>迁移透明 </em>  客户端不需要了解文件根据负载均衡策略迁移的状况。</li>
+</ul>
+
+
+<p>实现的方式有NFS、CIFS、SMB、NCP等，比较著名的产品有Google GFS、Hadoop HDFS、GlusterFS、Lustre等。</p>
+]]></content>
+  </entry>
+  
+</feed>

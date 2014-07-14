@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using Gpu in Pi - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="We had a wiki here.
+http://elinux.org/RPi_Xorg_rpi_Driver#Design And vc sdk on github. It&#8217;s also in /opt/vc.
+https://github.com/raspberrypi X &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using Gpu in Pi</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>We had a wiki here.</strong><br/>
+<a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design" title="RPi gpu driver design" target="_blank"><a href="http://elinux.org/RPi_Xorg_rpi_Driver#Design">http://elinux.org/RPi_Xorg_rpi_Driver#Design</a></a></p>
+
+<p><strong>And vc sdk on github. It&#8217;s also in /opt/vc.</strong><br/>
+<a href="https://github.com/raspberrypi" title="raspberry on github" target="_blank"><a href="https://github.com/raspberrypi">https://github.com/raspberrypi</a></a></p>
+
+<p><strong>X using gpu.</strong><br/>
+<a href="https://github.com/simonjhall/fbdev_exa" title="X using gpu" target="_blank"><a href="https://github.com/simonjhall/fbdev_exa">https://github.com/simonjhall/fbdev_exa</a></a></p>
+
+<p><strong>Playback accelerating.</strong><br/>
+<a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi" title="RPi playback" target="_blank"><a href="http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi">http://wiki.matthiasbock.net/index.php/Hardware-accelerated_video_playback_on_the_Raspberry_Pi</a></a></p>
+
+<p><strong>Compile gstreamer{*} in Pi</strong><br/>
+<a href="http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011">http://permalink.gmane.org/gmane.comp.video.gstreamer.devel/43011</a></p>
+
+<p><strong>Using wayland instead of X</strong><br/>
+Here&#8217;s the build instruction<br/>
+<a href="http://wayland.freedesktop.org/raspberrypi.html" title="Build Wayland" target="_blank"><a href="http://wayland.freedesktop.org/raspberrypi.html">http://wayland.freedesktop.org/raspberrypi.html</a></a><br/>
+For recently PI_DEBIAN img, we should just</p>
+
+<pre>apt-get install weston weston-dev
+</pre>
+
+
+<p>Using xwayland to run X application in wayland..</p>
+
+<p>Notes:<br/>
+1. If you&#8217;re going to compile cairo using egl, you shall meet a problem like undeclared &#8216;None&#8217;, just DEFINE one as 0L.<br/>
+2. Using soft link rather than copying one when library is missing.</p>
+
+<p><strong>Waiting4Test</strong><br/>
+<strong>Tuning Rasbian</strong><br/>
+Speedup CPU:<br/>
+raspi-config<br/>
+arm_freq=900<br/>
+I always use this hack and my rpi run without problem<br/>
+Change scheduler/elevator at boot time:<br/>
+we use more responsive/less disk io usage scheduler:<br/>
+modify the /boot/cmdline.txt</p>
+
+<pre>dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 rootflags=commit=120,data=writeback elevator=deadline rootwait quiet
+</pre>
+
+
+<p>Tuning sysctl.conf:<br/>
+as manual say, sysctl.conf is the “Configuration file for setting system variables”&#8230; well there are lot of variables you can put inside this file and for everyone we can write a book.<br/>
+Our goal is to gain more speed and tell our system to use less io/ram. Let’s put in the /etc/sysctl.conf:</p>
+
+<pre>vm.dirty_background_ratio = 20
+vm.dirty_expire_centisecs = 0
+vm.dirty_ratio = 80
+vm.dirty_writeback_centisecs = 1200
+vm.overcommit_ratio = 2
+vm.laptop_mode = 5
+vm.swappiness = 10
+</pre>
+
+
+<p><strong>Tuning SDCard:</strong><br/>
+Quite hard to understand, but changing the partition alignment of the SDCard can highly improve the write speed of our sdcard. Basically we have to align the first partition to the erase block size of our sdcard. I suggest to read an reread the reference link.<br/>
+To do that in our sdcard that contain our RaspberryPI Debian distro we have to:<br/>
+backup our filesystem from linux:<br/>
+cd /media/mymmcblk0p2/ (the partitition that’s contain debian fs)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_fs.tgz &#8211;exclude=./proc &#8211;exclude=./lost+found &#8211;exclude=./sys &#8211;exclude=./mnt &#8211;exclude=./media &#8211;exclude=./dev ./<br/>
+cd /media/mymmcblk0p1/ (the partitition that’s contain boot kernel etc)<br/>
+tar -cvpzf /home/gibbio/RPI-TC_boot.tgz ./<br/>
+Now use printcsd.py to find the erase block size, most sd have 128K so we use 128K/Sector size = 256 sectors (mine have 64k so we have to use 64k/512b = 128 sector alignement)</p>
+
+<p>sfdisk -f -H224 -S56 /dev/mmcblk0<br/>
+Checking that no-one is using this disk right now &#8230;<br/>
+OK<br/>
+Disk /dev/mmcblk0: 244448 cylinders, 224 heads, 56 sectors/track<br/>
+Old situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p2 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Input in the following format; absent fields get a default value.<br/>
+<start> <size> <type [E,S,L,X,hex]> <bootable [-,*]> &lt;c,h,s> &lt;c,h,s><br/>
+Usually you only need to specify <start> and <size> (and perhaps <type>).<br/>
+/dev/mmcblk0p1 :,8,c<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+(enter enter)<br/>
+/dev/mmcblk0p2 :<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 :<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 :<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+New situation:<br/>
+Units = cylinders of 6422528 bytes, blocks of 1024 bytes, counting from 0<br/>
+Device Boot Start End #cyls #blocks Id System<br/>
+/dev/mmcblk0p1 0+ 7 8- 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 8 1246 1239 7771008 83 Linux<br/>
+/dev/mmcblk0p3 0 &#8211; 0 0 0 Empty<br/>
+/dev/mmcblk0p4 0 &#8211; 0 0 0 Empty<br/>
+Warning: no primary partition is marked bootable (active)<br/>
+This does not matter for LILO, but the DOS MBR will not boot this disk.<br/>
+Do you want to write this to disk? [ynq] y<br/>
+Successfully wrote the new partition table<br/>
+Re-reading the partition table &#8230;<br/>
+If you created or changed a DOS partition, /dev/foo7, say, then use dd(1)<br/>
+to zero the first 512 bytes: dd if=/dev/zero of=/dev/foo7 bs=512 count=1<br/>
+(See fdisk(8).)</p>
+
+<p>gibbio # fdisk -l&#8230;<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux</p>
+
+<p>now create ext4 FS:<br/>
+mke2fs -t ext4 -E stripe-width=32 -m 0 /dev/mmcblk0p2<br/>
+make FAT32 partition via gparted<br/>
+gibbio # fdisk /dev/mmcblk0<br/>
+Command (m for help): p<br/>
+Disk /dev/mmcblk0: 8010 MB, 8010072064 bytes<br/>
+224 heads, 56 sectors/track, 1247 cylinders, total 15644672 sectors<br/>
+Units = sectors of 1 * 512 = 512 bytes<br/>
+Sector size (logical/physical): 512 bytes / 512 bytes<br/>
+I/O size (minimum/optimal): 512 bytes / 512 bytes<br/>
+Disk identifier: 0x000ee283<br/>
+Device Boot Start End Blocks Id System<br/>
+/dev/mmcblk0p1 1 100351 50175+ c W95 FAT32 (LBA)<br/>
+/dev/mmcblk0p2 100352 15642367 7771008 83 Linux<br/>
+Command (m for help): x<br/>
+Expert command (m for help): p<br/>
+Disk /dev/mmcblk0: 224 heads, 56 sectors, 1247 cylinders<br/>
+Nr AF Hd Sec Cyl Hd Sec Cyl Start Size ID<br/>
+1 00 0 2 0 223 56 7 1 100351 0c<br/>
+2 00 0 1 8 223 56 1023 100352 15542016 83<br/>
+3 00 0 0 0 0 0 0 0 0 00<br/>
+4 00 0 0 0 0 0 0 0 0 00<br/>
+Expert command (m for help): b<br/>
+Partition number (1-4): 1<br/>
+New beginning of data (1-100351, default 1): 128<br/>
+Expert command (m for help): w<br/>
+The partition table has been altered!<br/>
+Calling ioctl() to re-read partition table.<br/>
+Syncing disks.<br/>
+Now eject the sdcard, reinsert and make the restore from the tgz:<br/>
+cd /media/mymmcblk0p2/<br/>
+tar -xvpzf RPI-TC_fs.tgz -C ./<br/>
+mkdir proc mnt sys boot dev<br/>
+umount /media/mymmcblk0p2/<br/>
+cd /media/mymmcblk0p1/<br/>
+tar -xvpzf RPI-TC_boot.tgz -C ./<br/>
+umount /media/mymmcblk0p1/<br/>
+Eject the sdcard, plug into our Raspberry Pi and power on!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/raspberrypi/'>raspberrypi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/02/this-while/" title="Previous Post: 近来">&laquo; 近来</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/15/3ds-max-in-vdi/" title="Next Post: 虚拟桌面架构中的 3ds MAX">虚拟桌面架构中的 3ds MAX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

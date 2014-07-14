@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>7. Gluster简述 - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="这一节会简述下glusterfs功能和特性。 glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。 功能特性 gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用； gluster支持四种存储逻辑组合：Striped、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">7. Gluster简述</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-04T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>这一节会简述下glusterfs功能和特性。</p>
+
+<p>glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-src/cloud-5-2-1/" rel="attachment wp-att-2999"><img class="size-full wp-image-2999 aligncenter" alt="cloud-5.2-1" src="http://lofyer.github.io/uploads/cloud-5.2-1.png" width="787" height="486" /></a></p>
+
+<h2>功能特性</h2>
+
+<p>gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/glusterfs_architecture/" rel="attachment wp-att-3007"><img src="http://lofyer.github.io/uploads/GlusterFS_Architecture.png" alt="GlusterFS_Architecture" width="800" height="576" class="alignnone size-full wp-image-3007" /></a></p>
+
+<p>gluster支持四种存储逻辑组合：Striped、Replicated、Striped-Replicated、Distributed；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_volume/" rel="attachment wp-att-3013"><img src="http://lofyer.github.io/uploads/Distributed_Volume.png" alt="Distributed_Volume" width="660" height="360" class="alignnone size-full wp-image-3013" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_volume/" rel="attachment wp-att-3012"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Volume.png" alt="Distributed_Striped_Volume" width="660" height="400" class="alignnone size-full wp-image-3012" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_replicated_volume/" rel="attachment wp-att-3010"><img src="http://lofyer.github.io/uploads/Distributed_Replicated_Volume.png" alt="Distributed_Replicated_Volume" width="660" height="400" class="alignnone size-full wp-image-3010" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_replicated_volume/" rel="attachment wp-att-3011"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="460" class="alignnone size-full wp-image-3011" /></a></p>
+
+<p>支持跨网备份（geo-replication）；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_lan/" rel="attachment wp-att-3017"><img src="http://lofyer.github.io/uploads/Geo-Rep_LAN.png" alt="Geo-Rep_LAN" width="676" height="241" class="alignnone size-full wp-image-3017" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_wan/" rel="attachment wp-att-3015"><img src="http://lofyer.github.io/uploads/Geo-Rep_WAN.png" alt="Geo-Rep_WAN" width="628" height="206" class="alignnone size-full wp-image-3015" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep03_internet/" rel="attachment wp-att-3018"><img src="http://lofyer.github.io/uploads/Geo-Rep03_Internet.png" alt="Geo-Rep03_Internet" width="659" height="241" class="alignnone size-full wp-image-3018" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep04_cascading/" rel="attachment wp-att-3019"><img src="http://lofyer.github.io/uploads/Geo-Rep04_Cascading.png" alt="Geo-Rep04_Cascading" width="709" height="516" class="alignnone size-full wp-image-3019" /></a></p>
+
+<p>统一对象视图，与UNIX设计哲学类似，所有皆对象；</p>
+
+<p>跨平台兼容性高，可作为hadoop、openstack、ovirt、Amazon EC的后端；</p>
+
+<h2>名词解释</h2>
+
+<p>砖块（brick）：即服务器节点上导出的一个目录，作为glusterfs的最基本单元；</p>
+
+<p>扩展属性（xattr）：用户/程序以之将数据和元数据关联起来；</p>
+
+<p>GFID：glusterfs中的每一个文件或者目录都有一个独立的128位GFID，与普通文件系统中的inode类似；</p>
+
+<p>glusterd：运行于所有服务器中的管理守护程序；</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-04T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/yun-duan-ri-ji/'>云端日记</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/03/5-1-1-fuse/" title="Previous Post: 6.  FUSE">&laquo; 6.  FUSE</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/04/12/5-3-glusterfs-howto/" title="Next Post: 8. 搭建glusterfs作为基础存储">8. 搭建glusterfs作为基础存储 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

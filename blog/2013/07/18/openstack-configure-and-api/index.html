@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Openstack 配置及其API的简单使用 - Lofyer's Archive</title>
+  <meta name="author" content="lofyer">
+
+  
+  <meta name="description" content="安装除Neutron（Quantum）以外所有东西 在开始之前，假设有三个NIC 禁用selinux，并修改网络配置/etc/sysconfig/network-scripts/ifcfg-ethX # Internal
+DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO= &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.lofyer.org/blog/2013/07/18/openstack-configure-and-api">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Lofyer's Archive" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="http://libs.useso.com/js/jquery/1.9.1/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Rock+Salt" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Lofyer's Archive</a></h1>
+  
+    <h2>To be an architect.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/workshop">Workshop</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/search">Search</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Openstack 配置及其API的简单使用</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>安装除Neutron（Quantum）以外所有东西</h2>
+
+<p>在开始之前，假设有三个NIC<pre chkconfig iptables off chkconfig firewalld off chkconfig sshd on chkconfig NetworkManager off chkconfig network start yum install mysql-server service mysqld start mysqladmin -uroot password 123456 chkconfig mysqld on </pre></p>
+
+<p>禁用selinux，并修改网络配置/etc/sysconfig/network-scripts/ifcfg-ethX</p>
+
+<pre># Internal
+DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.11
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=192.168.1.1
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre># External
+DEVICE=eth1
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.12
+NETMASK=255.255.255.0
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre>#Public Bridge
+DEVICE=eth2
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.13
+NETMASK=255.255.255.0
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+<p>于Feodra18中安装Openstack，可参考文档，按照这个来的话对Openstack的设计理念将会有所了解<br/>
+<a href="https://fedoraproject.org/wiki/Getting_started_with_OpenStack_on_Fedora_18" title="Getting started with OpenStack on Fedora 18" target="_blank">Getting started with OpenStack on Fedora 18</a><br/>
+或者运行</p>
+
+<pre>/*安装完成后管理员界面为http://localhost/dashboard用户名admin，密码secrete*/
+# openstack-demo-install
+</pre>
+
+
+<p>以上两种方法把除了Neutron（quantum）其他的服务都配置好了，关于quantum的配置见文末</p>
+
+<h2>添加虚拟机实例</h2>
+
+<p>可参考文档<br/>
+<a href="https://fedoraproject.org/wiki/Getting_started_with_OpenStack_on_Fedora_18" title="Getting started with OpenStack on Fedora 18" target="_blank">Getting started with OpenStack on Fedora 18</a><br/>
+在终端操作之前需要设置环境变量，将它们两者之一写到一个文件，然后source一下</p>
+
+<pre>export OS_USERNAME=admin
+export OS_PASSWORD=secrete
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://127.0.0.1:5000/v2.0/
+</pre>
+
+
+
+
+<pre>export ADMIN_TOKEN=$(openssl rand -hex 10)
+export SERVICE_ENDPOINT=http://127.0.0.1:35357/v2.0/
+export SERVICE_TOKEN=\$ADMIN_TOKEN
+</pre>
+
+
+
+
+<pre>source FileA
+</pre>
+
+
+<p>这个libvirt支持kvm以及xen虚拟化，所以支持的镜像也比较多，这里下载一个已经安装好的f17的qcow2镜像</p>
+
+<pre># axel -n 5 http://berrange.fedorapeople.org/images/2012-11-15/f17-x86_64-openstack-sda.qcow2
+/*注册镜像*/
+# glance add name=f17-jeos is_public=true disk_format=qcow2 container_format=bare &lt; f17-x86_64-openstack-sda.qcow2
+</pre>
+
+
+<p>然后以demo用户进入dashboard，会看到添加进来的image，根据image启动实例，打开vnc界面（非localhost访问要改ip）。</p>
+
+<h2>安装操蛋的Neutron（quantum）服务</h2>
+
+<p>这东西刚改名，nova自带的有network服务，可这个可以虚拟L2 L3 switch，那就比较有意思了</p>
+
+<p>/*注册quantum*/</p>
+
+<pre># keystone service-create --name quantum --type network --description 'OpenStack Networking Service'
+# keystone endpoint-create --region myregion --service-id 26a55b340e254ad5bb78c0b14391e153 --publicurl "http://192.168.1.11:9696/" --adminurl "http://192.168.1.11:9696/" --internalurl "http://192.168.1.11:9696/"
+</pre>
+
+
+<p>/*(可选)添加quantum服务用户*/<br/>
+get_id.sh:</p>
+
+<pre>$ function get_id () {
+     echo `"$@" | awk '/ id / { print $4 }'`
+}
+# ADMIN_ROLE=$(get_id keystone role-create --name=admin)
+# QUANTUM_USER=$(get_id keystone user-create --name=quantum --pass="servicepass" --email=demo@example.com --tenant-id service)
+# keystone user-role-add --user_id $QUANTUM_USER --role_id $ADMIN_ROLE --tenant_id service
+</pre>
+
+
+<p>/*服务插件二选一，linuxbrideg和openvswitch，这里使用后者，先安装插件*/</p>
+
+<pre># yum install openstack-quantum-openvswitch
+</pre>
+
+
+<p>/*启动并添加服务*/</p>
+
+<pre># quantum-server-setup --plugin openvswitch
+# quantum-node-setup --plugin openvswitch
+# service quantum-server start
+# chkconfig quantum-server on
+
+# service openvswitch start
+# chkconfig openvswitch on
+
+# ovs-vsctl add-br br-int
+# chkconfig quantum-openvswitch-agent on
+# service quantum-openvswitch-agent start
+
+# quantum-dhcp-setup --plugin openvswitch
+# chkconfig quantum-dhcp-agent on
+# service quantum-dhcp-agent start
+
+# ovs-vsctl add-br br-ex
+# ovs-vsctl add-port br-ex eth1
+# quantum-l3-setup --plugin openvswitch
+# chkconfig quantum-l3-agent on
+# service quantum-l3-agent start
+<del datetime="2013-07-18T07:31:22+00:00"># chkconfig quantum-metadata-agent on
+# service quantum-metadata-agent start</del>
+</pre>
+
+
+<p>修改并配置网络 /etc/sysconf/network-scripts/ifcfg-eth1，/etc/sysconf/network-scripts/ifcfg-br-ex</p>
+
+<pre># External
+DEVICE=eth1
+TYPE=Ethernet
+BOOTPROTO=none
+NM_CONTROLLED=no
+BRIDGE=br-ex
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre>#Public Bridge
+DEVICE=br-ex
+TYPE=Bridge
+BOOTPROTO=static
+IPADDR=192.168.2.11
+NETMASK=255.255.255.0
+NM_CONTROLLED=no
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre># ip addr del 10.0.0.9/24 dev eth1
+# ip addr add 10.0.0.9/24 dev br-ex
+</pre>
+
+
+<p>这里类似VPN的重写HEADER</p>
+
+<pre>echo 1 > /proc/sys/net/ipv4/conf/all/forwarding
+sysctl -w net.ipv4.ip_forward=1 
+iptables -A FORWARD -i eth0 -o br-ex -s 10.10.10.0/24 -m conntrack --ctstate NEW -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
+</pre>
+
+
+<p>最后重启机器即可</p>
+
+<h2>通过curl使用openstack api</h2>
+
+<p><a href="http://catn.com/2013/04/23/create-an-openstack-instance-with-just-curl/" title="http://catn.com/2013/04/23/create-an-openstack-instance-with-just-curl/" target="_blank">参考这篇文章</a><br/>
+注意区分token和固定id</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">lofyer</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T00:00:00+08:00" pubdate data-updated="true"></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/virtualization/'>virtualization</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/16/doc-dream/" title="Previous Post: 追逐梦想的医生">&laquo; 追逐梦想的医生</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/22/gpupassthrough-xen/" title="Next Post: Gpu Passthrough in Xen">Gpu Passthrough in Xen &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/07/milestone/">Milestone</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="categories">
+      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (2)</a></li>
+<li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
+<li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
+<li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
+<li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
+<li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
+<li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
+<li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
+<li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
+<li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
+<li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
+
+   </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - lofyer -
+  <span class="credit">Powered by <a href="http://blog.lofyer.org">lofyer</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'lofyer';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.lofyer.org/blog/2013/07/18/openstack-configure-and-api/';
+        var disqus_url = 'http://blog.lofyer.org/blog/2013/07/18/openstack-configure-and-api/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

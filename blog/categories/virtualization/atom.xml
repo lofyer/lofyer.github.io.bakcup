@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Virtualization | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/virtualization/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Add Nat to Ovirt via Vdsm Hooks]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/"/>
+    <updated>2014-05-04T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks</id>
+    <content type="html"><![CDATA[<p>OK, I do not like control group very much for now.</p>
+
+<h2>Comment device section in control group config, sorry for my laziness&#8230;</h2>
+
+<pre title="/etc/cgconfig.conf">mount {
+        cpuset  = /cgroup/cpuset;
+        cpu     = /cgroup/cpu;
+        cpuacct = /cgroup/cpuacct;
+        memory  = /cgroup/memory;
+#       devices = /cgroup/devices;
+        freezer = /cgroup/freezer;
+#       net_cls = /cgroup/net_cls;
+        blkio   = /cgroup/blkio;
+}
+</pre>
+
+
+<h2>Enable ip forward</h2>
+
+<pre title="Content added to /etc/sysctl.conf">net.ipv4.ip_forward = 1
+</pre>
+
+
+<p><strong>Reboot the host</strong></p>
+
+<h2>Connect to virsh to enable libvirt&#8217;s default virbr0(NAT)</h2>
+
+<p>If you don&#8217;t know the password for your account, just use command below to create one.</p>
+
+<pre># saslpasswd2 -a libvirt root
+</pre>
+
+
+<p>Create a nat network.</p>
+
+<pre title="/etc/libvirt/qemu/networks/nat.xml" lang="xml">&lt;network>
+  &lt;name>nat&lt;/name>
+  &lt;uuid>b42e377d-e849-4c36-bd98-3d090def5ecc&lt;/uuid>
+  &lt;bridge name="virbr1"/>
+  &lt;mac address='52:54:00:E2:AD:b8'/>
+  &lt;forward mode="nat"/>
+  &lt;ip address="192.168.123.1" netmask="255.255.255.0">
+    &lt;dhcp>
+      &lt;range start="192.168.123.2" end="192.168.123.254"/>
+    &lt;/dhcp>
+  &lt;/ip>
+&lt;/network>
+</pre>
+
+
+
+
+<pre># virsh net-create /etc/libvirt/qemu/networks/nat.xml
+# virsh net-autostart nat
+# virsh net-start nat
+</pre>
+
+
+<h2>Create tun device and add it to virbr0</h2>
+
+<p><strong>UPDATE: This could be ignored if you use extnet.py</strong></p>
+
+<pre># tunctl -t nat0 -u qemu
+# brctl addif virbr1 nat0
+</pre>
+
+
+<h2>Add hook file to vdsm</h2>
+
+<p><strong>UPDATE: use extnet from github with a little modification (Only the first vNIC will be NAT, the second one still keeps its way).</strong></p>
+
+<pre title="extnet.py" lang="python">#!/usr/bin/python
+
+import os
+import sys
+import traceback
+import xml.dom
+import hooking
+
+def replaceSource(interface, newnet):
+    source, = interface.getElementsByTagName('source')
+    source.removeAttribute('bridge')
+    source.setAttribute('network', newnet)
+    interface.setAttribute('type', 'network')
+
+def main():
+    params = "default"
+    os.environ.__setitem__("extnet",params)
+    newnet = os.environ.get('extnet')
+    if newnet is not None:
+        doc = hooking.read_domxml()
+        interface = doc.getElementsByTagName('interface')[0]
+        replaceSource(interface, newnet)
+        hooking.write_domxml(doc)
+def test():
+
+    interface = xml.dom.minidom.parseString("""
+    &lt;interface type="bridge">
+        &lt;address bus="0x00" domain="0x0000" function="0x0" slot="0x03"\
+                                            type="pci"/>
+        &lt;mac address="00:1a:4a:16:01:b0"/>
+        &lt;model type="virtio"/>
+        &lt;source bridge="ovirtmgmt"/>
+        &lt;filterref filter="vdsm-no-mac-spoofing"/>
+        <link state="up" />
+&lt;boot order="1"/>
+    &lt;/interface>
+    """).getElementsByTagName('interface')[0]
+
+    print "Interface before forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+    replaceSource(interface, 'yipee')
+    print "Interface after forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+
+if __name__ == '__main__':
+    try:
+        if '--test' in sys.argv:
+            test()
+        else:
+            main()
+    except:
+        hooking.exit_hook('extnet hook: [unexpected error]: %s\n' %
+                          traceback.format_exc())
+</pre>
+
+
+<p><strong>QEMU-CMD way:</strong></p>
+
+<pre lang="python" title="/usr/libexec/vdsm/hooks/before_vm_start/nat.py with execute permission">import os
+import sys
+import hooking
+import traceback
+import json
+import shutil
+
+def addQemuNs(domXML):
+    domain = domXML.getElementsByTagName('domain')[0]
+    domain.setAttribute('xmlns:qemu',
+                        'http://libvirt.org/schemas/domain/qemu/1.0')
+
+
+def injectQemuCmdLine(domXML, qc):
+    domain = domXML.getElementsByTagName('domain')[0]
+    qctag = domXML.createElement('qemu:commandline')
+
+    for cmd in qc:
+        qatag = domXML.createElement('qemu:arg')
+        qatag.setAttribute('value', cmd)
+
+        qctag.appendChild(qatag)
+
+    domain.appendChild(qctag)
+domxml = hooking.read_domxml()
+
+# Get vm uuid, just in case
+
+cur_vm_uuid = domxml.getElementsByTagName('uuid')[0].firstChild.nodeValue
+
+macaddr = "94:de:80:ea:30:f5"
+natname = "nat0"
+params = '["-netdev","tap,ifname=%s,script=no,id=hostnet0,downscript=no","-device","virtio-net-pci,mac=%s,netdev=hostnet0,bus=pci.0,addr=0x10"]' % (natname, macaddr)
+os.environ.__setitem__("qemu_cmdline",params)
+
+# Modify Qemu Parameter
+
+if 'qemu_cmdline' in os.environ:
+    try:
+        domxml = hooking.read_domxml()
+
+        qemu_cmdline = json.loads(os.environ['qemu_cmdline'])
+        addQemuNs(domxml)
+        injectQemuCmdLine(domxml, qemu_cmdline)
+
+        hooking.write_domxml(domxml)
+    except:
+        sys.stderr.write('qemu_cmdline: [unexpected error]: %s\n'
+                         % traceback.format_exc())
+        sys.exit(2)
+</pre>
+
+
+<p>Then you should start the vm <strong>WITHOUT ANY NIC</strong> if you are using <em>nat.py</em>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Migrate Vm From ESiX to oVirt]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/04/25/migrate-vm-esix-ovirt/"/>
+    <updated>2014-04-25T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/04/25/migrate-vm-esix-ovirt</id>
+    <content type="html"><![CDATA[<p>oVirt: v3.3, CentOS, 192.168.1.111<br/>
+ESiX: 5.x, 192.168.1.135</p>
+
+<ol>
+<li>Create a nfs export domain on your oVirt datacenter.</li>
+</ol>
+
+
+<pre title="/etc/exports">/vdsm/export  0.0.0.0/0.0.0.0(rw)</pre>
+
+
+<ol>
+<li>Install virt-v2v on CentOS and add authentication.</li>
+</ol>
+
+
+<pre># yum install virt-v2v</pre>
+
+
+
+
+<pre title="~/.netrc">machine 192.168.1.135 login root password 1234567</pre>
+
+
+<p>Change permission of <em>.netrc</em> as saying of manual or you will get a warning with wrong permission.</p>
+
+<pre># chmod 600 ~/.netrc</pre>
+
+
+<ol>
+<li>Import myvm. <strong>Make sure that your vm in ESiX is powered off.</strong></li>
+</ol>
+
+
+<pre># virt-v2v -ic esx://192.168.1.135/?no_verify=1 -o rhev -os 192.168.1.111:/virtfan/export --network mgmtnet myvm
+myvm_myvm: 100% [====================================================]D 0h04m48s
+
+virt-v2v: myvm configured with virtio drivers.</pre>
+
+
+<ol>
+<li>Import myvm from export domain to data domain.</li>
+</ol>
+
+
+<p><strong>Import.</strong></p>
+
+<p><a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/import/" rel="attachment wp-att-3185"><img src="http://lofyer.github.io/uploads/import.png" alt="import" width="824" height="180" class="alignnone size-full wp-image-3185" /></a></p>
+
+<p><strong>Run.</strong></p>
+
+<p><a href="http://blog.lofyer.org/migrate-vm-esix-ovirt/run/" rel="attachment wp-att-3186"><img src="http://lofyer.github.io/uploads/run.png" alt="run" width="1065" height="569" class="alignnone size-full wp-image-3186" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Slic for Qemu-kvm]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm/"/>
+    <updated>2013-12-25T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm</id>
+    <content type="html"><![CDATA[<p>This article is a howto for activation-ready of Windows.<br/>
+SLIC 2.0 is for 2003 &amp; XP, and 2.1 for Win7 &amp; 2008<br/>
+Original seabios reads slic table from exactly the host. However, if your motherboard(not OEM) happen to own none, you will most probably make one by your self.</p>
+
+<h3>Seabios</h3>
+
+<p>You could get the lastest code from here.</p>
+
+<pre>git clone git://git.seabios.org/seabios.git seabios</pre>
+
+
+<p>Or, you can download from here.</p>
+
+<p><a href="http://code.coreboot.org/p/seabios/downloads/get/seabios-1.7.2.2.tar.gz" title="seabios-1.7.2.2.tar.gz" target="_blank">seabios-1.7.2.2.tar.gz</a></p>
+
+<h3>SLIC-BIN</h3>
+
+<p>Here&#8217;s a collection of various slic table.<br/>
+<a href="http://blog.lofyer.org/slic-for-qemu-kvm/slic-2-1-bins/" rel="attachment wp-att-3483">SLIC 2.1 BINS</a></p>
+
+<h3>Seaslic patch</h3>
+
+<p>This is patch for seabios to make it slic table enabled.<br/>
+Download from here.</p>
+
+<p><a href="https://cloud.lofyer.org/public.php?service=files&#038;t=3aa0db051506d88bce8e6d03d621f47e" title="Seaslic.tar.xz" target="_blank">Seaslic.tar.xz, seabios-1.7.2 compatible</a><br/>
+Here&#8217;s the patch content.</p>
+
+<pre>--- a/src/acpi.c   2013-01-19 06:44:54.000000000 +0600
++++ b/src/acpi.c    2013-05-07 01:16:30.000000000 +0600
+@@ -214,6 +214,11 @@
+
+ #include "acpi-dsdt.hex"
+
++#define CONFIG_OEM_SLIC
++#ifdef CONFIG_OEM_SLIC
++#include "acpi-slic.hex"
++#endif
++
+ static void
+ build_header(struct acpi_table_header *h, u32 sig, int len, u8 rev)
+ {
+@@ -226,6 +231,10 @@
+     h->oem_revision = cpu_to_le32(1);
+     memcpy(h->asl_compiler_id, CONFIG_APPNAME4, 4);
+     h->asl_compiler_revision = cpu_to_le32(1);
++    #ifdef CONFIG_OEM_SLIC
++    if (sig == RSDT_SIGNATURE) // only RSDT is checked by win7 &#038; vista
++   memcpy(h->oem_id, ((struct acpi_table_header*)SLIC)->oem_id, 14);
++    #endif
+     h->checksum -= checksum(h, len);
+ }
+
+@@ -827,6 +836,15 @@
+     ACPI_INIT_TABLE(build_srat());
+     if (pci->device == PCI_DEVICE_ID_INTEL_ICH9_LPC)
+         ACPI_INIT_TABLE(build_mcfg_q35());
++    #ifdef CONFIG_OEM_SLIC
++   void *buf = malloc_high(sizeof(SLIC));
++   if (!buf)
++       warn_noalloc();
++   else {
++       memcpy(buf, SLIC, sizeof(SLIC));
++       ACPI_INIT_TABLE(buf);
++   }
++    #endif
+
+     u16 i, external_tables = qemu_cfg_acpi_additional_tables();</pre>
+
+
+<h3>Compile</h3>
+
+<p>You don&#8217;t have to apply the seaslic patch with patch.sh, you can do that by hand.<br/>
+Before you start, do this:</p>
+
+<pre>xxd -i /sys/firmware/acpi/tables/SLIC | grep -v len | sed 's/unsigned ch   ar.*/static char SLIC[] = {/' > seabios.submodule/src/acpi-slic.hex</pre>
+
+
+<p>Or,</p>
+
+<pre>xxd -i DELL.BIN | grep -v len | sed 's/unsigned ch   ar.*/static char SLIC[] = {/' > seabios.submodule/src/acpi-slic.hex</pre>
+
+
+<p>After applying the patch, you can compile the bios.bin, and copy that to <strong>/usr/share/qemu-kvm/my-bios.bin</strong> or rewrite <strong>bios.bin</strong> instead.<br/>
+Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
+
+<p><a href="https://cloud.lofyer.org/public.php?service=files&#038;t=996a37a5726b448b81802d641774504f" title="my-bin.tar.xz" target="_blank">my-bin.tar.xz</a></p>
+
+<h3>Qemu-cmd</h3>
+
+<pre>qemu-kvm XXX -bios /usr/share/qemu-kvm/my-bios.bin -acpitable file=Dell[DELL-QA09-NVDA]2.1.BIN</pre>
+
+
+<p>In the guest, you could see that SLIC by /sys/firmware/acpi/tables/SLIC in Linux or SLIC_Toolkit in Windows.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Add Usbdevice to Libvirt by Modifying Cgroup]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/10/31/add-usbdevice-libvirt-modifying-cgroup/"/>
+    <updated>2013-10-31T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/10/31/add-usbdevice-libvirt-modifying-cgroup</id>
+    <content type="html"><![CDATA[<p>CGROUP means Control group.<br/>
+In my case, usb-redir works fine while usb-host not.<br/>
+<a href="https://www.kernel.org/doc/Documentation/cgroups/devices.txt" title="Cgroup HowTO" target="_blank"><a href="https://www.kernel.org/doc/Documentation/cgroups/devices.txt">https://www.kernel.org/doc/Documentation/cgroups/devices.txt</a></a></p>
+
+<h2>Just do it</h2>
+
+<pre># sed -i 's/devices /#devices /'
+# reboot
+</pre>
+
+
+<h2>Add fine control list</h2>
+
+<h3>Review the rules to libvirt, and leave all the character device to it</h3>
+
+<pre># cgget libvirt
+To remove "c" device
+# echo c > /sys/fs/cgroup/libvirt/devices.deny
+To add all the "c" devices
+# echo "c *:* rwm" > /sys/fs/cgroup/libvirt/devices.allow
+</pre>
+
+
+<p>devices.deny/allow is something like end-point.</p>
+
+<h3>About hierarchy</h3>
+
+<p><strong>A child will not have more permission than its parent.</strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Compile Android Spice(aSpice)]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice/"/>
+    <updated>2013-09-02T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice</id>
+    <content type="html"><![CDATA[<p>Ref:<br/>
+<a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" title="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" target="_blank"><a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944">http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944</a></a></p>
+
+<p>OS: ubuntu 12.04 x86_64</p>
+
+<h2>1. You need download some packages at first.</h2>
+
+<p>cerbero<br/>
+celt-0.5.1.tar.bz2<br/>
+libjpegturbo<br/>
+openssl-1.0.1e</p>
+
+<h2>2. What can cerbero do?</h2>
+
+<p>Just like Buildroot, cerbero can build an SDK from scratch for you.</p>
+
+<h3>install</h3>
+
+<pre>$ git clone http://anongit.freedesktop.org/git/gstreamer-sdk/cerbero.git
+$ sudo python setup.py install
+$ cp data/* /usr/local/share/cerbero/data/ #In case of autobuild error
+cerbero bootstrap
+</pre>
+
+
+<p>In my case, cerbero used ndk-android-r8e.</p>
+
+<h3>essential packages</h3>
+
+<p>celt-0.5.1.tar.bz2<br/>
+openssl-1.0.1e<br/>
+(optional)libjpegturbo<br/>
+To build celt, we need source a file</p>
+
+<pre>export NDK=/home/demo/cerbero/android-ndk-r8e
+export SYSROOT=${NDK}/platforms/android-9/arch-arm
+export CC="${NDK}/toolchains/arm-linux-androideabi-4.7/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc --sysroot=${SYSROOT}"
+export CFLAGS='-mfloat-abi=softfp'
+</pre>
+
+
+<p>Save it as <strong>android.buildenv</strong><br/>
+To build celt</p>
+
+<pre>$ source android.buildenv
+$ ./configure --prefix=/home/demo/cerbero/dist/android_arm --enable-shared --enable-static --prefix=arm-linuxandroid-eabi
+$ make; sudo install
+</pre>
+
+
+<p>To build openssl</p>
+
+<pre>$ source android.buildenv
+$ ./config --prefix=/home/demo/cerbero/dist/android_arm --shared os/compiler:arm-linux
+$ make; make install
+</pre>
+
+
+<h2>3. Build bVNC</h2>
+
+<p>We need modify bVNC/jni/src/Android.mk to make ndk-build success.<br/>
+Add <strong>libffi.a</strong> to CROSSDIR<br/>
+Add <strong>&#8211;static</strong> to CFLAGS</p>
+
+<p>Alter <strong>bVNC/jni/Appication.mk</strong> and <strong>bVNC/AndroidManifest.xml</strong> from <strong>android-8</strong> to <strong>android-9</strong></p>
+
+<p>BTW, we use FreeRDP with commit dbbb341.</p>
+]]></content>
+  </entry>
+  
+</feed>

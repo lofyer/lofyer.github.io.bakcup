@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Im-pbx | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/im-pbx/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T07:42:46+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Use MAXS to Control Your Device via Ejabberd(plus Ssh, Jingle Voice Talk as a Bonus)]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/02/26/ejabber-howto/"/>
+    <updated>2014-02-26T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/02/26/ejabber-howto</id>
+    <content type="html"><![CDATA[<p>Let&#8217;s see what we have got here:<br/>
+A xmpp server based on ejabberd on my host: lofyer.org.<br/>
+Windows client: <a href="https://download.jitsi.org/jitsi/nightly/" target="_blank">Jitsi(Recommended)</a>, <a href="http://www.pidgin.im/" target="_blank">Pidgin</a>.<br/>
+(Optional)A Android client: <a href="http://www.xabber.org/" target="_blank">Xabber.</a><br/>
+<a href="http://f-droid.org/wiki/page/org.projectmaxs.main" target="_blank">MAXS</a> on my Nexus 5 Android phone.</p>
+
+<h2>1. Prepare the server(Debian 7)</h2>
+
+<pre># apt-get install ejabberd
+# cd /etc/ejabberd/; wget http://people.collabora.com/~robot101/olpc-ejabberd/ejabberd.cfg
+</pre>
+
+
+<p>Change <strong>hosts</strong> and <strong>admin</strong> section to your <strong>FQDN</strong>.<br/>
+Here&#8217;s a example:</p>
+
+<pre>{hosts, ["lofyer.org"]}.
+{acl, admin, {user, "mypassword", "lofyer.org"}}.
+</pre>
+
+
+<p>Then you should restart ejabberd, and maybe a reboot is essential.</p>
+
+<pre># /etc/init.d/ejabberd restart
+</pre>
+
+
+<h3>Enable Jingle(voice and video)</h3>
+
+<p>You need JingleNodes module on your server.</p>
+
+<pre># apt-get install erlang-tools
+# git clone git://git.process-one.net/exmpp/mainline.git exmpp
+# cd exmpp; ./configure; make; make install
+# svn checkout http://jinglenodes.googlecode.com/svn/ jinglenodes
+# cd jinglenodes; ./configure --prefix=/usr/; make; make install
+</pre>
+
+
+<p>Add following content to your ejabberd.cfg in the <strong>modules</strong> section.</p>
+
+<pre>{mod_jinglenodes, [
+             {host, "jinglenodes.@HOST@"},
+             {public_ip, "192.168.1.148"},
+             {purge_period, 5000},
+             {relay_timeout, 60000}
+            ]},
+</pre>
+
+
+<h3>Enable web register(optional)</h3>
+
+<p>Add to ejabberd.cfg, &#8216;modules&#8217; section the basic configuration:</p>
+
+<pre>{modules, [
+  ...
+  {mod_register_web,     []},
+  ...
+]}.
+</pre>
+
+
+<p>In the &#8216;listen&#8217; section enable the web page:</p>
+
+<pre>{listen, [
+  ...
+  {5281, ejabberd_http, [
+    tls,
+    {certfile, "/etc/ejabberd/ejabberd.pem"},
+    {request_handlers, [
+      {["register"], mod_register_web}
+    ]}
+  ]},
+  ...
+]}.
+</pre>
+
+
+<h3>Use your own certificate</h3>
+
+<pre>openssl req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out server.pem
+openssl rsa -in privkey.pem -out privkey.pem
+cat privkey.pem >> server.pem
+rm privkey.pem
+</pre>
+
+
+<p>The port numbers you should open are: 5281(<a href="http://localhost:5281/register/">http://localhost:5281/register/</a>) 5280(<a href="http://localhost:5280/admin">http://localhost:5280/admin</a>) and 5222(for c2s).</p>
+
+<p>Register users:</p>
+
+<pre># ejabberdctl register admin lofyer.org mypassword
+# ejabberdctl register myphone lofyer.org mypassword
+# ejabberdctl register mypc lofyer.org mypassword
+</pre>
+
+
+<h2>2. Pidgin and MAXS test</h2>
+
+<p>Pidgin: admin@lofyer.org<br/>
+MAXS: myphone@lofyer.org<br/>
+By the way, guarantee that there is only one running jabber client on your phone during this period.<br/>
+<strong>Pidgin</strong><br/>
+Add a friend<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://lofyer.github.io/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a><br/>
+<strong>Shell test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://lofyer.github.io/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a><br/>
+<strong>SMS test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://lofyer.github.io/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a><br/>
+And a msg to my GF.<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://lofyer.github.io/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Deploy Asterisk on CentOS]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos/"/>
+    <updated>2014-02-10T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos</id>
+    <content type="html"><![CDATA[<p>Get the latest packages. <strong>up to 2014-02-10</strong></p>
+
+<pre># rpm -Uvh http://packages.asterisk.org/centos/6/current/x86_64/RPMS/asterisknow-version-3.0.1-2_centos6.noarch.rpm
+# yum install asterisk asterisk-configs --enablerepo=asterisk-12
+# yum install dahdi-linux dahdi-tools libpri
+# chkconfig dahdi on
+# chkconfig asterisk on
+# service dahdi start
+# service asterisk start
+</pre>
+
+
+<p>You can use freepbx on <a href="http://localhost">http://localhost</a> .</p>
+
+<pre># yum install freepbx
+</pre>
+
+]]></content>
+  </entry>
+  
+</feed>

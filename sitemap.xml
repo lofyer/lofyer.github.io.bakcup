@@ -1,0 +1,1590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/07/07/milestone/</loc>
+    <lastmod>2014-07-07T23:26:17+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress/</loc>
+    <lastmod>2014-06-26T21:36:50+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/06/09/gitlab-quick-deploy/</loc>
+    <lastmod>2014-06-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/22/6-5-1-ovirt-shell/</loc>
+    <lastmod>2014-05-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/17/7-1-hadoop-storm-intro/</loc>
+    <lastmod>2014-05-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/11/cloud-6-5-advanced-ovirt/</loc>
+    <lastmod>2014-05-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/08/6-4-complete-ovirt/</loc>
+    <lastmod>2014-05-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/07/6-2-1-deploy-ovirt-admin/</loc>
+    <lastmod>2014-05-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/</loc>
+    <lastmod>2014-05-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/29/6-2-2-cloud-ha-ovirt/</loc>
+    <lastmod>2014-04-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/25/migrate-vm-esix-ovirt/</loc>
+    <lastmod>2014-04-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/24/intergrate-owncloud-adldap/</loc>
+    <lastmod>2014-04-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/24/cloud-6-1-ovirt-description/</loc>
+    <lastmod>2014-04-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick/</loc>
+    <lastmod>2014-04-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing/</loc>
+    <lastmod>2014-04-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/14/openldap-kerberos-howto/</loc>
+    <lastmod>2014-04-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/12/5-3-glusterfs-howto/</loc>
+    <lastmod>2014-04-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des/</loc>
+    <lastmod>2014-04-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse/</loc>
+    <lastmod>2014-04-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/04/01/cloud-5-glusterfs-story/</loc>
+    <lastmod>2014-04-01T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/28/cloud-4-architecture-directory/</loc>
+    <lastmod>2014-03-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/25/cloud-3-arch/</loc>
+    <lastmod>2014-03-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/25/cloud-2-yummy/</loc>
+    <lastmod>2014-03-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/24/cloud-1-nowaday/</loc>
+    <lastmod>2014-03-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/21/cloud-0-how-is-today/</loc>
+    <lastmod>2014-03-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/03/20/cloud-minus-1-pre/</loc>
+    <lastmod>2014-03-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/02/26/ejabber-howto/</loc>
+    <lastmod>2014-02-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/02/25/setup-zebra-ripd/</loc>
+    <lastmod>2014-02-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/</loc>
+    <lastmod>2014-02-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos/</loc>
+    <lastmod>2014-02-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/01/20/2013-2014/</loc>
+    <lastmod>2014-01-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2014/01/16/heartbeat-drbd-test-high-availability/</loc>
+    <lastmod>2014-01-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/25/slic-for-qemu-kvm/</loc>
+    <lastmod>2013-12-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/19/create-dummy-vga-adpter/</loc>
+    <lastmod>2013-12-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/16/they-are-all-gone/</loc>
+    <lastmod>2013-12-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/16/ez430-chronos%25e5%2585%25a5%25e6%2589%258b/</loc>
+    <lastmod>2013-12-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/11/myidc-everythings-traceable/</loc>
+    <lastmod>2013-12-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/12/02/lord-land/</loc>
+    <lastmod>2013-12-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/11/29/unixlinuxmacos-monitor-tools/</loc>
+    <lastmod>2013-11-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/11/16/lockunlockroot-nexus-5/</loc>
+    <lastmod>2013-11-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/10/31/project-recently/</loc>
+    <lastmod>2013-10-31T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/10/31/add-usbdevice-libvirt-modifying-cgroup/</loc>
+    <lastmod>2013-10-31T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/09/24/nagiosicinga-event-handler-life-easy/</loc>
+    <lastmod>2013-09-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/09/19/importance-body/</loc>
+    <lastmod>2013-09-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/09/15/leapmotion-controlled-x4/</loc>
+    <lastmod>2013-09-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/</loc>
+    <lastmod>2013-09-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice/</loc>
+    <lastmod>2013-09-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/08/17/paint-cat/</loc>
+    <lastmod>2013-08-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/08/05/csico-c3550-instances/</loc>
+    <lastmod>2013-08-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/08/02/leapmotion-relative/</loc>
+    <lastmod>2013-08-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/28/leapmotion-%25e5%2585%25a5%25e6%2589%258b%25ef%25bc%258c%25e6%2599%2592%25e4%25b8%2580%25e4%25b8%258b%25e5%25bc%2580%25e7%25ae%25b1%25e4%25bb%25a5%25e5%258f%258a%25e5%259f%25ba%25e6%259c%25ac%25e6%2593%258d%25e4%25bd%259c/</loc>
+    <lastmod>2013-07-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/25/openvswitch-howto/</loc>
+    <lastmod>2013-07-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/22/gpupassthrough-xen/</loc>
+    <lastmod>2013-07-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/18/openstack-configure-and-api/</loc>
+    <lastmod>2013-07-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/16/doc-dream/</loc>
+    <lastmod>2013-07-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/07/world-pre/</loc>
+    <lastmod>2013-07-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/07/06/leap-motion-relative/</loc>
+    <lastmod>2013-07-06T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/06/23/bio-hack/</loc>
+    <lastmod>2013-06-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/06/18/light-weighted-vm-webadmin/</loc>
+    <lastmod>2013-06-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/06/15/3ds-max-in-vdi/</loc>
+    <lastmod>2013-06-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/06/14/gpu-raspberry-pi/</loc>
+    <lastmod>2013-06-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/06/02/this-while/</loc>
+    <lastmod>2013-06-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/05/27/how-to-resolve-the-boot-storm/</loc>
+    <lastmod>2013-05-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/</loc>
+    <lastmod>2013-05-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/05/12/some-data-structure-about-clisp/</loc>
+    <lastmod>2013-05-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/</loc>
+    <lastmod>2013-05-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/15/rex/</loc>
+    <lastmod>2013-04-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/10/all-about-curl/</loc>
+    <lastmod>2013-04-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/10/a-git-script-auto-merge/</loc>
+    <lastmod>2013-04-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/08/a-way-to-use-git/</loc>
+    <lastmod>2013-04-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/05/deploy-debug-earwar-in-intellij-ide/</loc>
+    <lastmod>2013-04-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/04/02/%25e5%2585%25b3%25e4%25ba%258e%25e8%25af%25ad%25e8%25a8%2580/</loc>
+    <lastmod>2013-04-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/03/23/arduino-io%25e7%2594%259f%25e6%2588%2590%25e6%25b3%25a2%25e5%25bd%25a2%25e7%259a%2584%25e9%2597%25ae%25e9%25a2%2598/</loc>
+    <lastmod>2013-03-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/</loc>
+    <lastmod>2013-03-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/02/25/inspire/</loc>
+    <lastmod>2013-02-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/02/05/openvpn/</loc>
+    <lastmod>2013-02-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/01/22/%25e8%258f%259c%25e6%25a0%25b9%25e8%25b0%25ad%25e5%25b0%258f%25e8%25ae%25b0/</loc>
+    <lastmod>2013-01-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/</loc>
+    <lastmod>2013-01-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/01/09/eclipse-multiuser/</loc>
+    <lastmod>2013-01-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration/</loc>
+    <lastmod>2013-01-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2013/01/01/%25e5%25b9%25b4%25e7%25bb%2588/</loc>
+    <lastmod>2013-01-01T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/12/09/arduinocpuloadserialled/</loc>
+    <lastmod>2012-12-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/11/27/1658/</loc>
+    <lastmod>2012-11-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/11/19/%25e5%25ae%2589%25e5%25a5%25bd%25ef%25bc%259f/</loc>
+    <lastmod>2012-11-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/</loc>
+    <lastmod>2012-11-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/29/vdsm/</loc>
+    <lastmod>2012-10-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/27/tcp%25e5%258d%258f%25e8%25ae%25ae%25e4%25b9%258b%25e4%25b8%258a%25e7%259a%2584ccnx/</loc>
+    <lastmod>2012-10-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/24/%25e7%2594%25bb-%25e5%25a2%259e%25e8%25a1%25a5/</loc>
+    <lastmod>2012-10-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/21/arduino/</loc>
+    <lastmod>2012-10-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/18/ovirt-notes/</loc>
+    <lastmod>2012-10-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/13/rtx%25e5%2586%2585%25e6%25a0%25b8/</loc>
+    <lastmod>2012-10-13T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/12/wrt54gs-64ram-8flash/</loc>
+    <lastmod>2012-10-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/12/%25e9%25bb%2591%25e5%25ae%25a2%25e4%25b8%258e%25e7%2594%25bb%25e5%25ae%25b6%25ef%25bc%2588%25e6%2591%2598%25e6%258a%2584%25ef%25bc%2589/</loc>
+    <lastmod>2012-10-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/10/12/%25e8%25ae%25a9dnspod%25e8%25a7%25a3%25e6%259e%2590%25e4%25ba%2586/</loc>
+    <lastmod>2012-10-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/</loc>
+    <lastmod>2012-09-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/09/03/%25e5%259b%259e%25e4%25b8%258d%25e5%258e%25bb%25e5%25b0%25b1%25e5%25be%2580%25e5%2589%258d%25e8%25b5%25b0/</loc>
+    <lastmod>2012-09-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/07/05/v/</loc>
+    <lastmod>2012-07-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/06/14/%25e5%259b%259e%25e5%25ae%25b6%25e4%25ba%2586/</loc>
+    <lastmod>2012-06-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/06/08/2012%25e5%25b9%25b46%25e6%259c%25888%25e6%2597%25a5/</loc>
+    <lastmod>2012-06-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/23/%25e6%25af%2595%25e4%25b8%259a/</loc>
+    <lastmod>2012-05-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/21/2012%25e5%25b9%25b45%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2012-05-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/18/%25e6%2598%258e%25e5%25a4%25a9/</loc>
+    <lastmod>2012-05-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/10/%25e9%25a3%258e%25e4%25bf%25a1%25e5%25ad%2590/</loc>
+    <lastmod>2012-05-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/09/%25e6%25af%2595%25e4%25b8%259a%25e5%2589%258d%25e7%259a%2584%25e6%2597%25a5%25e5%25ad%2590/</loc>
+    <lastmod>2012-05-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/07/2012%25e5%25b9%25b45%25e6%259c%25887%25e6%2597%25a5/</loc>
+    <lastmod>2012-05-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/05/2012%25e5%25b9%25b45%25e6%259c%25885%25e6%2597%25a5/</loc>
+    <lastmod>2012-05-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/03/2012%25e5%25b9%25b45%25e6%259c%25883%25e6%2597%25a5/</loc>
+    <lastmod>2012-05-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/05/03/2012%25e5%25b9%25b45%25e6%259c%25882%25e6%2597%25a5/</loc>
+    <lastmod>2012-05-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/30/2012%25e5%25b9%25b44%25e6%259c%258830%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/29/2012%25e5%25b9%25b44%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/27/2012%25e5%25b9%25b44%25e6%259c%258827%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/26/2012%25e5%25b9%25b44%25e6%259c%258826%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/24/2012%25e5%25b9%25b44%25e6%259c%258824%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/23/2012%25e5%25b9%25b44%25e6%259c%258823%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/22/2012%25e5%25b9%25b44%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/20/2011%25e5%25b9%25b44%25e6%259c%258820%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/19/2012%25e5%25b9%25b44%25e6%259c%258819%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/18/2012%25e5%25b9%25b44%25e6%259c%258817%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/15/unite/</loc>
+    <lastmod>2012-04-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/15/2012%25e5%25b9%25b44%25e6%259c%258815%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/14/2012%25e5%25b9%25b44%25e6%259c%258814%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/12/2012%25e5%25b9%25b44%25e6%259c%258812%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/11/%25e6%259c%2580%25e8%25bf%2591/</loc>
+    <lastmod>2012-04-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/09/2012%25e5%25b9%25b44%25e6%259c%25889%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/07/2012%25e5%25b9%25b44%25e6%259c%25886%25e6%2597%25a5/</loc>
+    <lastmod>2012-04-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/04/05/2012%25e5%25b9%25b44%25e6%259c%25885%25e6%2597%25a5-2/</loc>
+    <lastmod>2012-04-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/30/2012%25e5%25b9%25b43%25e6%259c%258830%25e6%2597%25a5-2/</loc>
+    <lastmod>2012-03-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/30/2012%25e5%25b9%25b43%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/28/2011%25e5%25b9%25b43%25e6%259c%258827%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/26/2012%25e5%25b9%25b43%25e6%259c%258825%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/26/%25e5%2586%25b7%25e4%25ba%2591-2/</loc>
+    <lastmod>2012-03-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/23/%25e5%2585%25b3%25e4%25ba%258e%25e7%25ba%25aa%25e5%25bf%25b5%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/15/yacy-2/</loc>
+    <lastmod>2012-03-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/14/%25e8%25a3%2582%25e7%2597%2595-2/</loc>
+    <lastmod>2012-03-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/12/2011%25e5%25b9%25b43%25e6%259c%258811%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/10/%25e4%25b8%2589%25e6%259c%2588%25e4%25bb%25bd/</loc>
+    <lastmod>2012-03-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/04/2012%25e5%25b9%25b43%25e6%259c%25884%25e6%2597%25a5/</loc>
+    <lastmod>2012-03-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/03/04/%25e6%2596%25b0%25e5%25bc%2580%25e5%25a7%258b/</loc>
+    <lastmod>2012-03-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/01/08/819/</loc>
+    <lastmod>2012-01-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/01/04/2011%25e5%25b9%25b41%25e6%259c%25884%25e6%2597%25a5/</loc>
+    <lastmod>2012-01-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/01/02/2012%25e5%25b9%25b41%25e6%259c%25882%25e6%2597%25a5/</loc>
+    <lastmod>2012-01-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2012/01/01/2012%25e5%25b9%25b41%25e6%259c%25881%25e6%2597%25a5/</loc>
+    <lastmod>2012-01-01T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/29/2011%25e5%25b9%25b412%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/29/2011%25e5%25b9%25b412%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/26/2011%25e5%25b9%25b412%25e6%259c%258826%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/23/2011%25e5%25b9%25b412%25e6%259c%258823%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/21/2011%25e5%25b9%25b412%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/20/2011%25e5%25b9%25b412%25e6%259c%258820%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/19/%25e8%2588%259e%25e8%2580%2585/</loc>
+    <lastmod>2011-12-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/18/2011%25e5%25b9%25b412%25e6%259c%258818%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/17/solace/</loc>
+    <lastmod>2011-12-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/17/if-christmas-never-came/</loc>
+    <lastmod>2011-12-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/17/2011%25e5%25b9%25b412%25e6%259c%258817%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/17/%25e8%258d%2592%25e8%258a%259c%25e7%259a%2584%25e5%25bf%2583%25e8%25bf%25b9/</loc>
+    <lastmod>2011-12-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/17/%25e4%25bd%25a0%25e6%2583%25b3%25e8%25a6%2581%25e7%259a%2584/</loc>
+    <lastmod>2011-12-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/15/2011%25e5%25b9%25b412%25e6%259c%258815%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/14/2011%25e5%25b9%25b412%25e6%259c%258814%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/13/2011%25e5%25b9%25b412%25e6%259c%258813%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-13T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/12/2011%25e5%25b9%25b412%25e6%259c%258812%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/12/%25e5%2595%258a/</loc>
+    <lastmod>2011-12-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/09/2011%25e5%25b9%25b412%25e6%259c%25889%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/08/2011%25e5%25b9%25b412%25e6%259c%25888%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/07/2011%25e5%25b9%25b412%25e6%259c%25887%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/06/2011%25e5%25b9%25b412%25e6%259c%25886%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-06T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/05/2011%25e5%25b9%25b412%25e6%259c%25885%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/03/2011%25e5%25b9%25b412%25e6%259c%25883%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/12/01/2011%25e5%25b9%25b412%25e6%259c%25881%25e6%2597%25a5/</loc>
+    <lastmod>2011-12-01T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/29/2011%25e5%25b9%25b411%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/28/2011%25e5%25b9%25b411%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/28/2011%25e5%25b9%25b411%25e6%259c%258827%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/26/2011%25e5%25b9%25b411%25e6%259c%258826%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/24/2011%25e5%25b9%25b411%25e6%259c%258824%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/23/2011%25e5%25b9%25b411%25e6%259c%258823%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/21/2011%25e5%25b9%25b411%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/20/2011%25e5%25b9%25b411%25e5%25b9%25b420%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/20/%25e5%2590%258d%25e4%25ba%25ba%25e7%2583%259f%25e6%2596%2597%25ef%25bc%259a%25e6%2580%25a7%25e6%25a0%25bc%25e4%25b8%258e%25e9%25a3%258e%25e9%25aa%25a8%25e7%259a%2584%25e5%25bb%25b6%25e4%25bc%25b8/</loc>
+    <lastmod>2011-11-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/19/2011%25e5%25b9%25b411%25e6%259c%258819%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/18/2011%25e5%25b9%25b411%25e6%259c%258817%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/17/2011%25e5%25b9%25b411%25e6%259c%258816%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/16/2011%25e5%25b9%25b411%25e6%259c%258815%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/15/2011%25e5%25b9%25b411%25e6%259c%258814%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/14/%25e5%2592%258c/</loc>
+    <lastmod>2011-11-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/12/2011%25e5%25b9%25b411%25e6%259c%258811%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/11/2011%25e5%25b9%25b411%25e6%259c%258810%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/10/2011%25e5%25b9%25b411%25e6%259c%25889%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/08/2011%25e5%25b9%25b411%25e6%259c%25888%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/07/2011%25e5%25b9%25b411%25e6%259c%25887%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/05/2011%25e5%25b9%25b411%25e6%259c%25885%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/04/2011%25e5%25b9%25b411%25e6%259c%25884%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/04/2011%25e5%25b9%25b411%25e6%259c%25883%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/11/01/2011%25e5%25b9%25b411%25e6%259c%25881%25e6%2597%25a5/</loc>
+    <lastmod>2011-11-01T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/30/2011%25e5%25b9%25b410%25e6%259c%258830%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/29/2011%25e5%25b9%25b410%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-29T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/28/2011%25e5%25b9%25b410%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/28/2011%25e5%25b9%25b410%25e6%259c%258827%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/27/2011%25e5%25b9%25b410%25e6%259c%258826%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/26/2011%25e5%25b9%25b410%25e6%259c%258825%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/26/2011%25e5%25b9%25b410%25e6%259c%258824%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/23/2011%25e5%25b9%25b410%25e6%259c%258823%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/22/2011%25e5%25b9%25b410%25e6%259c%258822%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/22/2011%25e5%25b9%25b410%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/21/2011%25e5%25b9%25b410%25e6%259c%258820%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/17/2011%25e5%25b9%25b410%25e6%259c%258815%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/16/2011%25e5%25b9%25b410%25e6%259c%258814%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/15/2012%25e5%25b9%25b410%25e6%259c%258813%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/13/2011%25e5%25b9%25b410%25e6%259c%258813%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-13T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/12/2011%25e5%25b9%25b410%25e6%259c%258811%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/11/2011%25e5%25b9%25b410%25e6%259c%258810%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/09/2011%25e5%25b9%25b410%25e6%259c%25888%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-09T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/08/2011%25e5%25b9%25b410%25e6%259c%25887%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/06/2011%25e5%25b9%25b410%25e6%259c%25886%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-06T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/06/2011%25e5%25b9%25b410%25e6%259c%25885%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-06T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/05/10-4/</loc>
+    <lastmod>2011-10-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/03/2011%25e5%25b9%25b410%25e6%259c%25883%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/10/02/2011%25e5%25b9%25b49%25e6%259c%258830%25e6%2597%25a5/</loc>
+    <lastmod>2011-10-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/30/2011%25e5%25b9%25b49%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/28/2011%25e5%25b9%25b49%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-28T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/26/2011%25e5%25b9%25b49%25e6%259c%258826%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/24/2011%25e5%25b9%25b49%25e6%259c%258825%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/24/2011%25e5%25b9%25b49%25e6%259c%258824%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/23/2011%25e5%25b9%25b49%25e6%259c%258822%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/21/2011%25e5%25b9%25b49%25e6%259c%258821%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-21T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/19/2011%25e5%25b9%25b49%25e6%259c%258818%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-19T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/18/2011%25e5%25b9%25b49%25e6%259c%258817%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/17/2011%25e5%25b9%25b49%25e6%259c%258816%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/14/2011%25e5%25b9%25b49%25e6%259c%258814%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/14/2011%25e5%25b9%25b49%25e6%259c%258813%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-14T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/12/2011%25e5%25b9%25b49%25e6%259c%258812%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-12T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/11/2011%25e5%25b9%25b49%25e6%259c%258810%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-11T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/10/2011%25e5%25b9%25b49%25e6%259c%25889%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-10T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/07/2011%25e5%25b9%25b49%25e6%259c%25887%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/07/%25e4%25bd%25a0%25e8%25bf%2598%25e5%258f%25af%25e7%2588%25b1%25e4%25b9%2588/</loc>
+    <lastmod>2011-09-07T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/06/2011%25e5%25b9%25b49%25e6%259c%25886%25e6%2597%25a5-2/</loc>
+    <lastmod>2011-09-06T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/05/2011%25e5%25b9%25b49%25e6%259c%25885%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-05T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/04/2011%25e5%25b9%25b49%25e6%259c%25884%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-04T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/03/2011%25e5%25b9%25b49%25e6%259c%25883%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/09/02/2011%25e5%25b9%25b48%25e6%259c%258831%25e6%2597%25a5/</loc>
+    <lastmod>2011-09-02T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/30/2011%25e5%25b9%25b48%25e6%259c%258830/</loc>
+    <lastmod>2011-08-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/30/2011%25e5%25b9%25b48%25e6%259c%258829%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/30/2011%25e5%25b9%25b48%25e6%259c%258828%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/27/2011%25e5%25b9%25b48%25e6%259c%258827%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-27T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/26/2011%25e5%25b9%25b48%25e6%259c%258825%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-26T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/25/201/</loc>
+    <lastmod>2011-08-25T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/24/2011%25e5%25b9%25b48%25e6%259c%258823%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-24T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/22/2011%25e5%25b9%25b48%25e6%259c%258822%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-22T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/20/2011%25e5%25b9%25b48%25e6%259c%258820%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/20/2011%25e5%25b9%25b48%25e6%259c%258819%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-20T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/18/2011%25e5%25b9%25b48%25e6%259c%258818%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-18T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/17/2011%25e5%25b9%25b48%25e6%259c%258817%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/16/2011%25e5%25b9%25b48%25e6%259c%258816%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-16T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/15/2011%25e5%25b9%25b48%25e6%259c%258815%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/15/2011%25e5%25b9%25b48%25e6%259c%258814/</loc>
+    <lastmod>2011-08-15T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/08/13/2052%25e5%25b9%25b412%25e6%259c%25882%25e6%2597%25a5/</loc>
+    <lastmod>2011-08-13T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/07/23/%25e5%2585%25bb%25e7%2594%259f%25e4%25b9%258b%25e9%2581%2593%25e5%2585%25bb%25e7%2594%259f%25e5%258d%2581%25e5%2585%25ad%25e5%25ae%259c%25e4%25b8%258e%25e5%258d%2581%25e5%25b8%25b8%25e5%259b%259b%25e5%258b%25bf/</loc>
+    <lastmod>2011-07-23T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/07/17/%25e7%25ac%25ac%25e4%25b8%2589%25e7%25ab%25a0-im-still-here/</loc>
+    <lastmod>2011-07-17T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/06/08/%25e7%25ac%25ac%25e4%25ba%258c%25e7%25ab%25a0-%25e5%258f%2598%25e5%25bc%2582/</loc>
+    <lastmod>2011-06-08T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/06/03/%25e7%25ac%25ac%25e4%25b8%2580%25e7%25ab%25a0/</loc>
+    <lastmod>2011-06-03T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/2011/04/30/%25e5%2581%25b6%25e7%2584%25b6-%25e5%25be%2590%25e5%25bf%2597%25e6%2591%25a9/</loc>
+    <lastmod>2011-04-30T00:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://blog.lofyer.org/blog/archives/</loc>
+    <lastmod>2014-07-15T07:42:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/</loc>
+    <lastmod>2014-07-15T07:42:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/workshop/</loc>
+    <lastmod>2014-07-15T07:42:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/search/</loc>
+    <lastmod>2014-07-15T07:42:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.lofyer.org/about/</loc>
+    <lastmod>2014-07-15T07:42:46+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
+</urlset>
