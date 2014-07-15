@@ -9,7 +9,7 @@ author: lofyer
 lunr_search:
   excludes: [rss.xml, atom.xml]
 exclude_from_search: true
-#simple_search: # http://www.duckduckgo.com/
+simple_search: https://www.google.com
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
