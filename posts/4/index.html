@@ -9,11 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="今年已经24岁了，从一个普通人生的轨迹来看，这些年应该还能接受。
-2013年，成长了些，在这要感谢敖总辛苦栽培。
-关于互联网行业，应该是爆发的节奏的才对，要厚积。
-关于科技行业，小米这类公司看的很准，下手也是外科手术式的准。
-KP我觉得还是随身带着吧，手机少看些，因为形势至少还在意料内， &hellip;">
+  <meta name="description" content="Get the latest packages. up to 2014-02-10 # rpm -Uvh http://packages.asterisk.org/centos/6/current/x86_64/RPMS/asterisknow-version-3.0.1-2_centos6. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +73,61 @@ KP我觉得还是随身带着吧，手机少看些，因为形势至少还在意
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/10/deploy-asterisk-centos/">Deploy Asterisk on CentOS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/10/deploy-asterisk-centos/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Get the latest packages. <strong>up to 2014-02-10</strong></p>
+
+<pre># rpm -Uvh http://packages.asterisk.org/centos/6/current/x86_64/RPMS/asterisknow-version-3.0.1-2_centos6.noarch.rpm
+# yum install asterisk asterisk-configs --enablerepo=asterisk-12
+# yum install dahdi-linux dahdi-tools libpri
+# chkconfig dahdi on
+# chkconfig asterisk on
+# service dahdi start
+# service asterisk start
+</pre>
+
+
+<p>You can use freepbx on <a href="http://localhost">http://localhost</a> .</p>
+
+<pre># yum install freepbx
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1010,58 +1061,6 @@ iostat</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/16/lockunlockroot-nexus-5/">How to Lock/unlock/root Nexus 5</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-16T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/11/16/lockunlockroot-nexus-5/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/11/16/lockunlockroot-nexus-5/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今日入手Nexus5美版（D820）<br/>
-blahblahblah&#8230;<br/>
-好吧，开始unlock以及root</p>
-
-<p>先下载这个包，里面包含CM的镜像，unlock/lock的apk</p>
-
-<p><a href="http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9">http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9</a></p>
-
-<p>下载完成后，同时按住音量上下键再按开机，进入bootloader的前奏（相当于bios选项），此时电脑上应该会有所表示（比如windows的弹出要安装驱动啦，没驱动下个sdk搜索一下，比如linux的dmesg啦）</p>
-
-<p>解压下载的文件，运行里面的root-$YOUROS（win、mac、linux）脚本，然后你看到请求unlock的选项，选择unlock并按电源键确认，此时pc上的脚本也会让你下一步；<br/>
-下一步就是出现红色的机器人，说正在写脚本以及镜像，在写的时候pc上的脚本再下一步就可以自动让它退出了，然后稍等几分钟让它重启，重启的时候你会看到google标志下面的锁标志。</p>
-
-<p>出于莫名其妙的安全感，在root以后可以安装压缩包里面的apk文件将bootloader再次锁上，这样，就这样。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/5">&larr; Older</a>
@@ -1079,6 +1078,10 @@ blahblahblah&#8230;<br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -1092,10 +1095,6 @@ blahblahblah&#8230;<br/>
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -1114,11 +1113,12 @@ blahblahblah&#8230;<br/>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

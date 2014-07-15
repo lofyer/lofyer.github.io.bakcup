@@ -9,8 +9,9 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="robohand http://git.lofyer.org/cgit.cgi/fun/robohand.git/ leapmotion&amp;X4 OK, I&#8217;ve collected some components of it.
-To be reconstructed. ">
+  <meta name="description" content="今日入手Nexus5美版（D820）
+blahblahblah&#8230;
+好吧，开始unlock以及root 先下载这个包，里面包含CM的镜像，unlock/lock的apk http://cloud.lofyer.org/public.php?service=files&amp;t= &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,58 @@ To be reconstructed. ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/16/lockunlockroot-nexus-5/">How to Lock/unlock/root Nexus 5</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-16T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/11/16/lockunlockroot-nexus-5/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/11/16/lockunlockroot-nexus-5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日入手Nexus5美版（D820）<br/>
+blahblahblah&#8230;<br/>
+好吧，开始unlock以及root</p>
+
+<p>先下载这个包，里面包含CM的镜像，unlock/lock的apk</p>
+
+<p><a href="http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9">http://cloud.lofyer.org/public.php?service=files&amp;t=af14640b4f32d2e491d80a117db2bbe9</a></p>
+
+<p>下载完成后，同时按住音量上下键再按开机，进入bootloader的前奏（相当于bios选项），此时电脑上应该会有所表示（比如windows的弹出要安装驱动啦，没驱动下个sdk搜索一下，比如linux的dmesg啦）</p>
+
+<p>解压下载的文件，运行里面的root-$YOUROS（win、mac、linux）脚本，然后你看到请求unlock的选项，选择unlock并按电源键确认，此时pc上的脚本也会让你下一步；<br/>
+下一步就是出现红色的机器人，说正在写脚本以及镜像，在写的时候pc上的脚本再下一步就可以自动让它退出了，然后稍等几分钟让它重启，重启的时候你会看到google标志下面的锁标志。</p>
+
+<p>出于莫名其妙的安全感，在root以后可以安装压缩包里面的apk文件将bootloader再次锁上，这样，就这样。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -699,84 +752,6 @@ Add <strong>&#8211;static</strong> to CFLAGS</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/02/leapmotion-relative/">Leapmotion 相关</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-02T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/08/02/leapmotion-relative/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/08/02/leapmotion-relative/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>在Windows中</h2>
-
-<p>夹持器与四轴飞行器都是Arduino-Based，通信就用串口。<br/>
-代码放在<a href="http://git.lofyer.org/cgit.cgi/fun/robohand/" title="http://git.lofyer.org/cgit.cgi/fun/robohand/" target="_blank">git.lofyer.org</a><br/>
-感觉VS好难。。试试在gentoo下驱动leapmotion</p>
-
-<h2>在Gentoo下使用，这个方式应该适用于所有非debian系</h2>
-
-<p>先下载sdk包，下载后解压。<br/>
-看到里面有个deb的包，用alien转化为tar包</p>
-
-<pre>alien -t Leap-0.8.0-x64.deb
-tar xf leap-0.8.0.tgz
-cp -irf usr/* /usr/local/
-cp -irf lib/udev/rules.d/25-com-leapmotion-leap.rules /etc/udev/rules.d</pre>
-
-
-<p>然后将普通用户加入plugdev组</p>
-
-<pre>sudo usermod -a -G plugdev $USER</pre>
-
-
-<p>刷新组关系，注销当前用户也可</p>
-
-<pre>exec su -l $USER</pre>
-
-
-<p>运行leapd与LeapControlPanel即可</p>
-
-<p>在64位机器上缺少32位库文件<br/>
-freetype.so.6, libasound.so.2</p>
-
-<pre>sudo emerge -avt app-emulation/emul-linux-x86-xlibs
-sudo emerge emul-linux-x86-soundlibs</pre>
-
-
-<p>实例：编译MotionVisualizer</p>
-
-<pre>Make -C Builds/Linux</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/6">&larr; Older</a>
@@ -794,6 +769,10 @@ sudo emerge emul-linux-x86-soundlibs</pre>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -807,10 +786,6 @@ sudo emerge emul-linux-x86-soundlibs</pre>
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -829,11 +804,12 @@ sudo emerge emul-linux-x86-soundlibs</pre>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

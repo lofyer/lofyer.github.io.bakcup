@@ -9,11 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="2012过去了
-想想挺快，23了
-好像很着急的样子，可不知道急什么
-心态，心态
-">
+  <meta name="description" content="安装好owncloud后，可以使用webdav协议进行远程挂载，比如 mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt 2003上需启动webclient服务 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +73,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/03/owncloud-intergration/">Owncloud Webdav Intergration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-03T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/03/owncloud-intergration/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>安装好owncloud后，可以使用webdav协议进行远程挂载，比如</p>
+
+<pre>mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt
+</pre>
+
+
+<p>2003上需启动webclient服务<br/>
+而在2008上, webclient被集成到desktop experience组件中, 从service manager->feature中添加desktop experience,并且修改注册表HKEY_LOCAL_MACHINE->SYSTEM->CurrentControlSet->Services->WebClient->Parameters->BasicAuthLevel 的值为 2，重启服务<br/>
+此时可映射网络驱动器，钩选“connect using different credentials”，输入其用户名密码即可<br/>
+或者命令行</p>
+
+<pre>NET USE *  http://localhost/remote.php/webdav 123456 /user:admin
+</pre>
+
+
+<p>PS：<br/>
+1. owncloud第三方app WebDev安装后会造成不能添加用户的麻烦<br/>
+2. 修改owncloud目录权限为apache.apache或者www-data.www-data以使.htaccesss生效</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -576,75 +628,6 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/18/ovirt-notes/">Ovirt Notes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-18T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/10/18/ovirt-notes/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/10/18/ovirt-notes/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ovirt<br/>
-Just make some notes:<br/>
-# need net<br/>
-qemu-kvm -m 1024 -localtime -M pc -smp 2 -drive file=ovirt.qcow2,cache=writeback,boot=on -boot d -name kvm-ovirt,process=ovirt -usb -usbdevice tablet<br/>
-Ovirt provided a fedora.iso with node in it. Ao is building the engine.</p>
-
-<h1>on virtfan</h1>
-
-<p>spicec -h localhost -p 5910</p>
-
-<p>node应该是自动加入engine的，结果是现在能加入，但是不能安装<br/>
-nmap后engine确实是有8443，node只有22，安装过程是交互的（node通过外网获取安装包，返回状态到engine）</p>
-
-<p>改变端口为443，按照troubleshooting更改engine上的nfs服务。f17上nfs默认建立服务为v4，要改为v3，并且添加group和user id分别为36的vdsm与kvm，用提供的脚本测试下。<br/>
-<a href="http://wiki.ovirt.org/wiki/Troubleshooting_NFS_Storage_Issues" title="fix the nfs" target="_blank">Troubleshooting_NFS_Storage_Issues</a></p>
-
-<p>ok，等明天加入节点就可以了。</p>
-
-<p>Building ovirt from source<br/>
-<a href="http://wiki.ovirt.org/wiki/Building_oVirt_engine" title="with cmdline" target="_blank">with cmdline</a><br/>
-<a href="http://wiki.ovirt.org/wiki/Building_Ovirt_Engine/IDE" title="within an ide" target="_blank">within an ide</a><br/>
-<a href="https://community.jboss.org/en/tools/blog/2011/02/21/getting-started-with-jboss-tools-jboss-maven-integration-and-weld" title="install jboss maven plugin on eclipse" target="_blank">install jboss maven plugin on eclipse</a></p>
-
-<p>here&#8217;s the engine arch<br/>
-<a href="http://69.164.197.168/wp-content/uploads/2012/10/Engine-arch.png"><img src="http://69.164.197.168/wp-content/uploads/2012/10/Engine-arch.png" alt="" title="Engine-arch" width="955" height="540" class="alignnone size-full wp-image-1606" /></a></p>
-
-<p>and here&#8217;s the engine-core arch<br/>
-<a href="http://69.164.197.168/wp-content/uploads/2012/10/Engine-arch2.png"><img src="http://69.164.197.168/wp-content/uploads/2012/10/Engine-arch2.png" alt="" title="Engine-arch2" width="934" height="650" class="alignnone size-full wp-image-1607" /></a></p>
-
-<p>运行engine-manage-domain需要ipa-server，类似windows的ActiveDirectory，需要不同于engine的主机上安装ipa<br/>
-<a href="http://blog.jaurola.fi/2011/12/28/implementing-ipa-server-with-windowslinux-environment" title="ipa-server" target="_blank">安装ipa-server</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/10">&larr; Older</a>
@@ -662,6 +645,10 @@ nmap后engine确实是有8443，node只有22，安装过程是交互的（node�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -675,10 +662,6 @@ nmap后engine确实是有8443，node只有22，安装过程是交互的（node�
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -697,11 +680,12 @@ nmap后engine确实是有8443，node只有22，安装过程是交互的（node�
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

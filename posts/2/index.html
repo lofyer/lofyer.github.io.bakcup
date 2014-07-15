@@ -9,8 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="oVirt: v3.3, CentOS, 192.168.1.111
-ESiX: 5.x, 192.168.1.135 Create a nfs export domain on your oVirt datacenter. /vdsm/export 0.0.0.0/0.0.0.0(rw) &hellip;">
+  <meta name="description" content="笔者写此文时oVirt已经更新到3.4。 在此，我们会用到之前创建的distributed-replicate存储，这样可用保证系统服务的高度可用性有所提高。 有以下几点需要注意： 宿主机的CPU架构需要为Westmere（Westmere E56xx/L56xx/X56xx）、Nehalem（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +73,330 @@ ESiX: 5.x, 192.168.1.135 Create a nfs export domain on your oVirt datacenter. /v
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/29/6-2-2-cloud-ha-ovirt/">12. 搭建高可用oVirt（hosted Engine）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-29T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/29/6-2-2-cloud-ha-ovirt/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/29/6-2-2-cloud-ha-ovirt/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>笔者写此文时oVirt已经更新到3.4。</p>
+
+<p>在此，我们会用到之前创建的distributed-replicate存储，这样可用保证系统服务的高度可用性有所提高。</p>
+
+<p>有以下几点需要注意：</p>
+
+<blockquote><ol>
+<li>宿主机的CPU架构需要为Westmere（Westmere E56xx/L56xx/X56xx）、Nehalem（Intel Core i7 9xx）、Penryn（Intel Core 2 Duo P9xxx）或者Conroe（Intel Celeron_4x0）中的之一，否则集群类型会与宿主机类型不兼容导致数据中心启动失败。</li>
+</ol>
+
+
+<p>CPU Family table 参阅<br/>
+<a title="cpu family table" href="https://software.intel.com/en-us/articles/intel-architecture-and-processor-identification-with-cpuid-model-and-family-numbers" target="_blank">Intel Architecture and Processor Identification With CPUID Model and Family Numbers</a></p>
+
+<ol>
+<li>建议参考第11节提前安装含有oVirt管理的虚拟机，硬盘格式为RAW，从而在安装管理机时作为OVF导入或者覆盖虚拟磁盘，减少失败风险时间。</li>
+</ol>
+</blockquote>
+
+<h2>准备</h2>
+
+<p><strong>每台机器上都要添加作为虚拟机运行的engine的FQDN，此处为ha.lofyer.org。</strong></p>
+
+<pre># echo -e '192.168.10.100\tha.lofyer.org' &gt;&gt; /etc/hosts</pre>
+
+
+<p><strong>存储可以使用之前的glusterfs，方式为NFS_V3，注意将brick的权限设置为vdsm.kvm或者36:36。</strong></p>
+
+<pre class="lang:default decode:true"># gluster volume create gluster-vol1 replica 2 gs1.example.com:/gluster_brick0 gs2.example.com:/gluster_brick0 gs3.example.com:/gluster_brick0 gs4.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick1 force</pre>
+
+
+<p><a href="http://blog.lofyer.org/11-cloud-ha-ovirt/gluster-ovirt/" rel="attachment wp-att-3307"><img class="alignnone size-full wp-image-3307" src="http://lofyer.github.io/uploads/gluster-ovirt.png" alt="gluster-ovirt" width="712" height="537" /></a></p>
+
+<p><strong>由于engine以及node的网络服务依赖于network而非NetworkManager，我们需要启用前者禁用后者，在每一台服务器上都进行如下类似配置修改网络。</strong></p>
+
+<pre title="/etc/sysconfig/network-scripts/ifcfg-eth0">NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+BOOTPROTO=static
+# 注意修改此处的IP
+IPADDR=192.168.10.101
+NETMASK=255.255.255.0
+GATEWAY=192.168.10.1
+DNS1=192.168.10.1</pre>
+
+
+
+
+<pre># chkconfig NetworkManager off
+# chkconfig network on
+# service NetworkManager stop; service network restart</pre>
+
+
+<h2>添加repo</h2>
+
+<pre># yum localinstall http://resources.ovirt.org/releases/ovirt-release.noarch.rpm
+# yum install ovirt-hosted-engine-setup</pre>
+
+
+<p>或者手动添加：</p>
+
+<pre title="/etc/yum.repos.d/ovirt.repo">[ovirt-stable]
+name=Latest oVirt Releases
+baseurl=http://ovirt.org/releases/stable/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-3.4-stable]
+name=Latest oVirt 3.4.z Releases
+baseurl=http://ovirt.org/releases/3.4/rpm/EL/$releasever/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+includepkgs=epel-release,python-uinput,puppet,python-lockfile,python-cpopen,python-ordereddict,python-pthreading,python-inotify,python-argparse,novnc,python-ply,python-kitchen,python-daemon,python-websockify,livecd-tools,spice-html5,mom
+gpgcheck=0
+
+[ovirt-glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[ovirt-glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+</pre>
+
+
+<h2>安装hosted-engine</h2>
+
+<pre># yum install ovirt-hosted-engine-setup
+</pre>
+
+
+<p>回答一些列问题，如下所示：</p>
+
+<pre class="lang:default mark:21,123,144,138,160,167"># hosted-engine --deploy
+[ INFO  ] Stage: Initializing
+          Continuing will configure this host for serving as hypervisor and create a VM where you have to install oVirt Engine afterwards.
+          Are you sure you want to continue? (Yes, No)[Yes]: yes
+[ INFO  ] Generating a temporary VNC password.
+[ INFO  ] Stage: Environment setup
+          Configuration files: []
+          Log file: /var/log/ovirt-hosted-engine-setup/ovirt-hosted-engine-setup-20140508182241.log
+          Version: otopi-1.2.0 (otopi-1.2.0-1.el6)
+[ INFO  ] Hardware supports virtualization
+[ INFO  ] Bridge ovirtmgmt already created
+[ INFO  ] Stage: Environment packages setup
+[ INFO  ] Stage: Programs detection
+[ INFO  ] Stage: Environment setup
+[ INFO  ] Stage: Environment customization
+         
+          --== STORAGE CONFIGURATION ==--
+         
+          During customization use CTRL-D to abort.
+          Please specify the storage you would like to use (nfs3, nfs4)[nfs3]: 
+# 此处的存储域只存储hosted-engine的相关文件，不作为主数据域
+          Please specify the full shared storage connection path to use (example: host:/path): 192.168.10.101:/gluster-vol1/ovirt_data/hosted_engine
+[ INFO  ] Installing on first host
+          Please provide storage domain name. [hosted_storage]: 
+          Local storage datacenter name is an internal name and currently will not be shown in engine's admin UI.Please enter local datacenter name [hosted_datacenter]: 
+         
+          --== SYSTEM CONFIGURATION ==--
+         
+         
+          --== NETWORK CONFIGURATION ==--
+         
+          iptables was detected on your computer, do you wish setup to configure it? (Yes, No)[Yes]: no
+          Please indicate a pingable gateway IP address [192.168.10.1]: 
+         
+          --== VM CONFIGURATION ==--
+# 虚拟engine的安装方式         
+          Please specify the device to boot the VM from (cdrom, disk, pxe) [cdrom]: 
+          The following CPU types are supported by this host:
+             - model_Conroe: Intel Conroe Family
+          Please specify the CPU type to be used by the VM [model_Conroe]: 
+          Please specify path to installation media you would like to use [None]: /tmp/centos.iso
+          Please specify the number of virtual CPUs for the VM [Defaults to minimum requirement: 2]: 
+          Please specify the disk size of the VM in GB [Defaults to minimum requirement: 25]: 
+          You may specify a MAC address for the VM or accept a randomly generated default [00:16:3e:59:9b:e2]: 
+          Please specify the memory size of the VM in MB [Defaults to minimum requirement: 4096]: 4096
+          Please specify the console type you would like to use to connect to the VM (vnc, spice) [vnc]: 
+         
+          --== HOSTED ENGINE CONFIGURATION ==--
+         
+          Enter the name which will be used to identify this host inside the Administrator Portal [hosted_engine_1]: 
+          Enter 'admin@internal' user password that will be used for accessing the Administrator Portal: 
+          Confirm 'admin@internal' user password: 
+          Please provide the FQDN for the engine you would like to use.
+          This needs to match the FQDN that you will use for the engine installation within the VM.
+          Note: This will be the FQDN of the VM you are now going to create,
+          it should not point to the base host or to any other existing machine.
+          Engine FQDN: ha.lofyer.org
+[WARNING] Failed to resolve ha.lofyer.org using DNS, it can be resolved only locally
+          Please provide the name of the SMTP server through which we will send notifications [localhost]: 
+          Please provide the TCP port number of the SMTP server [25]: 
+          Please provide the email address from which notifications will be sent [root@localhost]: 
+          Please provide a comma-separated list of email addresses which will get notifications [root@localhost]: 
+[ INFO  ] Stage: Setup validation
+         
+          --== CONFIGURATION PREVIEW ==--
+         
+          Engine FQDN                        : ha.lofyer.org
+          Bridge name                        : ovirtmgmt
+          SSH daemon port                    : 22
+          Gateway address                    : 192.168.10.1
+          Host name for web application      : hosted_engine_1
+          Host ID                            : 1
+          Image size GB                      : 25
+          Storage connection                 : 192.168.10.101:/gluster-vol1/ovirt_data/hosted_data/
+          Console type                       : vnc
+          Memory size MB                     : 4096
+          MAC address                        : 00:16:3e:59:9b:e2
+          Boot type                          : cdrom
+          Number of CPUs                     : 2
+          ISO image (for cdrom boot)         : /tmp/centos.iso
+          CPU Type                           : model_Conroe
+         
+          Please confirm installation settings (Yes, No)[No]: yes
+[ INFO  ] Generating answer file '/etc/ovirt-hosted-engine/answers.conf'
+[ INFO  ] Stage: Transaction setup
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Stage: Package installation
+[ INFO  ] Stage: Misc configuration
+[ INFO  ] Configuring libvirt
+[ INFO  ] Configuring VDSM
+[ INFO  ] Starting vdsmd
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Waiting for VDSM hardware info
+[ INFO  ] Creating Storage Domain
+[ INFO  ] Creating Storage Pool
+[ INFO  ] Connecting Storage Pool
+[ INFO  ] Verifying sanlock lockspace initialization
+[ INFO  ] Initializing sanlock lockspace
+[ INFO  ] Initializing sanlock metadata
+[ INFO  ] Creating VM Image
+[ INFO  ] Disconnecting Storage Pool
+[ INFO  ] Start monitoring domain
+[ INFO  ] Configuring VM
+[ INFO  ] Updating hosted-engine configuration
+[ INFO  ] Stage: Transaction commit
+[ INFO  ] Stage: Closing up
+          The following network ports should be opened:
+              tcp:5900
+              tcp:5901
+              udp:5900
+              udp:5901
+          An example of the required configuration for iptables can be found at:
+              /etc/ovirt-hosted-engine/iptables.example
+          In order to configure firewalld, copy the files from
+          /etc/ovirt-hosted-engine/firewalld to /etc/firewalld/services
+          and execute the following commands:
+              firewall-cmd -service hosted-console
+[ INFO  ] Creating VM
+          You can now connect to the VM with the following command:
+            /usr/bin/remote-viewer vnc://localhost:5900
+          Use temporary password "2067OGHU" to connect to vnc console.
+          Please note that in order to use remote-viewer you need to be able to run graphical applications.
+          This means that if you are using ssh you have to supply the -Y flag (enables trusted X11 forwarding).
+          Otherwise you can run the command from a terminal in your preferred desktop environment.
+          If you cannot run graphical applications you can connect to the graphic console from another host or connect to the console using the following command:
+          virsh -c qemu+tls://192.168.1.150/system console HostedEngine
+          If you need to reboot the VM you will need to start it manually using the command:
+          hosted-engine --vm-start
+          You can then set a temporary password using the command:
+          hosted-engine --add-console-password
+          The VM has been started.  Install the OS and shut down or reboot it.  To continue please make a selection:
+         
+          (1) Continue setup - VM installation is complete
+          (2) Reboot the VM and restart installation
+          (3) Abort setup
+# 需要在另外一个有图形能力的terminal中运行"remote-viewer vnc://192.168.10.101:5900"连接虚拟机并关闭（密码在第123行），如有需要可运行"hosted-engine --add-console-password"更换控制台密码。如果之前选择cdrom进行安装的话，此处可以在gs1上用已经安装好engine的虚拟磁盘进行覆盖，类似"mount -t nfs 192.168.10.101:192.168.10.101:/gluster-vol1/ovirt_data/hosted_data/ /mnt; engine.raw /mnt/ovirt_data/hosted_data/.../vm_UUID"
+          (1, 2, 3)[1]: 1
+          Waiting for VM to shut down...
+[ INFO  ] Creating VM
+          You can now connect to the VM with the following command:
+            /usr/bin/remote-viewer vnc://localhost:5900
+          Use temporary password "2067OGHU" to connect to vnc console.
+          Please note that in order to use remote-viewer you need to be able to run graphical applications.
+          This means that if you are using ssh you have to supply the -Y flag (enables trusted X11 forwarding).
+          Otherwise you can run the command from a terminal in your preferred desktop environment.
+          If you cannot run graphical applications you can connect to the graphic console from another host or connect to the console using the following command:
+          virsh -c qemu+tls://192.168.1.150/system console HostedEngine
+          If you need to reboot the VM you will need to start it manually using the command:
+          hosted-engine --vm-start
+          You can then set a temporary password using the command:
+          hosted-engine --add-console-password
+          Please install and setup the engine in the VM.
+          You may also be interested in installing ovirt-guest-agent-common package in the VM.
+          To continue make a selection from the options below:
+          (1) Continue setup - engine installation is complete
+          (2) Power off and restart the VM
+          (3) Abort setup
+# 此处参考第一次操作，连接虚拟机控制台后进行"engine-setup --offline"以安装engine
+          (1, 2, 3)[1]: 1
+[ INFO  ] Engine replied: DB Up!Welcome to Health Status!
+[ INFO  ] Waiting for the host to become operational in the engine. This may take several minutes...
+[ INFO  ] Still waiting for VDSM host to become operational...
+[ INFO  ] The VDSM Host is now operational
+          Please shutdown the VM allowing the system to launch it as a monitored service.
+# 到此，需要连接虚拟机控制台关闭虚拟机
+          The system will wait until the VM is down.
+[ INFO  ] Enabling and starting HA services
+          Hosted Engine successfully set up
+[ INFO  ] Stage: Clean up
+[ INFO  ] Stage: Pre-termination
+[ INFO  ] Stage: Termination
+</pre>
+
+
+<p>此时，运行&#8221;hosted-engine &#8211;vm-start&#8221;启动engine。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1395,75 +1718,6 @@ total 1.0M
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/01/cloud-5-glusterfs-story/">5. 分布式存储的故事</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-01T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/04/01/cloud-5-glusterfs-story/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/01/cloud-5-glusterfs-story/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>计算机领域中有诸多有意思的东西可以把玩，在这儿且看看分布式存储。</p>
-
-<p><strong style="line-height: 1.5em;">集群文件系统</strong><span style="line-height: 1.5em;">在某些场景下又可以称作网络文件系统、并行文件系统，在70年代由IBM提出并实现原型。</span></p>
-
-<p><span style="line-height: 1.5em;">有几种方法可以实现集群形式，但多数仅仅是节点直连存储而不是将存储之上的文件系统进行合理“分布”。分布式文件系统同时挂载于多个服务器上，并在它们之间共享，可以提供类似于位置无关的数据定位或冗余等特点。并行文件系统是一种集群式的文件系统，它将数据分布于多个节点，其主要目的是提供冗余和提高读写性能。</span></p>
-
-<p><strong style="line-height: 1.5em;">共享磁盘（Shared-disk）/Storage-area network(SAN)</strong></p>
-
-<p>从应用程序使用的文件级别，到SAN之间的块级别的操作，诸如权限控制和传输，都是发生在客户端节点上。共享磁盘（Shared-disk）文件系统，在并行控制上做了很多工作，以至于其拥有比较一致连贯的文件系统视图，从而避免了多个客户端试图同时访问同一设备时数据断片或丢失的情况发生。其中有种技术叫做围栏（Fencing），就是在某个或某些节点发生断片时，集群自动将这些节点隔离（关机、断网、自恢复），保证其他节点数据访问的正确性。<strong>元数据（Metadata）</strong>类似目录，可以让所有的机器都能查找使用所有信息，在不同的架构中有不同的保存方式，有的均匀分布于集群，有的存储在中央节点。</p>
-
-<p>实现的方式有SCSI，iSCSI，AoE，FC，Infiniband等，比较著名的产品有Redhat GFS、Sun QFS、Vmware VMFS等。</p>
-
-<p><strong>分布式文件系统</strong></p>
-
-<p>****分布式文件系统则不是块级别的共享的形式了，所有加进来的存储（文件系统）都是整个文件系统的一部分，所有数据的传输也是依靠网络来的。</p>
-
-<p>它的设计有这么几个原则：</p>
-
-<ul>
-<li><em>访问透明</em>   客户端在其上的文件操作与本地文件系统无异</li>
-<li><em>位置透明  </em> 其上的文件不代表其存储位置，只要给了全名就能访问</li>
-<li><em>并发透明</em>   所有客户端持有的文件系统的状态在任何时候都是一致的，不会出现A修改了F文件，但是B愣了半天才发现。</li>
-<li><em>失败透明  </em> 理解为阻塞操作，不成功不回头。</li>
-<li><em>异构性      </em>  文件系统可以在多种硬件以及操作系统下部署使用。</li>
-<li><em>扩展性</em>        随时添加进新的节点，无视其资格新旧。</li>
-<li><em>冗余透明</em>   客户端不需要了解文件存在于多个节点上这一事实。</li>
-<li><em>迁移透明 </em>  客户端不需要了解文件根据负载均衡策略迁移的状况。</li>
-</ul>
-
-
-<p>实现的方式有NFS、CIFS、SMB、NCP等，比较著名的产品有Google GFS、Hadoop HDFS、GlusterFS、Lustre等。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1481,6 +1735,10 @@ total 1.0M
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -1494,10 +1752,6 @@ total 1.0M
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -1516,11 +1770,12 @@ total 1.0M
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

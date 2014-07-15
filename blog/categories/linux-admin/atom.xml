@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux Admin | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/linux-admin/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-07-15T08:03:23+08:00</updated>
+  <updated>2014-07-15T08:24:11+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,144 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Lunr Search in Octopress]]></title>
-    <link href="http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress/"/>
-    <updated>2014-06-26T21:36:50+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress</id>
-    <content type="html"><![CDATA[<p>After migrating my blog from <code>wordpress</code> to <code>octopress</code> on Github, I miss some features like <code>search</code> and easy-customized theme.</p>
-
-<p>This article is inspired by <a href="https://github.com/slashdotdash/jekyll-lunr-js-search" target="_blank">jekyll-lunr-js-search</a>, <a href="https://github.com/yortz/octopress-lunr-js-search" target="_blank">octopress-lunr-js-search</a> and <a href="http://wangmuy.github.io/blog/2013/09-01-octopress-setup.html#jekylllunrjs-7">this</a>.</p>
-
-<p>Here we go.</p>
-
-<h2>1. Get essential files</h2>
-
-<p>Download .rb <a href="https://raw.githubusercontent.com/slashdotdash/jekyll-lunr-js-search/master/build/jekyll_lunr_js_search.rb" target="_blank">jekyll_lunr_js_search.rb</a> to directory <em>~/octopress/plugins/</em> .</p>
-
-<p>Download .js files below to directory <em>~/octopress/source/javascripts/</em> .</p>
-
-<p><a href="https://raw.github.com/olivernn/lunr.js/master/lunr.min.js" target="_blank">lunr.min.js</a></p>
-
-<p><a href="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js" target="_blank">mustache.js</a></p>
-
-<p><a href="http://stevenlevithan.com/assets/misc/date.format.js" target="_blank">date.format.js</a></p>
-
-<p><a href="https://github.com/medialize/URI.js/blob/gh-pages/src/URI.min.js" target="_blank">URI.min.js</a></p>
-
-<h2>2. Add search page</h2>
-
-<p>Add a page of search</p>
-
-<p><code>
-$ rake new_page["search"]
-</code></p>
-
-<p>with following contents:</p>
-
-<h2>```</h2>
-
-<p>layout: page
-title: &ldquo;Search&rdquo;
-comments: false
-sharing: false
-footer: false</p>
-
-<h1>exclude_from_search: false  # with this parameter, this page won&rsquo;t be indexed</h1>
-
-<hr />
-
-<div id="search">
-    <form action="/search" method="get">
-    <input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
-    </form>
-</div>
-
-
-<p><section id="search-results" style="display: none;"></p>
-
-<pre><code>&lt;p&gt;Search results&lt;/p&gt;
-&lt;div class="entries"&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p></section></p>
-
-<script src="http://blog.lofyer.org/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="http://blog.lofyer.org/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="http://blog.lofyer.org/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="http://blog.lofyer.org/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="http://blog.lofyer.org/javascripts/URI.min.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="http://blog.lofyer.org/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"></script>
-
-
-<p></p>
-
-<script id="search-results-template" type="text/mustache">
-    {{#entries}}
-        <article>
-            <h3>
-            {{#date}}<small><time datetime="{{pubdate}}" pubdate>{{displaydate}}</time></small>{{/date}}
-            <a href="{{url}}">{{title}}</a>
-            </h3>
-        </article>
-    {{/entries}}
-</script>
-
-
-<p></p>
-
-<script type="text/javascript">
-    $(function() {
-        $('#search-query').lunrSearch({
-            indexUrl: '/search.json',             // URL of the `search.json` index data for your site
-            results:  '#search-results',          // jQuery selector for the search results container
-            entries:  '.entries',                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
-            template: '#search-results-template'  // jQuery selector for the Mustache.js template
-        });
-    });
-</script>
-
-
-<p>```</p>
-
-<p>Add <code>&lt;li&gt;&lt;a href="/search"&gt;Search&lt;/a&gt;&lt;/li&gt;</code> to <em>~/octopress/source/_includes/custom/navigation.html</em> .</p>
-
-<h2>3. Modify octopress configuration .</h2>
-
-<p>Add following lines to <em>~/octopress/_config.yml</em> to block indexing.</p>
-
-<p><code>
-lunr_search:
-  excludes: [rss.xml, atom.xml]
-</code></p>
-
-<p>Add <code>gem 'nokogiri'</code> to <em>~/octopress/Gemfile</em> to build the site then run</p>
-
-<p><code>
-$ bundle
-</code></p>
-
-<h2>4. Test</h2>
-
-<p><code>
-$ rake clean
-$ rake generate
-$ rake preview
-</code></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gitlab Quick Deploy]]></title>
@@ -582,6 +444,148 @@ Alias /nagios "/usr/share/nagios/htdocs"
 <h2>Intergrate with oVirt</h2>
 
 <p>TBD</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Something About Curl &#8212; Connecting IPA Server Using Json as an Example]]></title>
+    <link href="http://blog.lofyer.org/blog/2013/04/10/all-about-curl/"/>
+    <updated>2013-04-10T00:00:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2013/04/10/all-about-curl</id>
+    <content type="html"><![CDATA[<p>With Arduino as a server.</p>
+
+<p>What we want is to keep a cookie and build a HEADER<br/>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP/1.1" target="_blank"></p> <p>
+  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></a>
+</p></p>
+
+<p>
+  [P1]
+</p>
+
+
+
+
+<pre>
+curl -e
+curl -H referer:whereicamefrom.com
+curl -d @file.txt
+curl -d "somecmd"
+curl -cookie
+curl -D
+</pre>
+
+
+
+
+<p>
+  [P2]<br /> <strong>Communicating with ipa server</strong><br /> <a href="https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt" title="freeipa api" target="_blank">https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt</a>
+</p>
+
+
+
+
+<p>
+  Get ca.crt
+</p>
+
+
+
+
+<pre>curl -k https://$YOURHOST/ipa/config/ca.crt >> /tmp/ipa.ca.cert</pre>
+
+
+
+
+<p>
+  Get sessionid
+</p>
+
+
+
+
+<pre>
+sessid=$(curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/x-www-form-urlencoded" 
+-H "Accept:*/*" 
+--negotiate -u : 
+--cacert ./ca.crt 
+-d "user=admin" -d "password=12345678" 
+-D cookie.txt 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/login_password
+
+2>&#038;1 | grep -o "ipa_session=[a-zA-Z0-9]*")
+</pre>
+
+
+
+
+<p>
+  Post a json file with cmd in it
+</p>
+
+
+
+
+<pre>curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/json" 
+-H "Accept:applicaton/json" 
+-negotiate -u : 
+--cacert ./ca.crt 
+--cookie $sessid 
+-d @ipa.json 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/json
+
+</pre>
+
+
+
+
+<p>
+  Here&#8217;s a json file
+</p>
+
+
+
+
+<pre>
+{
+"method":"user_find",
+"params":[
+        [""],
+        {"uid":"admin"}
+        ],
+"id":0
+}
+</pre>
+
+
+
+
+<pre>
+{
+"method":"user_add",
+"params":[
+        [],
+        {
+         "uid":"test1",
+         "cn":"cn",
+         "givenname":"test1",
+         "sn":"test1"
+        }
+        ],
+"id":0
+}
+</pre>
+
 ]]></content>
   </entry>
   

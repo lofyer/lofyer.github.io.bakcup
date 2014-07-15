@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Octopress | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-15T08:24:11+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Cheatsheet]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/07/15/octopress-cheatsheet/"/>
+    <updated>2014-07-15T08:12:16+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/07/15/octopress-cheatsheet</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s some useful tips of octopress.</p>
+
+<h2>1. rake deploy non-fast-forward error</h2>
+
+<p>Please keep in mind this is not considered best practice, but it may work for you.</p>
+
+<p>The solution is to force a push on the master branch.</p>
+
+<p>Edit the Rakefile and look for this line:</p>
+
+<p><code>
+system "git push origin #{deploy_branch}"
+</code></p>
+
+<p>Alter the line by adding a plus (+) before the #{deploy_branch} tag:</p>
+
+<p><code>
+system "git push origin +#{deploy_branch}"
+</code></p>
+
+<p>Run the command</p>
+
+<p><code>
+rake deploy
+</code></p>
+
+<p>It should succeed.</p>
+
+<p>Undo the edit you made to the Rakefile!</p>
+
+<h2>2. update octopress</h2>
+
+<p><code>
+git pull octopress master
+bundle install
+rake update_source
+rake update_style
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Lunr Search in Octopress]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress/"/>
+    <updated>2014-06-26T21:36:50+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/06/26/lunr-search-in-octopress</id>
+    <content type="html"><![CDATA[<p>After migrating my blog from <code>wordpress</code> to <code>octopress</code> on Github, I miss some features like <code>search</code> and easy-customized theme.</p>
+
+<p>This article is inspired by <a href="https://github.com/slashdotdash/jekyll-lunr-js-search" target="_blank">jekyll-lunr-js-search</a>, <a href="https://github.com/yortz/octopress-lunr-js-search" target="_blank">octopress-lunr-js-search</a> and <a href="http://wangmuy.github.io/blog/2013/09-01-octopress-setup.html#jekylllunrjs-7">this</a>.</p>
+
+<p>Here we go.</p>
+
+<h2>1. Get essential files</h2>
+
+<p>Download .rb <a href="https://raw.githubusercontent.com/slashdotdash/jekyll-lunr-js-search/master/build/jekyll_lunr_js_search.rb" target="_blank">jekyll_lunr_js_search.rb</a> to directory <em>~/octopress/plugins/</em> .</p>
+
+<p>Download .js files below to directory <em>~/octopress/source/javascripts/</em> .</p>
+
+<p><a href="https://raw.github.com/olivernn/lunr.js/master/lunr.min.js" target="_blank">lunr.min.js</a></p>
+
+<p><a href="https://raw.githubusercontent.com/janl/mustache.js/master/mustache.js" target="_blank">mustache.js</a></p>
+
+<p><a href="http://stevenlevithan.com/assets/misc/date.format.js" target="_blank">date.format.js</a></p>
+
+<p><a href="https://github.com/medialize/URI.js/blob/gh-pages/src/URI.min.js" target="_blank">URI.min.js</a></p>
+
+<h2>2. Add search page</h2>
+
+<p>Add a page of search</p>
+
+<p><code>
+$ rake new_page["search"]
+</code></p>
+
+<p>with following contents:</p>
+
+<h2>```</h2>
+
+<p>layout: page
+title: &ldquo;Search&rdquo;
+comments: false
+sharing: false
+footer: false</p>
+
+<h1>exclude_from_search: false  # with this parameter, this page won&rsquo;t be indexed</h1>
+
+<hr />
+
+<div id="search">
+    <form action="/search" method="get">
+    <input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
+    </form>
+</div>
+
+
+<p><section id="search-results" style="display: none;"></p>
+
+<pre><code>&lt;p&gt;Search results&lt;/p&gt;
+&lt;div class="entries"&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p></section></p>
+
+<script src="http://blog.lofyer.org/javascripts/libs/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/lunr.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/mustache.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/date.format.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/URI.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="http://blog.lofyer.org/javascripts/jquery.lunr.search.js" type="text/javascript" charset="utf-8"></script>
+
+
+<p>{% raw %}</p>
+
+<script id="search-results-template" type="text/mustache">
+    {{#entries}}
+        <article>
+            <h3>
+            {{#date}}<small><time datetime="{{pubdate}}" pubdate>{{displaydate}}</time></small>{{/date}}
+            <a href="{{url}}">{{title}}</a>
+            </h3>
+        </article>
+    {{/entries}}
+</script>
+
+
+<p>{% endraw %}</p>
+
+<script type="text/javascript">
+    $(function() {
+        $('#search-query').lunrSearch({
+            indexUrl: '/search.json',             // URL of the `search.json` index data for your site
+            results:  '#search-results',          // jQuery selector for the search results container
+            entries:  '.entries',                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
+            template: '#search-results-template'  // jQuery selector for the Mustache.js template
+        });
+    });
+</script>
+
+
+<p>```</p>
+
+<p>Add <code>&lt;li&gt;&lt;a href="{{ root_url }}/search"&gt;Search&lt;/a&gt;&lt;/li&gt;</code> to <em>~/octopress/source/_includes/custom/navigation.html</em> .</p>
+
+<h2>3. Modify octopress configuration .</h2>
+
+<p>Add following lines to <em>~/octopress/_config.yml</em> to block indexing.</p>
+
+<p><code>
+lunr_search:
+  excludes: [rss.xml, atom.xml]
+</code></p>
+
+<p>Add <code>gem 'nokogiri'</code> to <em>~/octopress/Gemfile</em> to build the site then run</p>
+
+<p><code>
+$ bundle
+</code></p>
+
+<h2>4. Test</h2>
+
+<p><code>
+$ rake clean
+$ rake generate
+$ rake preview
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

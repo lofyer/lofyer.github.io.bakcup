@@ -9,9 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="Before we start, we need intellij enterprise version and a register tool..
-[url] [Summary]
-1. We should open the pom.xml file instead of the project &hellip;">
+  <meta name="description" content="Supposing that you had a git server, we can use exist git as your own working bare. [On your own git server] Create a repo.
+Clone an exist git. $ git &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,124 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/08/a-way-to-use-git/">Git Exp.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-08T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/08/a-way-to-use-git/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/08/a-way-to-use-git/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Supposing that you had a git server, we can use exist git as your own working bare.</p>
+
+<p><strong>[On your own git server] Create a repo.</strong><br/>
+Clone an exist git.</p>
+
+<pre>$ git clone git@exist-server:exist.git
+</pre>
+
+
+<p>Make its master branch writable.</p>
+
+<pre>$ echo -e "[receive]ntdenyCurrentBranch = ignore" >> exist.git/.git/config
+</pre>
+
+
+<p><strong>[On your client] Create a branch &amp; make a change.</strong><br/>
+Clone exist.git as your own git-src, in which you can see the old commits and branch.</p>
+
+<pre>$ git clone git@your-server:exist.git
+$ cd exist
+</pre>
+
+
+<p>We create a new branch based on its master.</p>
+
+<pre>$ git checkout -b mybranch
+$ echo "Add README" > README
+$ git add README
+$ git commit -m "Add READEME in ROOT"
+</pre>
+
+
+<p>Since this is our first commit, we should push our branch to origin. Next time you should just type &#8216;git push&#8217;</p>
+
+<pre>$ git push origin mybranch
+</pre>
+
+
+<p><strong>[On your own git server] An update in master.</strong><br/>
+Let&#8217;s get some new commits.</p>
+
+<pre>$ git pull
+</pre>
+
+
+<p>Here we get something like this&#8230;<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/04/git21.png"><img src="http://69.164.197.168/wp-content/uploads/2013/04/git21.png" alt="git2" width="397" height="333" class="alignnone size-full wp-image-2000" /></a></p>
+
+<p>Now we get commit0 and commitA on mybranch, with commit0 and commit1 on branch master.<br/>
+What we want is something like this.<br/>
+<a href="http://69.164.197.168/wp-content/uploads/2013/04/git3.png"><img src="http://69.164.197.168/wp-content/uploads/2013/04/git3.png" alt="git3" width="318" height="307" class="alignnone size-full wp-image-2010" /></a></p>
+
+<p><strong>[On your client] Merge commit1 to mybranch</strong><br/>
+Way 1.Just merge them from your own git server</p>
+
+<pre>$ git pull origin master</pre>
+
+
+<p>Way 2.Pull commit1 to local master, then rebase <strong><em>or</em></strong> merge it to mybranch<br/>
+Merge:</p>
+
+<pre>$ git merge master</pre>
+
+
+<p>Rebase:</p>
+
+<pre>$ git rebase master</pre>
+
+
+<p>Final step:</p>
+
+<pre>$ git push</pre>
+
+
+<ul>
+<li><p>There&#8217;s a little difference between merge and rebase in history.<br/>
+Reference:<br/>
+<a href="http://gitbook.liuhui998.com/4_2.html" title="GitBook - Rebase" target="_blank"><a href="http://gitbook.liuhui998.com/4_2.html">http://gitbook.liuhui998.com/4_2.html</a></a>*</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -747,62 +864,6 @@ osgi.configuration.cascaded=true
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/03/owncloud-intergration/">Owncloud Webdav Intergration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-03T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/01/03/owncloud-intergration/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/03/owncloud-intergration/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>安装好owncloud后，可以使用webdav协议进行远程挂载，比如</p>
-
-<pre>mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt
-</pre>
-
-
-<p>2003上需启动webclient服务<br/>
-而在2008上, webclient被集成到desktop experience组件中, 从service manager->feature中添加desktop experience,并且修改注册表HKEY_LOCAL_MACHINE->SYSTEM->CurrentControlSet->Services->WebClient->Parameters->BasicAuthLevel 的值为 2，重启服务<br/>
-此时可映射网络驱动器，钩选“connect using different credentials”，输入其用户名密码即可<br/>
-或者命令行</p>
-
-<pre>NET USE *  http://localhost/remote.php/webdav 123456 /user:admin
-</pre>
-
-
-<p>PS：<br/>
-1. owncloud第三方app WebDev安装后会造成不能添加用户的麻烦<br/>
-2. 修改owncloud目录权限为apache.apache或者www-data.www-data以使.htaccesss生效</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -820,6 +881,10 @@ osgi.configuration.cascaded=true
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -833,10 +898,6 @@ osgi.configuration.cascaded=true
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -855,11 +916,12 @@ osgi.configuration.cascaded=true
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

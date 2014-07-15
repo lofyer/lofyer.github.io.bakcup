@@ -9,7 +9,9 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="卖家太给力了，昨天就顺丰发货，今天下午我冒着炎炎烈日去取货，激动。。 先来张盒子，看着就感觉那帮老外工业设计功底深厚。 开箱：Leapmotion一台，数据线两根（一长一短），说明书一张 看着感觉好爽的样子~~~ 我拍的一段简单使用视频。 ">
+  <meta name="description" content="在Windows中 夹持器与四轴飞行器都是Arduino-Based，通信就用串口。
+代码放在git.lofyer.org
+感觉VS好难。。试试在gentoo下驱动leapmotion 在Gentoo下使用，这个方式应该适用于所有非debian系 先下载sdk包，下载后解压。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +75,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/02/leapmotion-relative/">Leapmotion 相关</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-02T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/08/02/leapmotion-relative/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/08/02/leapmotion-relative/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>在Windows中</h2>
+
+<p>夹持器与四轴飞行器都是Arduino-Based，通信就用串口。<br/>
+代码放在<a href="http://git.lofyer.org/cgit.cgi/fun/robohand/" title="http://git.lofyer.org/cgit.cgi/fun/robohand/" target="_blank">git.lofyer.org</a><br/>
+感觉VS好难。。试试在gentoo下驱动leapmotion</p>
+
+<h2>在Gentoo下使用，这个方式应该适用于所有非debian系</h2>
+
+<p>先下载sdk包，下载后解压。<br/>
+看到里面有个deb的包，用alien转化为tar包</p>
+
+<pre>alien -t Leap-0.8.0-x64.deb
+tar xf leap-0.8.0.tgz
+cp -irf usr/* /usr/local/
+cp -irf lib/udev/rules.d/25-com-leapmotion-leap.rules /etc/udev/rules.d</pre>
+
+
+<p>然后将普通用户加入plugdev组</p>
+
+<pre>sudo usermod -a -G plugdev $USER</pre>
+
+
+<p>刷新组关系，注销当前用户也可</p>
+
+<pre>exec su -l $USER</pre>
+
+
+<p>运行leapd与LeapControlPanel即可</p>
+
+<p>在64位机器上缺少32位库文件<br/>
+freetype.so.6, libasound.so.2</p>
+
+<pre>sudo emerge -avt app-emulation/emul-linux-x86-xlibs
+sudo emerge emul-linux-x86-soundlibs</pre>
+
+
+<p>实例：编译MotionVisualizer</p>
+
+<pre>Make -C Builds/Linux</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -871,48 +951,6 @@ Agent: A daemon, used for communicating with Management and managing the VMs</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/15/3ds-max-in-vdi/">虚拟桌面架构中的 3ds MAX</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-15T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/06/15/3ds-max-in-vdi/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/15/3ds-max-in-vdi/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>使用沃帆虚拟化软件&#8211;桌面版，在瘦客户端上运行的效果。<br/>
-Using 3DMAX VM in virtfan virtualization engine<br/>
-<embed src="http://player.youku.com/player.php/sid/XNTQyODk4NTQw/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
-</embed></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/7">&larr; Older</a>
@@ -930,6 +968,10 @@ Using 3DMAX VM in virtfan virtualization engine<br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -943,10 +985,6 @@ Using 3DMAX VM in virtfan virtualization engine<br/>
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -965,11 +1003,12 @@ Using 3DMAX VM in virtfan virtualization engine<br/>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>

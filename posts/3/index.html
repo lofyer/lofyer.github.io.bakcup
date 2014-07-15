@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="UPDATE: 2014-06-01 移步http://github.com/lofyer/InTheCloud UPDATE: 2014-05-30 放入github，以rst格式编写。 UPDATE: 2014-05-15 oVirt章节完成以后整理成word文档，内容更加丰富。 &hellip;">
+  <meta name="description" content="计算机领域中有诸多有意思的东西可以把玩，在这儿且看看分布式存储。 集群文件系统在某些场景下又可以称作网络文件系统、并行文件系统，在70年代由IBM提出并实现原型。 有几种方法可以实现集群形式，但多数仅仅是节点直连存储而不是将存储之上的文件系统进行合理“分布”。分布式文件系统同时挂载于多个服务器上， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,75 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/01/cloud-5-glusterfs-story/">5. 分布式存储的故事</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-01T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/01/cloud-5-glusterfs-story/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/01/cloud-5-glusterfs-story/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>计算机领域中有诸多有意思的东西可以把玩，在这儿且看看分布式存储。</p>
+
+<p><strong style="line-height: 1.5em;">集群文件系统</strong><span style="line-height: 1.5em;">在某些场景下又可以称作网络文件系统、并行文件系统，在70年代由IBM提出并实现原型。</span></p>
+
+<p><span style="line-height: 1.5em;">有几种方法可以实现集群形式，但多数仅仅是节点直连存储而不是将存储之上的文件系统进行合理“分布”。分布式文件系统同时挂载于多个服务器上，并在它们之间共享，可以提供类似于位置无关的数据定位或冗余等特点。并行文件系统是一种集群式的文件系统，它将数据分布于多个节点，其主要目的是提供冗余和提高读写性能。</span></p>
+
+<p><strong style="line-height: 1.5em;">共享磁盘（Shared-disk）/Storage-area network(SAN)</strong></p>
+
+<p>从应用程序使用的文件级别，到SAN之间的块级别的操作，诸如权限控制和传输，都是发生在客户端节点上。共享磁盘（Shared-disk）文件系统，在并行控制上做了很多工作，以至于其拥有比较一致连贯的文件系统视图，从而避免了多个客户端试图同时访问同一设备时数据断片或丢失的情况发生。其中有种技术叫做围栏（Fencing），就是在某个或某些节点发生断片时，集群自动将这些节点隔离（关机、断网、自恢复），保证其他节点数据访问的正确性。<strong>元数据（Metadata）</strong>类似目录，可以让所有的机器都能查找使用所有信息，在不同的架构中有不同的保存方式，有的均匀分布于集群，有的存储在中央节点。</p>
+
+<p>实现的方式有SCSI，iSCSI，AoE，FC，Infiniband等，比较著名的产品有Redhat GFS、Sun QFS、Vmware VMFS等。</p>
+
+<p><strong>分布式文件系统</strong></p>
+
+<p>****分布式文件系统则不是块级别的共享的形式了，所有加进来的存储（文件系统）都是整个文件系统的一部分，所有数据的传输也是依靠网络来的。</p>
+
+<p>它的设计有这么几个原则：</p>
+
+<ul>
+<li><em>访问透明</em>   客户端在其上的文件操作与本地文件系统无异</li>
+<li><em>位置透明  </em> 其上的文件不代表其存储位置，只要给了全名就能访问</li>
+<li><em>并发透明</em>   所有客户端持有的文件系统的状态在任何时候都是一致的，不会出现A修改了F文件，但是B愣了半天才发现。</li>
+<li><em>失败透明  </em> 理解为阻塞操作，不成功不回头。</li>
+<li><em>异构性      </em>  文件系统可以在多种硬件以及操作系统下部署使用。</li>
+<li><em>扩展性</em>        随时添加进新的节点，无视其资格新旧。</li>
+<li><em>冗余透明</em>   客户端不需要了解文件存在于多个节点上这一事实。</li>
+<li><em>迁移透明 </em>  客户端不需要了解文件根据负载均衡策略迁移的状况。</li>
+</ul>
+
+
+<p>实现的方式有NFS、CIFS、SMB、NCP等，比较著名的产品有Google GFS、Hadoop HDFS、GlusterFS、Lustre等。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -712,61 +781,6 @@ TBD</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/10/deploy-asterisk-centos/">Deploy Asterisk on CentOS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-10T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/02/10/deploy-asterisk-centos/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/10/deploy-asterisk-centos/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Get the latest packages. <strong>up to 2014-02-10</strong></p>
-
-<pre># rpm -Uvh http://packages.asterisk.org/centos/6/current/x86_64/RPMS/asterisknow-version-3.0.1-2_centos6.noarch.rpm
-# yum install asterisk asterisk-configs --enablerepo=asterisk-12
-# yum install dahdi-linux dahdi-tools libpri
-# chkconfig dahdi on
-# chkconfig asterisk on
-# service dahdi start
-# service asterisk start
-</pre>
-
-
-<p>You can use freepbx on <a href="http://localhost">http://localhost</a> .</p>
-
-<pre># yum install freepbx
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -784,6 +798,10 @@ TBD</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
@@ -797,10 +815,6 @@ TBD</p>
     
       <li class="post">
         <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a>
       </li>
     
   </ul>
@@ -819,11 +833,12 @@ TBD</p>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
