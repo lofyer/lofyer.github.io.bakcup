@@ -4,7 +4,7 @@ title: "lunr search in octopress"
 date: 2014-06-26 21:36:50 +0800
 comments: true
 categories:
-  - Linux Admin
+  - octopress
 ---
 
 After migrating my blog from `wordpress` to `octopress` on Github, I miss some features like `search` and easy-customized theme.
