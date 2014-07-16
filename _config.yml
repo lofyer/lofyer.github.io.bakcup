@@ -4,7 +4,7 @@
 
 url: http://blog.lofyer.org
 title: Lofyer's Archive
-subtitle: To be an architect.
+subtitle: Com-DATA in the cloud.
 author: lofyer
 lunr_search:
   excludes: [rss.xml, atom.xml]
