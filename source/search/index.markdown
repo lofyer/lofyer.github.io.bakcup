@@ -4,6 +4,8 @@ title: "search"
 footer: false
 ---
 
+This search page does not work sometime, use Google on the top of right instead.
+
 <div id="search">
   <form action="/search" method="get">
     <input type="text" id="search-query" name="q" placeholder="Search" autocomplete="off">
