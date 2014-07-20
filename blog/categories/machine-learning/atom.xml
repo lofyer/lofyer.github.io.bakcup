@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Machine Learning | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/machine-learning/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-07-20T11:10:00+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[机械学习常用算法]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/"/>
+    <updated>2014-07-20T11:08:48+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>

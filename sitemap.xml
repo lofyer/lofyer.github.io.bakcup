@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://blog.lofyer.org/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/</loc>
+    <lastmod>2014-07-20T11:08:48+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.lofyer.org/blog/2014/07/15/octopress-cheatsheet/</loc>
     <lastmod>2014-07-15T08:12:16+08:00</lastmod>
     <priority>0.8</priority>
@@ -1559,42 +1565,42 @@
   
   <url>
     <loc>http://blog.lofyer.org/blog/archives/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/quicknotes/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/workshop/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/search/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/about/</loc>
-    <lastmod>2014-07-16T16:35:20+08:00</lastmod>
+    <lastmod>2014-07-20T11:10:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

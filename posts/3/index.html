@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="计算机领域中有诸多有意思的东西可以把玩，在这儿且看看分布式存储。 集群文件系统在某些场景下又可以称作网络文件系统、并行文件系统，在70年代由IBM提出并实现原型。 有几种方法可以实现集群形式，但多数仅仅是节点直连存储而不是将存储之上的文件系统进行合理“分布”。分布式文件系统同时挂载于多个服务器上， &hellip;">
+  <meta name="description" content="既然是文件系统，那就不得不了解一下FUSE。 FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/03/5-1-1-fuse/">6. FUSE</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/03/5-1-1-fuse/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>既然是文件系统，那就不得不了解一下FUSE。</p>
+
+<p>FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、OSX、Android等。</p>
+
+<p><a href="http://blog.lofyer.org/5-1-1-fuse/490px-fuse_structure-svg/" rel="attachment wp-att-2976"><img class="alignnone size-full wp-image-2976" alt="490px-FUSE_structure.svg" src="http://lofyer.github.io/uploads/490px-FUSE_structure.svg_.png" width="490" height="371" /></a><br/>
+<strong>图5-1</strong></p>
+
+<p>FUSE来源于AVFS，不同于传统文件系统从磁盘读写数据，FUSE在文件系统或磁盘中有“转换”的角色，本身并不会存储数据。</p>
+
+<p>在Linux系统中的实现有很多，比如即将要用到的glusterfs-fuse。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -741,46 +789,6 @@ dns</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/">Foreman/puppet/cfengine/bcfg2/chef Howto</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-21T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/21/foremanpuppetcfenginebcfg2chef-howto/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://uberblo.gs/2012/06/cfengine-bcfg2-chef-and-puppet" title="cfengine-bcfg2-chef-and-puppet" target="_blank">Which one is the best automatic management tool</a><br/>
-TBD</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -798,6 +806,10 @@ TBD</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -811,10 +823,6 @@ TBD</p>
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -835,6 +843,7 @@ TBD</p>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

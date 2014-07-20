@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="笔者写此文时oVirt已经更新到3.4。 在此，我们会用到之前创建的distributed-replicate存储，这样可用保证系统服务的高度可用性有所提高。 有以下几点需要注意： 宿主机的CPU架构需要为Westmere（Westmere E56xx/L56xx/X56xx）、Nehalem（ &hellip;">
+  <meta name="description" content="OK, I do not like control group very much for now. Comment device section in control group config, sorry for my laziness&#8230; mount { cpuset = / &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,229 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/">Add Nat to Ovirt via Vdsm Hooks</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-04T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/04/add-nat-ovirt-vdsm-hooks/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OK, I do not like control group very much for now.</p>
+
+<h2>Comment device section in control group config, sorry for my laziness&#8230;</h2>
+
+<pre title="/etc/cgconfig.conf">mount {
+        cpuset  = /cgroup/cpuset;
+        cpu     = /cgroup/cpu;
+        cpuacct = /cgroup/cpuacct;
+        memory  = /cgroup/memory;
+#       devices = /cgroup/devices;
+        freezer = /cgroup/freezer;
+#       net_cls = /cgroup/net_cls;
+        blkio   = /cgroup/blkio;
+}
+</pre>
+
+
+<h2>Enable ip forward</h2>
+
+<pre title="Content added to /etc/sysctl.conf">net.ipv4.ip_forward = 1
+</pre>
+
+
+<p><strong>Reboot the host</strong></p>
+
+<h2>Connect to virsh to enable libvirt&#8217;s default virbr0(NAT)</h2>
+
+<p>If you don&#8217;t know the password for your account, just use command below to create one.</p>
+
+<pre># saslpasswd2 -a libvirt root
+</pre>
+
+
+<p>Create a nat network.</p>
+
+<pre title="/etc/libvirt/qemu/networks/nat.xml" lang="xml">&lt;network>
+  &lt;name>nat&lt;/name>
+  &lt;uuid>b42e377d-e849-4c36-bd98-3d090def5ecc&lt;/uuid>
+  &lt;bridge name="virbr1"/>
+  &lt;mac address='52:54:00:E2:AD:b8'/>
+  &lt;forward mode="nat"/>
+  &lt;ip address="192.168.123.1" netmask="255.255.255.0">
+    &lt;dhcp>
+      &lt;range start="192.168.123.2" end="192.168.123.254"/>
+    &lt;/dhcp>
+  &lt;/ip>
+&lt;/network>
+</pre>
+
+
+
+
+<pre># virsh net-create /etc/libvirt/qemu/networks/nat.xml
+# virsh net-autostart nat
+# virsh net-start nat
+</pre>
+
+
+<h2>Create tun device and add it to virbr0</h2>
+
+<p><strong>UPDATE: This could be ignored if you use extnet.py</strong></p>
+
+<pre># tunctl -t nat0 -u qemu
+# brctl addif virbr1 nat0
+</pre>
+
+
+<h2>Add hook file to vdsm</h2>
+
+<p><strong>UPDATE: use extnet from github with a little modification (Only the first vNIC will be NAT, the second one still keeps its way).</strong></p>
+
+<pre title="extnet.py" lang="python">#!/usr/bin/python
+
+import os
+import sys
+import traceback
+import xml.dom
+import hooking
+
+def replaceSource(interface, newnet):
+    source, = interface.getElementsByTagName('source')
+    source.removeAttribute('bridge')
+    source.setAttribute('network', newnet)
+    interface.setAttribute('type', 'network')
+
+def main():
+    params = "default"
+    os.environ.__setitem__("extnet",params)
+    newnet = os.environ.get('extnet')
+    if newnet is not None:
+        doc = hooking.read_domxml()
+        interface = doc.getElementsByTagName('interface')[0]
+        replaceSource(interface, newnet)
+        hooking.write_domxml(doc)
+def test():
+
+    interface = xml.dom.minidom.parseString("""
+    &lt;interface type="bridge">
+        &lt;address bus="0x00" domain="0x0000" function="0x0" slot="0x03"\
+                                            type="pci"/>
+        &lt;mac address="00:1a:4a:16:01:b0"/>
+        &lt;model type="virtio"/>
+        &lt;source bridge="ovirtmgmt"/>
+        &lt;filterref filter="vdsm-no-mac-spoofing"/>
+        <link state="up" />
+&lt;boot order="1"/>
+    &lt;/interface>
+    """).getElementsByTagName('interface')[0]
+
+    print "Interface before forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+    replaceSource(interface, 'yipee')
+    print "Interface after forcing network: %s" % \
+        interface.toxml(encoding='UTF-8')
+
+
+if __name__ == '__main__':
+    try:
+        if '--test' in sys.argv:
+            test()
+        else:
+            main()
+    except:
+        hooking.exit_hook('extnet hook: [unexpected error]: %s\n' %
+                          traceback.format_exc())
+</pre>
+
+
+<p><strong>QEMU-CMD way:</strong></p>
+
+<pre lang="python" title="/usr/libexec/vdsm/hooks/before_vm_start/nat.py with execute permission">import os
+import sys
+import hooking
+import traceback
+import json
+import shutil
+
+def addQemuNs(domXML):
+    domain = domXML.getElementsByTagName('domain')[0]
+    domain.setAttribute('xmlns:qemu',
+                        'http://libvirt.org/schemas/domain/qemu/1.0')
+
+
+def injectQemuCmdLine(domXML, qc):
+    domain = domXML.getElementsByTagName('domain')[0]
+    qctag = domXML.createElement('qemu:commandline')
+
+    for cmd in qc:
+        qatag = domXML.createElement('qemu:arg')
+        qatag.setAttribute('value', cmd)
+
+        qctag.appendChild(qatag)
+
+    domain.appendChild(qctag)
+domxml = hooking.read_domxml()
+
+# Get vm uuid, just in case
+
+cur_vm_uuid = domxml.getElementsByTagName('uuid')[0].firstChild.nodeValue
+
+macaddr = "94:de:80:ea:30:f5"
+natname = "nat0"
+params = '["-netdev","tap,ifname=%s,script=no,id=hostnet0,downscript=no","-device","virtio-net-pci,mac=%s,netdev=hostnet0,bus=pci.0,addr=0x10"]' % (natname, macaddr)
+os.environ.__setitem__("qemu_cmdline",params)
+
+# Modify Qemu Parameter
+
+if 'qemu_cmdline' in os.environ:
+    try:
+        domxml = hooking.read_domxml()
+
+        qemu_cmdline = json.loads(os.environ['qemu_cmdline'])
+        addQemuNs(domxml)
+        injectQemuCmdLine(domxml, qemu_cmdline)
+
+        hooking.write_domxml(domxml)
+    except:
+        sys.stderr.write('qemu_cmdline: [unexpected error]: %s\n'
+                         % traceback.format_exc())
+        sys.exit(2)
+</pre>
+
+
+<p>Then you should start the vm <strong>WITHOUT ANY NIC</strong> if you are using <em>nat.py</em>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1670,54 +1893,6 @@ total 1.0M
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/03/5-1-1-fuse/">6. FUSE</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-03T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/04/03/5-1-1-fuse/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>既然是文件系统，那就不得不了解一下FUSE。</p>
-
-<p>FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、OSX、Android等。</p>
-
-<p><a href="http://blog.lofyer.org/5-1-1-fuse/490px-fuse_structure-svg/" rel="attachment wp-att-2976"><img class="alignnone size-full wp-image-2976" alt="490px-FUSE_structure.svg" src="http://lofyer.github.io/uploads/490px-FUSE_structure.svg_.png" width="490" height="371" /></a><br/>
-<strong>图5-1</strong></p>
-
-<p>FUSE来源于AVFS，不同于传统文件系统从磁盘读写数据，FUSE在文件系统或磁盘中有“转换”的角色，本身并不会存储数据。</p>
-
-<p>在Linux系统中的实现有很多，比如即将要用到的glusterfs-fuse。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1735,6 +1910,10 @@ total 1.0M
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -1748,10 +1927,6 @@ total 1.0M
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -1772,6 +1947,7 @@ total 1.0M
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

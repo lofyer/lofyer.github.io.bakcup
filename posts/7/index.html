@@ -9,8 +9,9 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="使用沃帆虚拟化软件&#8211;桌面版，在瘦客户端上运行的效果。
-Using 3DMAX VM in virtfan virtualization engine ">
+  <meta name="description" content="The infrastructure of it:
+Management: Based on django, communicate with Agent
+Agent: A daemon, used for communicating with Management and managing &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,50 @@ Using 3DMAX VM in virtfan virtualization engine ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/18/light-weighted-vm-webadmin/">A Light-weighted VM Webadmin</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-18T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/06/18/light-weighted-vm-webadmin/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/18/light-weighted-vm-webadmin/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The infrastructure of it:<br/>
+Management: Based on django, communicate with Agent<br/>
+Agent: A daemon, used for communicating with Management and managing the VMs</p>
+
+<p>TO MAKE GREAT USE OF KVM.<br/>
+<a href="http://git.lofyer.org/cgit.cgi/fun/vm-webadmin/">http://git.lofyer.org/cgit.cgi/fun/vm-webadmin/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -963,83 +1008,6 @@ https://ipa.test.net/ipa/session/json
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/10/a-git-script-auto-merge/">A Bash Script &#8212; Auto Merge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/04/10/a-git-script-auto-merge/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/a-git-script-auto-merge/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><pre>#!/bin/bash
-BEGIN_DATE=`date`
-subject="Automerge conflict detected"
-from="AutoMerge@gitserver.com"
-recipients="user0@gmail.com,user1@gmail.com"
-
-echo "Begin merge at $BEGIN_DATE" >> /mnt/automerge.log;
-# Need pull first
-GIT_UPDATE=`su git -c 'cd /home/git/src.git; git pull'`
-# Need pull first
-if [ -d /mnt/src ]
-then
-        GIT_CD=`su git -c 'cd /mnt/src'`;
-else
-        GIT_CLONE=`su git -c 'cd /mnt/; git clone /home/git/src.git'`;
-fi
-GIT_PULL=`su git -c 'cd /mnt/src/; git checkout master;git pull'`
-# Merge master to test1
-GIT_MERGE=`su git -c 'cd /mnt/src; git checkout test1; git pull origin master; git push origin test1'`
-echo -e "Pulling now...n"
-# Test if CONFLICT exist
-if [[ "$GIT_MERGE" == *CONFLICT* ]]
-then
-        echo "CONFLICT detected!" >> /mnt/automerge.log;
-# Send a mail here
-        mail="subject:$subjectnfrom:$fromn$GIT_MERGEn$BEGIN_DATE"
-        echo -e $mail | sendmail "$recipients"
-# It'll be better if you delete current src and clone a new one
-        RM_CLONE_CMD=`su git -c 'cd /mnt; rm -rf src'`
-        exit 1
-else
-# No conflict, checkout master
-        GIT_CMD=`su git -c 'cd /mnt/src; git checkout master'`
-        END_DATE=`date`
-        echo "Merge succeed at $END_DATE" >> /mnt/automerge.log;
-fi
-exit 0
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/8">&larr; Older</a>
@@ -1057,6 +1025,10 @@ exit 0
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -1070,10 +1042,6 @@ exit 0
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -1094,6 +1062,7 @@ exit 0
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

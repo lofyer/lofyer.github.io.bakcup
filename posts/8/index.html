@@ -9,8 +9,11 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="Supposing that you had a git server, we can use exist git as your own working bare. [On your own git server] Create a repo.
-Clone an exist git. $ git &hellip;">
+  <meta name="description" content="#!/bin/bash
+BEGIN_DATE=`date`
+subject="Automerge conflict detected"
+from="AutoMerge@gitserver.com"
+recipients="user0@gmail.com,user1@gmail.com" echo &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +77,83 @@ Clone an exist git. $ git &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/10/a-git-script-auto-merge/">A Bash Script &#8212; Auto Merge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/10/a-git-script-auto-merge/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/a-git-script-auto-merge/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre>#!/bin/bash
+BEGIN_DATE=`date`
+subject="Automerge conflict detected"
+from="AutoMerge@gitserver.com"
+recipients="user0@gmail.com,user1@gmail.com"
+
+echo "Begin merge at $BEGIN_DATE" >> /mnt/automerge.log;
+# Need pull first
+GIT_UPDATE=`su git -c 'cd /home/git/src.git; git pull'`
+# Need pull first
+if [ -d /mnt/src ]
+then
+        GIT_CD=`su git -c 'cd /mnt/src'`;
+else
+        GIT_CLONE=`su git -c 'cd /mnt/; git clone /home/git/src.git'`;
+fi
+GIT_PULL=`su git -c 'cd /mnt/src/; git checkout master;git pull'`
+# Merge master to test1
+GIT_MERGE=`su git -c 'cd /mnt/src; git checkout test1; git pull origin master; git push origin test1'`
+echo -e "Pulling now...n"
+# Test if CONFLICT exist
+if [[ "$GIT_MERGE" == *CONFLICT* ]]
+then
+        echo "CONFLICT detected!" >> /mnt/automerge.log;
+# Send a mail here
+        mail="subject:$subjectnfrom:$fromn$GIT_MERGEn$BEGIN_DATE"
+        echo -e $mail | sendmail "$recipients"
+# It'll be better if you delete current src and clone a new one
+        RM_CLONE_CMD=`su git -c 'cd /mnt; rm -rf src'`
+        exit 1
+else
+# No conflict, checkout master
+        GIT_CMD=`su git -c 'cd /mnt/src; git checkout master'`
+        END_DATE=`date`
+        echo "Merge succeed at $END_DATE" >> /mnt/automerge.log;
+fi
+exit 0
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -819,51 +899,6 @@ sysctl -w net.ipv4.ip_forward=1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/09/eclipse-multiuser/">Eclipse Multiuser</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-09T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/01/09/eclipse-multiuser/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/09/eclipse-multiuser/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Add following code to your eclipse/configuration/config.ini</p>
-
-<pre>osgi.configuration.area=@user.home/Eclipse/configuration
-osgi.sharedConfiguration.area=/opt/eclipse/configuration
-osgi.configuration.cascaded=true
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -881,6 +916,10 @@ osgi.configuration.cascaded=true
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -894,10 +933,6 @@ osgi.configuration.cascaded=true
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -918,6 +953,7 @@ osgi.configuration.cascaded=true
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

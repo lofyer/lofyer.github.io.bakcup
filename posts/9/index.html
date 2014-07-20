@@ -9,7 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="安装好owncloud后，可以使用webdav协议进行远程挂载，比如 mount -t davfs {http://localhost/remote.php/webdav,http://localhost/files/webdav.php} /mnt 2003上需启动webclient服务 &hellip;">
+  <meta name="description" content="Add following code to your eclipse/configuration/config.ini osgi.configuration.area=@user.home/Eclipse/configuration
+osgi.sharedConfiguration.area=/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +74,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/09/eclipse-multiuser/">Eclipse Multiuser</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-09T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/01/09/eclipse-multiuser/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/09/eclipse-multiuser/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Add following code to your eclipse/configuration/config.ini</p>
+
+<pre>osgi.configuration.area=@user.home/Eclipse/configuration
+osgi.sharedConfiguration.area=/opt/eclipse/configuration
+osgi.configuration.cascaded=true
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -587,47 +633,6 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/21/arduino/">Arduino</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-21T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/10/21/arduino/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/10/21/arduino/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>目前最流行的是uno系列，而leonardo好象是在1.0.1后才加入的，其ide开发是在github上进行。<br/>
-设计很清爽（因为没有UI设计师吧），希望别像keil一样越来越冗余。<br/>
-<a href="http://69.164.197.168/wp-content/uploads/2012/10/Screenshot-from-2012-10-22-200253.png"><img src="http://69.164.197.168/wp-content/uploads/2012/10/Screenshot-from-2012-10-22-200253.png" alt="" title="Screenshot from 2012-10-22 20:02:53" width="500" height="548" class="alignnone size-full wp-image-1603" /></a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/10">&larr; Older</a>
@@ -645,6 +650,10 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -658,10 +667,6 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -682,6 +687,7 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

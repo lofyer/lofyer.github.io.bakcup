@@ -9,9 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="在Windows中 夹持器与四轴飞行器都是Arduino-Based，通信就用串口。
-代码放在git.lofyer.org
-感觉VS好难。。试试在gentoo下驱动leapmotion 在Gentoo下使用，这个方式应该适用于所有非debian系 先下载sdk包，下载后解压。 &hellip;">
+  <meta name="description" content="For details, see
+http://www.cisco.com/en/US/docs/switches/lan/catalyst3550/software/release/12.1_19_ea1/configuration/guide/SwCfgIX.html Assign IP on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/05/csico-c3550-instances/">Csico C3550 Instances</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-05T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/08/05/csico-c3550-instances/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/08/05/csico-c3550-instances/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For details, see<br/>
+<a href="http://www.cisco.com/en/US/docs/switches/lan/catalyst3550/software/release/12.1_19_ea1/configuration/guide/SwCfgIX.html" title="3550software" target="_blank"><a href="http://www.cisco.com/en/US/docs/switches/lan/catalyst3550/software/release/12.1_19_ea1/configuration/guide/SwCfgIX.html">http://www.cisco.com/en/US/docs/switches/lan/catalyst3550/software/release/12.1_19_ea1/configuration/guide/SwCfgIX.html</a></a></p>
+
+<h2>Assign IP on port 1</h2>
+
+<pre>> enable
+# configure terminal
+(config)# interface f0/1
+(config-if)# no switchport
+(config-if)# ip address 192.168.1.254 255.255.255.0
+(config-if)# no shutdown
+(config-if)# end 
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -907,50 +958,6 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/18/light-weighted-vm-webadmin/">A Light-weighted VM Webadmin</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-18T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/06/18/light-weighted-vm-webadmin/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/18/light-weighted-vm-webadmin/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The infrastructure of it:<br/>
-Management: Based on django, communicate with Agent<br/>
-Agent: A daemon, used for communicating with Management and managing the VMs</p>
-
-<p>TO MAKE GREAT USE OF KVM.<br/>
-<a href="http://git.lofyer.org/cgit.cgi/fun/vm-webadmin/">http://git.lofyer.org/cgit.cgi/fun/vm-webadmin/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/7">&larr; Older</a>
@@ -968,6 +975,10 @@ Agent: A daemon, used for communicating with Management and managing the VMs</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/">机械学习常用算法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
       </li>
     
@@ -981,10 +992,6 @@ Agent: A daemon, used for communicating with Management and managing the VMs</p>
     
       <li class="post">
         <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a>
       </li>
     
   </ul>
@@ -1005,6 +1012,7 @@ Agent: A daemon, used for communicating with Management and managing the VMs</p>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
 <li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
+<li class='category'><a href='/blog/categories/machine-learning/'>machine learning (1)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>

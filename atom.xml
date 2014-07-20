@@ -4,7 +4,7 @@
   <title><![CDATA[Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-07-16T16:35:20+08:00</updated>
+  <updated>2014-07-20T11:10:00+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[机械学习常用算法]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa/"/>
+    <updated>2014-07-20T11:08:48+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/07/20/ji-jie-xue-xi-chang-yong-suan-fa</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress Cheatsheet]]></title>
@@ -2216,24 +2225,6 @@ total 1.0M
 <p>GFID：glusterfs中的每一个文件或者目录都有一个独立的128位GFID，与普通文件系统中的inode类似；</p>
 
 <p>glusterd：运行于所有服务器中的管理守护程序；</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[6. FUSE]]></title>
-    <link href="http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse/"/>
-    <updated>2014-04-03T00:00:00+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2014/04/03/5-1-1-fuse</id>
-    <content type="html"><![CDATA[<p>既然是文件系统，那就不得不了解一下FUSE。</p>
-
-<p>FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、OSX、Android等。</p>
-
-<p><a href="http://blog.lofyer.org/5-1-1-fuse/490px-fuse_structure-svg/" rel="attachment wp-att-2976"><img class="alignnone size-full wp-image-2976" alt="490px-FUSE_structure.svg" src="http://lofyer.github.io/uploads/490px-FUSE_structure.svg_.png" width="490" height="371" /></a><br/>
-<strong>图5-1</strong></p>
-
-<p>FUSE来源于AVFS，不同于传统文件系统从磁盘读写数据，FUSE在文件系统或磁盘中有“转换”的角色，本身并不会存储数据。</p>
-
-<p>在Linux系统中的实现有很多，比如即将要用到的glusterfs-fuse。</p>
 ]]></content>
   </entry>
   
