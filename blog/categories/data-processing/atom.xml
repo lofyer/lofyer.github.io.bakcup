@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data Processing | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/data-processing/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-07-20T11:10:00+08:00</updated>
+  <updated>2014-07-20T23:59:11+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[机器学习常用算法]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/"/>
+    <updated>2014-07-20T23:57:00+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa</id>
+    <content type="html"><![CDATA[<p>TBD</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SAP Cloud Computing]]></title>
