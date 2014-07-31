@@ -40,6 +40,8 @@ dbench
 ### net:
 
 iperf
+dstat
+ifstatus
 
 ### ram
 

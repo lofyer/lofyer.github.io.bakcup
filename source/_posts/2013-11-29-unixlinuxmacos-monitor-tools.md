@@ -23,6 +23,8 @@ Suricata
 ntop  
 cacti  
 **Terminal**  
+ifstatus
+dstat
 iftop  
 tcpdump  
 netstat  
