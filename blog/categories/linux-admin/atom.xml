@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux Admin | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/linux-admin/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-07-31T12:58:36+08:00</updated>
+  <updated>2014-07-31T13:01:55+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -319,31 +319,47 @@ Suricata</p>
 
 <h2>Network</h2>
 
-<p><strong>Web</strong><br/>
-ntop<br/>
-cacti<br/>
-<strong>Terminal</strong><br/>
-ifstatus
-dstat
-iftop<br/>
-tcpdump<br/>
-netstat<br/>
-iptraf<br/>
-vnstat</p>
+<p><strong>Web</strong></p>
+
+<p>ntop</p>
+
+<p>cacti</p>
+
+<p><strong>Terminal</strong></p>
+
+<p>ifstatus</p>
+
+<p>dstat</p>
+
+<p>iftop</p>
+
+<p>tcpdump</p>
+
+<p>netstat</p>
+
+<p>iptraf</p>
+
+<p>vnstat</p>
 
 <h2>Cpu/Memory</h2>
 
-<p><strong>Terminal</strong><br/>
-top<br/>
-htop<br/>
-vmstat<br/>
-pmap</p>
+<p><strong>Terminal</strong></p>
+
+<p>top</p>
+
+<p>htop</p>
+
+<p>vmstat</p>
+
+<p>pmap</p>
 
 <h2>IO</h2>
 
-<p><strong>Terminal</strong><br/>
-iotop<br/>
-iostat</p>
+<p><strong>Terminal</strong></p>
+
+<p>iotop</p>
+
+<p>iostat</p>
 ]]></content>
   </entry>
   
