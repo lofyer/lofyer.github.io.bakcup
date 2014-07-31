@@ -20,27 +20,43 @@ Suricata
 ## Network
 
 **Web**  
+
 ntop  
+
 cacti  
+
 **Terminal**  
+
 ifstatus
+
 dstat
+
 iftop  
+
 tcpdump  
+
 netstat  
+
 iptraf  
+
 vnstat
 
 ## Cpu/Memory
 
 **Terminal**  
+
 top  
+
 htop  
+
 vmstat  
+
 pmap
 
 ## IO
 
 **Terminal**  
+
 iotop  
+
 iostat
