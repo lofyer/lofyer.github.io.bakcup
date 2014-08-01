@@ -30,4 +30,4 @@ E-mail: lofyer@gmail.com
 
 Site: lofyer.org
 
-Git: [MyGit](https://github.com "MyGit")
+Git: [MyGit](https://github.com/lofyer "MyGit")
