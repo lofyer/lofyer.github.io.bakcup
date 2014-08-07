@@ -31,3 +31,5 @@ E-mail: lofyer@gmail.com
 Site: lofyer.org
 
 Git: [MyGit](https://github.com/lofyer "MyGit")
+
+See [Workshop](http://blog.lofyer.org/workshop) for my open work
