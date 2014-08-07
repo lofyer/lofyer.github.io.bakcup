@@ -7,15 +7,6 @@ sharing: true
 footer: true
 ---
 
-科幻小说：新世界
-----
-
-对的，没事儿我还喜欢写小说。
-
-日记类：<a href="http://blog.lofyer.org/blog/categories/lofyerde-ri-ji/" target="_blank">lofyer的日记（已完结）</a>
-
-独领场景类：<a href="http://blog.lofyer.org/blog/categories/xin-shi-jie/" target="_blank">新世界（在写）</a>
-
 云端日记（In the Cloud）
 ----
 
@@ -33,3 +24,12 @@ MyIDC
 `1. 轻松在新环境中部署应用，部署规模与操作步骤为非线性比例，主要提供方法，并提供虚拟机为辅助。`
 
 `2. 网络主流数据搜索内容抓取，海量存储，自定义检索规则。`
+
+小说
+----
+
+对的，没事儿我还喜欢写小说。
+
+日记类：<a href="http://blog.lofyer.org/blog/categories/lofyerde-ri-ji/" target="_blank">lofyer的日记（已完结）</a>
+
+独立场景类：<a href="http://blog.lofyer.org/blog/categories/xin-shi-jie/" target="_blank">新世界（在写）</a>
