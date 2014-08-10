@@ -9,9 +9,10 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="The infrastructure of it:
-Management: Based on django, communicate with Agent
-Agent: A daemon, used for communicating with Management and managing &hellip;">
+  <meta name="description" content="流白。
+买这本书的初衷是希望从中获得一些技能或者方法，以及了解现代DIY生物的发展，可看完后不免有些失望 。
+译者水平有待提高，编辑内容稍微逊色。
+可也不是没收获，至少知道了世界上还有一群人再为人类科技文明在默默奉献，尽管来自外界的阻力很大；也了解了如何打开生物DIY的大门(在设备方面)； &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,49 @@ Agent: A daemon, used for communicating with Management and managing &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/23/bio-hack/">《想当厨子的生物学家是个好黑客》观感</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-23T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/06/23/bio-hack/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/06/23/bio-hack/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>流白。<br/>
+买这本书的初衷是希望从中获得一些技能或者方法，以及了解现代DIY生物的发展，可看完后不免有些失望 。<br/>
+译者水平有待提高，编辑内容稍微逊色。<br/>
+可也不是没收获，至少知道了世界上还有一群人再为人类科技文明在默默奉献，尽管来自外界的阻力很大；也了解了如何打开生物DIY的大门(在设备方面)；<br/>
+阻力也可能是好的，鉴于伦理和道德因素，以及技术垄断，对策才会涌现，当然，对一些人来说这也是为什么它如此有趣。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -836,178 +880,6 @@ ROI：移动检测<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/10/all-about-curl/">Something About Curl &#8212; Connecting IPA Server Using Json as an Example</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/04/10/all-about-curl/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/all-about-curl/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>With Arduino as a server.</p>
-
-<p>What we want is to keep a cookie and build a HEADER<br/>
-<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP/1.1" target="_blank"></p> <p>
-  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></a>
-</p></p>
-
-<p>
-  [P1]
-</p>
-
-
-
-
-<pre>
-curl -e
-curl -H referer:whereicamefrom.com
-curl -d @file.txt
-curl -d "somecmd"
-curl -cookie
-curl -D
-</pre>
-
-
-
-
-<p>
-  [P2]<br /> <strong>Communicating with ipa server</strong><br /> <a href="https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt" title="freeipa api" target="_blank">https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt</a>
-</p>
-
-
-
-
-<p>
-  Get ca.crt
-</p>
-
-
-
-
-<pre>curl -k https://$YOURHOST/ipa/config/ca.crt >> /tmp/ipa.ca.cert</pre>
-
-
-
-
-<p>
-  Get sessionid
-</p>
-
-
-
-
-<pre>
-sessid=$(curl -v 
--H referer:https://ipa.test.net/ipa/ui/index.html 
--H "Content-Type:application/x-www-form-urlencoded" 
--H "Accept:*/*" 
---negotiate -u : 
---cacert ./ca.crt 
--d "user=admin" -d "password=12345678" 
--D cookie.txt 
--X POST 
--k      
-
-https://ipa.test.net/ipa/session/login_password
-
-2>&#038;1 | grep -o "ipa_session=[a-zA-Z0-9]*")
-</pre>
-
-
-
-
-<p>
-  Post a json file with cmd in it
-</p>
-
-
-
-
-<pre>curl -v 
--H referer:https://ipa.test.net/ipa/ui/index.html 
--H "Content-Type:application/json" 
--H "Accept:applicaton/json" 
--negotiate -u : 
---cacert ./ca.crt 
---cookie $sessid 
--d @ipa.json 
--X POST 
--k      
-
-https://ipa.test.net/ipa/session/json
-
-</pre>
-
-
-
-
-<p>
-  Here&#8217;s a json file
-</p>
-
-
-
-
-<pre>
-{
-"method":"user_find",
-"params":[
-        [""],
-        {"uid":"admin"}
-        ],
-"id":0
-}
-</pre>
-
-
-
-
-<pre>
-{
-"method":"user_add",
-"params":[
-        [],
-        {
-         "uid":"test1",
-         "cn":"cn",
-         "givenname":"test1",
-         "sn":"test1"
-        }
-        ],
-"id":0
-}
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/8">&larr; Older</a>
@@ -1025,6 +897,10 @@ https://ipa.test.net/ipa/session/json
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
@@ -1040,10 +916,6 @@ https://ipa.test.net/ipa/session/json
         <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -1054,7 +926,7 @@ https://ipa.test.net/ipa/session/json
   <h1>Categories</h1>
     <ul id="categories">
       <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
-<li class='category'><a href='/blog/categories/data-processing/'>data processing (3)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>

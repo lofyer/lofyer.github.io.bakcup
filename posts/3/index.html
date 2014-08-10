@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="既然是文件系统，那就不得不了解一下FUSE。 FUSE全名Filesystem in Userspace，是在类UNIX系统下的一个机制，可以让普通用户创建修改访问文件系统。功能大体就是连接内核接口与用户控件程序的一座“桥”，目前普遍存在于多个操作系统中，比如Linux、BSD、Solaris、 &hellip;">
+  <meta name="description" content="这一节会简述下glusterfs功能和特性。 glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。 功能特性 gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用； gluster支持四种存储逻辑组合：Striped、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,89 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/04/5-2-cloud-gluster-des/">7. Gluster简述</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-04T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/04/5-2-cloud-gluster-des/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/04/5-2-cloud-gluster-des/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这一节会简述下glusterfs功能和特性。</p>
+
+<p>glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-src/cloud-5-2-1/" rel="attachment wp-att-2999"><img class="size-full wp-image-2999 aligncenter" alt="cloud-5.2-1" src="http://lofyer.github.io/uploads/cloud-5.2-1.png" width="787" height="486" /></a></p>
+
+<h2>功能特性</h2>
+
+<p>gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/glusterfs_architecture/" rel="attachment wp-att-3007"><img src="http://lofyer.github.io/uploads/GlusterFS_Architecture.png" alt="GlusterFS_Architecture" width="800" height="576" class="alignnone size-full wp-image-3007" /></a></p>
+
+<p>gluster支持四种存储逻辑组合：Striped、Replicated、Striped-Replicated、Distributed；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_volume/" rel="attachment wp-att-3013"><img src="http://lofyer.github.io/uploads/Distributed_Volume.png" alt="Distributed_Volume" width="660" height="360" class="alignnone size-full wp-image-3013" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_volume/" rel="attachment wp-att-3012"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Volume.png" alt="Distributed_Striped_Volume" width="660" height="400" class="alignnone size-full wp-image-3012" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_replicated_volume/" rel="attachment wp-att-3010"><img src="http://lofyer.github.io/uploads/Distributed_Replicated_Volume.png" alt="Distributed_Replicated_Volume" width="660" height="400" class="alignnone size-full wp-image-3010" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/distributed_striped_replicated_volume/" rel="attachment wp-att-3011"><img src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="460" class="alignnone size-full wp-image-3011" /></a></p>
+
+<p>支持跨网备份（geo-replication）；</p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_lan/" rel="attachment wp-att-3017"><img src="http://lofyer.github.io/uploads/Geo-Rep_LAN.png" alt="Geo-Rep_LAN" width="676" height="241" class="alignnone size-full wp-image-3017" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep_wan/" rel="attachment wp-att-3015"><img src="http://lofyer.github.io/uploads/Geo-Rep_WAN.png" alt="Geo-Rep_WAN" width="628" height="206" class="alignnone size-full wp-image-3015" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep03_internet/" rel="attachment wp-att-3018"><img src="http://lofyer.github.io/uploads/Geo-Rep03_Internet.png" alt="Geo-Rep03_Internet" width="659" height="241" class="alignnone size-full wp-image-3018" /></a></p>
+
+<p><a href="http://blog.lofyer.org/5-2-cloud-gluster-des/geo-rep04_cascading/" rel="attachment wp-att-3019"><img src="http://lofyer.github.io/uploads/Geo-Rep04_Cascading.png" alt="Geo-Rep04_Cascading" width="709" height="516" class="alignnone size-full wp-image-3019" /></a></p>
+
+<p>统一对象视图，与UNIX设计哲学类似，所有皆对象；</p>
+
+<p>跨平台兼容性高，可作为hadoop、openstack、ovirt、Amazon EC的后端；</p>
+
+<h2>名词解释</h2>
+
+<p>砖块（brick）：即服务器节点上导出的一个目录，作为glusterfs的最基本单元；</p>
+
+<p>扩展属性（xattr）：用户/程序以之将数据和元数据关联起来；</p>
+
+<p>GFID：glusterfs中的每一个文件或者目录都有一个独立的128位GFID，与普通文件系统中的inode类似；</p>
+
+<p>glusterd：运行于所有服务器中的管理守护程序；</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -745,50 +828,6 @@ And a msg to my GF.<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/25/setup-zebra-ripd/">Setup Dns, Router and Switch</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-25T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/02/25/setup-zebra-ripd/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/25/setup-zebra-ripd/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>dns forward<br/>
-dns</p>
-
-<p>router</p>
-
-<p>TBD</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -806,6 +845,10 @@ dns</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
@@ -821,10 +864,6 @@ dns</p>
         <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -835,7 +874,7 @@ dns</p>
   <h1>Categories</h1>
     <ul id="categories">
       <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
-<li class='category'><a href='/blog/categories/data-processing/'>data processing (3)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>

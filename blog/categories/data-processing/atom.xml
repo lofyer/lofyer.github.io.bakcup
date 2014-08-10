@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data Processing | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/data-processing/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-08-07T13:13:35+08:00</updated>
+  <updated>2014-08-11T07:52:29+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Get Data Distributely via Scrapy]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/08/09/get-data-distributely-via-scrapy/"/>
+    <updated>2014-08-09T14:36:05+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/08/09/get-data-distributely-via-scrapy</id>
+    <content type="html"><![CDATA[<ol>
+<li>Install Scrapy</li>
+</ol>
+
+
+<p>```</p>
+
+<h1>apt-get install python-scrapy</h1>
+
+<p>```</p>
+
+<ol>
+<li></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[机器学习常用算法]]></title>

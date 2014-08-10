@@ -9,11 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="#!/bin/bash
-BEGIN_DATE=`date`
-subject="Automerge conflict detected"
-from="AutoMerge@gitserver.com"
-recipients="user0@gmail.com,user1@gmail.com" echo &hellip;">
+  <meta name="description" content="With Arduino as a server. What we want is to keep a cookie and build a HEADER http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html [P1] curl -e &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +73,178 @@ recipients="user0@gmail.com,user1@gmail.com" echo &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/10/all-about-curl/">Something About Curl &#8212; Connecting IPA Server Using Json as an Example</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-10T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/04/10/all-about-curl/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/04/10/all-about-curl/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>With Arduino as a server.</p>
+
+<p>What we want is to keep a cookie and build a HEADER<br/>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP/1.1" target="_blank"></p> <p>
+  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></a>
+</p></p>
+
+<p>
+  [P1]
+</p>
+
+
+
+
+<pre>
+curl -e
+curl -H referer:whereicamefrom.com
+curl -d @file.txt
+curl -d "somecmd"
+curl -cookie
+curl -D
+</pre>
+
+
+
+
+<p>
+  [P2]<br /> <strong>Communicating with ipa server</strong><br /> <a href="https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt" title="freeipa api" target="_blank">https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt</a>
+</p>
+
+
+
+
+<p>
+  Get ca.crt
+</p>
+
+
+
+
+<pre>curl -k https://$YOURHOST/ipa/config/ca.crt >> /tmp/ipa.ca.cert</pre>
+
+
+
+
+<p>
+  Get sessionid
+</p>
+
+
+
+
+<pre>
+sessid=$(curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/x-www-form-urlencoded" 
+-H "Accept:*/*" 
+--negotiate -u : 
+--cacert ./ca.crt 
+-d "user=admin" -d "password=12345678" 
+-D cookie.txt 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/login_password
+
+2>&#038;1 | grep -o "ipa_session=[a-zA-Z0-9]*")
+</pre>
+
+
+
+
+<p>
+  Post a json file with cmd in it
+</p>
+
+
+
+
+<pre>curl -v 
+-H referer:https://ipa.test.net/ipa/ui/index.html 
+-H "Content-Type:application/json" 
+-H "Accept:applicaton/json" 
+-negotiate -u : 
+--cacert ./ca.crt 
+--cookie $sessid 
+-d @ipa.json 
+-X POST 
+-k      
+
+https://ipa.test.net/ipa/session/json
+
+</pre>
+
+
+
+
+<p>
+  Here&#8217;s a json file
+</p>
+
+
+
+
+<pre>
+{
+"method":"user_find",
+"params":[
+        [""],
+        {"uid":"admin"}
+        ],
+"id":0
+}
+</pre>
+
+
+
+
+<pre>
+{
+"method":"user_add",
+"params":[
+        [],
+        {
+         "uid":"test1",
+         "cn":"cn",
+         "givenname":"test1",
+         "sn":"test1"
+        }
+        ],
+"id":0
+}
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -855,50 +1023,6 @@ sysctl -w net.ipv4.ip_forward=1
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/">Python交互式输入</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-14T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/01/14/python%25e4%25ba%25a4%25e4%25ba%2592%25e5%25bc%258f%25e8%25be%2593%25e5%2585%25a5/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><pre>cmd='echo "%s\n%s" | smbpasswd -s -a %s'%(password, password, self.login)
-</pre>
-
-
-<p>PS:<br/>
-好像很少用到这种，反正我是试了下echo &#8220;123456&#8243; | su demo，果断出现两层。。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -916,6 +1040,10 @@ sysctl -w net.ipv4.ip_forward=1
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
@@ -931,10 +1059,6 @@ sysctl -w net.ipv4.ip_forward=1
         <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/06/09/gitlab-quick-deploy/">Gitlab Quick Deploy</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -945,7 +1069,7 @@ sysctl -w net.ipv4.ip_forward=1
   <h1>Categories</h1>
     <ul id="categories">
       <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
-<li class='category'><a href='/blog/categories/data-processing/'>data processing (3)</a></li>
+<li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
