@@ -265,3 +265,9 @@ $ gconftool-2 -s /system/proxy/socks_port -t int 7070
 $ gconftool-2 -s /system/proxy/mode -t string manual # enable  
 $ gconftool-2 -s /system/proxy/mode -t string none # disable
 </pre>
+
+## update xcode cmd
+
+```
+# xcode-select --install
+```
