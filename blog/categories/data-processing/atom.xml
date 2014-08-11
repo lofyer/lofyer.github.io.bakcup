@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Data Processing | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/data-processing/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-08-11T07:52:29+08:00</updated>
+  <updated>2014-08-11T19:17:34+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -18,21 +18,7 @@
     <link href="http://blog.lofyer.org/blog/2014/08/09/get-data-distributely-via-scrapy/"/>
     <updated>2014-08-09T14:36:05+08:00</updated>
     <id>http://blog.lofyer.org/blog/2014/08/09/get-data-distributely-via-scrapy</id>
-    <content type="html"><![CDATA[<ol>
-<li>Install Scrapy</li>
-</ol>
-
-
-<p>```</p>
-
-<h1>apt-get install python-scrapy</h1>
-
-<p>```</p>
-
-<ol>
-<li></li>
-</ol>
-
+    <content type="html"><![CDATA[<p>It will be in <a href="https://inthecloud.readthedocs.org">https://inthecloud.readthedocs.org</a></p>
 ]]></content>
   </entry>
   
@@ -41,7 +27,7 @@
     <link href="http://blog.lofyer.org/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/"/>
     <updated>2014-07-20T23:57:00+08:00</updated>
     <id>http://blog.lofyer.org/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa</id>
-    <content type="html"><![CDATA[<p>TBD</p>
+    <content type="html"><![CDATA[<p>It will be in <a href="https://inthecloud.readthedocs.org">https://inthecloud.readthedocs.org</a></p>
 ]]></content>
   </entry>
   
