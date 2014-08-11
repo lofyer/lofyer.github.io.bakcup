@@ -7,10 +7,4 @@ categories:
   - data processing
 ---
 
-1. Install Scrapy
-
-```
-# apt-get install python-scrapy
-```
-
-2. 
+It will be in https://inthecloud.readthedocs.org
