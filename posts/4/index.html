@@ -9,9 +9,10 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="dns forward
-dns router TBD
-">
+  <meta name="description" content="Let&#8217;s see what we have got here:
+A xmpp server based on ejabberd on my host: lofyer.org.
+Windows client: Jitsi(Recommended), Pidgin.
+(Optional) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,155 @@ dns router TBD
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/26/ejabber-howto/">Use MAXS to Control Your Device via Ejabberd(plus Ssh, Jingle Voice Talk as a Bonus)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-26T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/02/26/ejabber-howto/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/26/ejabber-howto/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Let&#8217;s see what we have got here:<br/>
+A xmpp server based on ejabberd on my host: lofyer.org.<br/>
+Windows client: <a href="https://download.jitsi.org/jitsi/nightly/" target="_blank">Jitsi(Recommended)</a>, <a href="http://www.pidgin.im/" target="_blank">Pidgin</a>.<br/>
+(Optional)A Android client: <a href="http://www.xabber.org/" target="_blank">Xabber.</a><br/>
+<a href="http://f-droid.org/wiki/page/org.projectmaxs.main" target="_blank">MAXS</a> on my Nexus 5 Android phone.</p>
+
+<h2>1. Prepare the server(Debian 7)</h2>
+
+<pre># apt-get install ejabberd
+# cd /etc/ejabberd/; wget http://people.collabora.com/~robot101/olpc-ejabberd/ejabberd.cfg
+</pre>
+
+
+<p>Change <strong>hosts</strong> and <strong>admin</strong> section to your <strong>FQDN</strong>.<br/>
+Here&#8217;s a example:</p>
+
+<pre>{hosts, ["lofyer.org"]}.
+{acl, admin, {user, "mypassword", "lofyer.org"}}.
+</pre>
+
+
+<p>Then you should restart ejabberd, and maybe a reboot is essential.</p>
+
+<pre># /etc/init.d/ejabberd restart
+</pre>
+
+
+<h3>Enable Jingle(voice and video)</h3>
+
+<p>You need JingleNodes module on your server.</p>
+
+<pre># apt-get install erlang-tools
+# git clone git://git.process-one.net/exmpp/mainline.git exmpp
+# cd exmpp; ./configure; make; make install
+# svn checkout http://jinglenodes.googlecode.com/svn/ jinglenodes
+# cd jinglenodes; ./configure --prefix=/usr/; make; make install
+</pre>
+
+
+<p>Add following content to your ejabberd.cfg in the <strong>modules</strong> section.</p>
+
+<pre>{mod_jinglenodes, [
+             {host, "jinglenodes.@HOST@"},
+             {public_ip, "192.168.1.148"},
+             {purge_period, 5000},
+             {relay_timeout, 60000}
+            ]},
+</pre>
+
+
+<h3>Enable web register(optional)</h3>
+
+<p>Add to ejabberd.cfg, &#8216;modules&#8217; section the basic configuration:</p>
+
+<pre>{modules, [
+  ...
+  {mod_register_web,     []},
+  ...
+]}.
+</pre>
+
+
+<p>In the &#8216;listen&#8217; section enable the web page:</p>
+
+<pre>{listen, [
+  ...
+  {5281, ejabberd_http, [
+    tls,
+    {certfile, "/etc/ejabberd/ejabberd.pem"},
+    {request_handlers, [
+      {["register"], mod_register_web}
+    ]}
+  ]},
+  ...
+]}.
+</pre>
+
+
+<h3>Use your own certificate</h3>
+
+<pre>openssl req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out server.pem
+openssl rsa -in privkey.pem -out privkey.pem
+cat privkey.pem >> server.pem
+rm privkey.pem
+</pre>
+
+
+<p>The port numbers you should open are: 5281(<a href="http://localhost:5281/register/">http://localhost:5281/register/</a>) 5280(<a href="http://localhost:5280/admin">http://localhost:5280/admin</a>) and 5222(for c2s).</p>
+
+<p>Register users:</p>
+
+<pre># ejabberdctl register admin lofyer.org mypassword
+# ejabberdctl register myphone lofyer.org mypassword
+# ejabberdctl register mypc lofyer.org mypassword
+</pre>
+
+
+<h2>2. Pidgin and MAXS test</h2>
+
+<p>Pidgin: admin@lofyer.org<br/>
+MAXS: myphone@lofyer.org<br/>
+By the way, guarantee that there is only one running jabber client on your phone during this period.<br/>
+<strong>Pidgin</strong><br/>
+Add a friend<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://lofyer.github.io/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a><br/>
+<strong>Shell test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://lofyer.github.io/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a><br/>
+<strong>SMS test</strong><br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://lofyer.github.io/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a><br/>
+And a msg to my GF.<br/>
+<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://lofyer.github.io/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -949,85 +1099,6 @@ TBD</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/11/myidc-everythings-traceable/">MyIDC&#8211;Everything&#8217;s Traceable</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-11T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/11/myidc-everythings-traceable/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/12/11/myidc-everythings-traceable/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>相关手册参考<a href="https://cloud.lofyer.org/public.php?service=files&#038;t=ad02817153cc4e4602921447eb49d10a" title="MyIDC_Book" target="_blank">MyIDC_Book</a></p>
-
-<p>细节索引：<br/>
-gluster<br/>
-hadoop(with ARM as an option)<br/>
-drbd/heartbeat<br/>
-foreman/puppet<br/>
-nagios<br/>
-ovirt<br/>
-openstack<br/>
-owncloud<br/>
-asterisk</p>
-
-<p>配置细节参考：<br/>
-<a href="https://github.com/lofyer/myidc-main" title="MyIDC Source" target="_blank">MyIDC Source</a></p>
-
-<p><strong>Infrastructure:</strong></p>
-
-<pre>Board：
-    x86小板
-    SBSA小板
-Cabinet：
-    亚克力自制
-网络：
-    电信拨号接入外网
-    SDN
-资源分配：
-    高可用监视与控制服务（os1-2）
-    高可用存储(os3-n)
-    并行计算（os3-n）
-    高可用虚拟机服务（os1/2+os3-n）
-    独立外设接入设备
-安全：
-    证书认证（在量子计算机面向大众之前这个还是很靠谱的）
-应用商店：
-    社会工程学测试
-    leapmotion控制插件
-    语音控制插件
-    手机控制插件
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/5">&larr; Older</a>
@@ -1045,6 +1116,10 @@ Cabinet：
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/18/zhe-ge-shi-jie-de-bian-yuan/">这个世界的边缘</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -1058,10 +1133,6 @@ Cabinet：
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -1093,7 +1164,7 @@ Cabinet：
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
-<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (6)</a></li>
 <li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
 
    </ul>

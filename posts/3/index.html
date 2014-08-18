@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="这一节会简述下glusterfs功能和特性。 glusterfs设计符合奥卡姆剃刀原则，即“若无必要，勿增实体”。 功能特性 gluster集群组成的存储可以通过NFS、CIFS、Glusterfs、HTTP、FTP协议交给用户使用； gluster支持四种存储逻辑组合：Striped、 &hellip;">
+  <meta name="description" content="既然要搭建一个稳健的基础，那么glusterfs在此使用distributed striped replicated方式，这里使用4台预装CentOS 6(SELINUX设置为permissive)的机器。 添加DNS或者修改hosts文件 鉴于笔者所在环境中暂时没有配置独立的DNS， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,280 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/12/5-3-glusterfs-howto/">8. 搭建glusterfs作为基础存储</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-12T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/04/12/5-3-glusterfs-howto/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/12/5-3-glusterfs-howto/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>既然要搭建一个稳健的基础，那么glusterfs在此使用distributed striped replicated方式，这里使用4台预装CentOS 6(SELINUX设置为permissive)的机器。</p>
+
+<p><a href="http://blog.lofyer.org/5-3-glusterfs-howto/distributed_striped_replicated_volume-2/" rel="attachment wp-att-3149"><img class="alignnone size-full wp-image-3149" src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume1.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="480" /></a></p>
+
+<h2>添加DNS或者修改hosts文件</h2>
+
+<p>鉴于笔者所在环境中暂时没有配置独立的DNS，此处先修改hosts文件以完成配置（每台机器上都如此设置）：</p>
+
+<pre># echo -e "192.168.10.101\tgs1.example.com\n192.168.10.102\tgs2.example.com\n192.168.10.103\tgs3.example.com\n192.168.10.104\tgs4.example.com" >> /etc/hosts
+</pre>
+
+
+<h2>添加repo</h2>
+
+<pre title="gluster_epel.repo">[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+[glusterfs-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+
+[glusterfs-noarch-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
+enabled=1
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+
+[glusterfs-source-epel]
+name=GlusterFS is a clustered file-system capable of scaling to several petabytes. - Source
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/SRPMS
+enabled=0
+skip_if_unavailable=1
+gpgcheck=1
+gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
+</pre>
+
+
+<h2>准备磁盘</h2>
+
+<p>每一个节点都可以看做gluster server，安装xfs用户空间工具：</p>
+
+<pre># yum install -y glusterfs glusterfs-fuse glusterfs-server xfsprogs
+# /etc/init.d/glusterd start
+# /etc/init.d/glusterfsd start
+# chkconfig glusterfsd on
+# chkconfig glusterd on
+</pre>
+
+
+<p>假如每台机器除系统盘之外都有2块1T SATA硬盘。<br/>
+对其进行分区，创建逻辑卷，格式化并挂载：</p>
+
+<pre># fdisk /dev/sdX &lt;&lt; EOF
+n
+p
+1
+
+w
+EOF
+</pre>
+
+
+<p>直接使用物理盘：</p>
+
+<pre># mkfs.xfs -i size 512 /dev/sdb1
+# mkfs.xfs -i size 512 /dev/sdc1
+# mkdir /gluster_brick0
+# mkdir /gluster_brick1
+# echo -e "/dev/sdb1\t/gluster_brick0\txfs\tdefaults\t0 0\n/dev/sdc1\t/gluster_brick1\txfs\tdefaults\t0 0" >> /etc/fstab
+# mount -a
+</pre>
+
+
+<p><del datetime="2014-04-22T07:37:38+00:00">或者使用逻辑卷：</del></p>
+
+<pre># pvcreate /dev/sdb1 /dev/sdc1
+# vgcreate vg_gluster /dev/sdb1 /dev/sdc1
+# lvcreate --name lv_gluster --size 2500G vg_gluster
+# mkfs.xfs -i size 512 /dev/vg_gluster-lv_gluster
+# mkdir /gluster_brick
+# echo -e "/dev/mapper/vg_gluster-lv_gluster\t/gluster_brick\txfs\tdefaults\t0 0" >> /etc/fstab
+# mount -a
+</pre>
+
+
+<p><em>为什么要用XFS？</em><br/>
+XFS具有元数据日志功能，可以快速恢复数据；同时，可以在线扩容及碎片整理。其他文件系统比如EXT3，EXT4未做充分测试。</p>
+
+<h2>配置节点，添加volume</h2>
+
+<p>在其中任何一台机器上，比如gs2.example.com，执行：</p>
+
+<pre># gluster
+  > peer probe gs1.example.com
+  > peer probe gs2.example.com</pre>
+
+
+<p>添加brick至volume，<strong>合理调整砖块顺序</strong>：</p>
+
+<pre># gluster
+  > volume create gluster-vol1 stripe 2 replica 2 gs1.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick0 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick0 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick0 gs4.example.com:/gluster_brick1 force
+  > volume start gluster-vol1
+  > volume status
+Status of volume: gluster-vol1
+Gluster process                                         Port    Online  Pid
+------------------------------------------------------------------------------
+Brick gs1.example.com:/gluster_brick0                   49152   Y       1984
+Brick gs1.example.com:/gluster_brick1                   49153   Y       1995
+Brick gs2.example.com:/gluster_brick0                   49152   Y       1972
+Brick gs2.example.com:/gluster_brick1                   49153   Y       1983
+Brick gs3.example.com:/gluster_brick0                   49152   Y       1961
+Brick gs3.example.com:/gluster_brick1                   49153   Y       1972
+Brick gs4.example.com:/gluster_brick0                   49152   Y       1975
+Brick gs4.example.com:/gluster_brick1                   49153   Y       1986
+NFS Server on localhost                                 2049    Y       1999
+Self-heal Daemon on localhost                           N/A     Y       2006
+NFS Server on gs2.example.com                           2049    Y       2007
+Self-heal Daemon on gs2.example.com                     N/A     Y       2014
+NFS Server on gs2.example.com                           2049    Y       1995
+Self-heal Daemon on gs2.example.com                     N/A     Y       2002
+NFS Server on gs3.example.com                           2049    Y       1986
+Self-heal Daemon on gs3.example.com                     N/A     Y       1993
+ 
+Task Status of Volume gluster-vol1
+------------------------------------------------------------------------------
+There are no active volume tasks
+  > volume info all
+gluster volume info all
+ 
+Volume Name: gluster-vol1
+Type: Distributed-Striped-Replicate
+Volume ID: bc8e102c-2b35-4748-ab71-7cf96ce083f3
+Status: Started
+Number of Bricks: 2 x 2 x 2 = 8
+Transport-type: tcp
+Bricks:
+Brick1: gs1.example.com:/gluster_brick0
+Brick2: gs1.example.com:/gluster_brick1
+Brick3: gs2.example.com:/gluster_brick0
+Brick4: gs2.example.com:/gluster_brick1
+Brick5: gs3.example.com:/gluster_brick0
+Brick6: gs3.example.com:/gluster_brick1
+Brick7: gs4.example.com:/gluster_brick0
+Brick8: gs4.example.com:/gluster_brick1
+</pre>
+
+
+<h2>客户端挂载glusterfs</h2>
+
+<p>当用glusterfs-fuse挂载时，客户端的hosts文件里需要有gluster server中的任一节点做解析：</p>
+
+<pre title="挂载glusterfs的客户端/etc/hosts">127.0.0.1       localhost.localdomain localhost
+::1             localhost6.localdomain6 localhost6
+
+192.168.1.81    gs1.example.com</pre>
+
+
+<p>安装glusterfuse，将gluster卷作为glusterfs挂载，并写入1M文件查看其在各砖块分配：</p>
+
+<pre># yum install glusterfs glusterfs-fuse
+# mount.glusterfs 192.168.1.81:/gluster-vol1 /mnt
+# cd /mnt
+# dd if=/dev/zero of=a.img bs=1k count=1k
+# cp a.img b.img; cp a.img c.img; cp a.img d.img
+</pre>
+
+
+<p>在四台服务端分别查看：</p>
+
+<pre title="gs1">[root@gs1 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+</pre>
+
+
+
+
+<pre title="gs2">[root@gs2 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
+</pre>
+
+
+
+
+<pre title="gs3">[root@gs3 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+</pre>
+
+
+
+
+<pre title="gs4">[root@gs4 ~]# ls -lh /gluster_brick*
+/gluster_brick0:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+/gluster_brick1:
+total 1.0M
+-rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
+-rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
+</pre>
+
+
+<p>至此，所有配置结束，下一篇说一下使用以及部分trick。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -679,155 +953,6 @@ AppEngine或者OpenShift目前更像是资源（公共数据中心）一厢情�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/26/ejabber-howto/">Use MAXS to Control Your Device via Ejabberd(plus Ssh, Jingle Voice Talk as a Bonus)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-26T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/02/26/ejabber-howto/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/02/26/ejabber-howto/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Let&#8217;s see what we have got here:<br/>
-A xmpp server based on ejabberd on my host: lofyer.org.<br/>
-Windows client: <a href="https://download.jitsi.org/jitsi/nightly/" target="_blank">Jitsi(Recommended)</a>, <a href="http://www.pidgin.im/" target="_blank">Pidgin</a>.<br/>
-(Optional)A Android client: <a href="http://www.xabber.org/" target="_blank">Xabber.</a><br/>
-<a href="http://f-droid.org/wiki/page/org.projectmaxs.main" target="_blank">MAXS</a> on my Nexus 5 Android phone.</p>
-
-<h2>1. Prepare the server(Debian 7)</h2>
-
-<pre># apt-get install ejabberd
-# cd /etc/ejabberd/; wget http://people.collabora.com/~robot101/olpc-ejabberd/ejabberd.cfg
-</pre>
-
-
-<p>Change <strong>hosts</strong> and <strong>admin</strong> section to your <strong>FQDN</strong>.<br/>
-Here&#8217;s a example:</p>
-
-<pre>{hosts, ["lofyer.org"]}.
-{acl, admin, {user, "mypassword", "lofyer.org"}}.
-</pre>
-
-
-<p>Then you should restart ejabberd, and maybe a reboot is essential.</p>
-
-<pre># /etc/init.d/ejabberd restart
-</pre>
-
-
-<h3>Enable Jingle(voice and video)</h3>
-
-<p>You need JingleNodes module on your server.</p>
-
-<pre># apt-get install erlang-tools
-# git clone git://git.process-one.net/exmpp/mainline.git exmpp
-# cd exmpp; ./configure; make; make install
-# svn checkout http://jinglenodes.googlecode.com/svn/ jinglenodes
-# cd jinglenodes; ./configure --prefix=/usr/; make; make install
-</pre>
-
-
-<p>Add following content to your ejabberd.cfg in the <strong>modules</strong> section.</p>
-
-<pre>{mod_jinglenodes, [
-             {host, "jinglenodes.@HOST@"},
-             {public_ip, "192.168.1.148"},
-             {purge_period, 5000},
-             {relay_timeout, 60000}
-            ]},
-</pre>
-
-
-<h3>Enable web register(optional)</h3>
-
-<p>Add to ejabberd.cfg, &#8216;modules&#8217; section the basic configuration:</p>
-
-<pre>{modules, [
-  ...
-  {mod_register_web,     []},
-  ...
-]}.
-</pre>
-
-
-<p>In the &#8216;listen&#8217; section enable the web page:</p>
-
-<pre>{listen, [
-  ...
-  {5281, ejabberd_http, [
-    tls,
-    {certfile, "/etc/ejabberd/ejabberd.pem"},
-    {request_handlers, [
-      {["register"], mod_register_web}
-    ]}
-  ]},
-  ...
-]}.
-</pre>
-
-
-<h3>Use your own certificate</h3>
-
-<pre>openssl req -new -x509 -newkey rsa:1024 -days 3650 -keyout privkey.pem -out server.pem
-openssl rsa -in privkey.pem -out privkey.pem
-cat privkey.pem >> server.pem
-rm privkey.pem
-</pre>
-
-
-<p>The port numbers you should open are: 5281(<a href="http://localhost:5281/register/">http://localhost:5281/register/</a>) 5280(<a href="http://localhost:5280/admin">http://localhost:5280/admin</a>) and 5222(for c2s).</p>
-
-<p>Register users:</p>
-
-<pre># ejabberdctl register admin lofyer.org mypassword
-# ejabberdctl register myphone lofyer.org mypassword
-# ejabberdctl register mypc lofyer.org mypassword
-</pre>
-
-
-<h2>2. Pidgin and MAXS test</h2>
-
-<p>Pidgin: admin@lofyer.org<br/>
-MAXS: myphone@lofyer.org<br/>
-By the way, guarantee that there is only one running jabber client on your phone during this period.<br/>
-<strong>Pidgin</strong><br/>
-Add a friend<br/>
-<a href="http://blog.lofyer.org/ejabber-howto/pidgin/" rel="attachment wp-att-2822"><img src="http://lofyer.github.io/uploads/pidgin.png" alt="pidgin" width="266" height="443" class="alignnone size-full wp-image-2822" /></a><br/>
-<strong>Shell test</strong><br/>
-<a href="http://blog.lofyer.org/ejabber-howto/shell/" rel="attachment wp-att-2824"><img src="http://lofyer.github.io/uploads/shell.png" alt="shell" width="356" height="428" class="alignnone size-full wp-image-2824" /></a><br/>
-<strong>SMS test</strong><br/>
-<a href="http://blog.lofyer.org/ejabber-howto/sms-send/" rel="attachment wp-att-2825"><img src="http://lofyer.github.io/uploads/SMS-SEND.png" alt="SMS-SEND" width="546" height="393" class="alignnone size-full wp-image-2825" /></a><br/>
-And a msg to my GF.<br/>
-<a href="http://blog.lofyer.org/ejabber-howto/sms-receive/" rel="attachment wp-att-2826"><img src="http://lofyer.github.io/uploads/sms-receive.jpg" alt="sms-receive" width="545" height="325" class="alignnone size-full wp-image-2826" /></a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/4">&larr; Older</a>
@@ -845,6 +970,10 @@ And a msg to my GF.<br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/18/zhe-ge-shi-jie-de-bian-yuan/">这个世界的边缘</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -858,10 +987,6 @@ And a msg to my GF.<br/>
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -893,7 +1018,7 @@ And a msg to my GF.<br/>
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
-<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (6)</a></li>
 <li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
 
    </ul>

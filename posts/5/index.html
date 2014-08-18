@@ -9,7 +9,17 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="已经是一片沙子吞噬的废墟中，走过一列驼队，他们看起来像几个世纪之前的人。 在战争之前，这片地方是个纪念馆，纪念第六次世界大战中死去的人类。如今E3星系的人已经在地下安家，地球自转和公转周期都被调成了与他们家乡一致，也就是说，在太阳落山之前， &hellip;">
+  <meta name="description" content="相关手册参考MyIDC_Book 细节索引：
+gluster
+hadoop(with ARM as an option)
+drbd/heartbeat
+foreman/puppet
+nagios
+ovirt
+openstack
+owncloud
+asterisk 配置细节参考：
+MyIDC &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +83,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/11/myidc-everythings-traceable/">MyIDC&#8211;Everything&#8217;s Traceable</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-11T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/12/11/myidc-everythings-traceable/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/12/11/myidc-everythings-traceable/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>相关手册参考<a href="https://cloud.lofyer.org/public.php?service=files&#038;t=ad02817153cc4e4602921447eb49d10a" title="MyIDC_Book" target="_blank">MyIDC_Book</a></p>
+
+<p>细节索引：<br/>
+gluster<br/>
+hadoop(with ARM as an option)<br/>
+drbd/heartbeat<br/>
+foreman/puppet<br/>
+nagios<br/>
+ovirt<br/>
+openstack<br/>
+owncloud<br/>
+asterisk</p>
+
+<p>配置细节参考：<br/>
+<a href="https://github.com/lofyer/myidc-main" title="MyIDC Source" target="_blank">MyIDC Source</a></p>
+
+<p><strong>Infrastructure:</strong></p>
+
+<pre>Board：
+    x86小板
+    SBSA小板
+Cabinet：
+    亚克力自制
+网络：
+    电信拨号接入外网
+    SDN
+资源分配：
+    高可用监视与控制服务（os1-2）
+    高可用存储(os3-n)
+    并行计算（os3-n）
+    高可用虚拟机服务（os1/2+os3-n）
+    独立外设接入设备
+安全：
+    证书认证（在量子计算机面向大众之前这个还是很靠谱的）
+应用商店：
+    社会工程学测试
+    leapmotion控制插件
+    语音控制插件
+    手机控制插件
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -682,111 +771,6 @@ Kernel para:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/02/ndk-compile-android-spiceaspice/">Compile Android Spice(aSpice)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-02T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/09/02/ndk-compile-android-spiceaspice/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ref:<br/>
-<a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" title="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" target="_blank"><a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944">http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944</a></a></p>
-
-<p>OS: ubuntu 12.04 x86_64</p>
-
-<h2>1. You need download some packages at first.</h2>
-
-<p>cerbero<br/>
-celt-0.5.1.tar.bz2<br/>
-libjpegturbo<br/>
-openssl-1.0.1e</p>
-
-<h2>2. What can cerbero do?</h2>
-
-<p>Just like Buildroot, cerbero can build an SDK from scratch for you.</p>
-
-<h3>install</h3>
-
-<pre>$ git clone http://anongit.freedesktop.org/git/gstreamer-sdk/cerbero.git
-$ sudo python setup.py install
-$ cp data/* /usr/local/share/cerbero/data/ #In case of autobuild error
-cerbero bootstrap
-</pre>
-
-
-<p>In my case, cerbero used ndk-android-r8e.</p>
-
-<h3>essential packages</h3>
-
-<p>celt-0.5.1.tar.bz2<br/>
-openssl-1.0.1e<br/>
-(optional)libjpegturbo<br/>
-To build celt, we need source a file</p>
-
-<pre>export NDK=/home/demo/cerbero/android-ndk-r8e
-export SYSROOT=${NDK}/platforms/android-9/arch-arm
-export CC="${NDK}/toolchains/arm-linux-androideabi-4.7/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc --sysroot=${SYSROOT}"
-export CFLAGS='-mfloat-abi=softfp'
-</pre>
-
-
-<p>Save it as <strong>android.buildenv</strong><br/>
-To build celt</p>
-
-<pre>$ source android.buildenv
-$ ./configure --prefix=/home/demo/cerbero/dist/android_arm --enable-shared --enable-static --prefix=arm-linuxandroid-eabi
-$ make; sudo install
-</pre>
-
-
-<p>To build openssl</p>
-
-<pre>$ source android.buildenv
-$ ./config --prefix=/home/demo/cerbero/dist/android_arm --shared os/compiler:arm-linux
-$ make; make install
-</pre>
-
-
-<h2>3. Build bVNC</h2>
-
-<p>We need modify bVNC/jni/src/Android.mk to make ndk-build success.<br/>
-Add <strong>libffi.a</strong> to CROSSDIR<br/>
-Add <strong>&#8211;static</strong> to CFLAGS</p>
-
-<p>Alter <strong>bVNC/jni/Appication.mk</strong> and <strong>bVNC/AndroidManifest.xml</strong> from <strong>android-8</strong> to <strong>android-9</strong></p>
-
-<p>BTW, we use FreeRDP with commit dbbb341.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/6">&larr; Older</a>
@@ -804,6 +788,10 @@ Add <strong>&#8211;static</strong> to CFLAGS</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/18/zhe-ge-shi-jie-de-bian-yuan/">这个世界的边缘</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -817,10 +805,6 @@ Add <strong>&#8211;static</strong> to CFLAGS</p>
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -852,7 +836,7 @@ Add <strong>&#8211;static</strong> to CFLAGS</p>
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
-<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (5)</a></li>
+<li class='category'><a href='/blog/categories/xin-shi-jie/'>新世界 (6)</a></li>
 <li class='category'><a href='/blog/categories/sheng-huo-za-ji/'>生活杂记 (29)</a></li>
 
    </ul>
