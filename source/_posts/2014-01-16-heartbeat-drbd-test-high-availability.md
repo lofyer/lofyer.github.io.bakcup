@@ -9,11 +9,11 @@ categories:
 
 Here's original article:
 
-http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_%E5%BB%BA%E7%BD%AE_MySQL_%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7
+http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_建置_MySQL_高可用性
 
 Hosts:  
-192.168.1.101 ha1.lofyer.org, 2 hard drive disks, two ethernet ports  
-192.168.1.103 ha2.lofyer.org, almost same as ha1
+192.168.1.101 ha1.lofyer.org, 2 hard drive disks
+192.168.1.103 ha2.lofyer.org, 2 hard drive disks
 
 Server host, this is the IP of heartbeat service:  
 192.168.1.100
@@ -184,9 +184,8 @@ file: /etc/ha.d/ha.cf
 logfile /var/log/ha-log
 logfacility local0
 autojoin none
-ucast eth0 192.168.1.101
-ucast eth1 192.168.1.102
-ping 10.10.25.254    
+ucast eth0 192.168.1.101 # IP of another host
+ping 192.168.1.1
 respawn hacluster /usr/lib64/heartbeat/ipfail
 respawn hacluster /usr/lib64/heartbeat/dopd
 apiauth dopd gid=haclient uid=hacluster
@@ -203,7 +202,18 @@ auto_failback off
 The service will be serve on IP 192.168.1.100.  
 file: /etc/ha.d/haresources
 
-<pre>mysql.lofyer.org 192.168.1.100 drbddisk::ha Filesystem::/dev/drbd0::/db::ext4 mysql</pre>
+<pre>ha1.lofyer.org 192.168.1.100 drbddisk::ha Filesystem::/dev/drbd0::/db::ext4 mysql</pre>
+
+**authkeys**
+
+<pre>
+ #( echo -ne "auth 1\n1 sha1 "; dd if=/dev/urandom bs=512 count=1 | openssl md5) > /etc/ha.d/authkeys
+ #cat /etc/ha.d/authkeys
+ auth 1
+ 1 sha1 71461fc5e160d7846c2f4b524f952128
+ #chmod 600 /etc/ha.d/authkeys
+ #scp /etc/ha.d/authkeys node2:/etc/ha.d/
+</pre>
 
 **Add mysql entry to heartbeat**  
 file: /etc/ha.d/resource.d/mysql
@@ -257,3 +267,9 @@ run at start up time and shutdown time.
 *
 
 ## Test HA
+
+On host running mysql service
+
+```
+# service heartbeat restart
+```
