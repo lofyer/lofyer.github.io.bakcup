@@ -9,9 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="Hosts:
-192.168.1.101 ha1.lofyer.org, 2 hard drive disks, two ethernet ports
-192.168.1.103 ha2.lofyer.org, almost same as ha1 Server host, this is the &hellip;">
+  <meta name="description" content="Here&rsquo;s original article: http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_%E5%BB%BA%E7%BD%AE_MySQL_%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80% &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,9 +102,13 @@
   </header>
 
 
-<div class="entry-content"><p>Hosts:<br/>
-192.168.1.101 ha1.lofyer.org, 2 hard drive disks, two ethernet ports<br/>
-192.168.1.103 ha2.lofyer.org, almost same as ha1</p>
+<div class="entry-content"><p>Here&rsquo;s original article:</p>
+
+<p><a href="http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_%E5%BB%BA%E7%BD%AE_MySQL_%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7">http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_%E5%BB%BA%E7%BD%AE_MySQL_%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7</a></p>
+
+<p>Hosts:<br/>
+192.168.1.101 ha1.lofyer.org, 2 hard drive disks
+192.168.1.103 ha2.lofyer.org, 2 hard drive disks</p>
 
 <p>Server host, this is the IP of heartbeat service:<br/>
 192.168.1.100</p>
@@ -156,8 +158,8 @@ protect=0
 
 <pre># sed -i 's/enforcing/permissive/' /etc/selinux/config
 # setenforce 0
-# chkconfig iptables off
-# service iptables stop
+# iptables -F
+# service iptables save
 </pre>
 
 
@@ -291,9 +293,8 @@ file: /etc/ha.d/ha.cf</p>
 logfile /var/log/ha-log
 logfacility local0
 autojoin none
-ucast eth0 192.168.1.101
-ucast eth1 192.168.1.102
-ping 10.10.25.254    
+ucast eth0 192.168.1.101 # IP of another host
+ping 192.168.1.1
 respawn hacluster /usr/lib64/heartbeat/ipfail
 respawn hacluster /usr/lib64/heartbeat/dopd
 apiauth dopd gid=haclient uid=hacluster
@@ -311,7 +312,19 @@ auto_failback off
 <p>The service will be serve on IP 192.168.1.100.<br/>
 file: /etc/ha.d/haresources</p>
 
-<pre>mysql.lofyer.org 192.168.1.100 drbddisk::ha Filesystem::/dev/drbd0::/db::ext4 mysql</pre>
+<pre>ha1.lofyer.org 192.168.1.100 drbddisk::ha Filesystem::/dev/drbd0::/db::ext4 mysql</pre>
+
+
+<p><strong>authkeys</strong></p>
+
+<pre>
+ #( echo -ne "auth 1\n1 sha1 "; dd if=/dev/urandom bs=512 count=1 | openssl md5) > /etc/ha.d/authkeys
+ #cat /etc/ha.d/authkeys
+ auth 1
+ 1 sha1 71461fc5e160d7846c2f4b524f952128
+ #chmod 600 /etc/ha.d/authkeys
+ #scp /etc/ha.d/authkeys node2:/etc/ha.d/
+</pre>
 
 
 <p><strong>Add mysql entry to heartbeat</strong><br/>
@@ -369,6 +382,12 @@ run at start up time and shutdown time.<br/>
 *</p>
 
 <h2>Test HA</h2>
+
+<p>On host running mysql service</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># service heartbeat restart</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
