@@ -6,6 +6,11 @@ comments: true
 categories:
   - Linux Admin
 ---
+
+Here's original article:
+
+http://wiki.weithenn.org/cgi-bin/wiki.pl?HA-DRBD_Heartbeat_%E5%BB%BA%E7%BD%AE_MySQL_%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7
+
 Hosts:  
 192.168.1.101 ha1.lofyer.org, 2 hard drive disks, two ethernet ports  
 192.168.1.103 ha2.lofyer.org, almost same as ha1
@@ -53,8 +58,8 @@ protect=0
 
 <pre># sed -i 's/enforcing/permissive/' /etc/selinux/config
 # setenforce 0
-# chkconfig iptables off
-# service iptables stop
+# iptables -F
+# service iptables save
 </pre>
 
 **Prepare the disk partion**
