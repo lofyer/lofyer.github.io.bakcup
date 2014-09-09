@@ -239,6 +239,20 @@ client: nc server_ip 5555 &gt; new_file</pre>
 client2: nc server_ip 5555
 </pre>
 
+**克隆硬盘**
+
+将sda内容准备克隆到另一台服务器上
+
+```
+# dd if=/dev/sda | nc 192.168.228.222 1234
+```
+
+接受数据，并dd到sda
+
+```
+# nc -l -p 1234 | dd of=/dev/sda
+```
+
 **udp connection**
 
 <pre>server: nc -4 -u -l 5555
