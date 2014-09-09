@@ -354,6 +354,20 @@ client2: nc server_ip 5555
 </pre>
 
 
+<p><strong>克隆硬盘</strong></p>
+
+<p>将sda内容准备克隆到另一台服务器上</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># dd if=/dev/sda | nc 192.168.228.222 1234</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接受数据，并dd到sda</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># nc -l -p 1234 | dd of=/dev/sda</span></code></pre></td></tr></table></div></figure>
+
+
 <p><strong>udp connection</strong></p>
 
 <pre>server: nc -4 -u -l 5555
