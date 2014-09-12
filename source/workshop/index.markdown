@@ -20,6 +20,8 @@ MyIDC
 
 <a href="https://github.com/lofyer/myidc-main#" target="_blank">myidc-main</a>
 
+<a href="https://github.com/lofyer/webadmin" target="_blank">webadmin</a>
+
 一个牛逼的架构前身。。
 
 目标：
@@ -27,6 +29,8 @@ MyIDC
 `1. 轻松在新环境中部署应用，部署规模与操作步骤为非线性比例，主要提供方法，并提供虚拟机为辅助。`
 
 `2. 网络主流数据搜索内容抓取，海量存储，自定义检索规则。`
+
+`3. 使用Django重写`
 
 小说
 ----
