@@ -22,7 +22,7 @@ Religion: none
 
 Language: Chinese, English, C, Python, Bash, Lisp
 
-Exp and Skills keywords: `cloud SA`, `oVirt`, `OpenStack(Neutron, Glance)`, `KVM(qemu)`, `libvirt`, `Kerberos(IPA, LDAP)`, `Gluster`, `Hadoop`, `Redis`, `scrapy`, `Icinga`, `Nagios`, `Foreman`, `iSCSI`, `iPXE`, `software-defined networking(SDN)`, `Django`, `Kernel hacking`
+Exp and Skills keywords: `cloud SA`, `oVirt`, `OpenStack(Neutron, Glance)`, `KVM(qemu)`, `libvirt`, `Kerberos(IPA, LDAP)`, `Gluster`, `Hadoop`, `Redis`, `scrapy`, `Icinga`, `Nagios`, `Foreman`, `iSCSI`, `iPXE`, `software-defined networking(SDN)`, `Django`, `Web2Py`, `Kernel hacking`, `AMQP(RabbitMQ)`, `XMPP`
 
 QQ: 578645806
 
