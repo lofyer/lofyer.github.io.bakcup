@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Virtualization | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/virtualization/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-09-16T23:12:07+08:00</updated>
+  <updated>2014-09-24T22:30:48+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Docker还有OpenShift]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/09/24/dockerhuan-you-openshift/"/>
+    <updated>2014-09-24T22:27:25+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/09/24/dockerhuan-you-openshift</id>
+    <content type="html"><![CDATA[<p>越来越懒了，Docker还有OpenShift的文档同样会展示在 <a href="https://inthecloud.readthedocs.org">https://inthecloud.readthedocs.org</a> 中。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Add Nat to Ovirt via Vdsm Hooks]]></title>
@@ -401,81 +410,6 @@ To add all the "c" devices
 <h3>About hierarchy</h3>
 
 <p><strong>A child will not have more permission than its parent.</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Compile Android Spice(aSpice)]]></title>
-    <link href="http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice/"/>
-    <updated>2013-09-02T00:00:00+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice</id>
-    <content type="html"><![CDATA[<p>Ref:<br/>
-<a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" title="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" target="_blank"><a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944">http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944</a></a></p>
-
-<p>OS: ubuntu 12.04 x86_64</p>
-
-<h2>1. You need download some packages at first.</h2>
-
-<p>cerbero<br/>
-celt-0.5.1.tar.bz2<br/>
-libjpegturbo<br/>
-openssl-1.0.1e</p>
-
-<h2>2. What can cerbero do?</h2>
-
-<p>Just like Buildroot, cerbero can build an SDK from scratch for you.</p>
-
-<h3>install</h3>
-
-<pre>$ git clone http://anongit.freedesktop.org/git/gstreamer-sdk/cerbero.git
-$ sudo python setup.py install
-$ cp data/* /usr/local/share/cerbero/data/ #In case of autobuild error
-cerbero bootstrap
-</pre>
-
-
-<p>In my case, cerbero used ndk-android-r8e.</p>
-
-<h3>essential packages</h3>
-
-<p>celt-0.5.1.tar.bz2<br/>
-openssl-1.0.1e<br/>
-(optional)libjpegturbo<br/>
-To build celt, we need source a file</p>
-
-<pre>export NDK=/home/demo/cerbero/android-ndk-r8e
-export SYSROOT=${NDK}/platforms/android-9/arch-arm
-export CC="${NDK}/toolchains/arm-linux-androideabi-4.7/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc --sysroot=${SYSROOT}"
-export CFLAGS='-mfloat-abi=softfp'
-</pre>
-
-
-<p>Save it as <strong>android.buildenv</strong><br/>
-To build celt</p>
-
-<pre>$ source android.buildenv
-$ ./configure --prefix=/home/demo/cerbero/dist/android_arm --enable-shared --enable-static --prefix=arm-linuxandroid-eabi
-$ make; sudo install
-</pre>
-
-
-<p>To build openssl</p>
-
-<pre>$ source android.buildenv
-$ ./config --prefix=/home/demo/cerbero/dist/android_arm --shared os/compiler:arm-linux
-$ make; make install
-</pre>
-
-
-<h2>3. Build bVNC</h2>
-
-<p>We need modify bVNC/jni/src/Android.mk to make ndk-build success.<br/>
-Add <strong>libffi.a</strong> to CROSSDIR<br/>
-Add <strong>&#8211;static</strong> to CFLAGS</p>
-
-<p>Alter <strong>bVNC/jni/Appication.mk</strong> and <strong>bVNC/AndroidManifest.xml</strong> from <strong>android-8</strong> to <strong>android-9</strong></p>
-
-<p>BTW, we use FreeRDP with commit dbbb341.</p>
 ]]></content>
   </entry>
   

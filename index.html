@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="It will be in https://inthecloud.readthedocs.org
+  <meta name="description" content="越来越懒了，Docker还有OpenShift的文档同样会展示在 https://inthecloud.readthedocs.org 中。
 ">
   
 
@@ -74,6 +74,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-24T22:27:25+08:00" pubdate data-updated="true">Sep 24<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/09/24/dockerhuan-you-openshift/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/09/24/dockerhuan-you-openshift/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>越来越懒了，Docker还有OpenShift的文档同样会展示在 <a href="https://inthecloud.readthedocs.org">https://inthecloud.readthedocs.org</a> 中。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -801,65 +840,6 @@ if __name__  == "__main__":
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/08/6-4-complete-ovirt/">13. 完善平台</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-08T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/05/08/6-4-complete-ovirt/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/08/6-4-complete-ovirt/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我想，你看到这的话应该已经有了一个数据中心、几个宿主机，也可能有一个虚拟机（engine），还差一个存储虚拟机镜像的地方就可以具有基本功能的oVirt平台了。</p>
-
-<p>Ok, here we go.</p>
-
-<h2>添加节点（宿主机）</h2>
-
-<p>对于第11节的普通oVirt、第12节的ha平台，你可能需要添加更多节点以支持更好的SLA（service level agreement）。<br/>
-添加节点目前有三种方式，一种是通过oVirt的节点ISO直接安装再加入，另一种是直接将现有CentOS或者Fedora转化为节点，另外还可以指定使用外部节点（Foreman），在此我们使用第二种方法。</p>
-
-<p><a href="http://blog.lofyer.org/6-4-complete-ovirt/add_node_1/" rel="attachment wp-att-3415"><img src="http://lofyer.github.io/uploads/add_node_1.png" alt="add_node_1" width="695" height="574" class="alignnone size-full wp-image-3415" /></a></p>
-
-<h2>添加存储域</h2>
-
-<p>存储域有3种，Data（数据域）、ISO（ISO域）、Export（导出域）。<br/>
-其中，数据域是为必需，在创建任何虚拟机之前需要有一个可用的数据域用于存储虚拟磁盘以及快照文件；ISO域中可以存放ISO和VFD格式的系统镜像或者驱动文件；导出域用于导出或导入OVF格式的虚机。<br/>
-而根据数据域的存储类型，我们有5种（NFS、POSIX兼容、Glusterfs、iSCSI、光纤）可选，在此，建议（为什么？）选择glusterfs导出的NFS。</p>
-
-<p><em>此图可以换掉</em><br/>
-<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_storage_1/" rel="attachment wp-att-3417"><img src="http://lofyer.github.io/uploads/add_storage_1.png" alt="add_storage_1" width="755" height="555" class="alignnone size-full wp-image-3417" /></a></p>
-
-<p><strong>注意</strong>：确保存储域权限为36:36，也即vdsm.kvm。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -875,6 +855,10 @@ if __name__  == "__main__":
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -888,10 +872,6 @@ if __name__  == "__main__":
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -919,7 +899,7 @@ if __name__  == "__main__":
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
-<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>

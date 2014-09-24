@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="对于初次使用oVirt的用户，建议使用此种搭建方式，太折腾的话就吓走好多目标读者了。 使用之前的四台机器，分别为gs1.lofyer.org，gs2.lofyer.org，gs3.lofyer.org和gs4.lofyer.org，其中，将gs1作为管理机安装ovirt-engine， &hellip;">
+  <meta name="description" content="我想，你看到这的话应该已经有了一个数据中心、几个宿主机，也可能有一个虚拟机（engine），还差一个存储虚拟机镜像的地方就可以具有基本功能的oVirt平台了。 Ok, here we go. 添加节点（宿主机） 对于第11节的普通oVirt、第12节的ha平台， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/08/6-4-complete-ovirt/">13. 完善平台</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-08T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/05/08/6-4-complete-ovirt/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/08/6-4-complete-ovirt/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我想，你看到这的话应该已经有了一个数据中心、几个宿主机，也可能有一个虚拟机（engine），还差一个存储虚拟机镜像的地方就可以具有基本功能的oVirt平台了。</p>
+
+<p>Ok, here we go.</p>
+
+<h2>添加节点（宿主机）</h2>
+
+<p>对于第11节的普通oVirt、第12节的ha平台，你可能需要添加更多节点以支持更好的SLA（service level agreement）。<br/>
+添加节点目前有三种方式，一种是通过oVirt的节点ISO直接安装再加入，另一种是直接将现有CentOS或者Fedora转化为节点，另外还可以指定使用外部节点（Foreman），在此我们使用第二种方法。</p>
+
+<p><a href="http://blog.lofyer.org/6-4-complete-ovirt/add_node_1/" rel="attachment wp-att-3415"><img src="http://lofyer.github.io/uploads/add_node_1.png" alt="add_node_1" width="695" height="574" class="alignnone size-full wp-image-3415" /></a></p>
+
+<h2>添加存储域</h2>
+
+<p>存储域有3种，Data（数据域）、ISO（ISO域）、Export（导出域）。<br/>
+其中，数据域是为必需，在创建任何虚拟机之前需要有一个可用的数据域用于存储虚拟磁盘以及快照文件；ISO域中可以存放ISO和VFD格式的系统镜像或者驱动文件；导出域用于导出或导入OVF格式的虚机。<br/>
+而根据数据域的存储类型，我们有5种（NFS、POSIX兼容、Glusterfs、iSCSI、光纤）可选，在此，建议（为什么？）选择glusterfs导出的NFS。</p>
+
+<p><em>此图可以换掉</em><br/>
+<a href="http://blog.lofyer.org/6-4-complete-ovirt/add_storage_1/" rel="attachment wp-att-3417"><img src="http://lofyer.github.io/uploads/add_storage_1.png" alt="add_storage_1" width="755" height="555" class="alignnone size-full wp-image-3417" /></a></p>
+
+<p><strong>注意</strong>：确保存储域权限为36:36，也即vdsm.kvm。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1786,280 +1845,6 @@ And, that&rsquo;s all.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/12/5-3-glusterfs-howto/">8. 搭建glusterfs作为基础存储</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-12T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/04/12/5-3-glusterfs-howto/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/12/5-3-glusterfs-howto/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>既然要搭建一个稳健的基础，那么glusterfs在此使用distributed striped replicated方式，这里使用4台预装CentOS 6(SELINUX设置为permissive)的机器。</p>
-
-<p><a href="http://blog.lofyer.org/5-3-glusterfs-howto/distributed_striped_replicated_volume-2/" rel="attachment wp-att-3149"><img class="alignnone size-full wp-image-3149" src="http://lofyer.github.io/uploads/Distributed_Striped_Replicated_Volume1.png" alt="Distributed_Striped_Replicated_Volume" width="660" height="480" /></a></p>
-
-<h2>添加DNS或者修改hosts文件</h2>
-
-<p>鉴于笔者所在环境中暂时没有配置独立的DNS，此处先修改hosts文件以完成配置（每台机器上都如此设置）：</p>
-
-<pre># echo -e "192.168.10.101\tgs1.example.com\n192.168.10.102\tgs2.example.com\n192.168.10.103\tgs3.example.com\n192.168.10.104\tgs4.example.com" >> /etc/hosts
-</pre>
-
-
-<h2>添加repo</h2>
-
-<pre title="gluster_epel.repo">[epel]
-name=Extra Packages for Enterprise Linux 6 - $basearch
-#baseurl=http://download.fedoraproject.org/pub/epel/6/$basearch
-mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
-failovermethod=priority
-enabled=1
-gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
-
-[glusterfs-epel]
-name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
-baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/$basearch/
-enabled=1
-skip_if_unavailable=1
-gpgcheck=1
-gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
-
-[glusterfs-noarch-epel]
-name=GlusterFS is a clustered file-system capable of scaling to several petabytes.
-baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/noarch
-enabled=1
-skip_if_unavailable=1
-gpgcheck=1
-gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
-
-[glusterfs-source-epel]
-name=GlusterFS is a clustered file-system capable of scaling to several petabytes. - Source
-baseurl=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/epel-$releasever/SRPMS
-enabled=0
-skip_if_unavailable=1
-gpgcheck=1
-gpgkey=http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/pub.key
-</pre>
-
-
-<h2>准备磁盘</h2>
-
-<p>每一个节点都可以看做gluster server，安装xfs用户空间工具：</p>
-
-<pre># yum install -y glusterfs glusterfs-fuse glusterfs-server xfsprogs
-# /etc/init.d/glusterd start
-# /etc/init.d/glusterfsd start
-# chkconfig glusterfsd on
-# chkconfig glusterd on
-</pre>
-
-
-<p>假如每台机器除系统盘之外都有2块1T SATA硬盘。<br/>
-对其进行分区，创建逻辑卷，格式化并挂载：</p>
-
-<pre># fdisk /dev/sdX &lt;&lt; EOF
-n
-p
-1
-
-w
-EOF
-</pre>
-
-
-<p>直接使用物理盘：</p>
-
-<pre># mkfs.xfs -i size 512 /dev/sdb1
-# mkfs.xfs -i size 512 /dev/sdc1
-# mkdir /gluster_brick0
-# mkdir /gluster_brick1
-# echo -e "/dev/sdb1\t/gluster_brick0\txfs\tdefaults\t0 0\n/dev/sdc1\t/gluster_brick1\txfs\tdefaults\t0 0" >> /etc/fstab
-# mount -a
-</pre>
-
-
-<p><del datetime="2014-04-22T07:37:38+00:00">或者使用逻辑卷：</del></p>
-
-<pre># pvcreate /dev/sdb1 /dev/sdc1
-# vgcreate vg_gluster /dev/sdb1 /dev/sdc1
-# lvcreate --name lv_gluster --size 2500G vg_gluster
-# mkfs.xfs -i size 512 /dev/vg_gluster-lv_gluster
-# mkdir /gluster_brick
-# echo -e "/dev/mapper/vg_gluster-lv_gluster\t/gluster_brick\txfs\tdefaults\t0 0" >> /etc/fstab
-# mount -a
-</pre>
-
-
-<p><em>为什么要用XFS？</em><br/>
-XFS具有元数据日志功能，可以快速恢复数据；同时，可以在线扩容及碎片整理。其他文件系统比如EXT3，EXT4未做充分测试。</p>
-
-<h2>配置节点，添加volume</h2>
-
-<p>在其中任何一台机器上，比如gs2.example.com，执行：</p>
-
-<pre># gluster
-  > peer probe gs1.example.com
-  > peer probe gs2.example.com</pre>
-
-
-<p>添加brick至volume，<strong>合理调整砖块顺序</strong>：</p>
-
-<pre># gluster
-  > volume create gluster-vol1 stripe 2 replica 2 gs1.example.com:/gluster_brick0 gs1.example.com:/gluster_brick1 gs2.example.com:/gluster_brick0 gs2.example.com:/gluster_brick1 gs3.example.com:/gluster_brick0 gs3.example.com:/gluster_brick1 gs4.example.com:/gluster_brick0 gs4.example.com:/gluster_brick1 force
-  > volume start gluster-vol1
-  > volume status
-Status of volume: gluster-vol1
-Gluster process                                         Port    Online  Pid
-------------------------------------------------------------------------------
-Brick gs1.example.com:/gluster_brick0                   49152   Y       1984
-Brick gs1.example.com:/gluster_brick1                   49153   Y       1995
-Brick gs2.example.com:/gluster_brick0                   49152   Y       1972
-Brick gs2.example.com:/gluster_brick1                   49153   Y       1983
-Brick gs3.example.com:/gluster_brick0                   49152   Y       1961
-Brick gs3.example.com:/gluster_brick1                   49153   Y       1972
-Brick gs4.example.com:/gluster_brick0                   49152   Y       1975
-Brick gs4.example.com:/gluster_brick1                   49153   Y       1986
-NFS Server on localhost                                 2049    Y       1999
-Self-heal Daemon on localhost                           N/A     Y       2006
-NFS Server on gs2.example.com                           2049    Y       2007
-Self-heal Daemon on gs2.example.com                     N/A     Y       2014
-NFS Server on gs2.example.com                           2049    Y       1995
-Self-heal Daemon on gs2.example.com                     N/A     Y       2002
-NFS Server on gs3.example.com                           2049    Y       1986
-Self-heal Daemon on gs3.example.com                     N/A     Y       1993
- 
-Task Status of Volume gluster-vol1
-------------------------------------------------------------------------------
-There are no active volume tasks
-  > volume info all
-gluster volume info all
- 
-Volume Name: gluster-vol1
-Type: Distributed-Striped-Replicate
-Volume ID: bc8e102c-2b35-4748-ab71-7cf96ce083f3
-Status: Started
-Number of Bricks: 2 x 2 x 2 = 8
-Transport-type: tcp
-Bricks:
-Brick1: gs1.example.com:/gluster_brick0
-Brick2: gs1.example.com:/gluster_brick1
-Brick3: gs2.example.com:/gluster_brick0
-Brick4: gs2.example.com:/gluster_brick1
-Brick5: gs3.example.com:/gluster_brick0
-Brick6: gs3.example.com:/gluster_brick1
-Brick7: gs4.example.com:/gluster_brick0
-Brick8: gs4.example.com:/gluster_brick1
-</pre>
-
-
-<h2>客户端挂载glusterfs</h2>
-
-<p>当用glusterfs-fuse挂载时，客户端的hosts文件里需要有gluster server中的任一节点做解析：</p>
-
-<pre title="挂载glusterfs的客户端/etc/hosts">127.0.0.1       localhost.localdomain localhost
-::1             localhost6.localdomain6 localhost6
-
-192.168.1.81    gs1.example.com</pre>
-
-
-<p>安装glusterfuse，将gluster卷作为glusterfs挂载，并写入1M文件查看其在各砖块分配：</p>
-
-<pre># yum install glusterfs glusterfs-fuse
-# mount.glusterfs 192.168.1.81:/gluster-vol1 /mnt
-# cd /mnt
-# dd if=/dev/zero of=a.img bs=1k count=1k
-# cp a.img b.img; cp a.img c.img; cp a.img d.img
-</pre>
-
-
-<p>在四台服务端分别查看：</p>
-
-<pre title="gs1">[root@gs1 ~]# ls -lh /gluster_brick*
-/gluster_brick0:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
-/gluster_brick1:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
-</pre>
-
-
-
-
-<pre title="gs2">[root@gs2 ~]# ls -lh /gluster_brick*
-/gluster_brick0:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
-/gluster_brick1:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 a.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 d.img
-</pre>
-
-
-
-
-<pre title="gs3">[root@gs3 ~]# ls -lh /gluster_brick*
-/gluster_brick0:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
-/gluster_brick1:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
-</pre>
-
-
-
-
-<pre title="gs4">[root@gs4 ~]# ls -lh /gluster_brick*
-/gluster_brick0:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
-/gluster_brick1:
-total 1.0M
--rw-r--r--. 2 root root 512K Apr 22 17:13 b.img
--rw-r--r--. 2 root root 512K Apr 22 17:13 c.img
-</pre>
-
-
-<p>至此，所有配置结束，下一篇说一下使用以及部分trick。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -2077,6 +1862,10 @@ total 1.0M
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -2090,10 +1879,6 @@ total 1.0M
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -2121,7 +1906,7 @@ total 1.0M
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
-<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>

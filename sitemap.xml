@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://blog.lofyer.org/blog/2014/09/24/dockerhuan-you-openshift/</loc>
+    <lastmod>2014-09-24T22:27:25+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.lofyer.org/blog/2014/08/09/get-data-distributely-via-scrapy/</loc>
     <lastmod>2014-08-09T14:36:05+08:00</lastmod>
     <priority>0.8</priority>
@@ -1571,42 +1577,42 @@
   
   <url>
     <loc>http://blog.lofyer.org/blog/archives/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/quicknotes/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/workshop/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/search/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://blog.lofyer.org/about/</loc>
-    <lastmod>2014-09-16T23:12:07+08:00</lastmod>
+    <lastmod>2014-09-24T22:30:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -9,8 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="高原，湖边，木屋。
-伦敦事件已经过去十年整了，人们对它的记忆却犹如911一样深刻。他也花了将近十年去建造一个系统，一个建立在自然秩序之外的系统。所有从博物馆“凭空消失”的作品他都烧了，只在床前留下一幅十七世纪未名画家的油画：一只可爱的暹罗猫，从木盒子里小心翼翼的探出头，烛光落在它厚厚的前脚掌上。 &hellip;">
+  <meta name="description" content="Ref:
+http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944 OS: ubuntu 12.04 x86_64 1. You need download some packages at first. cerbero &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/02/ndk-compile-android-spiceaspice/">Compile Android Spice(aSpice)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-02T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/09/02/ndk-compile-android-spiceaspice/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/09/02/ndk-compile-android-spiceaspice/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ref:<br/>
+<a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" title="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944" target="_blank"><a href="http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944">http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944</a></a></p>
+
+<p>OS: ubuntu 12.04 x86_64</p>
+
+<h2>1. You need download some packages at first.</h2>
+
+<p>cerbero<br/>
+celt-0.5.1.tar.bz2<br/>
+libjpegturbo<br/>
+openssl-1.0.1e</p>
+
+<h2>2. What can cerbero do?</h2>
+
+<p>Just like Buildroot, cerbero can build an SDK from scratch for you.</p>
+
+<h3>install</h3>
+
+<pre>$ git clone http://anongit.freedesktop.org/git/gstreamer-sdk/cerbero.git
+$ sudo python setup.py install
+$ cp data/* /usr/local/share/cerbero/data/ #In case of autobuild error
+cerbero bootstrap
+</pre>
+
+
+<p>In my case, cerbero used ndk-android-r8e.</p>
+
+<h3>essential packages</h3>
+
+<p>celt-0.5.1.tar.bz2<br/>
+openssl-1.0.1e<br/>
+(optional)libjpegturbo<br/>
+To build celt, we need source a file</p>
+
+<pre>export NDK=/home/demo/cerbero/android-ndk-r8e
+export SYSROOT=${NDK}/platforms/android-9/arch-arm
+export CC="${NDK}/toolchains/arm-linux-androideabi-4.7/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc --sysroot=${SYSROOT}"
+export CFLAGS='-mfloat-abi=softfp'
+</pre>
+
+
+<p>Save it as <strong>android.buildenv</strong><br/>
+To build celt</p>
+
+<pre>$ source android.buildenv
+$ ./configure --prefix=/home/demo/cerbero/dist/android_arm --enable-shared --enable-static --prefix=arm-linuxandroid-eabi
+$ make; sudo install
+</pre>
+
+
+<p>To build openssl</p>
+
+<pre>$ source android.buildenv
+$ ./config --prefix=/home/demo/cerbero/dist/android_arm --shared os/compiler:arm-linux
+$ make; make install
+</pre>
+
+
+<h2>3. Build bVNC</h2>
+
+<p>We need modify bVNC/jni/src/Android.mk to make ndk-build success.<br/>
+Add <strong>libffi.a</strong> to CROSSDIR<br/>
+Add <strong>&#8211;static</strong> to CFLAGS</p>
+
+<p>Alter <strong>bVNC/jni/Appication.mk</strong> and <strong>bVNC/AndroidManifest.xml</strong> from <strong>android-8</strong> to <strong>android-9</strong></p>
+
+<p>BTW, we use FreeRDP with commit dbbb341.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -924,47 +1029,6 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/06/leap-motion-relative/">Leap Motion Relative</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-06T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/07/06/leap-motion-relative/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/07/06/leap-motion-relative/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>已经在官网注册并下载了sdk（windows、linux，我没Mac），设备不出意外下个月到。<br/>
-等到了再更新文章，到时会更新sdk配置，与arduino交互的相关代码。<br/>
-可控的目前想到了飞行器、机械手（夹持器 &#8211; -）。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/7">&larr; Older</a>
@@ -982,6 +1046,10 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
       </li>
     
@@ -995,10 +1063,6 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
     
       <li class="post">
         <a href="/blog/2014/07/07/milestone/">Milestone</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/06/26/lunr-search-in-octopress/">Lunr Search in Octopress</a>
       </li>
     
   </ul>
@@ -1026,7 +1090,7 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
 <li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
-<li class='category'><a href='/blog/categories/virtualization/'>virtualization (12)</a></li>
+<li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>
 <li class='category'><a href='/blog/categories/workshop/'>workshop (5)</a></li>
 <li class='category'><a href='/blog/categories/yun-duan-ri-ji/'>云端日记 (18)</a></li>
 <li class='category'><a href='/blog/categories/bo-wen-shou-ji/'>博文收集 (6)</a></li>
