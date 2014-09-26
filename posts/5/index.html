@@ -9,17 +9,10 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="相关手册参考MyIDC_Book 细节索引：
-gluster
-hadoop(with ARM as an option)
-drbd/heartbeat
-foreman/puppet
-nagios
-ovirt
-openstack
-owncloud
-asterisk 配置细节参考：
-MyIDC &hellip;">
+  <meta name="description" content="入手的是433Mhz，相当于国际版。
+关于官方介绍可至eZ430-chronos查阅。
+下载Control Center for Windows
+下载Control Center for Linux 然后将toolkit的USBRF插入PC，选择控制台中的ACC标签并“start ap，腕表选择 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +76,56 @@ MyIDC &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/16/ez430-chronos%25e5%2585%25a5%25e6%2589%258b/">eZ430-Chronos入手</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-16T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/12/16/ez430-chronos%25e5%2585%25a5%25e6%2589%258b/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/12/16/ez430-chronos%25e5%2585%25a5%25e6%2589%258b/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.lofyer.org/2013/12/ez430-chronos%e5%85%a5%e6%89%8b/img_20131216_160008/" rel="attachment wp-att-2641"><img src="http://lofyer.github.io/uploads/IMG_20131216_160008-1024x958.jpg" alt="IMG_20131216_160008" width="1024" height="958" class="alignnone size-large wp-image-2641" /></a></p>
+
+<p>入手的是433Mhz，相当于国际版。<br/>
+关于官方介绍可至<a href="http://processors.wiki.ti.com/index.php/EZ430-Chronos" title="eZ430-chronos" target="_blank">eZ430-chronos</a>查阅。<br/>
+<a href="http://www.ti.com/lit/zip/slac341" title="SLAC341" target="_blank">下载Control Center for Windows</a><br/>
+<a href="http://www.ti.com/lit/zip/slac388" title="SLAC388" target="_blank">下载Control Center for Linux</a></p>
+
+<p>然后将toolkit的USBRF插入PC，选择控制台中的ACC标签并“start ap，腕表选择“#”号键至ACC，再按下键即可于控制台中显示加速度传感器数值。<br/>
+同样PPT为按键映射，SYNC为时间设置，TFBSL尚未使用。</p>
+
+<p>编程<br/>
+TBD</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -686,91 +729,6 @@ Alias /nagios "/usr/share/nagios/htdocs"
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/">Kvm Perfermance Test, Including Periphery Virtual Device</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-14T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I mean <strong><em>test</em></strong>, not <strong><em>profiling</em></strong>.</p>
-
-<h2>To virtual server and virtual desktop, we should inspect them from different standards.</h2>
-
-<p>For an server:<br/>
-response time, throughput, concurrent, utilization<br/>
-For and desktop:<br/>
-response time, video/audio latency, utilization</p>
-
-<h2>Tools we can use to test</h2>
-
-<h3>CPU:</h3>
-
-<p>SPEC(open, but not free)<br/>
-Unixbench<br/>
-Super PI<br/>
-Compile linux kernel<br/>
-pcmark(not open, not free, but cracked can be found..)<br/>
-ffmpeg convert</p>
-
-<h3>graphic:</h3>
-
-<p>3dmark</p>
-
-<h3>fs,hd:</h3>
-
-<p>hdparm<br/>
-iozone<br/>
-blogbench<br/>
-dbench</p>
-
-<h3>net:</h3>
-
-<p>iperf
-dstat
-ifstatus</p>
-
-<h3>ram</h3>
-
-<p>ramspeed</p>
-
-<h2>How to start</h2>
-
-<p>Initial host env: i5-3470, 8G, gentoo-linux-3.11+, qemu-1.6.0<br/>
-Kernel para:</p>
-
-<p>TBD</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/6">&larr; Older</a>
@@ -788,6 +746,10 @@ Kernel para:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -801,10 +763,6 @@ Kernel para:</p>
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -823,7 +781,7 @@ Kernel para:</p>
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

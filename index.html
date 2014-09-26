@@ -9,7 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="越来越懒了，Docker还有OpenShift的文档同样会展示在 https://inthecloud.readthedocs.org 中。
+  <meta name="description" content="使用下列命令来检测。 1
+env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响？
 ">
   
 
@@ -74,6 +75,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-26T13:37:04+08:00" pubdate data-updated="true">Sep 26<sup>th</sup>, 2014</time>
+        
+           | <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>使用下列命令来检测。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>env x='() { :;}; echo asdasd' bash -c "echo asd"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>是否对Docker、LXC有影响？</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -651,195 +697,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/11/cloud-6-5-advanced-ovirt/">14. oVirt使用进阶</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-11T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/05/11/cloud-6-5-advanced-ovirt/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/11/cloud-6-5-advanced-ovirt/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>ovirt-shell</h2>
-
-<p>使用ovirt-shell在一定程度上适合于某些场景。</p>
-
-<pre># ovirt-shell -I -u admin@internal -l https://server_ip/api
-
-  ============================================================================
-                      >>> connected to oVirt manager 3.4.0.0 &lt;&lt;&lt;
-  ============================================================================
-
-  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-                             Welcome to oVirt shell
-
-  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-[oVirt shell (connected)]#
-</pre>
-
-
-<h2>主机hooks</h2>
-
-<p>参考<a href="https://github.com/oVirt/vdsm/tree/master/vdsm_hooks" target="_blank">vdsm-hooks</a>。</p>
-
-<h2>集群策略</h2>
-
-<p><a href="http://www.ovirt.org/images/2/2a/Scheduler-Deep-Dive-oVirt.pdf" target="_blank">参考这个PDF</a>。</p>
-
-<h2>libguestfs扩容</h2>
-
-<p><strong>LVM扩容</strong><br/>
-<strong>普通扩容</strong></p>
-
-<h2>UI plugin</h2>
-
-<p><strong>ShellInABox</strong></p>
-
-<h2>平台插件</h2>
-
-<p><strong>Foreman</strong><br/>
-<strong>OpenStack Network</strong><br/>
-<strong>OpenStack Image</strong></p>
-
-<h2>手动创建导出域</h2>
-
-<p>构造目录，形如：</p>
-
-<pre># tree exports
-.
-├── 37e0e64b-5445-4bc3-8675-ceff4637e8e3/
-│   ├── dom_md/
-│   │   ├── ids
-│   │   ├── inbox
-│   │   ├── leases
-│   │   ├── metadata
-│   │   └── outbox
-│   ├── images/
-│   └── master/
-│       ├── tasks/
-│       └── vms/
-└── __DIRECT_IO_TEST__</pre>
-
-
-<p>创建<em>leases</em>文件：</p>
-
-<pre title="create leases"># echo 2d2d2d2d2d2d465245452d2d2d2d2d2d3030303030303030303030303030
-303000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000
-0000 | xxd -r -p > leases
-</pre>
-
-
-<p>添加如下内容至<em>metadata</em>文件：</p>
-
-<pre title="metadata">CLASS=Backup
-DESCRIPTION=Export
-IOOPTIMEOUTSEC=10
-LEASERETRIES=3
-LEASETIMESEC=60
-LOCKPOLICY=
-LOCKRENEWALINTERVALSEC=5
-MASTER_VERSION=0
-POOL_UUID=
-REMOTE_PATH=192.168.1.108:/home/nfs_exports
-ROLE=Regular
-SDUUID=37e0e64b-5445-4bc3-8675-ceff4637e8e3
-TYPE=NFS
-VERSION=0
-#_SHA_CKSUM=5737f1270bf93fdd660fea819655b01a34c315b9
-</pre>
-
-
-<p>使用如下脚本（参考源码中packaging/setup/plugins/ovirt-engine-setup/config/iso_domain.py）计算SHA校验值，并将其填入<em>metadata</em>中的_SHA_CKSUM段：</p>
-
-<pre title="domain_chksum.py">#!/usr/bin/python
-
-import hashlib
-from optparse import OptionParser
-
-if __name__  == "__main__":
-    parser = OptionParser()
-    (options, args) = parser.parse_args()
-    if len(args) != 1:
-        parser.error("Missing metadata file")
-    f = open(args[0], "r")
-    mds = {}
-    for line in f:
-        line = line.strip()
-        if not line or line.startswith('#'):
-            continue
-        try:
-            key,value = line.split('=', 1)
-            if key == '_SHA_CKSUM':
-                continue
-            mds[key] = value
-        except Exception, e:
-            continue
-    f.close()
-    #print mds
-    csum = hashlib.sha1()
-    keys = mds.keys()
-    keys.sort()
-    for key in keys:
-        value = mds[key]
-        line = "%s=%s" % (key, value)
-        csum.update(line)
-    print(csum.hexdigest())
-</pre>
-
-
-<p>更改权限：</p>
-
-<pre># chown -R vdsm.kvm exports</pre>
-
-
-<p>然后可以作为空导出域进行导入。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -855,6 +712,10 @@ if __name__  == "__main__":
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -868,10 +729,6 @@ if __name__  == "__main__":
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -890,7 +747,7 @@ if __name__  == "__main__":
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

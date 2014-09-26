@@ -9,13 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content=" 目前已完成 capture，dlayer和tlayer。
-IplImage 和 Mat转换可考虑不用了
-在写交互的部分，后期完成可能会用gtk。
-需要的传感器：
-加速度（FPV向）
-ROI：移动检测
-抛弃gtk（时间长，没意思），转用ncurses
+  <meta name="description" content="正好趁现在有设计欲的时候给自己的git服务器换个首页。
+kvm前端的脚本已完成，瞬间不想写gui的了，虽然ncurses很好用。。要不先这样，反正都是用来调virt和spice的系统
 ">
   
 
@@ -80,6 +75,46 @@ ROI：移动检测
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/">设计，kvm前端，mybox</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/03/%25e6%258d%25a2%25e4%25b8%25aa%25e9%25a6%2596%25e9%25a1%25b5/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>正好趁现在有设计欲的时候给自己的git服务器换个首页。<br/>
+kvm前端的脚本已完成，瞬间不想写gui的了，虽然ncurses很好用。。要不先这样，反正都是用来调virt和spice的系统</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -881,149 +916,6 @@ LDM_SYSLOG=True</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/05/openvpn/">OpenVPN</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-05T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/02/05/openvpn/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/05/openvpn/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>服务端:<br/>
-生成证书等相关文件<br/>
-/etc/openvpn/easy-rsa/2.0<br/>
-生成证书</p>
-
-<pre># ./build-ca
-</pre>
-
-
-<p>生成服务器认证</p>
-
-<pre># ./build-key-server server
-</pre>
-
-
-<p>生成客户端</p>
-
-<pre># ./build-key client1
-</pre>
-
-
-<p>更新数据库</p>
-
-<pre># ./build-dh
-</pre>
-
-
-<p><strong>/etc/openvpn/server.conf</strong></p>
-
-<pre>local 192.168.1.132
-port 1194
-proto udp
-dev tap
-ca /etc/openvpn/easy-rsa/2.0/keys/ca.crt
-cert /etc/openvpn/easy-rsa/2.0/keys/server.crt
-key /etc/openvpn/easy-rsa/2.0/keys/server.key  # This file should be kept secret
-dh /etc/openvpn/easy-rsa/2.0/keys/dh1024.pem
-server 192.168.0.0 255.255.255.0
-ifconfig-pool-persist ipp.txt
-push "route 192.168.1.0 255.255.255.0"
-push "redirect-gateway def1 bypass-dhcp"
-push "dhcp-option DNS 116.228.111.118"
-push "dhcp-option DNS 180.168.255.18"
-client-to-client
-duplicate-cn
-keepalive 10 120
-comp-lzo
-user nobody
-group nobody
-persist-key
-persist-tun
-status openvpn-status.log
-verb 3
-</pre>
-
-
-<p>运行:</p>
-
-<pre># openvpn --config /etc/openvpn/server.conf --daemon
-</pre>
-
-
-<p>客户端:<br/>
-Windows:</p>
-
-<p>client1.ovpn</p>
-
-<pre>client
-dev tap
-proto udp
-remote hostname 1194
-persist-key
-persist-tun
-ca ca.crt
-cert client1.crt
-key client1.key
-comp-lzo
-</pre>
-
-
-<p>其他需要文件为ca.crt, client1.crt, client1.key<br/>
-放到安装目录的config中</p>
-
-<p>连接外网:</p>
-
-<h1>打开ipv4的ipforwad</h1>
-
-<h1>当次</h1>
-
-<pre># echo 1 > /proc/sys/net/ipv4/ip_forward 
-</pre>
-
-
-<h1>保存</h1>
-
-<pre>sysctl -a | grep ip_forward
-sysctl -w net.ipv4.ip_forward=1 
-</pre>
-
-
-<h1>在server上将来自子网192.168.0.0的转换为来自192.168.1.100</h1>
-
-<pre>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j SNAT --to-source 192.168.1.100
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -1041,6 +933,10 @@ sysctl -w net.ipv4.ip_forward=1
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -1054,10 +950,6 @@ sysctl -w net.ipv4.ip_forward=1
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -1076,7 +968,7 @@ sysctl -w net.ipv4.ip_forward=1
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

@@ -9,10 +9,10 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="入世，出世 当阅，当阅，当使劲阅 修身： 应酬：
-随缘便是遣缘，似舞蝶与飞花共适；顺事自然无事，若满月偕盂水共圆 评议：
-古人闲适处，今人却忙过了一生；古人实受处，今人又虚度了一生。总是耽空逐妄，看个色身不破，认个法身不真耳。
-众人以顺境为乐，而君子乐自逆境中来；众人以拂意为忧，而君子忧从快意处起 &hellip;">
+  <meta name="description" content="服务端:
+生成证书等相关文件
+/etc/openvpn/easy-rsa/2.0
+生成证书 # ./build-ca 生成服务器认证 # ./build-key-server server 生成客户端 # ./build-key client1 更新数据库 # ./build-dh /etc/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,149 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/05/openvpn/">OpenVPN</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-05T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/02/05/openvpn/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/05/openvpn/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>服务端:<br/>
+生成证书等相关文件<br/>
+/etc/openvpn/easy-rsa/2.0<br/>
+生成证书</p>
+
+<pre># ./build-ca
+</pre>
+
+
+<p>生成服务器认证</p>
+
+<pre># ./build-key-server server
+</pre>
+
+
+<p>生成客户端</p>
+
+<pre># ./build-key client1
+</pre>
+
+
+<p>更新数据库</p>
+
+<pre># ./build-dh
+</pre>
+
+
+<p><strong>/etc/openvpn/server.conf</strong></p>
+
+<pre>local 192.168.1.132
+port 1194
+proto udp
+dev tap
+ca /etc/openvpn/easy-rsa/2.0/keys/ca.crt
+cert /etc/openvpn/easy-rsa/2.0/keys/server.crt
+key /etc/openvpn/easy-rsa/2.0/keys/server.key  # This file should be kept secret
+dh /etc/openvpn/easy-rsa/2.0/keys/dh1024.pem
+server 192.168.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "route 192.168.1.0 255.255.255.0"
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 116.228.111.118"
+push "dhcp-option DNS 180.168.255.18"
+client-to-client
+duplicate-cn
+keepalive 10 120
+comp-lzo
+user nobody
+group nobody
+persist-key
+persist-tun
+status openvpn-status.log
+verb 3
+</pre>
+
+
+<p>运行:</p>
+
+<pre># openvpn --config /etc/openvpn/server.conf --daemon
+</pre>
+
+
+<p>客户端:<br/>
+Windows:</p>
+
+<p>client1.ovpn</p>
+
+<pre>client
+dev tap
+proto udp
+remote hostname 1194
+persist-key
+persist-tun
+ca ca.crt
+cert client1.crt
+key client1.key
+comp-lzo
+</pre>
+
+
+<p>其他需要文件为ca.crt, client1.crt, client1.key<br/>
+放到安装目录的config中</p>
+
+<p>连接外网:</p>
+
+<h1>打开ipv4的ipforwad</h1>
+
+<h1>当次</h1>
+
+<pre># echo 1 > /proc/sys/net/ipv4/ip_forward 
+</pre>
+
+
+<h1>保存</h1>
+
+<pre>sysctl -a | grep ip_forward
+sysctl -w net.ipv4.ip_forward=1 
+</pre>
+
+
+<h1>在server上将来自子网192.168.0.0的转换为来自192.168.1.100</h1>
+
+<pre>iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j SNAT --to-source 192.168.1.100
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -586,67 +729,6 @@ mingw32-make install
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/29/vdsm/">VDSM</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-29T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/10/29/vdsm/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/10/29/vdsm/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>不喜欢java，就是不喜欢。。但还是要干的。。<br/>
-4000多个文件构建UML图的话有点困难，都是小类，看了些tools的代码，然后转到vdsm内容，通讯方式是xml-rpc，当初我猜对了。</p>
-
-<p>vdsm是oVirt的节点代理，功能可订制，也可移植到其他管理平台，基于KVM，储存VM各种暂态数据<br/>
-vdsm提供的api通过xmlrpc使用，架构如下</p>
-
-<pre>------------+------VDSM-------+------+-----
-            |                 |      |
-    sysfs---+                 |      |
-      LVM---+              libvirt   |
-net-tools---+              qmp|      |Virtio serial
-      xxx---+             ---+      +-------------/
-           ...                |      |
-                      -------/        -------
-                     /                        
-                    |  KVM-QEMU VM             |
-                     ________________________/
-</pre>
-
-
-<p>主要包括vdsm,vdsm_cli,vds_bootstrap,vdsm_reg,vdsm_hooks<br/>
-其中lifecycle hooks有针对vdsm和vm在before和after期间<br/>
-bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支持RH自家产品</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/10">&larr; Older</a>
@@ -664,6 +746,10 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -677,10 +763,6 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -699,7 +781,7 @@ bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支�
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

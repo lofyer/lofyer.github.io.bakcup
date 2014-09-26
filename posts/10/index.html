@@ -9,9 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="刚在lwn上看到了个有意思的东西，ccnx，主要作用于媒体中心传播数据（视频）。
-在06年于google的演讲中，Jacobson说设计了一种新的媒体传输协议，举了奥运会期间NBC传播同一赛事，大家都卡卡的例子。
-类似p2p或者bt吧，几千用户请求同一视频，对于已经从server中出去的数据， &hellip;">
+  <meta name="description" content="不喜欢java，就是不喜欢。。但还是要干的。。
+4000多个文件构建UML图的话有点困难，都是小类，看了些tools的代码，然后转到vdsm内容，通讯方式是xml-rpc，当初我猜对了。 vdsm是oVirt的节点代理，功能可订制，也可移植到其他管理平台，基于KVM，储存VM各种暂态数据 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/29/vdsm/">VDSM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-29T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/10/29/vdsm/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2012/10/29/vdsm/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不喜欢java，就是不喜欢。。但还是要干的。。<br/>
+4000多个文件构建UML图的话有点困难，都是小类，看了些tools的代码，然后转到vdsm内容，通讯方式是xml-rpc，当初我猜对了。</p>
+
+<p>vdsm是oVirt的节点代理，功能可订制，也可移植到其他管理平台，基于KVM，储存VM各种暂态数据<br/>
+vdsm提供的api通过xmlrpc使用，架构如下</p>
+
+<pre>------------+------VDSM-------+------+-----
+            |                 |      |
+    sysfs---+                 |      |
+      LVM---+              libvirt   |
+net-tools---+              qmp|      |Virtio serial
+      xxx---+             ---+      +-------------/
+           ...                |      |
+                      -------/        -------
+                     /                        
+                    |  KVM-QEMU VM             |
+                     ________________________/
+</pre>
+
+
+<p>主要包括vdsm,vdsm_cli,vds_bootstrap,vdsm_reg,vdsm_hooks<br/>
+其中lifecycle hooks有针对vdsm和vm在before和after期间<br/>
+bootstrap用于验证兼容性，包括网络，cpu，认证等，目前只支持RH自家产品</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -809,47 +869,6 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/03/%25e5%259b%259e%25e4%25b8%258d%25e5%258e%25bb%25e5%25b0%25b1%25e5%25be%2580%25e5%2589%258d%25e8%25b5%25b0/">回不去就往前走</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-03T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/09/03/%25e5%259b%259e%25e4%25b8%258d%25e5%258e%25bb%25e5%25b0%25b1%25e5%25be%2580%25e5%2589%258d%25e8%25b5%25b0/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/09/03/%25e5%259b%259e%25e4%25b8%258d%25e5%258e%25bb%25e5%25b0%25b1%25e5%25be%2580%25e5%2589%258d%25e8%25b5%25b0/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>昨天我试图追寻往日的痕迹，未果。<br/>
-多年来有过很多次尝试，一个人自作多情的尝试，每次都期待奇迹发生。<br/>
-如果我有一天真的远去，那我会给自己不回头的勇气。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/11">&larr; Older</a>
@@ -867,6 +886,10 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -880,10 +903,6 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -902,7 +921,7 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

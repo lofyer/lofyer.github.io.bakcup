@@ -9,8 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="Ref:
-http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944 OS: ubuntu 12.04 x86_64 1. You need download some packages at first. cerbero &hellip;">
+  <meta name="description" content="I mean test, not profiling. To virtual server and virtual desktop, we should inspect them from different standards. For an server:
+response time, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,91 @@ http://comments.gmane.org/gmane.comp.emulators.spice.devel/13944 OS: ubuntu 12.0
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/">Kvm Perfermance Test, Including Periphery Virtual Device</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-14T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/09/14/kvm-perfermance-test-including-periphery-virtual-device/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I mean <strong><em>test</em></strong>, not <strong><em>profiling</em></strong>.</p>
+
+<h2>To virtual server and virtual desktop, we should inspect them from different standards.</h2>
+
+<p>For an server:<br/>
+response time, throughput, concurrent, utilization<br/>
+For and desktop:<br/>
+response time, video/audio latency, utilization</p>
+
+<h2>Tools we can use to test</h2>
+
+<h3>CPU:</h3>
+
+<p>SPEC(open, but not free)<br/>
+Unixbench<br/>
+Super PI<br/>
+Compile linux kernel<br/>
+pcmark(not open, not free, but cracked can be found..)<br/>
+ffmpeg convert</p>
+
+<h3>graphic:</h3>
+
+<p>3dmark</p>
+
+<h3>fs,hd:</h3>
+
+<p>hdparm<br/>
+iozone<br/>
+blogbench<br/>
+dbench</p>
+
+<h3>net:</h3>
+
+<p>iperf
+dstat
+ifstatus</p>
+
+<h3>ram</h3>
+
+<p>ramspeed</p>
+
+<h2>How to start</h2>
+
+<p>Initial host env: i5-3470, 8G, gentoo-linux-3.11+, qemu-1.6.0<br/>
+Kernel para:</p>
+
+<p>TBD</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -988,47 +1073,6 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/07/world-pre/">新世界 序章 流白</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-07T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/07/07/world-pre/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/07/07/world-pre/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>散开的云烟，看不透倩人影<br/>
-缘分至今，可有人来序兰亭<br/>
-胡琴送曲隔江千万里，锦帛写乱了马蹄</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/7">&larr; Older</a>
@@ -1046,6 +1090,10 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/dockerhuan-you-openshift/">Docker还有OpenShift</a>
       </li>
     
@@ -1059,10 +1107,6 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
     
       <li class="post">
         <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/07/milestone/">Milestone</a>
       </li>
     
   </ul>
@@ -1081,7 +1125,7 @@ iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
 <li class='category'><a href='/blog/categories/im-pbx/'>im-pbx (2)</a></li>
 <li class='category'><a href='/blog/categories/ldap/'>ldap (3)</a></li>
 <li class='category'><a href='/blog/categories/leapmotion/'>leapmotion (4)</a></li>
-<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (6)</a></li>
+<li class='category'><a href='/blog/categories/linux-admin/'>linux admin (7)</a></li>
 <li class='category'><a href='/blog/categories/lofyerde-ri-ji/'>lofyer的日记 (136)</a></li>
 <li class='category'><a href='/blog/categories/memo/'>memo (10)</a></li>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>

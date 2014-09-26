@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux Admin | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/linux-admin/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-09-24T22:30:48+08:00</updated>
+  <updated>2014-09-26T13:38:36+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bash漏洞-环境变量]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/"/>
+    <updated>2014-09-26T13:37:04+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang</id>
+    <content type="html"><![CDATA[<p>使用下列命令来检测。</p>
+
+<p><code>
+env x='() { :;}; echo asdasd' bash -c "echo asd"
+</code></p>
+
+<p>是否对Docker、LXC有影响？</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gitlab Quick Deploy]]></title>
@@ -485,148 +500,6 @@ Alias /nagios "/usr/share/nagios/htdocs"
 <h2>Intergrate with oVirt</h2>
 
 <p>TBD</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Something About Curl &#8212; Connecting IPA Server Using Json as an Example]]></title>
-    <link href="http://blog.lofyer.org/blog/2013/04/10/all-about-curl/"/>
-    <updated>2013-04-10T00:00:00+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2013/04/10/all-about-curl</id>
-    <content type="html"><![CDATA[<p>With Arduino as a server.</p>
-
-<p>What we want is to keep a cookie and build a HEADER<br/>
-<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP/1.1" target="_blank"></p> <p>
-  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a></a>
-</p></p>
-
-<p>
-  [P1]
-</p>
-
-
-
-
-<pre>
-curl -e
-curl -H referer:whereicamefrom.com
-curl -d @file.txt
-curl -d "somecmd"
-curl -cookie
-curl -D
-</pre>
-
-
-
-
-<p>
-  [P2]<br /> <strong>Communicating with ipa server</strong><br /> <a href="https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt" title="freeipa api" target="_blank">https://git.fedorahosted.org/cgit/freeipa.git/tree/API.txt</a>
-</p>
-
-
-
-
-<p>
-  Get ca.crt
-</p>
-
-
-
-
-<pre>curl -k https://$YOURHOST/ipa/config/ca.crt >> /tmp/ipa.ca.cert</pre>
-
-
-
-
-<p>
-  Get sessionid
-</p>
-
-
-
-
-<pre>
-sessid=$(curl -v 
--H referer:https://ipa.test.net/ipa/ui/index.html 
--H "Content-Type:application/x-www-form-urlencoded" 
--H "Accept:*/*" 
---negotiate -u : 
---cacert ./ca.crt 
--d "user=admin" -d "password=12345678" 
--D cookie.txt 
--X POST 
--k      
-
-https://ipa.test.net/ipa/session/login_password
-
-2>&#038;1 | grep -o "ipa_session=[a-zA-Z0-9]*")
-</pre>
-
-
-
-
-<p>
-  Post a json file with cmd in it
-</p>
-
-
-
-
-<pre>curl -v 
--H referer:https://ipa.test.net/ipa/ui/index.html 
--H "Content-Type:application/json" 
--H "Accept:applicaton/json" 
--negotiate -u : 
---cacert ./ca.crt 
---cookie $sessid 
--d @ipa.json 
--X POST 
--k      
-
-https://ipa.test.net/ipa/session/json
-
-</pre>
-
-
-
-
-<p>
-  Here&#8217;s a json file
-</p>
-
-
-
-
-<pre>
-{
-"method":"user_find",
-"params":[
-        [""],
-        {"uid":"admin"}
-        ],
-"id":0
-}
-</pre>
-
-
-
-
-<pre>
-{
-"method":"user_add",
-"params":[
-        [],
-        {
-         "uid":"test1",
-         "cn":"cn",
-         "givenname":"test1",
-         "sn":"test1"
-        }
-        ],
-"id":0
-}
-</pre>
-
 ]]></content>
   </entry>
   
