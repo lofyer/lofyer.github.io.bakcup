@@ -16,6 +16,8 @@ Age: 18-34
 
 Edu.: Undergraduate
 
+Location: Shanghai
+
 Marriage: In a relationship
 
 Religion: none
