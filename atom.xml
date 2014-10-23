@@ -4,7 +4,7 @@
   <title><![CDATA[Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-10-16T11:34:26+08:00</updated>
+  <updated>2014-10-23T11:22:17+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to Enable NTFS Write in OSX]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/"/>
+    <updated>2014-10-23T10:54:53+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/10/23/how-to-enable-ntfs-write-in-osx</id>
+    <content type="html"><![CDATA[<p>Since NTFS driver does exist in OS X originaly, we don&rsquo;t need to use third-party software to do that.</p>
+
+<p>For example, you have got a NTFS u-disk, and its label is <code>MYDISK</code> .</p>
+
+<ul>
+<li>Open <code>Terminal</code>, run command like this:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo su
+</span><span class='line'>echo "LABEL=MYDISK none ntfs rw,auto,nobrowse" &gt; /etc/fstab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then umount your disk by clicking the umount icon in Finder, and re-plug MYDISK. You shall see <code>MYDISK</code> in /Volumes and can mkdir in it.</p>
+
+<ul>
+<li>The only problem is now, when you plug your device, you’re not gonna get a icon on Desktop or Finder. Mac stores its mounted devices in hidden folder /Volumes, so while we have Terminal up and running, make symbolic link of it to the Desktop:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Volumes ~/Desktop/Volumes</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bash漏洞-环境变量]]></title>
@@ -1489,16 +1522,6 @@ guest ok = yes
 <h3>3. 扩展</h3>
 
 <p>对于中等以上规模的部署，需要使用dns服务器去解析各个节点以免去修改hosts文件的麻烦。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SAP Cloud Computing]]></title>
-    <link href="http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing/"/>
-    <updated>2014-04-14T00:00:00+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2014/04/14/sap-cloud-computing</id>
-    <content type="html"><![CDATA[<p>I&#8217;d got these modules running.<br/>
-TBD</p>
 ]]></content>
   </entry>
   

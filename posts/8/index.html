@@ -9,9 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="正好趁现在有设计欲的时候给自己的git服务器换个首页。
-kvm前端的脚本已完成，瞬间不想写gui的了，虽然ncurses很好用。。要不先这样，反正都是用来调virt和spice的系统
-">
+  <meta name="description" content="After reading ANSI Common Lisp, I knew that there are vec, list(construct cell), structure, hash_table and some other views I may not know. I&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +73,97 @@ kvm前端的脚本已完成，瞬间不想写gui的了，虽然ncurses很好用�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/12/some-data-structure-about-clisp/">Some Data Structure About Clisp</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-12T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/05/12/some-data-structure-about-clisp/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/12/some-data-structure-about-clisp/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After reading ANSI Common Lisp, I knew that there are vec, list(construct cell), structure, hash_table and some other views I may not know. I&#8217;ll try Pratical Lisp in next period.<br/>
+Using clisp, enjoy this pattern of view of btree</p>
+
+<pre>[110]> (sdraw (cons '(1) '(2)))
+[*|*]--------->[*|*]--->NIL
+ |              |
+ v              v
+[*|*]--->NIL    2
+ |
+ v
+ 1
+</pre>
+
+
+
+
+<pre>[112]> (sdraw (cons '1 '2))
+[*|*]--->2
+ |
+ v
+ 1
+
+</pre>
+
+
+
+
+<pre>[115]> (sdraw '('1 '2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE     2
+</pre>
+
+
+
+
+<pre>[116]> (sdraw '('1 ''2))
+[*|*]------------------>[*|*]--->NIL
+ |                       |
+ v                       v
+[*|*]--->[*|*]--->NIL   [*|*]--->[*|*]--->NIL
+ |        |              |        |
+ v        v              v        v
+QUOTE     1             QUOTE    [*|*]--->[*|*]--->NIL
+                                  |        |
+                                  v        v
+                                 QUOTE     2
+</pre>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -864,58 +953,6 @@ LDM_SYSLOG=True</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/25/inspire/">Inspire</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-25T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/02/25/inspire/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/25/inspire/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>client : android/pc/arduino</p>
-
-<p>server : linux</p>
-
-<p>node : with client service installed</p>
-
-<p>action : cmd src dest</p>
-
-<p>backend: recognize the cmd, get src type from the dest, search src in the node</p>
-
-<p>SCHEDULE<br/>
-[DONE]1. voice recognization test complete<br/>
-[TODO]2. use its api in C/python<br/>
-[*Abort*] No idea&#8230;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/9">&larr; Older</a>
@@ -933,6 +970,10 @@ LDM_SYSLOG=True</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
       </li>
     
@@ -948,10 +989,6 @@ LDM_SYSLOG=True</p>
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -961,7 +998,8 @@ LDM_SYSLOG=True</p>
 <section>
   <h1>Categories</h1>
     <ul id="categories">
-      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+      <li class='category'><a href='/blog/categories/apple/'>apple (1)</a></li>
+<li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
 <li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>

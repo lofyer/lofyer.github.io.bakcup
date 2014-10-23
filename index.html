@@ -9,9 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="使用下列命令来检测。 1
-env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响？
-">
+  <meta name="description" content="Since NTFS driver does exist in OS X originaly, we don&rsquo;t need to use third-party software to do that. For example, you have got a NTFS u-disk, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +73,69 @@ env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-23T10:54:53+08:00" pubdate data-updated="true">Oct 23<sup>rd</sup>, 2014</time>
+        
+           | <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Since NTFS driver does exist in OS X originaly, we don&rsquo;t need to use third-party software to do that.</p>
+
+<p>For example, you have got a NTFS u-disk, and its label is <code>MYDISK</code> .</p>
+
+<ul>
+<li>Open <code>Terminal</code>, run command like this:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo su
+</span><span class='line'>echo "LABEL=MYDISK none ntfs rw,auto,nobrowse" &gt; /etc/fstab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then umount your disk by clicking the umount icon in Finder, and re-plug MYDISK. You shall see <code>MYDISK</code> in /Volumes and can mkdir in it.</p>
+
+<ul>
+<li>The only problem is now, when you plug your device, you’re not gonna get a icon on Desktop or Finder. Mac stores its mounted devices in hidden folder /Volumes, so while we have Terminal up and running, make symbolic link of it to the Desktop:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Volumes ~/Desktop/Volumes</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -657,46 +718,6 @@ env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/17/7-1-hadoop-storm-intro/">21. Hadoop/Storm 介绍</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-17T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/05/17/7-1-hadoop-storm-intro/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/17/7-1-hadoop-storm-intro/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>终于到这一章了。<br/>
-<strong>期望这一章的读者不要盲目跟风，找到适合自己的便好。</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -710,6 +731,10 @@ env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
@@ -727,10 +752,6 @@ env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响�
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -740,7 +761,8 @@ env x='() { :;}; echo asdasd' bash -c "echo asd" 是否对Docker、LXC有影响�
 <section>
   <h1>Categories</h1>
     <ul id="categories">
-      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+      <li class='category'><a href='/blog/categories/apple/'>apple (1)</a></li>
+<li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
 <li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>

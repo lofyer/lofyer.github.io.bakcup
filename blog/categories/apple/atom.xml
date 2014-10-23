@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apple | Lofyer's Archive]]></title>
+  <link href="http://blog.lofyer.org/blog/categories/apple/atom.xml" rel="self"/>
+  <link href="http://blog.lofyer.org/"/>
+  <updated>2014-10-23T11:22:17+08:00</updated>
+  <id>http://blog.lofyer.org/</id>
+  <author>
+    <name><![CDATA[lofyer]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Enable NTFS Write in OSX]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/"/>
+    <updated>2014-10-23T10:54:53+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/10/23/how-to-enable-ntfs-write-in-osx</id>
+    <content type="html"><![CDATA[<p>Since NTFS driver does exist in OS X originaly, we don&rsquo;t need to use third-party software to do that.</p>
+
+<p>For example, you have got a NTFS u-disk, and its label is <code>MYDISK</code> .</p>
+
+<ul>
+<li>Open <code>Terminal</code>, run command like this:
+<code>
+sudo su
+echo "LABEL=MYDISK none ntfs rw,auto,nobrowse" &gt; /etc/fstab
+</code></li>
+</ul>
+
+
+<p>Then umount your disk by clicking the umount icon in Finder, and re-plug MYDISK. You shall see <code>MYDISK</code> in /Volumes and can mkdir in it.</p>
+
+<ul>
+<li>The only problem is now, when you plug your device, you’re not gonna get a icon on Desktop or Finder. Mac stores its mounted devices in hidden folder /Volumes, so while we have Terminal up and running, make symbolic link of it to the Desktop:
+<code>
+ln -s /Volumes ~/Desktop/Volumes
+</code></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -9,8 +9,9 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="不喜欢java，就是不喜欢。。但还是要干的。。
-4000多个文件构建UML图的话有点困难，都是小类，看了些tools的代码，然后转到vdsm内容，通讯方式是xml-rpc，当初我猜对了。 vdsm是oVirt的节点代理，功能可订制，也可移植到其他管理平台，基于KVM，储存VM各种暂态数据 &hellip;">
+  <meta name="description" content="在fedora环境中，需要的有spice-gtk，libusbx，usbredir，remote-review，全部下载最新git源
+spice-gtk，usbredir http://cgit.freedesktop.org/spice libusbx
+git://github.com/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +75,103 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/">Mingw编译remoteviewer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在fedora环境中，需要的有spice-gtk，libusbx，usbredir，remote-review，全部下载最新git源<br/>
+spice-gtk，usbredir</p>
+
+<p><a href="http://cgit.freedesktop.org/spice">http://cgit.freedesktop.org/spice</a></p>
+
+<p>libusbx<br/>
+git://github.com/libusbx/libusbx.git<br/>
+remote-viewer<br/>
+git.fedorahosted.org/git/virt-viewer.git</p>
+
+<p>libusbx和usbredir：</p>
+
+<pre>mingw32-configure;mingw32-make;mingw32-make install
+</pre>
+
+
+<p>spice-gtk：<br/>
+mingw32-configure &#8211;with-sasl=no &#8211;with-audio=gstreamer &#8211;enable-smartcard=no &#8211;with-gtk=2.0 &#8211;without-python<br/>
+因为virtviewer要gtk2.0的，所以这也就2.0的；mingw32下没找到pygtk，图省事儿就不要python了，其他的缺啥下啥</p>
+
+<pre>mingw32-make
+mingw32-make install
+</pre>
+
+
+<p>virt-viewer：</p>
+
+<pre>mingw32-configure
+mingw32-make
+mingw32-make install
+</pre>
+
+
+<p>生成remote viewer.exe</p>
+
+<p>安装包<br/>
+运行nsiswrapper生成windows安装包</p>
+
+<pre>nsiswrapper --run 
+    --name "Virt-Viewer" 
+    --outfile "Virt-Viewer-for-Windows.exe" 
+    --with-gtk 
+    /usr/i686-pc-mingw32/sys-root/mingw/bin/virt-viewer.exe
+</pre>
+
+
+<p>缺少的dll从网上下或者windows环境中安装的virtviewer加到$PATH中<br/>
+这样会缺少三个xml文件，在virtviewer/src里，直接copy过去</p>
+
+<pre>export PATH=$PATH:/usr/i686-pc-mingw32/sys-root/mingw/bin:.
+</pre>
+
+
+<p>windows client中使用usbredir：<br/>
+需要libwdi或者zadig或者usbclerk<br/>
+<a href="http://lists.freedesktop.org/archives/spice-devel/2012-November/011629.html" title="usbredir in windows client" target="_blank">链接</a></p>
+
+<p>todo:<br/>
+只有libvirt不是最新的了，可是目前来看没影响</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -540,335 +638,6 @@ nmap后engine确实是有8443，node只有22，安装过程是交互的（node�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/">一些笔记（老版笔记已丢失，此为增补）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-09-18T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/09/18/%25e7%25ac%2594%25e8%25ae%25b0/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>WebFramework:</h2>
-
-<p>Django<br/>
-Cappuccino->mockingbird</p>
-
-<h2>搜索Tab</h2>
-
-<pre>grep -P "t"</pre>
-
-
-<h2>批量替换</h2>
-
-<pre>sed -i "s/qwe/asd/g" `grep -rl "qwe"`</pre>
-
-
-<h2>cmake 配置安装完opencv后，将安装路径中到lib/pkg-config/opencv.pc复制到/usr/lib/pkg-config，然后可以进行pkg-config 查找</h2>
-
-<h2>gnome3任务栏快捷方式的存放位置拖到浏览器或者终端里你就看见了。。</h2>
-
-<h2>curl POST</h2>
-
-<pre>curl -X POST -d '4142430A02000' 
-
-http://user:pass@myhost/hudson/job/_jobName_/postBuildResult</pre>
-
-
-
-
-<pre>curl -X POST -d @myfilename http://user:pass@myhost/hudson/job/_jobName_/postBuildResult</pre>
-
-
-<h2>ddwrt 内网不能访问内网域名</h2>
-
-<pre>iptables -t nat -I POSTROUTING -o br0 -s 192.168.0.188/24 -d 192.168.0.188/24 -j MASQUERADE</pre>
-
-
-<h2>vpn的内网的问题</h2>
-
-<pre>iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j SNAT --to-source 70.8.7.6</pre>
-
-
-
-
-<pre>iptables -t nat -A POSTROUTING -o eth0 -s 172.16.1.0/24 -j MASQUERADE</pre>
-
-
-<h2>delete git branch</h2>
-
-<pre>git push origin :yourbranch</pre>
-
-
-<h2>ipa client reinstall</h2>
-
-<p>删除<em>/etc/ipa/ca.crt</em>证书</p>
-
-<h2>fedora制作安装cd</h2>
-
-<pre>#!/bin/bash
-livecd-creator --config=/usr/share/spin-kickstarts/fedora-livecd-desktop.ks \
---fslabel=Test \
---tmpdir=/root/iso/tmp \
---cache=/root/iso/cache \
---nocleanup \
---cacheonly #为节约下载时间可在以后制作时忽略</pre>
-
-
-<h2>mysql grant</h2>
-
-<pre>grant all privileges on *.* to root@'%' identified by '123456';
-flush privileges;</pre>
-
-
-<h2>打开kvm nested参数</h2>
-
-<pre>cat /sys/module/kvm_intel/parameters/nested</pre>
-
-
-<p>为N则</p>
-
-<pre>modprobe -r kvm-intel
-modprobe kvm-intel nested=1</pre>
-
-
-<h2>Fedora滚动升级版 Rawhide</h2>
-
-<pre>yum install fedora-release-rawhide
-yum-config-manager --disable fedora updates updates-testing
-yum-config-manager --enable rawhide
-yum update yum
-yum --releasever=rawhide distro-sync --nogpgcheck</pre>
-
-
-<h2>Opensuse滚动升级版 Tumbleweed</h2>
-
-<pre>zypper ar --refresh http://download.opensuse.org/repositories/openSUSE:/Tumbleweed/standard/ Tumbleweed
-zypper ar --refresh http://download.opensuse.org/distribution/openSUSE-current/repo/oss/ 'openSUSE Current OSS'
-zypper ar --refresh http://download.opensuse.org/distribution/openSUSE-current/repo/non-oss/ 'openSUSE Current non-OSS'
-zypper ar --refresh http://download.opensuse.org/update/openSUSE-current/ 'openSUSE Current updates'
-zypper ar --refresh http://download.opensuse.org/update/openSUSE-non-oss-current/ 'openSUSE Current non-OSS updates' 
-zypper dup</pre>
-
-
-<h2>vs2012修复补丁</h2>
-
-<p>由于升级.net 4.5会出现vs2012部分项目失败，可以打这个补丁修复<br/>
-<a title="http://www.microsoft.com/zh-cn/download/details.aspx?id=36020" href="http://www.microsoft.com/zh-cn/download/details.aspx?id=36020" target="_blank">Microsoft Visual Studio 2012 更新 (KB2781514)</a></p>
-
-<h2>RESTClient</h2>
-
-<p>针对RESTful的API可以使用这个工具<br/>
-<a title="http://restclient.org" href="http://restclient.org" target="_blank"><a href="http://restclient.org">http://restclient.org</a></a></p>
-
-<h2>owncloud repo</h2>
-
-<p><a href="http://software.opensuse.org/download/package?project=isv:ownCloud:devel&amp;package=owncloud-client">http://software.opensuse.org/download/package?project=isv:ownCloud:devel&amp;package=owncloud-client</a></p>
-
-<h2>android google play</h2>
-
-<p>cp /data/app/googleplay /system/app/</p>
-
-<h2>获取Gravatar头像</h2>
-
-<pre>curl http://www.gravatar.com/avatar/`echo -n me@mydomain.com | md5sum` &gt; gravatar.jpg</pre>
-
-
-<h2>Maven insecure SSL</h2>
-
-<pre>-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true</pre>
-
-
-<h2>bVNC build</h2>
-
-<p>FreeRDP: checkout dbbb341; cmake .; ant release<br/>
-Singed keystore: keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore</p>
-
-<p><a href="http://www.mail-archive.com/spice-devel@lists.freedesktop.org/msg13763.html">http://www.mail-archive.com/spice-devel@lists.freedesktop.org/msg13763.html</a></p>
-
-<h2>IPA ADD-USER</h2>
-
-<pre>#!/bin/bash
-echo -e "pswd4admin\n" | kinit admin
-echo -e "$1\n$1\n$1\n" | ipa user-add
-echo -e "$1\n$1\n" | ipa passwd $1
-sleep 1
-echo -e "$1\n$1\n$1\n" | kinit $1</pre>
-
-
-<h2>NTP server</h2>
-
-<p>server 192.168.1.11 mask 255.255.0.0 nomodify<br/>
-启动ntpd后要等个几分钟，client才能去同步，否则报错说未找到合适的ntp服务器</p>
-
-<h2>rsync</h2>
-
-<pre>rsync -zvrtopgal -e ssh --delete --stats --progress --exclude 'ignore.txt' root@lofyer.org:/var/log /home/lofyer/lofyer.org/</pre>
-
-
-<h2>CentOS Smartcard</h2>
-
-<p>SmartCard service:<br/>
-openct<br/>
-pcscd</p>
-
-<h2>zathura</h2>
-
-<p>很好的PDF阅读器</p>
-
-<h2>ssh without password</h2>
-
-<pre># Generate rsa key pair without passphrase
-[demo@A ~]$ ssh-keygen -t rsa
-# Copy pub key to B
-[demo@A ~]$ cat .ssh/id_rsa.pub | ssh alpha@B 'cat &gt;&gt; .ssh/authorized_keys2'
-# Add private key to A
-[demo@A ~]$ ssh-add  ~/.ssh/id_rsa</pre>
-
-
-<h2>debian offcie乱码</h2>
-
-<p>安装文泉逸字体<br/>
-apt-get install fonts-wenquanyi</p>
-
-<h2>debian virt-viewer with spice</h2>
-
-<pre>deb http://mirrors.163.com/debian/ unstable main
-deb-src http://mirrors.163.com/debian/ unstable main
-
-deb http://security.debian.org/ unstable/updates main
-deb-src http://security.debian.org/ unstable/updates main
-
-# unstable-updates, previously known as 'volatile'
-deb http://mirrors.163.com/debian/ unstable-updates main
-deb-src http://mirrors.163.com/debian/ unstable-updates main
-deb http://apt.wxwidgets.org/ unstable-wx main
-deb-src http://apt.wxwidgets.org/ unstable-wx main</pre>
-
-
-<h2>Better DNS</h2>
-
-<p>dns1: 199.91.73.222<br/>
-dns2: 8.8.8.8</p>
-
-<h2>audit log</h2>
-
-<p>Modify <em>/etc/audit/audit.conf</em> to 8192 or bigger.</p>
-
-<h2>memcached</h2>
-
-<p><strong>PHP</strong></p>
-
-<pre># apt-get install memcached php5-memcached</pre>
-
-
-<p>modify <em>/etc/php5/conf.d/memcached.ini</em></p>
-
-<h2>disable TSO GSO to improve virtio-net</h2>
-
-<pre># ethtool -K eth0 gso off
-# ethtool -K eth0 tso off</pre>
-
-
-<h2>disable PackageKit in Fedora</h2>
-
-<p><em>/etc/yum/pluginconf.d/refresh-packagekit.conf</em></p>
-
-<pre>enabled=0</pre>
-
-
-<h2>推荐一种工作方式</h2>
-
-<p>集成显卡下运行linux，将另一块硬盘或者vdisk，还有独立显卡passthrough给虚拟机Win7，协议使用spice，这是很爽啊</p>
-
-<h2>crt &amp; key to pem</h2>
-
-<p>openssl x509 -inform DER -outform PEM -in server.crt -out server.crt.pem<br/>
-openssl rsa -inform DER -outform PEM -in server.key -out server.key.pem<br/>
-cat server.crt.pem server.key.pem >> server.pem</p>
-
-<h2>wireless relay for tomata</h2>
-
-<p>设置无线中继时确保主路由和从路由的SSID、密码、加密方式一致，不要使用WPA/WPA-2混合模式</p>
-
-<h2>libvirt password</h2>
-
-<pre># saslpasswd2 -a libvirt root</pre>
-
-
-<h2>netcat(nc) tips</h2>
-
-<p><strong>大传输文件(file transfer)</strong></p>
-
-<pre class="lang:default decode:true " >server: nc -l 5555 &lt; file_to_copy
-client: nc server_ip 5555 &gt; new_file</pre>
-
-
-<p><strong>聊天(chat)</strong></p>
-
-<pre class="lang:default decode:true " >client1: nc -l 5555
-client2: nc server_ip 5555
-</pre>
-
-
-<p><strong>udp connection</strong></p>
-
-<pre>server: nc -4 -u -l 5555
-clinet: nc -4 -u localhost 5555</pre>
-
-
-<h2>owncloud repo</h2>
-
-<pre class="lang:default decode:true " >[isv_ownCloud_community]
-name=Latest stable community release of ownCloud (CentOS_CentOS-6)
-type=rpm-md
-baseurl=http://download.opensuse.org/repositories/isv:/ownCloud:/community/CentOS_CentOS-6/
-gpgcheck=1
-gpgkey=http://download.opensuse.org/repositories/isv:/ownCloud:/community/CentOS_CentOS-6/repodata/repomd.xml.key
-enabled=1
-</pre>
-
-
-<h2>gnome terminal proxy</h2>
-
-<pre>
-$ ssh -ND 7070 yourname@yourserver  
-$ gconftool-2 -R /system/proxy # show configuration  
-$ gconftool-2 -s /system/proxy/socks_host -t int 127.0.0.1  
-$ gconftool-2 -s /system/proxy/socks_port -t int 7070  
-$ gconftool-2 -s /system/proxy/mode -t string manual # enable  
-$ gconftool-2 -s /system/proxy/mode -t string none # disable
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/11">&larr; Older</a>
@@ -886,6 +655,10 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
       </li>
     
@@ -901,10 +674,6 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -914,7 +683,8 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
 <section>
   <h1>Categories</h1>
     <ul id="categories">
-      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+      <li class='category'><a href='/blog/categories/apple/'>apple (1)</a></li>
+<li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
 <li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>

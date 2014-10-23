@@ -9,10 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="服务端:
-生成证书等相关文件
-/etc/openvpn/easy-rsa/2.0
-生成证书 # ./build-ca 生成服务器认证 # ./build-key-server server 生成客户端 # ./build-key client1 更新数据库 # ./build-dh /etc/ &hellip;">
+  <meta name="description" content="client : android/pc/arduino server : linux node : with client service installed action : cmd src dest backend: recognize the cmd, get src type from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +73,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/25/inspire/">Inspire</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-25T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/02/25/inspire/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/02/25/inspire/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>client : android/pc/arduino</p>
+
+<p>server : linux</p>
+
+<p>node : with client service installed</p>
+
+<p>action : cmd src dest</p>
+
+<p>backend: recognize the cmd, get src type from the dest, search src in the node</p>
+
+<p>SCHEDULE<br/>
+[DONE]1. voice recognization test complete<br/>
+[TODO]2. use its api in C/python<br/>
+[*Abort*] No idea&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -632,103 +681,6 @@ If it exists run:<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/">Mingw编译remoteviewer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-17T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/11/17/mingw%25e7%25bc%2596%25e8%25af%2591remoteviewer/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在fedora环境中，需要的有spice-gtk，libusbx，usbredir，remote-review，全部下载最新git源<br/>
-spice-gtk，usbredir</p>
-
-<p><a href="http://cgit.freedesktop.org/spice">http://cgit.freedesktop.org/spice</a></p>
-
-<p>libusbx<br/>
-git://github.com/libusbx/libusbx.git<br/>
-remote-viewer<br/>
-git.fedorahosted.org/git/virt-viewer.git</p>
-
-<p>libusbx和usbredir：</p>
-
-<pre>mingw32-configure;mingw32-make;mingw32-make install
-</pre>
-
-
-<p>spice-gtk：<br/>
-mingw32-configure &#8211;with-sasl=no &#8211;with-audio=gstreamer &#8211;enable-smartcard=no &#8211;with-gtk=2.0 &#8211;without-python<br/>
-因为virtviewer要gtk2.0的，所以这也就2.0的；mingw32下没找到pygtk，图省事儿就不要python了，其他的缺啥下啥</p>
-
-<pre>mingw32-make
-mingw32-make install
-</pre>
-
-
-<p>virt-viewer：</p>
-
-<pre>mingw32-configure
-mingw32-make
-mingw32-make install
-</pre>
-
-
-<p>生成remote viewer.exe</p>
-
-<p>安装包<br/>
-运行nsiswrapper生成windows安装包</p>
-
-<pre>nsiswrapper --run 
-    --name "Virt-Viewer" 
-    --outfile "Virt-Viewer-for-Windows.exe" 
-    --with-gtk 
-    /usr/i686-pc-mingw32/sys-root/mingw/bin/virt-viewer.exe
-</pre>
-
-
-<p>缺少的dll从网上下或者windows环境中安装的virtviewer加到$PATH中<br/>
-这样会缺少三个xml文件，在virtviewer/src里，直接copy过去</p>
-
-<pre>export PATH=$PATH:/usr/i686-pc-mingw32/sys-root/mingw/bin:.
-</pre>
-
-
-<p>windows client中使用usbredir：<br/>
-需要libwdi或者zadig或者usbclerk<br/>
-<a href="http://lists.freedesktop.org/archives/spice-devel/2012-November/011629.html" title="usbredir in windows client" target="_blank">链接</a></p>
-
-<p>todo:<br/>
-只有libvirt不是最新的了，可是目前来看没影响</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/10">&larr; Older</a>
@@ -746,6 +698,10 @@ mingw32-make install
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/26/bashlou-dong-huan-jing-bian-liang/">Bash漏洞-环境变量</a>
       </li>
     
@@ -761,10 +717,6 @@ mingw32-make install
         <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/15/octopress-cheatsheet/">Octopress Cheatsheet</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -774,7 +726,8 @@ mingw32-make install
 <section>
   <h1>Categories</h1>
     <ul id="categories">
-      <li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
+      <li class='category'><a href='/blog/categories/apple/'>apple (1)</a></li>
+<li class='category'><a href='/blog/categories/arduino-2560/'>arduino 2560 (5)</a></li>
 <li class='category'><a href='/blog/categories/data-processing/'>data processing (4)</a></li>
 <li class='category'><a href='/blog/categories/device-hack/'>device hack (3)</a></li>
 <li class='category'><a href='/blog/categories/ez430-chronos/'>ez430-chronos (1)</a></li>
