@@ -9,9 +9,10 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="早晨醒来，口干舌燥，电话留言里有个熟悉的声音在哭诉，那是医生。作为挚友，他们在大学分开后几十年很少联系，偶尔在网上扯扯淡，很多好朋友都是如此。
-医生说小玲快不行了，能从他的声音里听出他们爱的深沉。他这次请了几个好朋友到家里，因为小玲说要在走之前和大家再说说心里话。
-翌日中午，赶到医生家， &hellip;">
+  <meta name="description" content="安装除Neutron（Quantum）以外所有东西 在开始之前，假设有三个NIC 禁用selinux，并修改网络配置/etc/sysconfig/network-scripts/ifcfg-ethX # Internal
+DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO= &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,242 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/openstack-configure-and-api/">Openstack 配置及其API的简单使用</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/07/18/openstack-configure-and-api/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/07/18/openstack-configure-and-api/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>安装除Neutron（Quantum）以外所有东西</h2>
+
+<p>在开始之前，假设有三个NIC<pre chkconfig iptables off chkconfig firewalld off chkconfig sshd on chkconfig NetworkManager off chkconfig network start yum install mysql-server service mysqld start mysqladmin -uroot password 123456 chkconfig mysqld on </pre></p>
+
+<p>禁用selinux，并修改网络配置/etc/sysconfig/network-scripts/ifcfg-ethX</p>
+
+<pre># Internal
+DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.11
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=192.168.1.1
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre># External
+DEVICE=eth1
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.12
+NETMASK=255.255.255.0
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre>#Public Bridge
+DEVICE=eth2
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.13
+NETMASK=255.255.255.0
+DEFROUTE=yes
+ONBOOT=yes
+</pre>
+
+
+<p>于Feodra18中安装Openstack，可参考文档，按照这个来的话对Openstack的设计理念将会有所了解<br/>
+<a href="https://fedoraproject.org/wiki/Getting_started_with_OpenStack_on_Fedora_18" title="Getting started with OpenStack on Fedora 18" target="_blank">Getting started with OpenStack on Fedora 18</a><br/>
+或者运行</p>
+
+<pre>/*安装完成后管理员界面为http://localhost/dashboard用户名admin，密码secrete*/
+# openstack-demo-install
+</pre>
+
+
+<p>以上两种方法把除了Neutron（quantum）其他的服务都配置好了，关于quantum的配置见文末</p>
+
+<h2>添加虚拟机实例</h2>
+
+<p>可参考文档<br/>
+<a href="https://fedoraproject.org/wiki/Getting_started_with_OpenStack_on_Fedora_18" title="Getting started with OpenStack on Fedora 18" target="_blank">Getting started with OpenStack on Fedora 18</a><br/>
+在终端操作之前需要设置环境变量，将它们两者之一写到一个文件，然后source一下</p>
+
+<pre>export OS_USERNAME=admin
+export OS_PASSWORD=secrete
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://127.0.0.1:5000/v2.0/
+</pre>
+
+
+
+
+<pre>export ADMIN_TOKEN=$(openssl rand -hex 10)
+export SERVICE_ENDPOINT=http://127.0.0.1:35357/v2.0/
+export SERVICE_TOKEN=\$ADMIN_TOKEN
+</pre>
+
+
+
+
+<pre>source FileA
+</pre>
+
+
+<p>这个libvirt支持kvm以及xen虚拟化，所以支持的镜像也比较多，这里下载一个已经安装好的f17的qcow2镜像</p>
+
+<pre># axel -n 5 http://berrange.fedorapeople.org/images/2012-11-15/f17-x86_64-openstack-sda.qcow2
+/*注册镜像*/
+# glance add name=f17-jeos is_public=true disk_format=qcow2 container_format=bare &lt; f17-x86_64-openstack-sda.qcow2
+</pre>
+
+
+<p>然后以demo用户进入dashboard，会看到添加进来的image，根据image启动实例，打开vnc界面（非localhost访问要改ip）。</p>
+
+<h2>安装操蛋的Neutron（quantum）服务</h2>
+
+<p>这东西刚改名，nova自带的有network服务，可这个可以虚拟L2 L3 switch，那就比较有意思了</p>
+
+<p>/*注册quantum*/</p>
+
+<pre># keystone service-create --name quantum --type network --description 'OpenStack Networking Service'
+# keystone endpoint-create --region myregion --service-id 26a55b340e254ad5bb78c0b14391e153 --publicurl "http://192.168.1.11:9696/" --adminurl "http://192.168.1.11:9696/" --internalurl "http://192.168.1.11:9696/"
+</pre>
+
+
+<p>/*(可选)添加quantum服务用户*/<br/>
+get_id.sh:</p>
+
+<pre>$ function get_id () {
+     echo `"$@" | awk '/ id / { print $4 }'`
+}
+# ADMIN_ROLE=$(get_id keystone role-create --name=admin)
+# QUANTUM_USER=$(get_id keystone user-create --name=quantum --pass="servicepass" --email=demo@example.com --tenant-id service)
+# keystone user-role-add --user_id $QUANTUM_USER --role_id $ADMIN_ROLE --tenant_id service
+</pre>
+
+
+<p>/*服务插件二选一，linuxbrideg和openvswitch，这里使用后者，先安装插件*/</p>
+
+<pre># yum install openstack-quantum-openvswitch
+</pre>
+
+
+<p>/*启动并添加服务*/</p>
+
+<pre># quantum-server-setup --plugin openvswitch
+# quantum-node-setup --plugin openvswitch
+# service quantum-server start
+# chkconfig quantum-server on
+
+# service openvswitch start
+# chkconfig openvswitch on
+
+# ovs-vsctl add-br br-int
+# chkconfig quantum-openvswitch-agent on
+# service quantum-openvswitch-agent start
+
+# quantum-dhcp-setup --plugin openvswitch
+# chkconfig quantum-dhcp-agent on
+# service quantum-dhcp-agent start
+
+# ovs-vsctl add-br br-ex
+# ovs-vsctl add-port br-ex eth1
+# quantum-l3-setup --plugin openvswitch
+# chkconfig quantum-l3-agent on
+# service quantum-l3-agent start
+<del datetime="2013-07-18T07:31:22+00:00"># chkconfig quantum-metadata-agent on
+# service quantum-metadata-agent start</del>
+</pre>
+
+
+<p>修改并配置网络 /etc/sysconf/network-scripts/ifcfg-eth1，/etc/sysconf/network-scripts/ifcfg-br-ex</p>
+
+<pre># External
+DEVICE=eth1
+TYPE=Ethernet
+BOOTPROTO=none
+NM_CONTROLLED=no
+BRIDGE=br-ex
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre>#Public Bridge
+DEVICE=br-ex
+TYPE=Bridge
+BOOTPROTO=static
+IPADDR=192.168.2.11
+NETMASK=255.255.255.0
+NM_CONTROLLED=no
+ONBOOT=yes
+</pre>
+
+
+
+
+<pre># ip addr del 10.0.0.9/24 dev eth1
+# ip addr add 10.0.0.9/24 dev br-ex
+</pre>
+
+
+<p>这里类似VPN的重写HEADER</p>
+
+<pre>echo 1 > /proc/sys/net/ipv4/conf/all/forwarding
+sysctl -w net.ipv4.ip_forward=1 
+iptables -A FORWARD -i eth0 -o br-ex -s 10.10.10.0/24 -m conntrack --ctstate NEW -j ACCEPT
+iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A POSTROUTING -s 10.10.10.0/24 -t nat -j MASQUERADE
+</pre>
+
+
+<p>最后重启机器即可</p>
+
+<h2>通过curl使用openstack api</h2>
+
+<p><a href="http://catn.com/2013/04/23/create-an-openstack-instance-with-just-curl/" title="http://catn.com/2013/04/23/create-an-openstack-instance-with-just-curl/" target="_blank">参考这篇文章</a><br/>
+注意区分token和固定id</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -619,216 +856,6 @@ Using BCACHE now&#8230;or flashcache</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/">GPU Passthrough, VGA Passthrough in KVM</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-23T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/05/23/pass-host-gpu-to-guest-via-qemu-ncursescurses/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To inspire you, I&#8217;ve got a video from someone else. Better mutt the volume by the way.<br/>
-<a href="http://www.youtube.com/watch?v=Qi1LdFkRzIs" title="Arch Linux KVM Crysis HD Gpu Passthrough" target="_blank">Arch Linux KVM Crysis HD Gpu Passthrough</a><br/>
-Or you can download it to see.<br/>
-<a href="http://lofyer.github.io/uploads/Arch-Linux-KVM-Crysis-HD.flv" title="Download the video" target="_blank">Download the video in HD</a><br/>
-<embed src="http://player.youku.com/player.php/sid/XNTg1MzUwNjY4/v.swf" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash">
-</embed></p>
-
-<p>Here&#8217;s the links I refer to:<br/>
-<a href="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981" title="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981" target="_blank"><a href="http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981">http://thread.gmane.org/gmane.comp.emulators.kvm.devel/71981</a></a><br/>
-<a href="https://bbs.archlinux.org/viewtopic.php?id=162768" title="https://bbs.archlinux.org/viewtopic.php?id=162768" target="_blank"><a href="https://bbs.archlinux.org/viewtopic.php?id=162768">https://bbs.archlinux.org/viewtopic.php?id=162768</a></a><br/>
-<a href="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1" title="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1" target="_blank"><a href="https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1">https://docs.google.com/document/d/1ef_nfl652L0HLn_wGvnpgjsBJd9LZzaV_-rIcEEoK8Y/edit?pli=1</a></a><br/>
-<a href="http://www.linux-kvm.org/page/VGA_device_assignment" title="http://www.linux-kvm.org/page/VGA_device_assignment" target="_blank"><a href="http://www.linux-kvm.org/page/VGA_device_assignment">http://www.linux-kvm.org/page/VGA_device_assignment</a></a><br/>
-<a href="http://www.linux-kvm.org/page/VGA_device_assignment" title="http://www.linux-kvm.org/page/VGA_device_assignment" target="_blank"><a href="http://www.linux-kvm.org/page/How_to_assign_devices_with_VT-d_in_KVM">http://www.linux-kvm.org/page/How_to_assign_devices_with_VT-d_in_KVM</a></a></p>
-
-<h2>Result:</h2>
-
-<p>VGAPassthrough: success in host F19, guest Windows7<br/>
-GPUPassthrough: success in Fedora-Rawhide</p>
-
-<p>HOST:<br/>
-CPU: Core i5 3470<br/>
-GPU: ATI HD Radeon 7850<br/>
-OS: Fedora-Rawhide<br/>
-QEMU: qemu-1.5.1<br/>
-<a href="http://blog.lofyer.org/2013/05/pass-host-gpu-to-guest-via-qemu-ncursescurses/kvm-vgapassthrough/" rel="attachment wp-att-2380"><img src="http://lofyer.github.io/uploads/kvm-vgapassthrough.png" alt="kvm-vgapassthrough" width="614" height="360" class="alignnone size-full wp-image-2380" /></a><br/>
-So, here&#8217;s the steps</p>
-
-<h2>0. Enable the mainboard VxT, iommu and alter the video device to Intel HD</h2>
-
-<h2>1. See what we have got now.</h2>
-
-<pre>lspci;lspci -n
-</pre>
-
-
-<p>We have output below</p>
-
-<pre>...
-01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Pitcairn PRO [Radeon HD 7850]
-01:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Cape Verde/Pitcairn HDMI Audio [Radeon HD 7700/7800 Series]
-...
-</pre>
-
-
-
-
-<pre>...
-01:00.0 0300: 1002:6819
-01:00.1 0403: 1002:aab0
-...
-</pre>
-
-
-<p>You can see the pci bus and vendor.</p>
-
-<h2>2. Modify the kernel parameter, morprobe.d and libvirt.conf</h2>
-
-<p>Add follow parameters to grub.conf</p>
-
-<pre>intel_iommu=on pci-stub.ids=1002:6819,1002:aab0,vfio_iommu_type1.allow_unsafe_interrupts=1
-</pre>
-
-
-<p>NOTE: If you have got an AMD cpu, please replace &#8220;interl_iommu=on&#8221; with &#8220;iommu=pt iommu=1&#8243;<br/>
-Add modprobe.conf to /etc/modprobe.d/ with this content:</p>
-
-<pre>blacklist radeon
-options kvm ignore_msrs=1
-options kvm allow_unsafe_interrupts=1
-options kvm-amd npt=0
-options kvm_intel emulate_invalid_guest_state=0
-options vfio_iommu_type1 allow_unsafe_interrupts=1
-</pre>
-
-
-<p>change the following options in /etc/libvirt/qemu.conf:</p>
-
-<pre># The user ID for QEMU processes run by the system instance.
-user = "root"
-
-# The group ID for QEMU processes run by the system instance.
-group = "root"
-
-......
-
-# If clear_emulator_capabilities is enabled, libvirt will drop all
-# privileged capabilities of the QEmu/KVM emulator. This is enabled by
-# default.
-#
-# Warning: Disabling this option means that a compromised guest can
-# exploit the privileges and possibly do damage to the host.
-#
-clear_emulator_capabilities = 0
-</pre>
-
-
-<p>Reboot.</p>
-
-<h2>3. Using scripts below</h2>
-
-<h3>Version 1: VFIO-Passthrough</h3>
-
-<p>File: vfio-bind</p>
-
-<pre>#!/bin/bash
-modprobe vfio-pci
-for var in "$@"; do
-        for dev in $(ls /sys/bus/pci/devices/$var/iommu_group/devices); do
-                vendor=$(cat /sys/bus/pci/devices/$dev/vendor)
-                device=$(cat /sys/bus/pci/devices/$dev/device)
-                if [ -e /sys/bus/pci/devices/$dev/driver ]; then
-                        echo $dev > /sys/bus/pci/devices/$dev/driver/unbind
-                        fi
-                echo $vendor $device > /sys/bus/pci/drivers/vfio-pci/new_id
-        done
-done
-</pre>
-
-
-<p>Bind the device</p>
-
-<pre>./vfio-bind 0000:01:00.0 0000:01:00.1
-</pre>
-
-
-<p>Start VM</p>
-
-<pre>#!/bin/bash
-sudo modprobe vfio-pci
-
-sudo qemu-system-x86_64 -no-user-config -nodefaults -m 2048M -smp 4 -boot menu=on \
--net nic -net user -enable-kvm -monitor stdio -vga qxl -global qxl-vga.vram_size=67108864 \
--spice port=6000,ipv4,disable-ticketing \
--device intel-hda,id=sound0,bus=pcie.0,addr=0x4 -device hda-duplex,id=sound0-codec0,bus=sound0.0,cad=0 \
--drive file=Windows7.iso,if=none,id=drive-ide0-1-0,readonly=on,format=raw -device ide-cd,bus=ide.1,unit=0,drive=drive-ide0-1-0,id=ide0-1-0 \
--drive file=/home/lofyer/gpu_passthrough/f17.qcow2,if=none,id=drive-virtio-disk0,format=qcow2,cache=none,werror=stop,rerror=stop,aio=threads -device virtio-blk-pci,scsi=off,bus=pcie.0,addr=0x7,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
--device virtio-balloon-pci,id=balloon0,bus=pcie.0,addr=0x8 \
--M q35 \
--device piix4-ide,bus=pcie.0 \
--device ioh3420,bus=pcie.0,addr=1c.0,multifunction=on,port=1,chassis=1,id=root.1 \
--device vfio-pci,host=01:00.0,bus=root.1,addr=00.0,multifunction=on,x-vga=on \
--device vfio-pci,host=01:00.1,bus=root.1,addr=00.1 \
--fda virtio.vfd
-</pre>
-
-
-<h3>Version 2: PCI-Passthrough</h3>
-
-<p>Bind device</p>
-
-<pre>#!/bin/bash
-modprobe pci-stub
-for id in 6819 aab0; do
-    echo 1002 $id > /sys/bus/pci/drivers/pci-stub/new_id
-done
-for pci in 0000:01:00.{0,1}; do
-    echo $pci > "/sys/bus/pci/devices/$pci/driver/unbind"
-    echo $pci > /sys/bus/pci/drivers/pci-stub/bind
-done
-</pre>
-
-
-<p>Start VM</p>
-
-<pre>#!/bin/bash
-qemu-system-x86_64 \
--hda ../f17.qcow2 \
--cdrom /run/media/lofyer/Cache/OS_ISO/cn_windows_7_ultimate_with_sp1_x64_dvd_u_677408.iso \
--m 2048 -balloon virtio -smp 4 -enable-kvm \
--device pci-assign,host=01:00.0
-</pre>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/8">&larr; Older</a>
@@ -846,6 +873,10 @@ qemu-system-x86_64 \
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
       </li>
     
@@ -859,10 +890,6 @@ qemu-system-x86_64 \
     
       <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
   </ul>
@@ -888,7 +915,7 @@ qemu-system-x86_64 \
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
-<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (3)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
 <li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>

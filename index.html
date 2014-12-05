@@ -9,7 +9,7 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="Since NTFS driver does exist in OS X originaly, we don&rsquo;t need to use third-party software to do that. For example, you have got a NTFS u-disk, &hellip;">
+  <meta name="description" content="Recently I&rsquo;ve got someone to help him using swift as backend in owncloud, and I wrote this down just in case. Create a container, get a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,90 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-02T23:53:44+08:00" pubdate data-updated="true">Dec 2<sup>nd</sup>, 2014</time>
+        
+           | <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Recently I&rsquo;ve got someone to help him using swift as backend in owncloud, and I wrote this down just in case.</p>
+
+<ul>
+<li>Create a container, get a publicurl like</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Create an endpoint with a region in service swift</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>keystone endpoint-create --service swift --region swift_region \
+</span><span class='line'>  --publicurl "http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc"</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Install owncloud thirdparty app: ExternalStorage, fill like this</p>
+
+<p>  directory_name: the display name of this containter</p>
+
+<p>  user: project user name</p>
+
+<p>  bucket: container name</p>
+
+<p>  region: swift_region, like above</p>
+
+<p>  key: password</p>
+
+<p>  tenant: project name</p>
+
+<p>  passowrd: password</p>
+
+<p>  service name: swift</p>
+
+<p>  url: with keystone authentication, <a href="http://192.168.2.160:5000/v2.0">http://192.168.2.160:5000/v2.0</a></p>
+
+<p>  timeout: whatever you like, or blank</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -669,55 +753,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-22T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/05/22/6-5-1-ovirt-shell/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/22/6-5-1-ovirt-shell/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>和许多虚拟化平台一样，ovirt也有自己的shell，并且在功能上有自己的特点。</p>
-
-<h2>连接ovirt-shell</h2>
-
-<pre># yum install ovirt-engine-cli
-# ovirt-shell -l https://192.168.1.190 -u admin@internal -I
-</pre>
-
-
-<p>连接以后，可双击tab以自动补全。<br/>
-<strong>你可以看出来，在ovirt中，vm、host、cluster等均可以看作“对象”，而其操作比如“start”、“stop”等可看作方法。</strong></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -733,6 +768,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
       </li>
     
@@ -746,10 +785,6 @@
     
       <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
   </ul>
@@ -775,7 +810,7 @@
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
-<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (3)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
 <li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>

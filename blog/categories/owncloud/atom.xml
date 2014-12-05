@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Owncloud | Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/blog/categories/owncloud/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-10-23T11:22:17+08:00</updated>
+  <updated>2014-12-03T00:08:56+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Intergrate ownCloud With OpenStack Swift]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/"/>
+    <updated>2014-12-02T23:53:44+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/12/02/intergrate-owncloud-with-openstack-swift</id>
+    <content type="html"><![CDATA[<p>Recently I&rsquo;ve got someone to help him using swift as backend in owncloud, and I wrote this down just in case.</p>
+
+<ul>
+<li>Create a container, get a publicurl like</li>
+</ul>
+
+
+<p><code>
+http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc
+</code></p>
+
+<ul>
+<li>Create an endpoint with a region in service swift</li>
+</ul>
+
+
+<p><code>
+keystone endpoint-create --service swift --region swift_region \
+  --publicurl "http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc"
+</code></p>
+
+<ul>
+<li><p>Install owncloud thirdparty app: ExternalStorage, fill like this</p>
+
+<p>  directory_name: the display name of this containter</p>
+
+<p>  user: project user name</p>
+
+<p>  bucket: container name</p>
+
+<p>  region: swift_region, like above</p>
+
+<p>  key: password</p>
+
+<p>  tenant: project name</p>
+
+<p>  passowrd: password</p>
+
+<p>  service name: swift</p>
+
+<p>  url: with keystone authentication, <a href="http://192.168.2.160:5000/v2.0">http://192.168.2.160:5000/v2.0</a></p>
+
+<p>  timeout: whatever you like, or blank</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Intergrate Owncloud With AD(LDAP)]]></title>

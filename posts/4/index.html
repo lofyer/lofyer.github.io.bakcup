@@ -9,8 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="7:50 手机闹铃响了，随之而来的是你订阅的RSS、Flipboard推送的新闻。随手翻阅下，完后Siri说今天天气挺暖和的，可以穿你最喜欢的高领毛衣，起床。
-8:30 高速公路上，地图告诉你前方拥堵，正好这时领导打来电话，你告诉Siri说“接听”。挂了电话以后，红灯亮了， &hellip;">
+  <meta name="description" content="作为公司的一名小小员工，从客户交流到现场部署、从SDN交换机到Neutron、从QEMU到IAAS，我都有过了解或接触，并将其记录成文，是总结，亦是探索。期间难免会有这样或者那样的想法，而将这些想法实践出来的过程是会让人觉得生活依旧是美好的。 状况 接下来是以我目前水平能看到的：
+和多数行业一样， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/24/cloud-1-nowaday/">1. 众说纷纭</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-24T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/03/24/cloud-1-nowaday/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/03/24/cloud-1-nowaday/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>作为公司的一名小小员工，从客户交流到现场部署、从SDN交换机到Neutron、从QEMU到IAAS，我都有过了解或接触，并将其记录成文，<strong>是总结，亦是探索</strong>。期间难免会有这样或者那样的想法，<strong>而将这些想法实践出来的过程是会让人觉得生活依旧是美好的</strong>。</p>
+
+<h2>状况</h2>
+
+<p>接下来是以我目前水平能看到的：<br/>
+和多数行业一样，不管哪个公司，他们技术和关系，在不同客户那里都有不同的权重，这点的南北差异尤为明显；<br/>
+风（宏观调控）让云去哪，云就去哪；<br/>
+AppEngine或者OpenShift目前更像是资源（公共数据中心）一厢情愿的产物；</p>
+
+<h2>需求</h2>
+
+<p>以我所遇到的客户来看，部分客户不会明确的说使用“云”，他们的需求在多数情况下可以有这样或者那样的传统方案替代；<br/>
+明确要求使用“云”的客户，总会要求周边指标（用户接入、终端协议、视频流占用带宽、UPS、存储复用等）以及各种各样的定制。<br/>
+所以，在需求上的灵活变通，也是有些许重要性的，<strong>不要把技术人员的固执带到客户那</strong>。</p>
+
+<h2>还有什么</h2>
+
+<p>TBD</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -992,63 +1048,6 @@ Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/19/create-dummy-vga-adpter/">Create a Dummy VGA Adpter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-19T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2013/12/19/create-dummy-vga-adpter/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2013/12/19/create-dummy-vga-adpter/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>创建一个“虚拟”显示适配器，适用于那些“你知道你想干什么并且在干什么”的人。<br/>
-原文参考<br/>
-<a href="http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/" target="_blank"><a href="http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/">http://www.geeks3d.com/20091230/vga-hack-how-to-make-a-vga-dummy-plug/</a></a><br/>
-<a href="http://blog.zorinaq.com/?e=11" target="_blank"><a href="http://blog.zorinaq.com/?e=11">http://blog.zorinaq.com/?e=11</a></a></p>
-
-<p>手头有两块ATI显卡，而且都有这个DVI-I接口，并且目前我的状况是两个显示器都接到了两个主板显示（集显）接口。<br/>
-<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/sldldvi/" rel="attachment wp-att-2647"><img src="http://lofyer.github.io/uploads/sldldvi.jpg" alt="sldldvi" width="610" height="620" class="alignnone size-full wp-image-2647" /></a><br/>
-原文说需要一个75欧姆的电阻，我手里暂时只有100欧姆的，而且不多，如果强烈按照原作者的意思的话效果可能会有所不同，参考现有任意款VGA控制器原理。<br/>
-[连接示意图]<br/>
-来自第一个链接<br/>
-<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/vga_dummy_electronic_schema/" rel="attachment wp-att-2649"><img src="http://lofyer.github.io/uploads/vga_dummy_electronic_schema.jpg" alt="vga_dummy_electronic_schema" width="398" height="193" class="alignnone size-full wp-image-2649" /></a><br/>
-[效果图]<br/>
-请无视我的背景，如果有人好奇的话，那是上篇文章的eZ430以及一包十块白沙。<br/>
-<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/qq%e5%9b%be%e7%89%8720131220001003/" rel="attachment wp-att-2651"><img src="http://lofyer.github.io/uploads/QQ图片20131220001003-757x1024.jpg" alt="QQ图片20131220001003" width="757" height="1024" class="alignnone size-large wp-image-2651" /></a><br/>
-[结果]<br/>
-<a href="http://blog.lofyer.org/2013/12/create-dummy-vga-adpter/qq%e6%88%aa%e5%9b%be20131220001602/" rel="attachment wp-att-2654"><img src="http://lofyer.github.io/uploads/QQ截图20131220001602.png" alt="QQ截图20131220001602" width="455" height="594" class="alignnone size-full wp-image-2654" /></a></p>
-
-<p>看见第3个显示器没？<br/>
-就是它了，你可以拿它做很多事，比如你有多块显卡，并且你想充分利用其性能，参考lucid mvp，效果上类似吧。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/5">&larr; Older</a>
@@ -1066,6 +1065,10 @@ Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
       </li>
     
@@ -1079,10 +1082,6 @@ Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
     
       <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
   </ul>
@@ -1108,7 +1107,7 @@ Here&#8217;s my bios.bin with Dell[DELL-QA09-NVDA]2.1.BIN from SLIC BIN</p>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
-<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (3)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
 <li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>

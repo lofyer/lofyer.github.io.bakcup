@@ -4,7 +4,7 @@
   <title><![CDATA[Lofyer's Archive]]></title>
   <link href="http://blog.lofyer.org/atom.xml" rel="self"/>
   <link href="http://blog.lofyer.org/"/>
-  <updated>2014-10-23T11:22:17+08:00</updated>
+  <updated>2014-12-03T00:08:23+08:00</updated>
   <id>http://blog.lofyer.org/</id>
   <author>
     <name><![CDATA[lofyer]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Intergrate ownCloud With OpenStack Swift]]></title>
+    <link href="http://blog.lofyer.org/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/"/>
+    <updated>2014-12-02T23:53:44+08:00</updated>
+    <id>http://blog.lofyer.org/blog/2014/12/02/intergrate-owncloud-with-openstack-swift</id>
+    <content type="html"><![CDATA[<p>Recently I&rsquo;ve got someone to help him using swift as backend in owncloud, and I wrote this down just in case.</p>
+
+<ul>
+<li>Create a container, get a publicurl like</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Create an endpoint with a region in service swift</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>keystone endpoint-create --service swift --region swift_region \
+</span><span class='line'>  --publicurl "http://192.168.2.160:8080/v1/AUTH_7d11dd5a3f3544149e8b6a9799a2aa48/oc"</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Install owncloud thirdparty app: ExternalStorage, fill like this</p>
+
+<p>  directory_name: the display name of this containter</p>
+
+<p>  user: project user name</p>
+
+<p>  bucket: container name</p>
+
+<p>  region: swift_region, like above</p>
+
+<p>  key: password</p>
+
+<p>  tenant: project name</p>
+
+<p>  passowrd: password</p>
+
+<p>  service name: swift</p>
+
+<p>  url: with keystone authentication, <a href="http://192.168.2.160:5000/v2.0">http://192.168.2.160:5000/v2.0</a></p>
+
+<p>  timeout: whatever you like, or blank</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to Enable NTFS Write in OSX]]></title>
@@ -1431,97 +1485,6 @@ Add internal username: sAMAccountName</p>
 第12（6-3）搭建高可用管理引擎；<br/>
 第13（6-4）加入节点，构建一个完整的云平台；<br/>
 第14（6-5）应用进阶；</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[9. Glusterfs应用示例及技巧]]></title>
-    <link href="http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick/"/>
-    <updated>2014-04-21T00:00:00+08:00</updated>
-    <id>http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick</id>
-    <content type="html"><![CDATA[<h2>文件权限</h2>
-
-<p>glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应用请注意更改砖块目录所有者（比如在<em>/etc/rc.local</em>中添加chown，不要更改砖块下隐藏目录.glusterfs）。</p>
-
-<h2>砖块分割</h2>
-
-<p>前文所述的砖块划分方式在某些场景下不是很好，可以在/brickX下创建目录，比如data1，同时在创建glusterfs卷的时候使用HOST:/brickX/data1作为砖块，以合理利用存储空间。</p>
-
-<h2>normal、replica、striped卷组合</h2>
-
-<p>砖块的划分排序：striped（normal）优先，replica在striped（normal）基础上做冗余；计算大小时，同一replica组中的brick进行合并（多个算作一个），一个striped组可看做一个有效块，。<br/>
-假设我们有4个主机，8个砖块，每个砖块都是5GB，如下图，</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-base/" rel="attachment wp-att-3294"><img src="http://lofyer.github.io/uploads/brick-base.png" alt="brick-base" width="702" height="268" class="alignnone size-full wp-image-3294" /></a></p>
-
-<p>创建卷时，使用如下命令：</p>
-
-<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host1:/brick2 host2:/brick1 host2:/brick2 host3:/brick1 host3:/brick2 host4:/brick1 host4:/brick2 force</pre>
-
-
-<p>则会进行下列组合：</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-1/" rel="attachment wp-att-3301"><img src="http://lofyer.github.io/uploads/brick-1.png" alt="brick-1" width="712" height="474" class="alignnone size-full wp-image-3301" /></a></p>
-
-<p>创建卷时，使用如下命令：</p>
-
-<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host2:/brick1 host3:/brick1 host4:/brick1 host1:/brick2 host2:/brick2 host3:/brick2 host4:/brick2 force</pre>
-
-
-<p>则会进行下列组合（注意颜色，可改为实虚线）：</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-2/" rel="attachment wp-att-3304"><img src="http://lofyer.github.io/uploads/brick-2.png" alt="brick-2" width="712" height="474" class="alignnone size-full wp-image-3304" /></a></p>
-
-<h2>作为nfs挂载</h2>
-
-<p><strong>由于glusterfs占用了2049端口，所以其与nfs server一般不能共存于同一台服务器，除非更改nfs服务端口。</strong></p>
-
-<pre>mount -t nfs -o vers=3 server1:/volume1 /mnt</pre>
-
-
-<h2>作为cifs挂载</h2>
-
-<p>先在某一服务器或者客户端将起挂载，再以cifs方式导出</p>
-
-<pre title="Content added
- to /etc/smb.conf">[glustertest]
-comment = For testing a Gluster volume exported through CIFS
-path = /mnt/glusterfs
-read only = no
-guest ok = yes
-</pre>
-
-
-<h2>进阶手册</h2>
-
-<h3>1. 裂脑(split-brain)修复</h3>
-
-<p>裂脑发生以后，各节点信息可能会出现不一致。可以通过以下步骤查看并修复。</p>
-
-<p><strong>定位裂脑文件</strong><br/>
-通过命令</p>
-
-<pre># gluster volume heal info split-brain</pre>
-
-
-<p>或者查看在客户端仍然是Input/Output错误的文件。<br/>
-<strong>关闭已经打开的文件或者虚机</strong><br/>
-<strong>确定正确副本</strong><br/>
-<strong>恢复扩展属性</strong></p>
-
-<h3>2. 砖块重用</h3>
-
-<p>当一个volume正在使用时，你删除了其中一个brick，会出现“/bricks/app or a prefix of it is already part of a volume”，对于3.3版本以后的glusterfs有此问题。<br/>
-解决方法：</p>
-
-<pre># setfattr -x trusted.glusterfs.volume-id $brick_path
-# setfattr -x trusted.gfid $brick_path
-# rm -rf $brick_path/.glusterfs</pre>
-
-
-<h3>3. 扩展</h3>
-
-<p>对于中等以上规模的部署，需要使用dns服务器去解析各个节点以免去修改hosts文件的麻烦。</p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,13 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="client : android/pc/arduino server : linux node : with client service installed action : cmd src dest backend: recognize the cmd, get src type from &hellip;">
+  <meta name="description" content="参考： https://help.ubuntu.com/community/UbuntuLTSP 安装：
+apt-get install ltsp-server-standalone 启动要素：
+nbd-server
+dhcpd
+tftp-hpa
+openssh-server 绑定客户端地址：
+[ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +79,147 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/">Ltsp相关</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-15T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2013/03/15/httpwiki-phys-ethz-chreadmesetting_up_an_ltsp_server_for_diskless_clients/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>参考：</p>
+
+<p><a href="https://help.ubuntu.com/community/UbuntuLTSP">https://help.ubuntu.com/community/UbuntuLTSP</a></p>
+
+<p>安装：<br/>
+apt-get install ltsp-server-standalone</p>
+
+<p>启动要素：<br/>
+nbd-server<br/>
+dhcpd<br/>
+tftp-hpa<br/>
+openssh-server</p>
+
+<p>绑定客户端地址：<br/>
+[dhcpd.conf]<br/>
+host client201 {<br/>
+hardware ethernet 08:00:27:89:70:01;<br/>
+fixed-address 192.168.0.201;<br/>
+}<br/>
+另外一种是在启动pxe配置文件中指定</p>
+
+<p><a href="http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients">http://wiki.phys.ethz.ch/readme/setting_up_an_ltsp_server_for_diskless_clients</a></p>
+
+<p>session &amp; windows<br/>
+[/usr/share/xsession/*]<br/>
+Exec=/root/.xsession</p>
+
+<p>[/root/.xsession]</p>
+
+<h1>!/bin/bash</h1>
+
+<p>gnome-session &amp;<br/>
+firefox<br/>
+logout</p>
+
+<p>获取session list<br/>
+[/usr/share/ldm/ldminfod]<br/>
+[/etc/X11/xinit/Xsession]<br/>
+[/etc/X11/Xsession] <em>*failsafe<br/>
+[/etc/X11/xdm/Xsession]<br/>
+[/usr/lib/X11/xdm/Xsession]<br/>
+</em>[/usr/share/xsession]</p>
+
+<p>**default session<br/>
+exported by Xsession.d<br/>
+echo $DEFAULTS_PATH<br/>
+/usr/share/gconf/</p>
+
+<p>修改default session<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+LDM_SESSION=&#8221;gnome-session &;firefox;logout&#8221;</p>
+
+<p>FatClient<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[default]<br/>
+LDM_DIRECTX=true</p>
+
+<p>[00:A1:08:EB:43:27]<br/>
+LTSP_FATCLIENT=false</p>
+
+<p>AutoLogin<br/>
+[/var/lib/tftp&hellip;/lts.conf]<br/>
+[Default]<br/>
+LDM_AUTOLOGIN = True</p>
+
+<p>[192.168.1.101]<br/>
+LDM_USERNAME = user1<br/>
+LDM_PASSWORD = password1</p>
+
+<p>[192.168.1.102]<br/>
+LDM_USERNAME = user2<br/>
+LDM_PASSWORD = password2</p>
+
+<p>一些参考配置<br/>
+[lts.conf]<br/>
+# Global defaults for all clients<br/>
+# if you refer to the local server, just use the<br/>
+# &#8220;server&#8221; keyword as value<br/>
+# see lts_parameters.txt for valid values</p>
+
+<h6>##########</h6>
+
+<p>[default]<br/>
+X_COLOR_DEPTH=24<br/>
+LOCALDEV=True<br/>
+SOUND=True<br/>
+USE_LOCAL_SWAP=True<br/>
+NBD_SWAP=False<br/>
+SYSLOG_HOST=server</p>
+
+<h1>XKBLAYOUT=de</h1>
+
+<p>SCREEN_02=shell<br/>
+SCREEN_03=shell<br/>
+SCREEN_04=shell<br/>
+SCREEN_05=shell<br/>
+SCREEN_06=shell<br/>
+SCREEN_07=ldm<br/>
+# LDM_DIRECTX=True allows greater scalability and performance<br/>
+# Turn this off if you want greater security instead.<br/>
+LDM_DIRECTX=True<br/>
+# LDM_SYSLOG=True writes to server&#8217;s syslog<br/>
+LDM_SYSLOG=True</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -632,55 +779,6 @@ If it exists run:<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/19/%25e5%25ae%2589%25e5%25a5%25bd%25ef%25bc%259f/">安好？</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-19T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2012/11/19/%25e5%25ae%2589%25e5%25a5%25bd%25ef%25bc%259f/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2012/11/19/%25e5%25ae%2589%25e5%25a5%25bd%25ef%25bc%259f/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>从那天至今我算算该有5年多了，可偶尔还会想起。有些场景我偶尔也会想起，可最无言的是你给的。<br/>
-我接受平淡乃至扯淡，好久没有惊奇，就不知如何对付。<br/>
-虐心的事好多，我默默承受，记下。<br/>
-这么多过来我还是相信不喜欢就不要滞留，哪怕是一瞬间，裂纹经不起流年。<br/>
-交集，多令人反感的一个名词，曾经乃至现在我都在追求，我觉得有一天我会摒弃它。<br/>
-不努力不知道自己无力，这有时就是现实。<br/>
-当年文艺如今已变成二逼，因为有人拒绝，也有拒绝别人，把当时的场景搬到现在，就演绎一场叫做后悔的好戏。<br/>
-梦想的附带品是勉强，勉强便成了习惯，习惯很难改掉就是风俗，风俗换个角度体现了本性，本性是什么，意识的不自觉的结晶，可能是金子，也可能就是一泡屎。<br/>
-至今，空中还有挥散不去的烟味，出门盖不过各种乱七八糟的香水味，胡子两天不刮就开始扎手，由于R18内容限制，此处略去5000字，于是，我释然了。<br/>
-数据没有绝对安全稳定可靠的，留意就好。<br/>
-好吧，就这些吧。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/10">&larr; Older</a>
@@ -698,6 +796,10 @@ If it exists run:<br/>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
       </li>
     
@@ -711,10 +813,6 @@ If it exists run:<br/>
     
       <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
   </ul>
@@ -740,7 +838,7 @@ If it exists run:<br/>
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
-<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (3)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
 <li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>

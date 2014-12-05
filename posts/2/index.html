@@ -9,9 +9,8 @@
   <meta name="author" content="lofyer">
 
   
-  <meta name="description" content="终于到这一章了。
-期望这一章的读者不要盲目跟风，找到适合自己的便好。
-">
+  <meta name="description" content="和许多虚拟化平台一样，ovirt也有自己的shell，并且在功能上有自己的特点。 连接ovirt-shell # yum install ovirt-engine-cli
+# ovirt-shell -l https://192.168.1.190 -u admin@internal -I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/22/6-5-1-ovirt-shell/">15. Ovirt-shell</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-22T00:00:00+08:00" pubdate data-updated="true"></time>
+        
+           | <a href="/blog/2014/05/22/6-5-1-ovirt-shell/#disqus_thread"
+             data-disqus-identifier="http://blog.lofyer.org/blog/2014/05/22/6-5-1-ovirt-shell/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>和许多虚拟化平台一样，ovirt也有自己的shell，并且在功能上有自己的特点。</p>
+
+<h2>连接ovirt-shell</h2>
+
+<pre># yum install ovirt-engine-cli
+# ovirt-shell -l https://192.168.1.190 -u admin@internal -I
+</pre>
+
+
+<p>连接以后，可双击tab以自动补全。<br/>
+<strong>你可以看出来，在ovirt中，vm、host、cluster等均可以看作“对象”，而其操作比如“start”、“stop”等可看作方法。</strong></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1423,127 +1471,6 @@ Add internal username: sAMAccountName</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/21/5-4-gluster-trick/">9. Glusterfs应用示例及技巧</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-21T00:00:00+08:00" pubdate data-updated="true"></time>
-        
-           | <a href="/blog/2014/04/21/5-4-gluster-trick/#disqus_thread"
-             data-disqus-identifier="http://blog.lofyer.org/blog/2014/04/21/5-4-gluster-trick/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>文件权限</h2>
-
-<p>glusterfs在创建卷时会更改砖块所有者为root.root，对于某些应用请注意更改砖块目录所有者（比如在<em>/etc/rc.local</em>中添加chown，不要更改砖块下隐藏目录.glusterfs）。</p>
-
-<h2>砖块分割</h2>
-
-<p>前文所述的砖块划分方式在某些场景下不是很好，可以在/brickX下创建目录，比如data1，同时在创建glusterfs卷的时候使用HOST:/brickX/data1作为砖块，以合理利用存储空间。</p>
-
-<h2>normal、replica、striped卷组合</h2>
-
-<p>砖块的划分排序：striped（normal）优先，replica在striped（normal）基础上做冗余；计算大小时，同一replica组中的brick进行合并（多个算作一个），一个striped组可看做一个有效块，。<br/>
-假设我们有4个主机，8个砖块，每个砖块都是5GB，如下图，</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-base/" rel="attachment wp-att-3294"><img src="http://lofyer.github.io/uploads/brick-base.png" alt="brick-base" width="702" height="268" class="alignnone size-full wp-image-3294" /></a></p>
-
-<p>创建卷时，使用如下命令：</p>
-
-<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host1:/brick2 host2:/brick1 host2:/brick2 host3:/brick1 host3:/brick2 host4:/brick1 host4:/brick2 force</pre>
-
-
-<p>则会进行下列组合：</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-1/" rel="attachment wp-att-3301"><img src="http://lofyer.github.io/uploads/brick-1.png" alt="brick-1" width="712" height="474" class="alignnone size-full wp-image-3301" /></a></p>
-
-<p>创建卷时，使用如下命令：</p>
-
-<pre># gluster volume create gluster-vol1 stripe 2 replica 2 host1:/brick1 host2:/brick1 host3:/brick1 host4:/brick1 host1:/brick2 host2:/brick2 host3:/brick2 host4:/brick2 force</pre>
-
-
-<p>则会进行下列组合（注意颜色，可改为实虚线）：</p>
-
-<p><a href="http://blog.lofyer.org/5-4-gluster-trick/brick-2/" rel="attachment wp-att-3304"><img src="http://lofyer.github.io/uploads/brick-2.png" alt="brick-2" width="712" height="474" class="alignnone size-full wp-image-3304" /></a></p>
-
-<h2>作为nfs挂载</h2>
-
-<p><strong>由于glusterfs占用了2049端口，所以其与nfs server一般不能共存于同一台服务器，除非更改nfs服务端口。</strong></p>
-
-<pre>mount -t nfs -o vers=3 server1:/volume1 /mnt</pre>
-
-
-<h2>作为cifs挂载</h2>
-
-<p>先在某一服务器或者客户端将起挂载，再以cifs方式导出</p>
-
-<pre title="Content added
- to /etc/smb.conf">[glustertest]
-comment = For testing a Gluster volume exported through CIFS
-path = /mnt/glusterfs
-read only = no
-guest ok = yes
-</pre>
-
-
-<h2>进阶手册</h2>
-
-<h3>1. 裂脑(split-brain)修复</h3>
-
-<p>裂脑发生以后，各节点信息可能会出现不一致。可以通过以下步骤查看并修复。</p>
-
-<p><strong>定位裂脑文件</strong><br/>
-通过命令</p>
-
-<pre># gluster volume heal info split-brain</pre>
-
-
-<p>或者查看在客户端仍然是Input/Output错误的文件。<br/>
-<strong>关闭已经打开的文件或者虚机</strong><br/>
-<strong>确定正确副本</strong><br/>
-<strong>恢复扩展属性</strong></p>
-
-<h3>2. 砖块重用</h3>
-
-<p>当一个volume正在使用时，你删除了其中一个brick，会出现“/bricks/app or a prefix of it is already part of a volume”，对于3.3版本以后的glusterfs有此问题。<br/>
-解决方法：</p>
-
-<pre># setfattr -x trusted.glusterfs.volume-id $brick_path
-# setfattr -x trusted.gfid $brick_path
-# rm -rf $brick_path/.glusterfs</pre>
-
-
-<h3>3. 扩展</h3>
-
-<p>对于中等以上规模的部署，需要使用dns服务器去解析各个节点以免去修改hosts文件的麻烦。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1561,6 +1488,10 @@ guest ok = yes
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/12/02/intergrate-owncloud-with-openstack-swift/">Intergrate ownCloud With OpenStack Swift</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/23/how-to-enable-ntfs-write-in-osx/">How to Enable NTFS Write in OSX</a>
       </li>
     
@@ -1574,10 +1505,6 @@ guest ok = yes
     
       <li class="post">
         <a href="/blog/2014/08/09/get-data-distributely-via-scrapy/">Get Data Distributely via Scrapy</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/20/ji-qi-xue-xi-chang-yong-suan-fa/">机器学习常用算法</a>
       </li>
     
   </ul>
@@ -1603,7 +1530,7 @@ guest ok = yes
 <li class='category'><a href='/blog/categories/networking/'>networking (6)</a></li>
 <li class='category'><a href='/blog/categories/notes/'>notes (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (2)</a></li>
-<li class='category'><a href='/blog/categories/owncloud/'>owncloud (2)</a></li>
+<li class='category'><a href='/blog/categories/owncloud/'>owncloud (3)</a></li>
 <li class='category'><a href='/blog/categories/program/'>program (4)</a></li>
 <li class='category'><a href='/blog/categories/raspberrypi/'>raspberrypi (2)</a></li>
 <li class='category'><a href='/blog/categories/virtualization/'>virtualization (13)</a></li>
