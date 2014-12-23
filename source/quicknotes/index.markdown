@@ -285,3 +285,9 @@ $ gconftool-2 -s /system/proxy/mode -t string none # disable
 ```
 # xcode-select --install
 ```
+
+## test watchdog
+
+```
+# echo c > /proc/sysrq-trigger
+```
